@@ -14,4 +14,5 @@
 
 - Makefile
 - Main.cpp
-- basta
+- studiare progetti
+- studiare strutture di programmi e classi
