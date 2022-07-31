@@ -52,3 +52,11 @@ void Character::setIconaProiettile(char set) {
 char Character::getIconaProiettile() {
     return icona_proiettile;
 }
+
+void Character::setPosizioneCorrente(Position set) {
+    posizione_corrente = set;
+}
+
+Position Character::getPosizioneCorrente() {
+    return posizione_corrente;
+}

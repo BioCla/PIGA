@@ -1,7 +1,7 @@
 struct Position {
     int x;
     int y;
-}
+};
 
 class Character {
     protected:
@@ -11,7 +11,7 @@ class Character {
         int num_cuori;   //se vogliamo far vedere i cuori invece che il numero, come nell'esempio del prof
         int danno;    //il danno che i suoi proiettili fanno ai mostri
         char icona_proiettile;
-        //QUESTE DUE SI POSSONO METTERE COME Position come nel file delle Room così è meglio scambiabile
+        Position posizione_corrente;
 
         //inventario?
         //velocità?
@@ -27,4 +27,6 @@ class Character {
     int getDanno();
     void setIconaProiettile(char set);
     char getIconaProiettile();
+    void setPosizioneCorrente(Position set);
+    Position getPosizioneCorrente();
 };
