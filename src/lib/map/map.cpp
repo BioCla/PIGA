@@ -70,7 +70,7 @@ class linked_list{
         }
 
         void add_node (Room room){
-            node *tmp=new node;
+            node *tmp=new node;   //catti ricorda anche di fare il map.hpp ci metti tutti i metodi solo con i parametri
             tmp->room=room;
             tmp->next=NULL;
 
