@@ -4,6 +4,8 @@ Character::Character() {
     icona = '@';
     max_salute = 30;
     salute = max_salute;
+    danno = 5;   //numero a caso
+    icona_proiettile = '-';
 }
 
 void Character::aggiornaCuori() {
@@ -22,5 +24,31 @@ salute    num_cuori
 0............0
 */
 
+//si possono mettere valori negativi per far prendere danno al personaggio
+void Character::modificaSalute(int mod) {
+    salute = salute + mod;
+}
 
+void Character::setSalute(int set) {
+    salute = set;
+}
 
+int Character::getSalute() {
+    return salute;
+}
+
+void Character::setDanno(int set) {
+    danno = set;
+}
+
+int Character::getDanno() {
+    return danno;
+}
+
+void Character::setIconaProiettile(char set) {
+    icona_proiettile = set;
+}
+
+char Character::getIconaProiettile() {
+    return icona_proiettile;
+}
