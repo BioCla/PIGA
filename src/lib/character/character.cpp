@@ -1,15 +1,28 @@
 #include "character.hpp"
 
 Character::Character() {
-    icona = '@';
-    max_salute = 30;
-    salute = max_salute;
-    danno = 5;   //numero a caso
-    icona_proiettile = '-';
+    icon = "@";
+    max_health = 30;
+    health = max_health;
+    damage = 5;   //numero a caso
+    projectile_icon = '-';
+    win = newwin(1, 1, 0, 0);
+    mvwprintw(win, 0, 0, icon);
+    wrefresh(win);
 }
 
-void Character::aggiornaCuori() {
-    num_cuori = ((salute + 9) / 10);
+Character::Character(int x, int y){
+    icon = "@";
+    current_position.x = x;
+    current_position.y = y;
+}
+
+/*Character::Character(){
+    printw("è stato usato il costruttore default");
+}*/
+
+void Character::updateHearts() {
+    num_hearts = ((health + 9) / 10);
 }
 /* in questo modo:
 salute    num_cuori
@@ -25,38 +38,78 @@ salute    num_cuori
 */
 
 //si possono mettere valori negativi per far prendere danno al personaggio
-void Character::modificaSalute(int mod) {
-    salute = salute + mod;
+void Character::updateHealth(int mod) {
+    health = health + mod;
 }
 
-void Character::setSalute(int set) {
-    salute = set;
+void Character::setHealth(int set) {
+    health = set;
 }
 
-int Character::getSalute() {
-    return salute;
+int Character::getHealth() {
+    return health;
 }
 
-void Character::setDanno(int set) {
-    danno = set;
+void Character::setDamage(int set) {
+    damage = set;
 }
 
-int Character::getDanno() {
-    return danno;
+int Character::getDamage() {
+    return damage;
 }
 
-void Character::setIconaProiettile(char set) {
-    icona_proiettile = set;
+void Character::setProjectileIcon(char set) {
+    projectile_icon= set;
 }
 
-char Character::getIconaProiettile() {
-    return icona_proiettile;
+char Character::getProjectileIcon() {
+    return projectile_icon;
 }
 
-void Character::setPosizioneCorrente(Position set) {
-    posizione_corrente = set;
+
+void Character::PlayerMove(Position set) {
+    current_position.x=set.x;
+    current_position.y=set.y;
+    mvprintw(set.y, set.x, "@");
+    move(current_position.y, current_position.x);
 }
 
-Position Character::getPosizioneCorrente() {
-    return posizione_corrente;
+Position Character::getCurrentPosition() {
+    return current_position;
 }
+
+void Character::HandleInput(int input){
+    switch(input){
+        /*si muove in su*/
+        case 'w':
+        case 'W':
+            --current_position.y;
+            PlayerMove(current_position);
+            break;
+
+        /*si muove in giù*/
+        case 's':
+        case 'S':
+            ++current_position.y;
+            PlayerMove(current_position);
+            break;
+
+        /*si muove a sinistra*/
+        case 'a':
+        case 'A':
+            --current_position.x;
+            PlayerMove(current_position);
+            break;
+
+        /*si muove a destra*/
+        case 'd':
+        case 'D':
+            ++current_position.x;
+            PlayerMove(current_position);
+            break;              
+
+        default:
+            break;   
+    }
+}
+

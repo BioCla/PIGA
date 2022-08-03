@@ -1,3 +1,6 @@
+#pragma once
+#include <ncursesw/ncurses.h>
+
 struct Position {
     int x;
     int y;
@@ -5,13 +8,14 @@ struct Position {
 
 class Character {
     protected:
-        char icona;
-        int salute;
-        int max_salute;
-        int num_cuori;   //se vogliamo far vedere i cuori invece che il numero, come nell'esempio del prof
-        int danno;    //il danno che i suoi proiettili fanno ai mostri
-        char icona_proiettile;
-        Position posizione_corrente;
+        char * icon;
+        int health;
+        int max_health;
+        int num_hearts;   //se vogliamo far vedere i cuori invece che il numero, come nell'esempio del prof
+        int damage;    //il danno che i suoi proiettili fanno ai mostri
+        char projectile_icon;
+        Position current_position;
+        WINDOW *win;
 
         //inventario?
         //velocità?
@@ -19,14 +23,17 @@ class Character {
 
     public:
     Character();
-    void aggiornaCuori();
-    void modificaSalute(int mod);
-    void setSalute(int set);
-    int getSalute();
-    void setDanno(int set);
-    int getDanno();
-    void setIconaProiettile(char set);
-    char getIconaProiettile();
-    void setPosizioneCorrente(Position set);
-    Position getPosizioneCorrente();
+    Character(int x, int y);
+    void updateHearts();
+    void updateHealth(int mod);
+    void setHealth(int set);
+    int getHealth();
+    void setDamage(int set);
+    int getDamage();
+    void setProjectileIcon(char set);
+    char getProjectileIcon();
+    void PlayerMove(Position set);
+    Position getCurrentPosition();
+    void HandleInput(int input);
+
 };
