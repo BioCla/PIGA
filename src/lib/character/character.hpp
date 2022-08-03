@@ -8,7 +8,7 @@ struct Position {
 
 class Character {
     protected:
-        char * icon;
+        const char* icon;
         int health;
         int max_health;
         int num_hearts;   //se vogliamo far vedere i cuori invece che il numero, come nell'esempio del prof
@@ -32,7 +32,7 @@ class Character {
     int getDamage();
     void setProjectileIcon(char set);
     char getProjectileIcon();
-    void PlayerMove(Position set);
+    void PlayerMove(int x, int y);
     Position getCurrentPosition();
     void HandleInput(int input);
 

@@ -13,6 +13,8 @@ Character::Character() {
 
 Character::Character(int x, int y){
     icon = "@";
+    max_health = 30;
+    health = max_health;
     current_position.x = x;
     current_position.y = y;
 }
@@ -67,10 +69,11 @@ char Character::getProjectileIcon() {
 }
 
 
-void Character::PlayerMove(Position set) {
-    current_position.x=set.x;
-    current_position.y=set.y;
-    mvprintw(set.y, set.x, "@");
+void Character::PlayerMove(int x, int y) {
+    current_position.x=x;
+    current_position.y=y;
+    mvprintw(y, x, "@");
+    mvprintw(200, 200,"a");
     move(current_position.y, current_position.x);
 }
 
@@ -84,28 +87,28 @@ void Character::HandleInput(int input){
         case 'w':
         case 'W':
             --current_position.y;
-            PlayerMove(current_position);
+            PlayerMove(current_position.x, current_position.y);
             break;
 
         /*si muove in giù*/
         case 's':
         case 'S':
             ++current_position.y;
-            PlayerMove(current_position);
+            PlayerMove(current_position.x, current_position.y);
             break;
 
         /*si muove a sinistra*/
         case 'a':
         case 'A':
             --current_position.x;
-            PlayerMove(current_position);
+            PlayerMove(current_position.x, current_position.y);
             break;
 
         /*si muove a destra*/
         case 'd':
         case 'D':
             ++current_position.x;
-            PlayerMove(current_position);
+            PlayerMove(current_position.x, current_position.y);
             break;              
 
         default:

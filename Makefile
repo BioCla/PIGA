@@ -8,7 +8,7 @@ else
     detected_OS := $(shell uname)
 endif
 
-all: main run clean
+all: main board run clean
 
 main: 
 	$(CC) $(SOURCES) $(CFLAGS) -o main
