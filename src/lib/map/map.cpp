@@ -70,9 +70,9 @@ class linked_list{
         }
 
         void add_node (Room room){
-            node *tmp=new node;
-            tmp->room=room;
-            tmp->next=NULL;
+            //node *tmp=new node;
+            //tmp->room=room;
+            //tmp->next=NULL;
 
         }
 };
