@@ -1,4 +1,4 @@
-#include "character.hpp"
+#include "../lib/character.hpp"
 
 Character::Character() {
     icon = "@";

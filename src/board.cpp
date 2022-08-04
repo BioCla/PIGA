@@ -1,4 +1,4 @@
-#include "board.hpp"
+#include "../lib/board.hpp"
 
 /*Board::Board(){
     int xMax, yMax;
