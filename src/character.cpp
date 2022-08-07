@@ -38,6 +38,7 @@ salute    num_cuori
 //si possono mettere valori negativi per far prendere danno al personaggio
 void Character::updateHealth(int mod) {
     health = health + mod;
+    if (health > max_health) health = max_health;
 }
 
 void Character::setHealth(int set) {
@@ -91,8 +92,23 @@ void Character::HandleInput(int input){
         case 'w':
         case 'W':
             if (legalMove(current_position.x, current_position.y - 1)) {
+                if(steppedOnArtifact(current_position.x, current_position.y - 1)) {
+                    //non lo so fai qualcosa
+                    //updateHealth(+10) non lo so
+                }
                 current_position.y--;
                 PlayerMove(current_position.x, current_position.y);
+            }
+            else if (steppedOnEnemy(current_position.x, current_position.y - 1)) {
+                //calcoladanno();
+                /*
+                penso si farà più o meno così:
+                prendi icona nemico in quella posizione()
+                da un qualche metodo nella classe ENEMY prendi il danno da collisione fisica (non per forza uguale a quello da proiettile)
+                togli i punti vita  updateHealth(-dannodelmostro)
+                e poi direi che rimangono lì sia il mostro che il personaggio
+                inoltre si potrebbe fare che se un mostro va addosso al personaggio il personaggio viene spinto di una casella
+                */
             }
             break;
         /*si muove a destra*/
@@ -102,6 +118,9 @@ void Character::HandleInput(int input){
                 current_position.x++;
                 PlayerMove(current_position.x, current_position.y);
             }
+            else if (steppedOnEnemy(current_position.x + 1, current_position.y)) {
+                //calcoladanno();
+            }
             break;
         /*si muove in giù*/
         case 's':
@@ -110,6 +129,9 @@ void Character::HandleInput(int input){
                 current_position.y++;
                 PlayerMove(current_position.x, current_position.y);
             }
+            else if (steppedOnEnemy(current_position.x, current_position.y + 1)) {
+                //calcoladanno();
+            }
             break;
         /*si muove a sinistra*/
         case 'a':
@@ -117,6 +139,9 @@ void Character::HandleInput(int input){
             if(legalMove(current_position.x - 1, current_position.y)) {
                 current_position.x--;
                 PlayerMove(current_position.x, current_position.y);
+            }
+            else if (steppedOnEnemy(current_position.x - 1, current_position.y)) {
+                //calcoladanno();
             }
             break;
 
@@ -143,3 +168,19 @@ bool Character::legalMove(int posx, int posy) {
     return legal;
 }
 
+bool Character::steppedOnEnemy(int posx, int posy) {
+    bool flag = false;
+    /*
+    qui stessa roba. se il carattere che hai a destra è quello di un nemico e te vai a destra ritorna true e 
+    poi si calcola il danno
+    */
+    return flag;
+}
+
+bool Character::steppedOnArtifact(int posx, int posy) {
+   bool flag = false;
+    /*
+    dalla classe direi ROOM si prende il carattere alle coordinate (posx, posy) e se è un artefatto
+    */
+   return flag;
+}
