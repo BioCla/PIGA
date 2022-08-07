@@ -19,10 +19,6 @@ Character::Character(int x, int y){
     current_position.y = y;
 }
 
-/*Character::Character(){
-    printw("è stato usato il costruttore default");
-}*/
-
 void Character::updateHearts() {
     num_hearts = ((health + 9) / 10);
 }
@@ -68,13 +64,21 @@ char Character::getProjectileIcon() {
     return projectile_icon;
 }
 
-
 void Character::PlayerMove(int x, int y) {
+    wborder(win,' ',' ',' ',' ',' ',' ',' ',' ');
+    wrefresh(win);
+    delwin(win);
+
     current_position.x=x;
     current_position.y=y;
-    mvprintw(y, x, "@");
-    mvprintw(200, 200,"a");
-    move(current_position.y, current_position.x);
+    
+    win = newwin(1, 1, y, x);
+    mvwprintw(win, 0, 0, icon);
+    wrefresh(win);
+    
+    //mvprintw(y, x, "@");
+    //mvprintw(200, 200,"a");
+    //move(current_position.y, current_position.x);
 }
 
 Position Character::getCurrentPosition() {
@@ -82,37 +86,39 @@ Position Character::getCurrentPosition() {
 }
 
 void Character::HandleInput(int input){
+    int desired_pos_x, desired_pos_y;
     switch(input){
         /*si muove in su*/
         case 'w':
         case 'W':
-            --current_position.y;
+            current_position.y--;
             PlayerMove(current_position.x, current_position.y);
             break;
-
-        /*si muove in giù*/
-        case 's':
-        case 'S':
-            ++current_position.y;
-            PlayerMove(current_position.x, current_position.y);
-            break;
-
-        /*si muove a sinistra*/
-        case 'a':
-        case 'A':
-            --current_position.x;
-            PlayerMove(current_position.x, current_position.y);
-            break;
-
         /*si muove a destra*/
         case 'd':
         case 'D':
-            ++current_position.x;
+            current_position.x++;
             PlayerMove(current_position.x, current_position.y);
-            break;              
+            break;
+        /*si muove in giù*/
+        case 's':
+        case 'S':
+            current_position.y++;
+            PlayerMove(current_position.x, current_position.y);
+            break;
+        /*si muove a sinistra*/
+        case 'a':
+        case 'A':
+            current_position.x--;
+            PlayerMove(current_position.x, current_position.y);
+            break;
 
         default:
             break;   
     }
+
+    bool legal = true;     //starebbe tipo per legal move, o qualcosa che è permesso fare insomma
+                    //qua in mezzo metteremo varie chiamate a funzioni per verificare che il personaggio possa muoversi
+
 }
 

@@ -28,6 +28,15 @@ int main(int argc, char **argv)
 	///////////////////////////////////////////////////////////////////////////
 
 	Board board(BOARD_ROWS, BOARD_COLS);
+
+    Character p = Character();
+    p.PlayerMove(10, 10);
+    int ch;
+    while((ch=getch()) != 'q') {
+        p.HandleInput(ch);
+        refresh();
+    }
+
 	getch();
 	endwin();
 	return 0;
