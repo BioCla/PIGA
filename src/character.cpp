@@ -86,39 +86,60 @@ Position Character::getCurrentPosition() {
 }
 
 void Character::HandleInput(int input){
-    int desired_pos_x, desired_pos_y;
     switch(input){
         /*si muove in su*/
         case 'w':
         case 'W':
-            current_position.y--;
-            PlayerMove(current_position.x, current_position.y);
+            if (legalMove(current_position.x, current_position.y - 1)) {
+                current_position.y--;
+                PlayerMove(current_position.x, current_position.y);
+            }
             break;
         /*si muove a destra*/
         case 'd':
         case 'D':
-            current_position.x++;
-            PlayerMove(current_position.x, current_position.y);
+            if(legalMove(current_position.x + 1, current_position.y)) {
+                current_position.x++;
+                PlayerMove(current_position.x, current_position.y);
+            }
             break;
         /*si muove in giù*/
         case 's':
         case 'S':
-            current_position.y++;
-            PlayerMove(current_position.x, current_position.y);
+            if(legalMove(current_position.x, current_position.y + 1)) {
+                current_position.y++;
+                PlayerMove(current_position.x, current_position.y);
+            }
             break;
         /*si muove a sinistra*/
         case 'a':
         case 'A':
-            current_position.x--;
-            PlayerMove(current_position.x, current_position.y);
+            if(legalMove(current_position.x - 1, current_position.y)) {
+                current_position.x--;
+                PlayerMove(current_position.x, current_position.y);
+            }
             break;
 
         default:
             break;   
     }
+}
 
-    bool legal = true;     //starebbe tipo per legal move, o qualcosa che è permesso fare insomma
-                    //qua in mezzo metteremo varie chiamate a funzioni per verificare che il personaggio possa muoversi
+bool Character::legalMove(int posx, int posy) {
+    bool legal = true;
 
+    if(false) {
+        legal = false;
+    }
+    else if(false) {
+        legal = false;
+    }
+
+    /*
+    qua ci vuole una funzione che penso verrà dalla classe delle stanze che ritorni il carattere date due coordinate
+    così fai if(carattereAllaPosizione(x,y) == '|') legal = false; else if carattere == '-' legal = false;   eccetera
+    */
+
+    return legal;
 }
 

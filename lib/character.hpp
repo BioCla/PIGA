@@ -35,5 +35,6 @@ class Character {
         void PlayerMove(int x, int y);
         Position getCurrentPosition();
         void HandleInput(int input);
+        bool legalMove(int posx, int posy);
 
 };
