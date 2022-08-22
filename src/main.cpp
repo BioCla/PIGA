@@ -27,17 +27,25 @@ int main(int argc, char **argv)
 
 	///////////////////////////////////////////////////////////////////////////
 
+	// Inizializzazione della tavola principale iniziale
 	Board board(BOARD_ROWS, BOARD_COLS);
 
-    Character p = Character();
-    p.PlayerMove(10, 10);
-    int ch;
-    while((ch=getch()) != 'q') {
-        p.HandleInput(ch);
-        refresh();
-    }
+	// Inizializzazione del personaggio principale
+	Character p = Character();
 
+	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
+	p.PlayerMove(10, 10);
+
+	int ch; // Variabile di accesso al handler per gli input
+	while ((ch = getch()) != 'q')
+	{
+		p.HandleInput(ch);
+		refresh();
+	}
+
+	// Blocco funzionale per la verifica del tasto "quit", prima di svuotare lo schermo
 	getch();
 	endwin();
+
 	return 0;
 }
