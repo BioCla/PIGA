@@ -87,6 +87,26 @@ Position Character::getCurrentPosition() {
 }
 
 void Character::HandleInput(int input){
+
+	/**
+	 * Secondo me e' meglio generalizzare la funzione e fare un check singolo dopo ogni mossa:
+	 * case *:
+	 * 	PlayerMove(...) {...}
+	 * default:
+	 * 	break;
+	 * 
+	 * if(!legalMove(...)) {
+	 * 	PlayerMovePrevious(); // Il quale richiederebbe di segnare la posizione precedente del personaggio
+	 * } else if (steppedOnArtifact) {
+	 * 	...
+	 * } else if (steppedOnEnemy) {
+	 * 	...
+	 * }
+	 * 
+	 * Tutto il  blocco del check puo' essere messo in una funzione separate di un namespace o come metodo della classe "character"
+	 */
+	// - Brian
+
     switch(input){
         /*si muove in su*/
         case 'w':
