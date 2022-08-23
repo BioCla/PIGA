@@ -65,6 +65,8 @@ char Character::getProjectileIcon() {
     return projectile_icon;
 }
 
+
+// Che?
 void Character::PlayerMove(int x, int y) {
     wborder(win,' ',' ',' ',' ',' ',' ',' ',' ');
     wrefresh(win);
