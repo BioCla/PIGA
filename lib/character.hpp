@@ -7,6 +7,8 @@ struct Position {
 
 class Character {
     protected:
+	// consiglio di convertire  l'utilizzo di `const char*` a `chtype` per ovviare a problemi di compatibilita' nelle funzioni di ncurses
+	// Basta cambiare qualche tipo e le `""` in `''`
         const char* icon;
         int health;
         int max_health;
