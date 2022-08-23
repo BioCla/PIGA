@@ -73,7 +73,7 @@ void titleInit(WINDOW* terminal, const char* string) {
 	init_pair(SPACE_COLOR_PAIR, COLOR_BLACK, COLOR_BLACK);
 	init_pair(FS_COLOR_PAIR, COLOR_BLUE, COLOR_BLUE);
 	init_pair(BS_COLOR_PAIR, COLOR_CYAN, COLOR_CYAN);
-	for (int i = 0; i < Strlen(string); i++) {
+	for (unsigned int i = 0; i < Strlen(string); i++) {
 		if (string[i] == '_') {
 			wattron(terminal, COLOR_PAIR(UNDERSCORE_COLOR_PAIR));
 			mvwaddch(terminal, cursorY, cursorX, '_');
@@ -143,26 +143,6 @@ void corners(WINDOW *room) {
 	mvaddch(room->_begy + room->_maxy, room->_begx, 'O'); // ACS_LLCORNER
 	mvaddch(room->_begy, room->_begx + room->_maxx, 'O'); // ACS_URCORNER
 	refresh();
-}
-
-//DA COMPLETARE
-WINDOW *alert(const char *string) {
-	int scry, scrx, len = Strlen(string);
-	getmaxyx(stdscr, scry, scrx);
-	int height = 3, width = 25;
-	WINDOW *alertBox = newwin(height, width, 1, (scrx / 2) - (width / 2));
-	for (int i = width; i - len > 0; i--) {
-		wclear(alertBox);
-		mvwaddch(alertBox, 1, width - 1, ']');
-		mvwaddch(alertBox, 1, 0, '[');
-		mvwprintw(alertBox, 1, i - len, string);
-		wrefresh(alertBox);
-
-		napms(1000 / 10);
-	}
-	wclear(alertBox);
-	wrefresh(alertBox);
-	return alertBox;
 }
 
 int legalMove(int y, int x) {

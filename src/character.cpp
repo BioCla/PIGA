@@ -1,4 +1,5 @@
 #include "../lib/character.hpp"
+#include "../lib/engine.hpp"
 
 Character::Character() {
     icon = "@";
@@ -171,7 +172,7 @@ void Character::HandleInput(int input){
             break;   
     }
 }
-
+/* 
 bool Character::legalMove(int posx, int posy) {
     bool legal = true;
 
@@ -182,13 +183,13 @@ bool Character::legalMove(int posx, int posy) {
         legal = false;
     }
 
-    /*
-    qua ci vuole una funzione che penso verrà dalla classe delle stanze che ritorni il carattere date due coordinate
-    così fai if(carattereAllaPosizione(x,y) == '|') legal = false; else if carattere == '-' legal = false;   eccetera
-    */
+    
+    //qua ci vuole una funzione che penso verrà dalla classe delle stanze che ritorni il carattere date due coordinate
+    //così fai if(carattereAllaPosizione(x,y) == '|') legal = false; else if carattere == '-' legal = false;   eccetera
+    
 
     return legal;
-}
+} */
 
 bool Character::steppedOnEnemy(int posx, int posy) {
     bool flag = false;
