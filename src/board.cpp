@@ -13,7 +13,7 @@
 Board::Board(int height, int width)
 {
 	int xMax, yMax;
-
+	
 	getmaxyx(stdscr, yMax, xMax);
 	board_win = newwin(height, width, (yMax / 2) - (height / 2), (xMax / 2) - (width / 2));
 	initialize();

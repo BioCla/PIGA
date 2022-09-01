@@ -1,9 +1,6 @@
 #include <ncursesw/ncurses.h>
 
-struct Position {
-    int x;
-    int y;
-};
+#include "../assets/position.hpp"
 
 class Character {
     protected:
@@ -23,6 +20,8 @@ class Character {
         //velocità?
         //velocità proiettili?
 
+        //room_corrente: forse potrebbe convenire avere un puntatore all'oggetto room in cui si trova il personaggio
+
     public:
         Character();
         Character(int x, int y);
@@ -37,7 +36,7 @@ class Character {
         void PlayerMove(int x, int y);
         Position getCurrentPosition();
         void HandleInput(int input);
-        //bool legalMove(int posx, int posy);
+        bool legalMove(int posx, int posy);
         bool steppedOnEnemy(int posx, int posy);
         bool steppedOnArtifact(int posx, int posy);
 

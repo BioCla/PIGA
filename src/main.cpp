@@ -1,6 +1,7 @@
 #include <ncursesw/ncurses.h>
 #include "../lib/board.hpp"
 #include "../lib/character.hpp"
+#include "../lib/projectile.hpp"
 
 #define BOARD_DIM 17
 #define BOARD_ROWS BOARD_DIM
@@ -34,7 +35,14 @@ int main(int argc, char **argv)
 	Character p = Character();
 
 	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
-	p.PlayerMove(10, 10);
+	p.PlayerMove(getmaxx(stdscr)/2, getmaxy(stdscr)/2);
+
+	//DEBUG - prova del proiettile
+	Projectile speedygonzales = Projectile("*", {10, 10}, 1);
+	speedygonzales.spawn(stdscr, speedygonzales.getCurrentPosition());
+
+
+	// /DEBUG
 
 	int ch; // Variabile di accesso al handler per gli input
 	while ((ch = getch()) != 'q')

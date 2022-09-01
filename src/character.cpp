@@ -66,8 +66,6 @@ char Character::getProjectileIcon() {
     return projectile_icon;
 }
 
-
-// Che?
 void Character::PlayerMove(int x, int y) {
     wborder(win,' ',' ',' ',' ',' ',' ',' ',' ');
     wrefresh(win);
@@ -172,7 +170,7 @@ void Character::HandleInput(int input){
             break;   
     }
 }
-/* 
+
 bool Character::legalMove(int posx, int posy) {
     bool legal = true;
 
@@ -189,7 +187,7 @@ bool Character::legalMove(int posx, int posy) {
     
 
     return legal;
-} */
+} 
 
 bool Character::steppedOnEnemy(int posx, int posy) {
     bool flag = false;
