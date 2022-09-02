@@ -25,12 +25,15 @@ class Character {
     public:
         Character();
         Character(int x, int y);
+        WINDOW * getWin();
         void updateHearts();
         void updateHealth(int mod);
         void setHealth(int set);
         int getHealth();
         void setDamage(int set);
         int getDamage();
+        void setIcon(const char* set);
+        const char* getIcon();
         void setProjectileIcon(char set);
         char getProjectileIcon();
         void PlayerMove(int x, int y);

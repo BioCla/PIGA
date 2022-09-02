@@ -20,6 +20,10 @@ Character::Character(int x, int y){
     current_position.y = y;
 }
 
+WINDOW * Character::getWin() {
+    return win;
+}
+
 void Character::updateHearts() {
     num_hearts = ((health + 9) / 10);
 }
@@ -58,8 +62,16 @@ int Character::getDamage() {
     return damage;
 }
 
+void Character::setIcon(const char* set) {
+    icon = set;
+}
+
+const char* Character::getIcon() {
+    return icon;
+}
+
 void Character::setProjectileIcon(char set) {
-    projectile_icon= set;
+    projectile_icon = set;
 }
 
 char Character::getProjectileIcon() {

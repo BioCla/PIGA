@@ -2,6 +2,7 @@
 #include "../lib/board.hpp"
 #include "../lib/character.hpp"
 #include "../lib/projectile.hpp"
+#include "../assets/position.hpp"
 
 #define BOARD_DIM 17
 #define BOARD_ROWS BOARD_DIM
@@ -37,18 +38,32 @@ int main(int argc, char **argv)
 	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
 	p.PlayerMove(getmaxx(stdscr)/2, getmaxy(stdscr)/2);
 
+
 	//DEBUG - prova del proiettile
-	Projectile speedygonzales = Projectile("*", {10, 10}, 1);
+	Position spawnpoint_projectile;
+	spawnpoint_projectile.x = 10; spawnpoint_projectile.y = 10;
+	duration <int, std::ratio <1,1000 > > time_interval_projectile(1000);
+	Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 1, time_interval_projectile);
 	speedygonzales.spawn(stdscr, speedygonzales.getCurrentPosition());
+
 
 
 	// /DEBUG
 
+	system_clock::time_point time_now = system_clock::now();
 	int ch; // Variabile di accesso al handler per gli input
 	while ((ch = getch()) != 'q')
 	{
 		p.HandleInput(ch);
+		
+		if(ch == 'f') {
+			time_now = system_clock::now();
+			speedygonzales.checkIfTimeToMove(time_now);
+		}
 		refresh();
+		mvwprintw(p.getWin(), 0, 0, p.getIcon());
+		wrefresh(p.getWin());
+		
 	}
 
 	// Blocco funzionale per la verifica del tasto "quit", prima di svuotare lo schermo
