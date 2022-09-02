@@ -64,8 +64,9 @@ void Projectile::moveProjectile() {
 }
 
 void Projectile::checkIfTimeToMove(system_clock::time_point time_now) {
-    if(last_time_moved + moving_frequency > time_now) {
+    if(time_now > last_time_moved + moving_frequency) {
         moveProjectile();
+        last_time_moved = time_now;
     }
 }
 
