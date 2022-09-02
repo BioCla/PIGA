@@ -25,6 +25,7 @@ int main(int argc, char **argv)
 	cbreak();	   // Rimuove il buffer di input
 	// keypad(stdscr, TRUE); //Abilita i tasti di funzione (Fn, frecce, etc...)
 	curs_set(0); // Rende il cursore invisibile
+	nodelay(stdscr, true);   //altrimenti aspetta sempre l'input dell'utente
 	refresh();
 
 	///////////////////////////////////////////////////////////////////////////
@@ -56,10 +57,10 @@ int main(int argc, char **argv)
 	{
 		p.HandleInput(ch);
 		
-		if(ch == 'f') {
-			time_now = system_clock::now();
-			speedygonzales.checkIfTimeToMove(time_now);
-		}
+		
+		time_now = system_clock::now();
+		speedygonzales.checkIfTimeToMove(time_now);
+		
 		refresh();
 		mvwprintw(p.getWin(), 0, 0, p.getIcon());
 		wrefresh(p.getWin());
