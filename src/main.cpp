@@ -98,14 +98,20 @@ int main(int argc, char **argv)
 			pr2alive = true;
 		}
 		else if(ch=='t') {
+			int stampa_debug = mvwinch(board.getWin(), 0, 2) & A_CHARTEXT;
 			def_prog_mode();
 			endwin();
+			//apre terminale
+			// -- inizia codice --
 			cout << "board: " << endl;
 			cout << "x: " << getbegx(board.getWin()) << " y: " << getbegy(board.getWin()) << endl;
 			cout << "prova_win: " << endl;
 			cout << "x: " << getbegx(prova_win) << " y: " << getbegy(prova_win) << endl;
+			cout << "carattere sopra: " << stampa_debug << endl;
 			int inutile;
 			cin >> inutile;
+			// -- fine codice --
+			//riapre ncurses
 			reset_prog_mode();
 			refresh();
  		}
