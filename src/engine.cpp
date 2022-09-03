@@ -145,6 +145,10 @@ void corners(WINDOW *room) {
 	refresh();
 }
 
+chtype getcharat(int y, int x){
+	return mvinch(y, x);
+}
+
 int legalMove(int y, int x) {
     int testch;
     testch = mvinch(y, x);

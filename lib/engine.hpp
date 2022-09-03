@@ -18,4 +18,5 @@ void erase(int y, int x);
 void werase(WINDOW *terminal, int y, int x);
 void corners(WINDOW *room);
 WINDOW *alert(const char *string);
+chtype getcharat(int y, int x);
 int legalMove(int y, int x);
