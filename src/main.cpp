@@ -4,6 +4,9 @@
 #include "../lib/projectile.hpp"
 #include "../assets/position.hpp"
 
+#include <iostream>
+using namespace std;
+
 #define BOARD_DIM 17
 #define BOARD_ROWS BOARD_DIM
 #define BOARD_COLS BOARD_DIM * 2.5
@@ -57,6 +60,8 @@ int main(int argc, char **argv)
 		//-- prova character.legalMove()
 	p.setRoomWin(board.getWin());
 	
+	WINDOW* prova_win = newwin(10, 10, 5, 5);
+	
 
 		// /prova character.legalMove()
 
@@ -80,6 +85,18 @@ int main(int argc, char **argv)
 			pr2.setPosition(p.getCurrentPosition());
 			pr2.spawn(stdscr, p.getCurrentPosition());
 			pr2alive = true;
+		}
+		else if(ch=='t') {
+			def_prog_mode();
+			endwin();
+			cout << "board: " << endl;
+			cout << "x: " << getbegx(board.getWin()) << " y: " << getbegy(board.getWin()) << endl;
+			cout << "prova_win: " << endl;
+			cout << "x: " << getbegx(prova_win) << " y: " << getbegy(prova_win) << endl;
+			int inutile;
+			cin >> inutile;
+			reset_prog_mode();
+			refresh();
 		}
 
 		if(pr1alive) pr1.checkIfTimeToMove(time_now);
