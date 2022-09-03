@@ -26,4 +26,5 @@ class Enemy { // i vari tipi di nemici saranno sottoclasse di questa classe
         void setDamage(int set);
         int getDamage();
         void moveEnemy();
+        void checkIfTimeToMove(system_clock::time_point time_now);
 };

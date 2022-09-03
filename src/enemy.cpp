@@ -50,3 +50,15 @@ int Enemy::getDamage(){
     return damage;
 }
 
+void Enemy::moveEnemy(){
+    switch (pathID){
+
+    }
+}
+
+void Enemy::checkIfTimeToMove(system_clock::time_point time_now) {
+    if(time_now > last_time_moved + idle_time) {
+        moveEnemy();
+        last_time_moved = time_now;
+    }
+}

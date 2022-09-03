@@ -108,7 +108,7 @@ int main(int argc, char **argv)
 			cin >> inutile;
 			reset_prog_mode();
 			refresh();
-		}
+ 		}
 
 		if(pr1alive) pr1.checkIfTimeToMove(time_now);
 		if(pr2alive) pr2.checkIfTimeToMove(time_now);
