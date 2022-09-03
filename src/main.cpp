@@ -83,6 +83,7 @@ int main(int argc, char **argv)
 	duration <int, std::ratio <1,1000 > > idle_time_enemy(250);
 	Enemy Astolfo = Enemy("A",10,1,spawnpoint_enemy,1,idle_time_enemy);
 	Astolfo.spawn(stdscr, Astolfo.getCurrentPosition());
+	Astolfo.setCurrentRoom(board.getWin());
 
 	// /DEBUG
 

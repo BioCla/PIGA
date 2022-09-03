@@ -2,7 +2,7 @@
 #include <chrono>
 
 Enemy::Enemy(){
-    en_win = newwin(1, 1, 20, 20);
+    
     icon = "A";
     health = 10;
     max_health = 10;
@@ -14,7 +14,7 @@ Enemy::Enemy(){
 }
 
 Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time){
-    en_win = newwin(1,1, spawn_position.y, spawn_position.x);
+
     this->icon = icon;
     current_position = spawn_position;
     this->max_health=max_health;
@@ -25,9 +25,8 @@ Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_positi
 }
 
 void Enemy::spawn(WINDOW* win, Position position) {
-    en_win = newwin(1, 1, position.y, position.x);
-    mvwprintw(en_win, 0, 0, icon);
-    wrefresh(en_win);    
+    mvwprintw(stdscr, position.y, position.x, icon);
+    //wrefresh(stdscr);    
 }
 
 Position Enemy::getCurrentPosition(){
@@ -49,6 +48,19 @@ void Enemy::setDamage(int set){
 int Enemy::getDamage(){
     return damage;
 }
+
+void Enemy::deleteIcon() {
+    mvprintw(current_position.y, current_position.x, " ");
+}
+
+void Enemy::setCurrentRoom(WINDOW* set) {
+    current_room_win = set;
+}
+
+WINDOW* Enemy::getCurrentRoom() {
+    return current_room_win;
+}
+
 
 void Enemy::moveEnemy(){
     switch (pathID){
