@@ -198,14 +198,6 @@ bool Character::legalMove(int posx, int posy) {
         ((mvwinch(current_room_win, posy, posx) & A_CHARTEXT) == 113)) {
         legal = false;
     }
-    else if(false) {
-        legal = false;
-    }
-
-    
-    //qua ci vuole una funzione che penso verrà dalla classe delle stanze che ritorni il carattere date due coordinate
-    //così fai if(carattereAllaPosizione(x,y) == '|') legal = false; else if carattere == '-' legal = false;   eccetera
-    
 
     return legal;
 } 

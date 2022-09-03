@@ -40,6 +40,7 @@ int main(int argc, char **argv)
 
 	// Inizializzazione del personaggio principale
 	Character p = Character();
+	p.setRoomWin(board.getWin());
 
 	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
 	p.PlayerMove(getmaxx(stdscr)/2, getmaxy(stdscr)/2);
@@ -47,9 +48,9 @@ int main(int argc, char **argv)
 
 	//DEBUG - prova del proiettile
 	Position spawnpoint_projectile;
-	spawnpoint_projectile.x = 10; spawnpoint_projectile.y = 10;
+	spawnpoint_projectile.x = 2; spawnpoint_projectile.y = 2;
 	duration <int, std::ratio <1,1000 > > time_interval_projectile(250);
-	Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 1, time_interval_projectile);
+	Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 0, time_interval_projectile);
 	speedygonzales.spawn(stdscr, speedygonzales.getCurrentPosition());
 
 	Projectile pr1 = Projectile("?", {12, 12}, 1, time_interval_projectile*2);
@@ -58,10 +59,11 @@ int main(int argc, char **argv)
 	bool pr1alive = false;
 	bool pr2alive = false;
 
+	speedygonzales.setCurrentRoom(board.getWin());
+	pr1.setCurrentRoom(board.getWin());
+	pr2.setCurrentRoom(board.getWin());
+
 		//-- prova character.legalMove()
-	p.setRoomWin(board.getWin());
-	
-	WINDOW* prova_win = newwin(10, 10, 5, 5);
 	
 
 		// /prova character.legalMove()
@@ -85,7 +87,7 @@ int main(int argc, char **argv)
 		p.HandleInput(ch);
 		
 		time_now = system_clock::now();
-		speedygonzales.checkIfTimeToMove(time_now);
+		//speedygonzales.checkIfTimeToMove(time_now);
 
 		if(ch=='f') {
 			pr1.setPosition(p.getCurrentPosition());
@@ -105,8 +107,6 @@ int main(int argc, char **argv)
 			// -- inizia codice --
 			cout << "board: " << endl;
 			cout << "x: " << getbegx(board.getWin()) << " y: " << getbegy(board.getWin()) << endl;
-			cout << "prova_win: " << endl;
-			cout << "x: " << getbegx(prova_win) << " y: " << getbegy(prova_win) << endl;
 			cout << "carattere sopra: " << stampa_debug << endl;
 			int inutile;
 			cin >> inutile;
