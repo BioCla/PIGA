@@ -1,5 +1,6 @@
 #include "../lib/character.hpp"
 #include "../lib/engine.hpp"
+#include "../lib/board.hpp"
 
 Character::Character() {
     icon = "@";
@@ -126,12 +127,12 @@ void Character::HandleInput(int input){
         /*si muove in su*/
         case 'w':
         case 'W':
-            if (legalMove(current_position.x, current_position.y - 1)) {
+            if ((current_position.y > 0) && legalMove(current_position.y - 1, current_position.x)) {
                 if(steppedOnArtifact(current_position.x, current_position.y - 1)) {
                     //non lo so fai qualcosa
                     //updateHealth(+10) non lo so
                 }
-                mvprintw(current_position.y, current_position.x, " ");
+                //Board::fillPoint(current_position.y, current_position.x); non so come implementare in modo che usi la classe Board e usi la funzione per riempire lo spazio
                 current_position.y--;
                 PlayerMove(current_position.x, current_position.y);
             }

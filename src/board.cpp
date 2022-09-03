@@ -1,5 +1,6 @@
 #include "../lib/board.hpp"
 
+
 /*Board::Board(){
 	int xMax, yMax;
 	int height=10;
@@ -11,8 +12,7 @@
 }*/
 
 Board::Board(int screen_height, int screen_width){
-	int xMax, yMax;
-	
+	int xMax, yMax;	
 	getmaxyx(stdscr, yMax, xMax);
 	board_win = newwin(screen_height, screen_width, (yMax / 2) - (screen_height / 2), (xMax / 2) - (screen_width / 2));
 	initialize();
@@ -29,53 +29,38 @@ void Board::addBorder(){
 	Offset=5;
 	xMax=xMax-Offset;
 	yMax=yMax-Offset;
+	init_pair(WALL_PAIR, COLOR_BLUE, COLOR_BLUE);
+	attron(COLOR_PAIR(WALL_PAIR));
 	for(int fy = Offset; fy < yMax; fy++){
 		for(int fx = Offset; fx < xMax; fx++){
-			if(fx == Offset || fy == Offset || fx == xMax-1 || fy == yMax-1){
-				startColor("green", "green");
+			if(fx == Offset || fy == Offset || fx == xMax-1 || fy == yMax-1){				
 				mvprintw(fy, fx, fence.c_str());
-				endColor();
 			}			
 		}
 	}
+	attroff(COLOR_PAIR(WALL_PAIR));
+	fill();
 }
 
-void Board::setupColors(){
-	/*Black = 0, Red = 1, Green = 2, Yellow = 3, Blue = 4, Magenta = 5, Cyan = 6, White = 7*/
-	string colorNames[] = {
-		"black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"
-	};
-	int counter = 0;
-	for (int fg = 0; fg < 8; fg++){
-		for (int bg = 0; fg < 8; bg ++){
-			string colorName = colorNames[bg] + "-" + colorNames[fg];
-			init_pair(counter, fg, bg);
-			m_colors[colorName] = counter;
-			counter++;
-		}
-	}
+void Board::fill(){
+	int xMax,yMax;
+	getmaxyx(stdscr,yMax,xMax);
+	int Offset=5;
+	xMax=xMax;
+	yMax=yMax-Offset;
+	init_pair(PAVE_PAIR, COLOR_CYAN, COLOR_CYAN);
+    for (int y = Offset+1; y < yMax-1; y++) {
+		attron(COLOR_PAIR(PAVE_PAIR));
+        mvhline(y, Offset+1, PAVE, xMax-12);
+		attroff(COLOR_PAIR(PAVE_PAIR));
+    }  
 }
 
-int Board::getColor(const string& background, const string& foreground){
-	string colorName = background + "-" + foreground;
-	return m_colors[colorName];
+void Board::fillPoint(int y, int x){
+	attron(COLOR_PAIR(PAVE_PAIR));
+	mvaddch(y, x, PAVE);
+	attroff(COLOR_PAIR(PAVE_PAIR));
 }
-
-void Board::startColor(const string& background, const string& foreground){
-	if(m_lastbackground != ""){
-		endColor();
-	}
-	m_lastbackground = background;
-	m_lastforeground = foreground;
-	attron(COLOR_PAIR(getColor(background, foreground)));
-}
-
-void Board::endColor(){
-	attroff(COLOR_PAIR(getColor(m_lastbackground, m_lastforeground)));
-	m_lastbackground = "";
-	m_lastforeground = "";
-}
-
 void Board::clear(){
 	wclear(board_win);
 	addBorder();

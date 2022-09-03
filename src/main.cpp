@@ -4,9 +4,11 @@
 #include "../lib/projectile.hpp"
 #include "../assets/position.hpp"
 #include "../lib/enemy.hpp"
+#include <stdlib.h>
 
 #include <iostream>
 using namespace std;
+
 
 /*#define BOARD_DIM 17
 #define BOARD_ROWS BOARD_DIM
@@ -24,7 +26,6 @@ int main(int argc, char **argv)
 	// Questo dovra' andare in una funzione separate prima o poi:
 	
 	initscr();	   // Inizializza lo schermo secondo la libreria ncurses
-	start_color(); // Permette l'utilizzo di colori sullo schermo
 	clear();	   // Svuota il terminale
 	noecho();	   // Rimuove l'input inserito nel terminale
 	cbreak();	   // Rimuove il buffer di input
@@ -32,6 +33,16 @@ int main(int argc, char **argv)
 	curs_set(0); // Rende il cursore invisibile
 	nodelay(stdscr, true);   //altrimenti aspetta sempre l'input dell'utente
 	refresh();
+
+	if(has_colors()== FALSE){
+		endwin();
+		printf("Your terminal does not support colours");
+		exit(1);
+	}
+	start_color(); // Permette l'utilizzo di colori sullo schermo
+	
+	
+
 	int rows, cols;
 	getmaxyx(stdscr, rows, cols);
 
@@ -41,6 +52,17 @@ int main(int argc, char **argv)
 	rows=rows-21;
 	cols=rows*2.5;
 	Board board(rows, cols);
+	getmaxyx(stdscr, rows, cols);
+	/*
+	attron(COLOR_PAIR(GRASS_PAIR));
+    for (int y = 0; y < rows+21; y++) {
+        mvhline(y, 0, GRASS, cols);
+    }
+    attroff(COLOR_PAIR(GRASS_PAIR));
+	*/
+	
+	
+
 
 	// Inizializzazione del personaggio principale
 	Character p = Character();
