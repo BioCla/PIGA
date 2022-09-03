@@ -8,6 +8,7 @@
 #define BOARD_ROWS BOARD_DIM
 #define BOARD_COLS BOARD_DIM * 2.5
 
+
 /**
  * Main function file, runner of the program
  * Executes the primary initialiazation functions for the ncurses library and sets up the game
@@ -52,6 +53,12 @@ int main(int argc, char **argv)
 
 	bool pr1alive = false;
 	bool pr2alive = false;
+
+		//-- prova character.legalMove()
+	p.setRoomWin(board.getWin());
+	
+
+		// /prova character.legalMove()
 
 	// /DEBUG
 

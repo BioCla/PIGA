@@ -78,6 +78,14 @@ char Character::getProjectileIcon() {
     return projectile_icon;
 }
 
+void Character::setRoomWin(WINDOW* set) {
+    current_room_win = set;
+}
+
+WINDOW* Character::getRoomWin() {
+    return current_room_win;
+}
+
 void Character::PlayerMove(int x, int y) {
     wborder(win,' ',' ',' ',' ',' ',' ',' ',' ');
     wrefresh(win);
@@ -148,8 +156,10 @@ void Character::HandleInput(int input){
         case 'd':
         case 'D':
             if(legalMove(current_position.x + 1, current_position.y)) {
+                mvprintw(15, 10, "     ");
                 current_position.x++;
                 PlayerMove(current_position.x, current_position.y);
+                mvprintw(15, 10, "puoi");
             }
             else if (steppedOnEnemy(current_position.x + 1, current_position.y)) {
                 //calcoladanno();
@@ -186,11 +196,13 @@ void Character::HandleInput(int input){
 bool Character::legalMove(int posx, int posy) {
     bool legal = true;
 
-    if(false) {
+    if((mvwinch(current_room_win, posy, posx) & A_CHARTEXT) == 120) {
         legal = false;
+        mvprintw(16, 10, "non puoi");
     }
-    else if(false) {
+    else if((mvwinch(current_room_win, 10, 0) & A_CHARTEXT) == 120) {
         legal = false;
+        mvprintw(16, 10, "non puoi 10 0");
     }
 
     
