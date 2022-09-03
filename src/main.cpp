@@ -3,6 +3,7 @@
 #include "../lib/character.hpp"
 #include "../lib/projectile.hpp"
 #include "../assets/position.hpp"
+#include "../lib/enemy.hpp"
 
 #define BOARD_DIM 17
 #define BOARD_ROWS BOARD_DIM
@@ -61,6 +62,16 @@ int main(int argc, char **argv)
 		// /prova character.legalMove()
 
 	// /DEBUG
+
+	// prova nemico
+	Position spawnpoint_enemy;
+	spawnpoint_enemy.x=20; spawnpoint_enemy.y=20;
+	duration <int, std::ratio <1,1000 > > idle_time_enemy(250);
+	Enemy Astolfo = Enemy("A",10,1,spawnpoint_enemy,1,idle_time_enemy);
+	Astolfo.spawn(stdscr, Astolfo.getCurrentPosition());
+
+
+
 
 	system_clock::time_point time_now = system_clock::now();
 	int ch; // Variabile di accesso al handler per gli input
