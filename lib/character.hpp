@@ -14,8 +14,8 @@ class Character {
         int damage;    //il danno che i suoi proiettili fanno ai mostri
         char projectile_icon;
         Position current_position;
-        WINDOW* win;
         WINDOW* current_room_win;
+        int last_direction_taken;
 
         //inventario?
         //velocità?
@@ -26,7 +26,6 @@ class Character {
     public:
         Character();
         Character(int x, int y);
-        WINDOW * getWin();
         void updateHearts();
         void updateHealth(int mod);
         void setHealth(int set);
@@ -39,6 +38,7 @@ class Character {
         char getProjectileIcon();
         void setRoomWin(WINDOW* set);
         WINDOW* getRoomWin();
+        int getLastDirection();
         void PlayerMove(int x, int y);
         Position getCurrentPosition();
         void HandleInput(int input);

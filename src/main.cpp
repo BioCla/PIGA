@@ -44,6 +44,7 @@ int main(int argc, char **argv)
 
 	// Inizializzazione del personaggio principale
 	Character p = Character();
+	p.setRoomWin(board.getWin());
 
 	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
 	p.PlayerMove(getmaxx(stdscr)/2, getmaxy(stdscr)/2);
@@ -51,26 +52,30 @@ int main(int argc, char **argv)
 
 	//DEBUG - prova del proiettile
 	Position spawnpoint_projectile;
-	spawnpoint_projectile.x = 10; spawnpoint_projectile.y = 10;
+	spawnpoint_projectile.x = 20; spawnpoint_projectile.y = 20;
 	duration <int, std::ratio <1,1000 > > time_interval_projectile(250);
 	Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 1, time_interval_projectile);
-	speedygonzales.spawn(stdscr, speedygonzales.getCurrentPosition());
+	speedygonzales.spawn(speedygonzales.getCurrentPosition());
 
 	Projectile pr1 = Projectile("?", {12, 12}, 1, time_interval_projectile*2);
 	Projectile pr2 = Projectile("!", {15, 4}, 1, time_interval_projectile/4);
 
 	bool pr1alive = false;
 	bool pr2alive = false;
+	bool prxalive = false;
+
+	Projectile *prx = NULL;
+
+	speedygonzales.setCurrentRoom(board.getWin());
+	pr1.setCurrentRoom(board.getWin());
+	pr2.setCurrentRoom(board.getWin());
 
 		//-- prova character.legalMove()
-	p.setRoomWin(board.getWin());
-	
-	WINDOW* prova_win = newwin(10, 10, 5, 5);
 	
 
 		// /prova character.legalMove()
 
-	// /DEBUG
+	
 
 	// prova nemico
 	Position spawnpoint_enemy;
@@ -79,7 +84,7 @@ int main(int argc, char **argv)
 	Enemy Astolfo = Enemy("A",10,1,spawnpoint_enemy,1,idle_time_enemy);
 	Astolfo.spawn(stdscr, Astolfo.getCurrentPosition());
 
-
+	// /DEBUG
 
 
 	system_clock::time_point time_now = system_clock::now();
@@ -93,13 +98,13 @@ int main(int argc, char **argv)
 
 		if(ch=='f') {
 			pr1.setPosition(p.getCurrentPosition());
-			pr1.spawn(stdscr, p.getCurrentPosition());
+			pr1.spawn(p.getCurrentPosition());
 			pr1alive = true;
 		}
-		else if(ch=='g') {
-			pr2.setPosition(p.getCurrentPosition());
-			pr2.spawn(stdscr, p.getCurrentPosition());
-			pr2alive = true;
+		else if(ch=='g') {	
+			prx = new Projectile(";", p.getCurrentPosition(), 1, time_interval_projectile/4);
+			prx->spawn(prx->getCurrentPosition());
+			prxalive = true;
 		}
 		else if(ch=='t') {
 			int stampa_debug = mvwinch(board.getWin(), 0, 2) & A_CHARTEXT;
@@ -107,6 +112,9 @@ int main(int argc, char **argv)
 			endwin();
 			//apre terminale
 			// -- inizia codice --
+			cout << "board: " << endl;
+			cout << "x: " << getbegx(board.getWin()) << " y: " << getbegy(board.getWin()) << endl;
+			cout << "carattere sopra: " << stampa_debug << endl;
 			int inutile;
 			cin >> inutile;
 			mvprintw(20,20,"#");
@@ -119,14 +127,12 @@ int main(int argc, char **argv)
  		}
 
 		if(pr1alive) pr1.checkIfTimeToMove(time_now);
-		if(pr2alive) pr2.checkIfTimeToMove(time_now);
+		if(prxalive) prx->checkIfTimeToMove(time_now);
 
 
 		
-		
+		p.PlayerMove(p.getCurrentPosition().x,p.getCurrentPosition().y);  //si assicura che il personaggio sia in primo piano
 		refresh();
-		mvwprintw(p.getWin(), 0, 0, p.getIcon());
-		wrefresh(p.getWin());
 		
 	}
 

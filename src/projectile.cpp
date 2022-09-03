@@ -2,7 +2,6 @@
 #include <chrono>
 
 Projectile::Projectile() {
-    proj_win = newwin(1, 1, 10, 10);
     icon = "*";
     current_position = {10, 10};
     direction = 1;
@@ -10,7 +9,6 @@ Projectile::Projectile() {
 }
 
 Projectile::Projectile(const char* icon, Position position, int direction, duration <int, std::ratio <1,1000 > > moving_frequency) {
-    proj_win = newwin(1, 1, position.y, position.x);
     this->icon = icon;
     current_position = position;
     this->direction = direction;
@@ -18,47 +16,71 @@ Projectile::Projectile(const char* icon, Position position, int direction, durat
     last_time_moved = system_clock::now();
 }
 
-void Projectile::spawn(WINDOW* win, Position position) {
-    proj_win = newwin(1, 1, position.y, position.x);
-    mvwprintw(proj_win, 0, 0, icon);
-    wrefresh(proj_win);
+void Projectile::spawn(Position position) {
+    mvprintw(position.y, position.x, icon);
 }
 
 void Projectile::deleteIcon() {
-    wborder(proj_win,' ',' ',' ',' ',' ',' ',' ',' ');
-    wrefresh(proj_win);
-    delwin(proj_win);
-}
-
-Position Projectile::getCurrentPosition() {
-    return current_position;
+    mvprintw(current_position.y, current_position.x, " ");
 }
 
 void Projectile::setPosition(Position set) {
     current_position = set;
 }
 
+Position Projectile::getCurrentPosition() {
+    return current_position;
+}
+
+void Projectile::setCurrentRoom(WINDOW* set) {
+    current_room_win = set;
+}
+
+WINDOW* Projectile::getCurrentRoom() {
+    return current_room_win;
+}
+
 void Projectile::moveProjectile() {
     switch(direction) {
         case 0:
             deleteIcon();
-            current_position.y = current_position.y - 1;
-            spawn(proj_win, current_position);
+            if(!collisionWithRoomWall(current_position.x, current_position.y - 1)) {
+                current_position.y = current_position.y - 1;
+                spawn(current_position);
+            }
+            else {
+                deleteIcon();
+            }
             break;
         case 1:
             deleteIcon();
-            current_position.x = current_position.x + 1;
-            spawn(proj_win, current_position);
+            if(!collisionWithRoomWall(current_position.x + 1, current_position.y)) {
+                current_position.x = current_position.x + 1;
+                spawn(current_position);
+            }
+            else {
+                deleteIcon();
+            }
             break;
         case 2:
             deleteIcon();
-            current_position.y = current_position.y + 1;
-            spawn(proj_win, current_position);
+            if(!collisionWithRoomWall(current_position.x, current_position.y + 1)) {
+                current_position.y = current_position.y + 1;
+                spawn(current_position);
+            }
+            else {
+                deleteIcon();
+            }
             break;
         case 3:
             deleteIcon();
-            current_position.x = current_position.x - 1;
-            spawn(proj_win, current_position);
+            if(!collisionWithRoomWall(current_position.x - 1, current_position.y)) {
+                current_position.x = current_position.x - 1;
+                spawn(current_position);
+            }
+            else {
+                deleteIcon();
+            }
             break;
     }
 }
@@ -68,6 +90,16 @@ void Projectile::checkIfTimeToMove(system_clock::time_point time_now) {
         moveProjectile();
         last_time_moved = time_now;
     }
+}
+
+bool Projectile::collisionWithRoomWall(int posx, int posy) {
+    bool collided = false;
+
+    if(((mvwinch(stdscr, posy, posx) & A_CHARTEXT) == 35)) {
+        collided = true;
+    }
+
+    return collided;
 }
 
 /*   UTILIZZO TIMER CON CHRONO
