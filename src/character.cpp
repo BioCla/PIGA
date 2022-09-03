@@ -7,9 +7,6 @@ Character::Character() {
     health = max_health;
     damage = 5;   //numero a caso
     projectile_icon = '-';
-    win = newwin(1, 1, 0, 0);
-    mvwprintw(win, 0, 0, icon);
-    wrefresh(win);
 }
 
 Character::Character(int x, int y){
@@ -18,10 +15,6 @@ Character::Character(int x, int y){
     health = max_health;
     current_position.x = x;
     current_position.y = y;
-}
-
-WINDOW * Character::getWin() {
-    return win;
 }
 
 void Character::updateHearts() {
@@ -87,16 +80,11 @@ WINDOW* Character::getRoomWin() {
 }
 
 void Character::PlayerMove(int x, int y) {
-    wborder(win,' ',' ',' ',' ',' ',' ',' ',' ');
-    wrefresh(win);
-    delwin(win);
 
     current_position.x=x;
     current_position.y=y;
     
-    win = newwin(1, 1, y, x);
-    mvwprintw(win, 0, 0, icon);
-    wrefresh(win);
+    mvprintw(current_position.y, current_position.x, icon);
     
     //mvprintw(y, x, "@");
     //mvprintw(200, 200,"a");
@@ -137,6 +125,7 @@ void Character::HandleInput(int input){
                     //non lo so fai qualcosa
                     //updateHealth(+10) non lo so
                 }
+                mvprintw(current_position.y, current_position.x, " ");
                 current_position.y--;
                 PlayerMove(current_position.x, current_position.y);
             }
@@ -156,6 +145,7 @@ void Character::HandleInput(int input){
         case 'd':
         case 'D':
             if(legalMove(current_position.x + 1, current_position.y)) {
+                mvprintw(current_position.y, current_position.x, " ");
                 current_position.x++;
                 PlayerMove(current_position.x, current_position.y);
             }
@@ -167,6 +157,7 @@ void Character::HandleInput(int input){
         case 's':
         case 'S':
             if(legalMove(current_position.x, current_position.y + 1)) {
+                mvprintw(current_position.y, current_position.x, " ");
                 current_position.y++;
                 PlayerMove(current_position.x, current_position.y);
             }
@@ -178,6 +169,7 @@ void Character::HandleInput(int input){
         case 'a':
         case 'A':
             if(legalMove(current_position.x - 1, current_position.y)) {
+                mvprintw(current_position.y, current_position.x, " ");
                 current_position.x--;
                 PlayerMove(current_position.x, current_position.y);
             }

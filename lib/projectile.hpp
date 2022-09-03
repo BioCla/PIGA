@@ -6,7 +6,6 @@ using namespace std::chrono;
 
 class Projectile {
     protected:
-        WINDOW* proj_win;
         WINDOW* current_room_win;
         const char* icon;
         Position current_position;
@@ -20,7 +19,7 @@ class Projectile {
     public:
         Projectile();
         Projectile(const char* icon, Position position, int direction, duration <int, std::ratio <1,1000 > > speed);
-        void spawn(WINDOW* win, Position initial_position);
+        void spawn(Position initial_position);
         void deleteIcon();
         void setPosition(Position set);
         Position getCurrentPosition();

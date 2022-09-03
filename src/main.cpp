@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 	spawnpoint_projectile.x = 2; spawnpoint_projectile.y = 2;
 	duration <int, std::ratio <1,1000 > > time_interval_projectile(250);
 	Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 0, time_interval_projectile);
-	speedygonzales.spawn(stdscr, speedygonzales.getCurrentPosition());
+	speedygonzales.spawn(speedygonzales.getCurrentPosition());
 
 	Projectile pr1 = Projectile("?", {12, 12}, 1, time_interval_projectile*2);
 	Projectile pr2 = Projectile("!", {15, 4}, 1, time_interval_projectile/4);
@@ -95,12 +95,12 @@ int main(int argc, char **argv)
 
 		if(ch=='f') {
 			pr1.setPosition(p.getCurrentPosition());
-			pr1.spawn(stdscr, p.getCurrentPosition());
+			pr1.spawn(p.getCurrentPosition());
 			pr1alive = true;
 		}
 		else if(ch=='g') {
 			pr2.setPosition(p.getCurrentPosition());
-			pr2.spawn(stdscr, p.getCurrentPosition());
+			pr2.spawn(p.getCurrentPosition());
 			pr2alive = true;
 		}
 		else if(ch=='t') {
@@ -109,12 +109,9 @@ int main(int argc, char **argv)
 			endwin();
 			//apre terminale
 			// -- inizia codice --
-<<<<<<< HEAD
 			cout << "board: " << endl;
 			cout << "x: " << getbegx(board.getWin()) << " y: " << getbegy(board.getWin()) << endl;
 			cout << "carattere sopra: " << stampa_debug << endl;
-=======
->>>>>>> 7fd453cf8c268c8c4c737896f0d56ce0ca3e3e99
 			int inutile;
 			cin >> inutile;
 			mvprintw(20,20,"#");
@@ -133,8 +130,6 @@ int main(int argc, char **argv)
 		
 		
 		refresh();
-		mvwprintw(p.getWin(), 0, 0, p.getIcon());
-		wrefresh(p.getWin());
 		
 	}
 

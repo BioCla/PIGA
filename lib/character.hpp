@@ -14,7 +14,6 @@ class Character {
         int damage;    //il danno che i suoi proiettili fanno ai mostri
         char projectile_icon;
         Position current_position;
-        WINDOW* win;
         WINDOW* current_room_win;
 
         //inventario?
@@ -26,7 +25,6 @@ class Character {
     public:
         Character();
         Character(int x, int y);
-        WINDOW * getWin();
         void updateHearts();
         void updateHealth(int mod);
         void setHealth(int set);
