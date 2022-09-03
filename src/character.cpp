@@ -135,6 +135,7 @@ void Character::HandleInput(int input){
                 //Board::fillPoint(current_position.y, current_position.x); non so come implementare in modo che usi la classe Board e usi la funzione per riempire lo spazio
                 current_position.y--;
                 PlayerMove(current_position.x, current_position.y);
+                last_direction_taken = 0;
             }
             else if (steppedOnEnemy(current_position.x, current_position.y - 1)) {
                 //calcoladanno();
@@ -155,6 +156,7 @@ void Character::HandleInput(int input){
                 mvprintw(current_position.y, current_position.x, " ");
                 current_position.x++;
                 PlayerMove(current_position.x, current_position.y);
+                last_direction_taken = 1;
             }
             else if (steppedOnEnemy(current_position.x + 1, current_position.y)) {
                 //calcoladanno();
@@ -167,6 +169,7 @@ void Character::HandleInput(int input){
                 mvprintw(current_position.y, current_position.x, " ");
                 current_position.y++;
                 PlayerMove(current_position.x, current_position.y);
+                last_direction_taken = 2;
             }
             else if (steppedOnEnemy(current_position.x, current_position.y + 1)) {
                 //calcoladanno();
@@ -179,6 +182,7 @@ void Character::HandleInput(int input){
                 mvprintw(current_position.y, current_position.x, " ");
                 current_position.x--;
                 PlayerMove(current_position.x, current_position.y);
+                last_direction_taken = 3;
             }
             else if (steppedOnEnemy(current_position.x - 1, current_position.y)) {
                 //calcoladanno();
@@ -188,7 +192,6 @@ void Character::HandleInput(int input){
         default:
             break;   
     }
-    last_direction_taken = input;
 }
 
 bool Character::legalMove(int posx, int posy) {

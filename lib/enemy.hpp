@@ -5,7 +5,7 @@ using namespace std::chrono;
 
 class Enemy { // i vari tipi di nemici saranno sottoclasse di questa classe
     protected:
-        WINDOW* en_win;
+        WINDOW* current_room_win;
         const char* icon;
         int health;
         int max_health;
@@ -25,6 +25,9 @@ class Enemy { // i vari tipi di nemici saranno sottoclasse di questa classe
         int getHealth();
         void setDamage(int set);
         int getDamage();
+        void deleteIcon();
+        void setCurrentRoom(WINDOW* set);
+        WINDOW* getCurrentRoom();
         void moveEnemy();
         void checkIfTimeToMove(system_clock::time_point time_now);
 };

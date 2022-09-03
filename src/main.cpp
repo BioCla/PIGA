@@ -105,6 +105,7 @@ int main(int argc, char **argv)
 	duration <int, std::ratio <1,1000 > > idle_time_enemy(250);
 	Enemy Astolfo = Enemy("A",10,1,spawnpoint_enemy,1,idle_time_enemy);
 	Astolfo.spawn(stdscr, Astolfo.getCurrentPosition());
+	Astolfo.setCurrentRoom(board.getWin());
 
 	// /DEBUG
 
@@ -124,7 +125,7 @@ int main(int argc, char **argv)
 			pr1alive = true;
 		}
 		else if(ch=='g') {	
-			prx = new Projectile(";", p.getCurrentPosition(), 1, time_interval_projectile/4);
+			prx = new Projectile(";", p.getCurrentPosition(), p.getLastDirection(), time_interval_projectile/4);
 			prx->spawn(prx->getCurrentPosition());
 			prxalive = true;
 		}
@@ -134,15 +135,11 @@ int main(int argc, char **argv)
 			endwin();
 			//apre terminale
 			// -- inizia codice --
-			cout << "board: " << endl;
-			cout << "x: " << getbegx(board.getWin()) << " y: " << getbegy(board.getWin()) << endl;
-			cout << "carattere sopra: " << stampa_debug << endl;
+			cout << "last direction: " << p.getLastDirection() << endl;
+
+			// -- fine codice --
 			int inutile;
 			cin >> inutile;
-			mvprintw(20,20,"#");
-			int cacca = mvwinch(stdscr,20,20);
-			cout <<cacca;
-			// -- fine codice --
 			//riapre ncurses
 			reset_prog_mode();
 			refresh();
