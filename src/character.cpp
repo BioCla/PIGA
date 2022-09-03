@@ -132,7 +132,7 @@ void Character::HandleInput(int input){
         /*si muove in su*/
         case 'w':
         case 'W':
-            if (legalMove(current_position.x, current_position.y - 1)) {
+            if (legalMove(current_position.x - getbegx(current_room_win), current_position.y - 1 - getbegy(current_room_win))) {
                 if(steppedOnArtifact(current_position.x, current_position.y - 1)) {
                     //non lo so fai qualcosa
                     //updateHealth(+10) non lo so
@@ -155,7 +155,7 @@ void Character::HandleInput(int input){
         /*si muove a destra*/
         case 'd':
         case 'D':
-            if(legalMove(current_position.x + 1, current_position.y)) {
+            if(legalMove(current_position.x + 1 - getbegx(current_room_win), current_position.y - getbegy(current_room_win))) {
                 mvprintw(15, 10, "     ");
                 current_position.x++;
                 PlayerMove(current_position.x, current_position.y);
@@ -179,9 +179,11 @@ void Character::HandleInput(int input){
         /*si muove a sinistra*/
         case 'a':
         case 'A':
-            if(legalMove(current_position.x - 1, current_position.y)) {
+            if(legalMove(current_position.x - 1 - getbegx(current_room_win), current_position.y - getbegx(current_room_win))) {
+                mvprintw(15, 10, "     ");
                 current_position.x--;
                 PlayerMove(current_position.x, current_position.y);
+                mvprintw(15, 10, "puoi");
             }
             else if (steppedOnEnemy(current_position.x - 1, current_position.y)) {
                 //calcoladanno();
@@ -198,9 +200,9 @@ bool Character::legalMove(int posx, int posy) {
 
     if((mvwinch(current_room_win, posy, posx) & A_CHARTEXT) == 120) {
         legal = false;
-        mvprintw(16, 10, "non puoi");
+        mvprintw(15, 10, "non puoi");
     }
-    else if((mvwinch(current_room_win, 10, 0) & A_CHARTEXT) == 120) {
+    else if(false) {
         legal = false;
         mvprintw(16, 10, "non puoi 10 0");
     }
