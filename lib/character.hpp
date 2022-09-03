@@ -15,6 +15,7 @@ class Character {
         char projectile_icon;
         Position current_position;
         WINDOW* current_room_win;
+        int last_direction_taken;
 
         //inventario?
         //velocità?
@@ -37,6 +38,7 @@ class Character {
         char getProjectileIcon();
         void setRoomWin(WINDOW* set);
         WINDOW* getRoomWin();
+        int getLastDirection();
         void PlayerMove(int x, int y);
         Position getCurrentPosition();
         void HandleInput(int input);

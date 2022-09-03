@@ -7,6 +7,7 @@ Character::Character() {
     health = max_health;
     damage = 5;   //numero a caso
     projectile_icon = '-';
+    last_direction_taken = 0;
 }
 
 Character::Character(int x, int y){
@@ -15,6 +16,7 @@ Character::Character(int x, int y){
     health = max_health;
     current_position.x = x;
     current_position.y = y;
+    last_direction_taken = 0;
 }
 
 void Character::updateHearts() {
@@ -77,6 +79,10 @@ void Character::setRoomWin(WINDOW* set) {
 
 WINDOW* Character::getRoomWin() {
     return current_room_win;
+}
+
+int Character::getLastDirection() {
+    return last_direction_taken;
 }
 
 void Character::PlayerMove(int x, int y) {
@@ -181,6 +187,7 @@ void Character::HandleInput(int input){
         default:
             break;   
     }
+    last_direction_taken = input;
 }
 
 bool Character::legalMove(int posx, int posy) {
