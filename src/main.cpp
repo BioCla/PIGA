@@ -47,7 +47,11 @@ int main(int argc, char **argv)
 	Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 1, time_interval_projectile);
 	speedygonzales.spawn(stdscr, speedygonzales.getCurrentPosition());
 
+	Projectile pr1 = Projectile("?", {12, 12}, 1, time_interval_projectile*2);
+	Projectile pr2 = Projectile("!", {15, 4}, 1, time_interval_projectile/4);
 
+	bool pr1alive = false;
+	bool pr2alive = false;
 
 	// /DEBUG
 
@@ -57,9 +61,25 @@ int main(int argc, char **argv)
 	{
 		p.HandleInput(ch);
 		
-		
 		time_now = system_clock::now();
 		speedygonzales.checkIfTimeToMove(time_now);
+
+		if(ch=='f') {
+			pr1.setPosition(p.getCurrentPosition());
+			pr1.spawn(stdscr, p.getCurrentPosition());
+			pr1alive = true;
+		}
+		else if(ch=='g') {
+			pr2.setPosition(p.getCurrentPosition());
+			pr2.spawn(stdscr, p.getCurrentPosition());
+			pr2alive = true;
+		}
+
+		if(pr1alive) pr1.checkIfTimeToMove(time_now);
+		if(pr2alive) pr2.checkIfTimeToMove(time_now);
+
+
+		
 		
 		refresh();
 		mvwprintw(p.getWin(), 0, 0, p.getIcon());
