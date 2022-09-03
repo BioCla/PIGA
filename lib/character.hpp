@@ -14,7 +14,8 @@ class Character {
         int damage;    //il danno che i suoi proiettili fanno ai mostri
         char projectile_icon;
         Position current_position;
-        WINDOW *win;
+        WINDOW* win;
+        WINDOW* current_room_win;
 
         //inventario?
         //velocità?
@@ -36,6 +37,8 @@ class Character {
         const char* getIcon();
         void setProjectileIcon(char set);
         char getProjectileIcon();
+        void setRoomWin(WINDOW* set);
+        WINDOW* getRoomWin();
         void PlayerMove(int x, int y);
         Position getCurrentPosition();
         void HandleInput(int input);

@@ -21,4 +21,5 @@ public:
 	void addBorder();
 	void clear();
 	void refresh();
+	WINDOW* getWin();
 };

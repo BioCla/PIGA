@@ -40,3 +40,7 @@ void Board::initialize()
 	clear();
 	refresh();
 }
+
+WINDOW* Board::getWin() {
+	return board_win;
+}
