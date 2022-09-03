@@ -64,7 +64,7 @@ WINDOW* Enemy::getCurrentRoom() {
 
 void Enemy::moveEnemy(){
     switch (pathID){
-
+        
     }
 }
 
