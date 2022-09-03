@@ -12,11 +12,11 @@ class Board
 {
 private:
 	WINDOW *board_win;
-	int height, width;
+	int screen_height, screen_width;
 
 public:
 	// Board();
-	Board(int height, int width);
+	Board(int screen_height, int screen_width);
 	void initialize();
 	void addBorder();
 	void clear();

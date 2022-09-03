@@ -132,7 +132,7 @@ void Character::HandleInput(int input){
         /*si muove in su*/
         case 'w':
         case 'W':
-            if (legalMove(current_position.x - getbegx(current_room_win), current_position.y - 1 - getbegy(current_room_win))) {
+            if (legalMove(current_position.x, current_position.y - 1)) {
                 if(steppedOnArtifact(current_position.x, current_position.y - 1)) {
                     //non lo so fai qualcosa
                     //updateHealth(+10) non lo so
@@ -155,7 +155,7 @@ void Character::HandleInput(int input){
         /*si muove a destra*/
         case 'd':
         case 'D':
-            if(legalMove(current_position.x + 1 - getbegx(current_room_win), current_position.y - getbegy(current_room_win))) {
+            if(legalMove(current_position.x + 1, current_position.y)) {
                 current_position.x++;
                 PlayerMove(current_position.x, current_position.y);
             }
@@ -166,7 +166,7 @@ void Character::HandleInput(int input){
         /*si muove in giù*/
         case 's':
         case 'S':
-            if(legalMove(current_position.x - getbegx(current_room_win), current_position.y + 1 - getbegy(current_room_win))) {
+            if(legalMove(current_position.x, current_position.y + 1)) {
                 current_position.y++;
                 PlayerMove(current_position.x, current_position.y);
             }
@@ -177,7 +177,7 @@ void Character::HandleInput(int input){
         /*si muove a sinistra*/
         case 'a':
         case 'A':
-            if(legalMove(current_position.x - 1 - getbegx(current_room_win), current_position.y - getbegy(current_room_win))) {
+            if(legalMove(current_position.x - 1, current_position.y)) {
                 current_position.x--;
                 PlayerMove(current_position.x, current_position.y);
             }
@@ -194,8 +194,7 @@ void Character::HandleInput(int input){
 bool Character::legalMove(int posx, int posy) {
     bool legal = true;
 
-    if(((mvwinch(current_room_win, posy, posx) & A_CHARTEXT) == 120) || 
-        ((mvwinch(current_room_win, posy, posx) & A_CHARTEXT) == 113)) {
+    if(((mvwinch(stdscr, posy, posx) & A_CHARTEXT) == 35)) {
         legal = false;
     }
     else if(false) {

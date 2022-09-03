@@ -8,10 +8,10 @@
 #include <iostream>
 using namespace std;
 
-#define BOARD_DIM 17
+/*#define BOARD_DIM 17
 #define BOARD_ROWS BOARD_DIM
 #define BOARD_COLS BOARD_DIM * 2.5
-
+*/
 
 /**
  * Main function file, runner of the program
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 {
 
 	// Questo dovra' andare in una funzione separate prima o poi:
-
+	
 	initscr();	   // Inizializza lo schermo secondo la libreria ncurses
 	start_color(); // Permette l'utilizzo di colori sullo schermo
 	clear();	   // Svuota il terminale
@@ -32,11 +32,15 @@ int main(int argc, char **argv)
 	curs_set(0); // Rende il cursore invisibile
 	nodelay(stdscr, true);   //altrimenti aspetta sempre l'input dell'utente
 	refresh();
+	int rows, cols;
+	getmaxyx(stdscr, rows, cols);
 
 	///////////////////////////////////////////////////////////////////////////
 
 	// Inizializzazione della tavola principale iniziale
-	Board board(BOARD_ROWS, BOARD_COLS);
+	rows=rows-21;
+	cols=rows*2.5;
+	Board board(rows, cols);
 
 	// Inizializzazione del personaggio principale
 	Character p = Character();
@@ -103,13 +107,11 @@ int main(int argc, char **argv)
 			endwin();
 			//apre terminale
 			// -- inizia codice --
-			cout << "board: " << endl;
-			cout << "x: " << getbegx(board.getWin()) << " y: " << getbegy(board.getWin()) << endl;
-			cout << "prova_win: " << endl;
-			cout << "x: " << getbegx(prova_win) << " y: " << getbegy(prova_win) << endl;
-			cout << "carattere sopra: " << stampa_debug << endl;
 			int inutile;
 			cin >> inutile;
+			mvprintw(20,20,"#");
+			int cacca = mvwinch(stdscr,20,20);
+			cout <<cacca;
 			// -- fine codice --
 			//riapre ncurses
 			reset_prog_mode();
