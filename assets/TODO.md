@@ -23,3 +23,8 @@ https://docs.google.com/spreadsheets/d/1OLR-SXiAPb2hF5HqI_HXK4uz4xTSWIK0N3RCSS4b
 - studiare progetti
 - studiare strutture di programmi e classi
 - ha senso tenere un inventario per il personaggio? può avere dei superpoteri? sparare in modo diverso, muoversi più veloce? o solo il numero di chiavi raccolte così quando le prende tutte si aprono le porte? o meglio, lo vogliamo fare più complesso o solo le cose base?
+
+Haz3:
+- devo confrontarmi con gli altri per capire dove mettere le singole funzioni per i colori e per ridurre il wall of text di funzioni
+- inoltre credo sia meglio sistemare la dimensione della finestra in modo che venga in 16:9 o qualcosa del genere ma cresca in base alla grandezza della finestra del terminale
+- dobbiamo inoltre sistemare come abbiamo scritto la funzione per gestire se il carattere è uguale a q per terminare

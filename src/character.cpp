@@ -90,12 +90,9 @@ void Character::PlayerMove(int x, int y) {
 
     current_position.x=x;
     current_position.y=y;
-    
+    attron(COLOR_PAIR(PLAYER_PAIR));
     mvprintw(current_position.y, current_position.x, icon);
-    
-    //mvprintw(y, x, "@");
-    //mvprintw(200, 200,"a");
-    //move(current_position.y, current_position.x);
+    attroff(COLOR_PAIR(PLAYER_PAIR));
 }
 
 Position Character::getCurrentPosition() {
@@ -127,11 +124,14 @@ void Character::HandleInput(int input){
         /*si muove in su*/
         case 'w':
         case 'W':
-            if ((current_position.y > 0) && legalMove(current_position.y - 1, current_position.x)) {
+            if (legalMove(current_position.x, current_position.y - 1)) {
                 if(steppedOnArtifact(current_position.x, current_position.y - 1)) {
                     //non lo so fai qualcosa
                     //updateHealth(+10) non lo so
                 }
+                attron(COLOR_PAIR(PAVE_PAIR));
+                mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 //Board::fillPoint(current_position.y, current_position.x); non so come implementare in modo che usi la classe Board e usi la funzione per riempire lo spazio
                 current_position.y--;
                 PlayerMove(current_position.x, current_position.y);
@@ -153,7 +153,9 @@ void Character::HandleInput(int input){
         case 'd':
         case 'D':
             if(legalMove(current_position.x + 1, current_position.y)) {
+                attron(COLOR_PAIR(PAVE_PAIR));
                 mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.x++;
                 PlayerMove(current_position.x, current_position.y);
                 last_direction_taken = 1;
@@ -166,7 +168,9 @@ void Character::HandleInput(int input){
         case 's':
         case 'S':
             if(legalMove(current_position.x, current_position.y + 1)) {
+                attron(COLOR_PAIR(PAVE_PAIR));
                 mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.y++;
                 PlayerMove(current_position.x, current_position.y);
                 last_direction_taken = 2;
@@ -179,7 +183,9 @@ void Character::HandleInput(int input){
         case 'a':
         case 'A':
             if(legalMove(current_position.x - 1, current_position.y)) {
+                attron(COLOR_PAIR(PAVE_PAIR));
                 mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.x--;
                 PlayerMove(current_position.x, current_position.y);
                 last_direction_taken = 3;
@@ -194,14 +200,10 @@ void Character::HandleInput(int input){
     }
 }
 
-bool Character::legalMove(int posx, int posy) {
-    bool legal = true;
-
-    if(((mvwinch(stdscr, posy, posx) & A_CHARTEXT) == 35)) {
-        legal = false;
-    }
-
-    return legal;
+int Character::legalMove(int posx, int posy) {
+    int k;
+    k =  mvinch(posy,posx);
+    return ((k & A_CHARTEXT) == PAVE);
 } 
 
 bool Character::steppedOnEnemy(int posx, int posy) {

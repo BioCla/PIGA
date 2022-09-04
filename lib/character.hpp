@@ -42,7 +42,7 @@ class Character {
         void PlayerMove(int x, int y);
         Position getCurrentPosition();
         void HandleInput(int input);
-        bool legalMove(int posx, int posy);
+        int legalMove(int posx, int posy);
         bool steppedOnEnemy(int posx, int posy);
         bool steppedOnArtifact(int posx, int posy);
 
