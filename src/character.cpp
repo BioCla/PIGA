@@ -243,7 +243,13 @@ void Character::createProjectile(int direction) {
     projList *p = new projList;
     Projectile newProjectile = Projectile("*", current_position, direction, projectile_moving_frequency);
     
+    //head insert del nuovo proiettile
+    p->next = projListHead;
     p->proj = newProjectile;
-    p->next = NULL;
-    p->proj.moveProjectile();
+    
+    //salva la nuova head
+    projListHead = p;
+
+    //stampa il proiettile
+    projListHead->proj.moveProjectile();
 }

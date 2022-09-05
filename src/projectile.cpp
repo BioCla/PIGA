@@ -51,7 +51,7 @@ void Projectile::moveProjectile() {
                 spawn(current_position);
             }
             else {
-                deleteIcon();
+                deleteIcon();   //in realtà non serve
             }
             break;
         case DIR_EAST:
