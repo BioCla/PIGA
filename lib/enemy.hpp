@@ -19,7 +19,7 @@ class Enemy { // i vari tipi di nemici saranno sottoclasse di questa classe
     public:
         Enemy();
         Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time);
-        void spawn(WINDOW* win, Position initial_position);
+        void spawn(Position initial_position);
         Position getCurrentPosition();
         void setHealth(int set);
         int getHealth();

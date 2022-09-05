@@ -24,9 +24,8 @@ Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_positi
     last_time_moved = system_clock::now();
 }
 
-void Enemy::spawn(WINDOW* win, Position position) {
-    mvwprintw(stdscr, position.y, position.x, icon);
-    //wrefresh(stdscr);    
+void Enemy::spawn(Position position) {
+    mvprintw(position.y, position.x, icon);    
 }
 
 Position Enemy::getCurrentPosition(){
@@ -64,7 +63,30 @@ WINDOW* Enemy::getCurrentRoom() {
 
 void Enemy::moveEnemy(){
     switch (pathID){
-        
+        case 1:
+            pathID++;
+            deleteIcon();
+            current_position.y = current_position.y - 1;
+            spawn(current_position);
+            break;
+        case 2:
+            pathID++;
+            deleteIcon();
+            current_position.x = current_position.x - 1;
+            spawn(current_position);
+            break;
+        case 3:
+            pathID++;
+            deleteIcon();
+            current_position.y = current_position.y + 1;
+            spawn(current_position);
+            break;
+        case 4:
+            pathID=1;
+            deleteIcon();
+            current_position.x = current_position.x + 1;
+            spawn(current_position);
+            break;
     }
 }
 
