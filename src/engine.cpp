@@ -1,5 +1,6 @@
 //File contiene tutte le funzioni inerenti ncurses e la gestione dello schermo
 #include "../lib/engine.hpp"
+#include <chrono>
 
 // Inizializza ncurses
 void init() {
@@ -155,6 +156,11 @@ int legalMove(int y, int x) {
     return (((testch & A_CHARTEXT) == EMPTY)/* || se e' un artefatto */);
 }
 
-void moveProjectiles(projList projectiles) {
+void moveProjectiles(projList head, system_clock::time_point time_now) {
+	projList *p = new projList;
+	*p = head;
 
+	while(p != NULL) {
+		p->proj.checkIfTimeToMove(time_now);
+	}
 }

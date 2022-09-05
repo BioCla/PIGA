@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 
 	//DEBUG - prova del proiettile
 	Position spawnpoint_projectile;
-	spawnpoint_projectile.x = 20; spawnpoint_projectile.y = 20;
+	spawnpoint_projectile.x = 10; spawnpoint_projectile.y = 10;
 	duration <int, std::ratio <1,1000 > > time_interval_projectile(250);
 	Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 1, 250);
 	speedygonzales.spawn(speedygonzales.getCurrentPosition());
