@@ -154,3 +154,7 @@ int legalMove(int y, int x) {
     testch = mvinch(y, x);
     return (((testch & A_CHARTEXT) == EMPTY)/* || se e' un artefatto */);
 }
+
+void moveProjectiles(projList projectiles) {
+
+}

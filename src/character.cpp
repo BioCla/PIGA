@@ -8,7 +8,8 @@ Character::Character() {
     health = max_health;
     damage = 5;   //numero a caso
     projectile_icon = '-';
-    last_direction_taken = 0;
+    last_direction_taken = DIR_EAST;   //arbitrario. se spara senza muoversi i proiettili devono andare da qualche parte
+    projListHead = NULL;
 }
 
 Character::Character(int x, int y){
@@ -17,7 +18,8 @@ Character::Character(int x, int y){
     health = max_health;
     current_position.x = x;
     current_position.y = y;
-    last_direction_taken = 0;
+    last_direction_taken = DIR_NORTH;
+    projListHead = NULL;
 }
 
 void Character::updateHearts() {
@@ -72,6 +74,14 @@ void Character::setProjectileIcon(char set) {
 
 char Character::getProjectileIcon() {
     return projectile_icon;
+}
+
+void Character::setProjectileMovingFrequency(int set) {
+    projectile_moving_frequency = set;
+}
+
+int Character::getProjectileMovingFrequency() {
+    return projectile_moving_frequency;
 }
 
 void Character::setRoomWin(WINDOW* set) {
@@ -135,7 +145,7 @@ void Character::HandleInput(int input){
                 //Board::fillPoint(current_position.y, current_position.x); non so come implementare in modo che usi la classe Board e usi la funzione per riempire lo spazio
                 current_position.y--;
                 PlayerMove(current_position.x, current_position.y);
-                last_direction_taken = 0;
+                last_direction_taken = DIR_NORTH;
             }
             else if (steppedOnEnemy(current_position.x, current_position.y - 1)) {
                 //calcoladanno();
@@ -158,7 +168,7 @@ void Character::HandleInput(int input){
                 attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.x++;
                 PlayerMove(current_position.x, current_position.y);
-                last_direction_taken = 1;
+                last_direction_taken = DIR_EAST;
             }
             else if (steppedOnEnemy(current_position.x + 1, current_position.y)) {
                 //calcoladanno();
@@ -173,7 +183,7 @@ void Character::HandleInput(int input){
                 attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.y++;
                 PlayerMove(current_position.x, current_position.y);
-                last_direction_taken = 2;
+                last_direction_taken = DIR_SOUTH;
             }
             else if (steppedOnEnemy(current_position.x, current_position.y + 1)) {
                 //calcoladanno();
@@ -188,7 +198,7 @@ void Character::HandleInput(int input){
                 attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.x--;
                 PlayerMove(current_position.x, current_position.y);
-                last_direction_taken = 3;
+                last_direction_taken = DIR_WEST;
             }
             else if (steppedOnEnemy(current_position.x - 1, current_position.y)) {
                 //calcoladanno();
@@ -200,7 +210,7 @@ void Character::HandleInput(int input){
     }
 }
 
-int Character::legalMove(int posx, int posy) {
+bool Character::legalMove(int posx, int posy) {
     int k;
     k =  mvinch(posy,posx);
     return ((k & A_CHARTEXT) == PAVE);
@@ -221,4 +231,19 @@ bool Character::steppedOnArtifact(int posx, int posy) {
     dalla classe direi ROOM si prende il carattere alle coordinate (posx, posy) e se è un artefatto
     */
    return flag;
+}
+
+void Character::shoot() {
+    //controlla se il tempo di ricarica è passato
+    //controlla se sta sparando attaccato ad un muro contro il muro
+    createProjectile(last_direction_taken);
+}
+
+void Character::createProjectile(int direction) {
+    projList *p = new projList;
+    Projectile newProjectile = Projectile("*", current_position, direction, projectile_moving_frequency);
+    
+    p->proj = newProjectile;
+    p->next = NULL;
+    p->proj.moveProjectile();
 }

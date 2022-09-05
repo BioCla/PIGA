@@ -1,18 +1,20 @@
 #include "../lib/projectile.hpp"
+#include "../lib/engine.hpp"
 #include <chrono>
 
 Projectile::Projectile() {
     icon = "*";
     current_position = {10, 10};
-    direction = 1;
+    direction = DIR_EAST;     
     //a caso, giusto per vederlo vagare sullo schermo
 }
 
-Projectile::Projectile(const char* icon, Position position, int direction, duration <int, std::ratio <1,1000 > > moving_frequency) {
+Projectile::Projectile(const char* icon, Position position, int direction, int moving_frequency) {
     this->icon = icon;
     current_position = position;
     this->direction = direction;
-    this->moving_frequency = moving_frequency;
+    duration <int, std::ratio <1,1000 > > one_millisecond;
+    this->moving_frequency = moving_frequency * one_millisecond;
     last_time_moved = system_clock::now();
 }
 
@@ -42,7 +44,7 @@ WINDOW* Projectile::getCurrentRoom() {
 
 void Projectile::moveProjectile() {
     switch(direction) {
-        case 0:
+        case DIR_NORTH:
             deleteIcon();
             if(!collisionWithRoomWall(current_position.x, current_position.y - 1)) {
                 current_position.y = current_position.y - 1;
@@ -52,7 +54,7 @@ void Projectile::moveProjectile() {
                 deleteIcon();
             }
             break;
-        case 1:
+        case DIR_EAST:
             deleteIcon();
             if(!collisionWithRoomWall(current_position.x + 1, current_position.y)) {
                 current_position.x = current_position.x + 1;
@@ -62,7 +64,7 @@ void Projectile::moveProjectile() {
                 deleteIcon();
             }
             break;
-        case 2:
+        case DIR_SOUTH:
             deleteIcon();
             if(!collisionWithRoomWall(current_position.x, current_position.y + 1)) {
                 current_position.y = current_position.y + 1;
@@ -72,7 +74,7 @@ void Projectile::moveProjectile() {
                 deleteIcon();
             }
             break;
-        case 3:
+        case DIR_WEST:
             deleteIcon();
             if(!collisionWithRoomWall(current_position.x - 1, current_position.y)) {
                 current_position.x = current_position.x - 1;

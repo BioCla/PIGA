@@ -3,13 +3,15 @@
 #include <chrono>
 using namespace std::chrono;
 
-
+#ifndef PROJECTILE_HPP
+#define PROJECTILE_HPP
 class Projectile {
     protected:
         WINDOW* current_room_win;
         const char* icon;
         Position current_position;
         int direction;
+        int moving_frequency_multiplyer;
         duration <int, std::ratio <1,1000 > > moving_frequency;
         system_clock::time_point last_time_moved;
 
@@ -18,7 +20,7 @@ class Projectile {
 
     public:
         Projectile();
-        Projectile(const char* icon, Position position, int direction, duration <int, std::ratio <1,1000 > > speed);
+        Projectile(const char* icon, Position position, int direction, int moving_frequency);
         void spawn(Position initial_position);
         void deleteIcon();
         void setPosition(Position set);
@@ -29,3 +31,5 @@ class Projectile {
         void checkIfTimeToMove(system_clock::time_point time_now);
         bool collisionWithRoomWall(int posx, int posy);
 };
+
+#endif

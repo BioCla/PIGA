@@ -1,5 +1,7 @@
 #include <ncursesw/ncurses.h>
 
+#include "../assets/projList.hpp"
+
 #define EMPTY ' '
 
 // '_' ' ' '\' '/'
@@ -7,6 +9,11 @@
 #define SPACE_COLOR_PAIR 		3
 #define BS_COLOR_PAIR 			4
 #define FS_COLOR_PAIR 			5
+
+#define DIR_NORTH 0
+#define DIR_EAST 1
+#define DIR_SOUTH 2
+#define DIR_WEST 3
 
 void init();
 void end();
@@ -20,3 +27,4 @@ void corners(WINDOW *room);
 WINDOW *alert(const char *string);
 chtype getcharat(int y, int x);
 int legalMove(int y, int x);
+void moveProjectiles(projList projectiles);

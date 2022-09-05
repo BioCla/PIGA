@@ -1,6 +1,7 @@
 #include <ncursesw/ncurses.h>
 
 #include "../assets/position.hpp"
+#include "../assets/projList.hpp"
 
 class Character {
     protected:
@@ -13,9 +14,11 @@ class Character {
         //allora attenzione: io ho pensato che il personaggio ha 30 di vita e 3 cuori (uno x 10 pv) si può naturalmente cambiare ma fatelo con criterio
         int damage;    //il danno che i suoi proiettili fanno ai mostri
         char projectile_icon;
+        int projectile_moving_frequency;
         Position current_position;
         WINDOW* current_room_win;
         int last_direction_taken;
+        projList *projListHead;
 
         //inventario?
         //velocità?
@@ -36,14 +39,18 @@ class Character {
         const char* getIcon();
         void setProjectileIcon(char set);
         char getProjectileIcon();
+        void setProjectileMovingFrequency(int set);
+        int getProjectileMovingFrequency();
         void setRoomWin(WINDOW* set);
         WINDOW* getRoomWin();
         int getLastDirection();
         void PlayerMove(int x, int y);
         Position getCurrentPosition();
         void HandleInput(int input);
-        int legalMove(int posx, int posy);
+        bool legalMove(int posx, int posy);
         bool steppedOnEnemy(int posx, int posy);
         bool steppedOnArtifact(int posx, int posy);
+        void shoot();
+        void createProjectile(int direction);
 
 };
