@@ -11,7 +11,7 @@ class Enemy { // i vari tipi di nemici saranno sottoclasse di questa classe
         int max_health;
         int damage;       //danno che infligge il nemico al giocatore
         Position current_position;
-        int pathID; // percorso che fa il nemico (pathID =1 un pattern, pathID = 2 un altro pattern)
+        int pathID; // percorso che fa il nemico (pathID =1 un pattern, pathID = 2 un altro pattern)[da cambiare]
         duration <int, std::ratio <1,1000 > > idle_time;
         system_clock::time_point last_time_moved;
         //
@@ -29,5 +29,6 @@ class Enemy { // i vari tipi di nemici saranno sottoclasse di questa classe
         void setCurrentRoom(WINDOW* set);
         WINDOW* getCurrentRoom();
         void moveEnemy();
+        bool legalMove(int posx, int posy);
         void checkIfTimeToMove(system_clock::time_point time_now);
 };

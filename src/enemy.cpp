@@ -1,5 +1,8 @@
 #include "../lib/enemy.hpp"
+#include "../lib/board.hpp"
+#include "../lib/engine.hpp"
 #include <chrono>
+#include <ctime>
 
 Enemy::Enemy(){
     
@@ -63,6 +66,7 @@ WINDOW* Enemy::getCurrentRoom() {
 
 void Enemy::moveEnemy(){
     switch (pathID){
+        /*
         case 1:
             pathID++;
             deleteIcon();
@@ -87,8 +91,45 @@ void Enemy::moveEnemy(){
             current_position.x = current_position.x + 1;
             spawn(current_position);
             break;
+        */
+        case DIR_NORTH:
+            if (legalMove(current_position.x, current_position.y-1)){
+                deleteIcon();
+                current_position.y--;
+                spawn(current_position);
+            }                        
+            break;            
+        case DIR_EAST:
+            if (legalMove(current_position.x+1, current_position.y)){
+                deleteIcon();
+                current_position.x++;
+                spawn(current_position);
+            }
+            break;               
+        case DIR_SOUTH:
+            if (legalMove(current_position.x, current_position.y+1)){
+                deleteIcon();
+                current_position.y++;;
+                spawn(current_position);
+            }
+            break;   
+        case DIR_WEST:
+            if (legalMove(current_position.x-1, current_position.y)){
+                deleteIcon();
+                current_position.x--;
+                spawn(current_position);
+            }
+            break;   
     }
+    pathID = rand() % 4;
 }
+
+bool Enemy::legalMove(int posx, int posy) {
+    int k;
+    k =  mvinch(posy,posx);
+    return ((k & A_CHARTEXT) == PAVE);
+} 
+
 
 void Enemy::checkIfTimeToMove(system_clock::time_point time_now) {
     if(time_now > last_time_moved + idle_time) {

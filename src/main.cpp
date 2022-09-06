@@ -6,7 +6,7 @@
 #include "../lib/enemy.hpp"
 #include "../lib/engine.hpp"
 #include <stdlib.h>
-
+#include <ctime>
 #include <iostream>
 using namespace std;
 
@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	 // Permette l'utilizzo di colori sullo schermo
 	
 	
-
+	srand(time(NULL));
 	int rows, cols;
 	getmaxyx(stdscr, rows, cols);
 
