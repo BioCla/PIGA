@@ -2,6 +2,9 @@
 #include "../lib/engine.hpp"
 #include <chrono>
 
+#include <iostream>
+using namespace std;
+
 // Inizializza ncurses
 void init() {
 	initscr(); // Inizializza lo schermo secondo la libreria ncurses
@@ -156,11 +159,26 @@ int legalMove(int y, int x) {
     return (((testch & A_CHARTEXT) == EMPTY)/* || se e' un artefatto */);
 }
 
-void moveProjectiles(projList head, system_clock::time_point time_now) {
+void moveProjectiles(projList* head, system_clock::time_point time_now) {
 	projList *p = new projList;
-	*p = head;
+	p = head;
 
 	while(p != NULL) {
 		p->proj.checkIfTimeToMove(time_now);
+		p = p->next;
 	}
+}
+
+void FUNZIONEDEBUG(projList *head) {
+	projList *p = new projList;
+	p = head;
+
+	while(p != NULL) {
+		cout << "indirizzo: " << p <<endl;
+		p = p->next;
+	}
+
+	cout << "indirizzo HEAD: " << head << endl;
+	cout << "indirizzo next: " << head->next << endl;
+
 }

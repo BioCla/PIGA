@@ -13,8 +13,9 @@ Projectile::Projectile(const char* icon, Position position, int direction, int m
     this->icon = icon;
     current_position = position;
     this->direction = direction;
-    duration <int, std::ratio <1,1000 > > one_millisecond;
-    this->moving_frequency = moving_frequency * one_millisecond;
+    moving_frequency_multiplyer = moving_frequency;
+    duration <int, std::ratio <1,1000 > > one_millisecond (1);
+    this->moving_frequency = moving_frequency_multiplyer * one_millisecond;
     last_time_moved = system_clock::now();
 }
 

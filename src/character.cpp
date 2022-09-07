@@ -19,7 +19,7 @@ Character::Character(int x, int y){
     current_position.x = x;
     current_position.y = y;
     last_direction_taken = DIR_NORTH;
-    projListHead = NULL;
+    //projListHead = NULL;
 }
 
 void Character::updateHearts() {
@@ -240,8 +240,9 @@ void Character::shoot() {
 }
 
 void Character::createProjectile(int direction) {
-    projList *p = new projList;
-    Projectile newProjectile = Projectile("*", current_position, direction, projectile_moving_frequency);
+    projList *p;
+    p = new projList;
+    Projectile newProjectile = Projectile("!", current_position, direction, projectile_moving_frequency);
     
     //head insert del nuovo proiettile
     p->next = projListHead;
@@ -252,4 +253,8 @@ void Character::createProjectile(int direction) {
 
     //stampa il proiettile
     projListHead->proj.moveProjectile();
+}
+
+projList* Character::getProjectilesShot() {
+    return projListHead;
 }

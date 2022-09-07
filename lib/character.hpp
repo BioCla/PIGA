@@ -52,5 +52,5 @@ class Character {
         bool steppedOnArtifact(int posx, int posy);
         void shoot();
         void createProjectile(int direction);
-
+        projList* getProjectilesShot();
 };

@@ -10,6 +10,8 @@
 #include <iostream>
 using namespace std;
 
+#include "../assets/projList.hpp"
+
 
 /*#define BOARD_DIM 17
 #define BOARD_ROWS BOARD_DIM
@@ -47,7 +49,7 @@ int main(int argc, char **argv)
 	// Inizializzazione del personaggio principale
 	Character p = Character();
 	p.setRoomWin(board.getWin());
-	p.setProjectileMovingFrequency(250);   //non so se è meglio così o come parametro nel costruttore
+	p.setProjectileMovingFrequency(100);   //non so se è meglio così o come parametro nel costruttore
 
 	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
 	p.PlayerMove(getmaxx(stdscr)/2, getmaxy(stdscr)/2);
@@ -79,11 +81,12 @@ int main(int argc, char **argv)
 
 	// / prova nemico
 
-
+	
 	// /DEBUG
 
 
 	system_clock::time_point time_now = system_clock::now();
+
 	int ch; // Variabile di accesso al handler per gli input
 	while ((ch = getch()) != 'q')
 	{
@@ -93,18 +96,23 @@ int main(int argc, char **argv)
 		p.HandleInput(ch);
 		Astolfo.checkIfTimeToMove(time_now);
 		speedygonzales.checkIfTimeToMove(time_now);
+		moveProjectiles(p.getProjectilesShot(), time_now);
 
-		if(ch=='f') {
+		if(ch=='f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
 			p.shoot();
 		}
 		else if(ch=='g') {	
 			
 		}
 		else if(ch=='t') {
+			
 			def_prog_mode();
 			endwin();
 			//apre terminale
 			// -- inizia codice --
+
+
+			//FUNZIONEDEBUG(p.getProjectilesShot());
 			
 
 			// -- fine codice --
