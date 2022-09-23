@@ -27,5 +27,5 @@ void corners(WINDOW *room);
 WINDOW *alert(const char *string);
 chtype getcharat(int y, int x);
 int legalMove(int y, int x);
-void moveProjectiles(projList* head, system_clock::time_point time_now);
+void refreshProjectiles(projList* head, system_clock::time_point time_now);
 void FUNZIONEDEBUG(projList projectiles);

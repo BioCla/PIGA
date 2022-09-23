@@ -240,8 +240,7 @@ void Character::shoot() {
 }
 
 void Character::createProjectile(int direction) {
-    projList *p;
-    p = new projList;
+    projList *p = new projList;
     Projectile newProjectile = Projectile("!", current_position, direction, projectile_moving_frequency);
     
     //head insert del nuovo proiettile

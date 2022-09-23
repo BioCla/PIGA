@@ -159,26 +159,84 @@ int legalMove(int y, int x) {
     return (((testch & A_CHARTEXT) == EMPTY)/* || se e' un artefatto */);
 }
 
-void moveProjectiles(projList* head, system_clock::time_point time_now) {
+void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 	projList *p = new projList;
 	p = head;
+	projList *toBeDeleted = new projList;
+	toBeDeleted = NULL;
 
 	while(p != NULL) {
 		p->proj.checkIfTimeToMove(time_now);
 		p = p->next;
 	}
-}
 
-void FUNZIONEDEBUG(projList *head) {
-	projList *p = new projList;
 	p = head;
 
-	while(p != NULL) {
-		cout << "indirizzo: " << p <<endl;
+	while((p != NULL) && (p->next != NULL)) {
+		if(!((p->next->proj).isAlive())) {
+			toBeDeleted = p->next;
+			p->next = p->next->next;
+			delete(toBeDeleted);
+			toBeDeleted = NULL;
+		}
 		p = p->next;
 	}
+	//controllo il primo elemento
+	
+	if((head != NULL) && !((head->proj).isAlive())) {
+		if(head->next == NULL) {
+			head = NULL;
+		}
+		else {
+			toBeDeleted = head;
+			head = head->next;
+			delete(toBeDeleted);
+			toBeDeleted = NULL;
+		}
+	}
 
-	cout << "indirizzo HEAD: " << head << endl;
-	cout << "indirizzo next: " << head->next << endl;
+	
+////////////////////
+/*
+	projList *p = new projList;
+	p = head;
+	
+	//controllo per i primi elementi della lista. riguarda solo quelli da eliminare
+	//serve se più proiettili vanno eliminati contemporaneamente (molto raro in realtà)
+	while((head != NULL) && (!head->proj.isAlive())) {
+		head = head->next;
+		p->proj.deleteIcon();
+		delete(p);
+		p = head;
+	}
 
+	projList *pprec = new projList;
+	pprec = p;
+
+	//controllo sul primo proiettile della lista ancora "vivo". inoltre setto il pprec
+	if((p != NULL) && (p->next != NULL)) {
+		//il prossimo controllo agisce su p. ma io so che QUESTO p non è da cancellare (altrimenti non sarebbe uscito dal while)
+		p->proj.checkIfTimeToMove(time_now);
+		p = p->next;    //quindi passo a controllare il successivo, nel prossimo while
+	}
+	
+	//controllo il resto della lista
+	while(p != NULL) {
+		p->proj.checkIfTimeToMove(time_now);
+		pprec = p;
+
+		if(!(p->proj.isAlive())) {
+			pprec->next = p->next;
+			delete(p);
+			p = pprec->next;
+		}
+
+		if(p->next != NULL) {
+			p = p->next;
+		}
+	}
+	*/
+}
+
+void FUNZIONEDEBUG(projList* head, system_clock::time_point time_now) {
 }

@@ -64,6 +64,8 @@ int main(int argc, char **argv)
 	
 	speedygonzales.setCurrentRoom(board.getWin());
 
+	
+
 		//-- prova character.legalMove()
 	
 
@@ -96,12 +98,14 @@ int main(int argc, char **argv)
 		p.HandleInput(ch);
 		Astolfo.checkIfTimeToMove(time_now);
 		speedygonzales.checkIfTimeToMove(time_now);
-		moveProjectiles(p.getProjectilesShot(), time_now);
+		refreshProjectiles(p.getProjectilesShot(), time_now);	
+		
+		
 
 		if(ch=='f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
 			p.shoot();
 		}
-		else if(ch=='g') {	
+		else if(ch=='g') {
 			
 		}
 		else if(ch=='t') {
@@ -112,7 +116,7 @@ int main(int argc, char **argv)
 			// -- inizia codice --
 
 
-			//FUNZIONEDEBUG(p.getProjectilesShot());
+			//FUNZIONEDEBUG();
 			
 
 			// -- fine codice --

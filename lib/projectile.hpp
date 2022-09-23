@@ -14,9 +14,8 @@ class Projectile {
         int moving_frequency_multiplyer;
         duration <int, std::ratio <1,1000 > > moving_frequency;
         system_clock::time_point last_time_moved;
-
-        //direi che la convenzione dove partiamo da 0 nord e incrementiamo in senso orario può andare bene
-        //0: nord   1:est   2:sud   3:ovest
+        bool alive;   //un proiettile è "vivo" se non si è scontrato con muri o altre cose. appena questa diventa fase il proiettile va eliminato
+        
 
     public:
         Projectile();
@@ -30,6 +29,8 @@ class Projectile {
         void moveProjectile();
         void checkIfTimeToMove(system_clock::time_point time_now);
         bool collisionWithRoomWall(int posx, int posy);
+        bool isAlive();
+        void setAliveStatus(bool set);
 };
 
 #endif
