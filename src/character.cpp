@@ -7,18 +7,24 @@ Character::Character() {
     max_health = 30;
     health = max_health;
     damage = 5;   //numero a caso
-    projectile_icon = '-';
+    projectile_icon = "-";
+    projectile_moving_frequency = 1000;
     last_direction_taken = DIR_EAST;   //arbitrario. se spara senza muoversi i proiettili devono andare da qualche parte
     projListHead = NULL;
 }
 
-Character::Character(int x, int y){
-    icon = "@";
-    max_health = 30;
-    health = max_health;
+Character::Character(int x, int y, const char * icon, int max_health, const char * projectile_icon, int projectile_moving_frequency){
     current_position.x = x;
     current_position.y = y;
+    this->icon = icon;
+    this->max_health = max_health;
+    health = max_health;
+    damage = 5;   //numero a caso
+    this->projectile_icon = projectile_icon;
+    this->projectile_moving_frequency = projectile_moving_frequency;
+    //valori arbitrari:
     last_direction_taken = DIR_NORTH;
+    damage = 5;
     //projListHead = NULL;
 }
 
@@ -68,11 +74,11 @@ const char* Character::getIcon() {
     return icon;
 }
 
-void Character::setProjectileIcon(char set) {
+void Character::setProjectileIcon(const char * set) {
     projectile_icon = set;
 }
 
-char Character::getProjectileIcon() {
+const char * Character::getProjectileIcon() {
     return projectile_icon;
 }
 
@@ -241,7 +247,7 @@ void Character::shoot() {
 
 void Character::createProjectile(int direction) {
     projList *p = new projList;
-    Projectile newProjectile = Projectile("!", current_position, direction, projectile_moving_frequency);
+    Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency);
     
     //head insert del nuovo proiettile
     p->next = projListHead;
