@@ -13,7 +13,7 @@ class Character {
         int num_hearts;   //se vogliamo far vedere i cuori invece che il numero, come nell'esempio del prof
         //allora attenzione: io ho pensato che il personaggio ha 30 di vita e 3 cuori (uno x 10 pv) si può naturalmente cambiare ma fatelo con criterio
         int damage;    //il danno che i suoi proiettili fanno ai mostri
-        char projectile_icon;
+        const char* projectile_icon;
         int projectile_moving_frequency;
         Position current_position;
         WINDOW* current_room_win;
@@ -28,7 +28,7 @@ class Character {
 
     public:
         Character();
-        Character(int x, int y);
+        Character(int x, int y, const char * icon, int max_health, const char * projectile_icon, int projectile_moving_frequency);
         void updateHearts();
         void updateHealth(int mod);
         void setHealth(int set);
@@ -37,8 +37,8 @@ class Character {
         int getDamage();
         void setIcon(const char* set);
         const char* getIcon();
-        void setProjectileIcon(char set);
-        char getProjectileIcon();
+        void setProjectileIcon(const char * set);
+        const char * getProjectileIcon();
         void setProjectileMovingFrequency(int set);
         int getProjectileMovingFrequency();
         void setRoomWin(WINDOW* set);
