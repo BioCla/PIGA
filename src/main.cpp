@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 	
 	srand(time(NULL));
 	int rows, cols;
+	resizeterm(20,50);
 	getmaxyx(stdscr, rows, cols);
 
 	///////////////////////////////////////////////////////////////////////////
@@ -40,7 +41,8 @@ int main(int argc, char **argv)
 	// Inizializzazione della tavola principale iniziale
 	rows=rows-21;
 	cols=rows*2.5;
-	Board board(rows, cols);
+	//Board board(rows, cols);
+	Board board(20,20);
 	getmaxyx(stdscr, rows, cols);
 
 	
