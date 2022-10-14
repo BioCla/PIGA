@@ -49,12 +49,14 @@ int main(int argc, char **argv)
 
 
 	// Inizializzazione del personaggio principale
-	Character p = Character();
+	Position character_initial_position;
+	character_initial_position.x = getmaxx(stdscr)/2;
+	character_initial_position.y = getmaxy(stdscr)/2;
+	Character p = Character(character_initial_position.x, character_initial_position.y, "@", 30, "*", 100);
 	p.setRoomWin(board.getWin());
-	p.setProjectileMovingFrequency(100);   //non so se è meglio così o come parametro nel costruttore
 
 	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
-	p.PlayerMove(getmaxx(stdscr)/2, getmaxy(stdscr)/2);
+	p.PlayerMove(character_initial_position.x, character_initial_position.y);
 
 
 	//DEBUG - prova del proiettile
@@ -120,7 +122,7 @@ int main(int argc, char **argv)
 			// -- inizia codice --
 
 
-			//FUNZIONEDEBUG();
+			//FUNZIONEDEBUG();  
 			
 
 			// -- fine codice --
