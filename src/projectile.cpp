@@ -1,5 +1,6 @@
 #include "../lib/projectile.hpp"
 #include "../lib/engine.hpp"
+#include "../lib/board.hpp"
 #include <chrono>
 
 Projectile::Projectile() {
@@ -22,7 +23,9 @@ Projectile::Projectile(const char* icon, Position position, int direction, int m
 }
 
 void Projectile::spawn(Position position) {
+    attron(COLOR_PAIR(PROJCTL_PAIR));
     mvprintw(position.y, position.x, icon);
+    attroff(COLOR_PAIR(PROJCTL_PAIR));
 }
 
 void Projectile::deleteIcon() {
@@ -50,6 +53,9 @@ void Projectile::moveProjectile() {
         case DIR_NORTH:
             deleteIcon();
             if(!collisionWithRoomWall(current_position.x, current_position.y - 1)) {
+                attron(COLOR_PAIR(PAVE_PAIR));
+                mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.y = current_position.y - 1;
                 spawn(current_position);
             }
@@ -60,6 +66,9 @@ void Projectile::moveProjectile() {
         case DIR_EAST:
             deleteIcon();
             if(!collisionWithRoomWall(current_position.x + 1, current_position.y)) {
+                attron(COLOR_PAIR(PAVE_PAIR));
+                mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.x = current_position.x + 1;
                 spawn(current_position);
             }
@@ -70,6 +79,9 @@ void Projectile::moveProjectile() {
         case DIR_SOUTH:
             deleteIcon();
             if(!collisionWithRoomWall(current_position.x, current_position.y + 1)) {
+                attron(COLOR_PAIR(PAVE_PAIR));
+                mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.y = current_position.y + 1;
                 spawn(current_position);
             }
@@ -80,6 +92,9 @@ void Projectile::moveProjectile() {
         case DIR_WEST:
             deleteIcon();
             if(!collisionWithRoomWall(current_position.x - 1, current_position.y)) {
+                attron(COLOR_PAIR(PAVE_PAIR));
+                mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.x = current_position.x - 1;
                 spawn(current_position);
             }

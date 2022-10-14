@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 	
 	srand(time(NULL));
 	int rows, cols;
+	resizeterm(20,50);
 	getmaxyx(stdscr, rows, cols);
 
 	///////////////////////////////////////////////////////////////////////////
@@ -40,7 +41,8 @@ int main(int argc, char **argv)
 	// Inizializzazione della tavola principale iniziale
 	rows=rows-21;
 	cols=rows*2.5;
-	Board board(rows, cols);
+	//Board board(rows, cols);
+	Board board(20,20);
 	getmaxyx(stdscr, rows, cols);
 
 	
@@ -61,6 +63,7 @@ int main(int argc, char **argv)
 	Position spawnpoint_projectile;
 	spawnpoint_projectile.x = 10; spawnpoint_projectile.y = 10;
 	duration <int, std::ratio <1,1000 > > time_interval_projectile(250);
+	/*
 	Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 1, 250);
 	speedygonzales.spawn(speedygonzales.getCurrentPosition());
 	
@@ -76,6 +79,7 @@ int main(int argc, char **argv)
 	
 
 	// prova nemico
+	*/
 	Position spawnpoint_enemy;
 	spawnpoint_enemy.x=20; spawnpoint_enemy.y=20;
 	duration <int, std::ratio <1,1000 > > idle_time_enemy(1000);
@@ -100,9 +104,8 @@ int main(int argc, char **argv)
 		p.HandleInput(ch);
 		Astolfo.checkIfTimeToMove(time_now);
 		speedygonzales.checkIfTimeToMove(time_now);
-		//refreshProjectiles(p.getProjectilesShot(), time_now);	
-		debug = FUNZIONEDEBUG(p.getProjectilesShot(), time_now);
-		mvaddch(15, 15, debug);
+		refreshProjectiles(p.getProjectilesShot(), time_now);	
+		
 		
 
 		if(ch=='f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f

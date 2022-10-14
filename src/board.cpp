@@ -23,9 +23,15 @@ void Board::refresh(){
 }
 
 void Board::init(){
-	init_pair(WALL_PAIR, COLOR_BLUE, COLOR_BLUE);
-	init_pair(PAVE_PAIR, COLOR_CYAN, COLOR_CYAN);
-	init_pair(PLAYER_PAIR, COLOR_WHITE, COLOR_WHITE);
+	double changecolor = 1000/255;
+	init_color(PLAYER_FOREGROUND, 255*changecolor, 255*changecolor, 255*changecolor);
+	init_color(WALL_FOREGROUND, 100*changecolor, 100*changecolor, 100*changecolor);
+	init_color(PAVE_FOREGROUND, 50*changecolor, 50*changecolor, 50*changecolor);
+	init_pair(WALL_PAIR, WALL_FOREGROUND, WALL_FOREGROUND);
+	init_pair(PAVE_PAIR, PAVE_FOREGROUND, PAVE_FOREGROUND);
+	init_pair(PLAYER_PAIR, PLAYER_FOREGROUND, PLAYER_FOREGROUND);
+	init_pair(ENEMY_PAIR, COLOR_RED, COLOR_RED);
+	init_pair(PROJCTL_PAIR, COLOR_BLACK, COLOR_CYAN);
 }
 
 void Board::addBorder(){
@@ -59,6 +65,11 @@ void Board::fill(){
         mvhline(y, Offset+1, PAVE, xMax-12);
 		attroff(COLOR_PAIR(PAVE_PAIR));
     }  
+}
+
+void Board::fillall(){
+	int xMax, yMax;
+	getmaxyx(stdscr, yMax, xMax);
 }
 
 void Board::fillPoint(int y, int x){
