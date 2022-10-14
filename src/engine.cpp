@@ -165,6 +165,7 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 	projList *toBeDeleted = new projList;
 	toBeDeleted = NULL;
 
+	//muovo i proiettili
 	while(p != NULL) {
 		p->proj.checkIfTimeToMove(time_now);
 		p = p->next;
@@ -172,6 +173,7 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 
 	p = head;
 
+	//elimino i proiettili "morti"
 	while((p != NULL) && (p->next != NULL)) {
 		if(!((p->next->proj).isAlive())) {
 			toBeDeleted = p->next;
@@ -181,20 +183,19 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 		}
 		p = p->next;
 	}
-	//controllo il primo elemento
-	
+		//controllo il primo elemento della lista
 	if((head != NULL) && !((head->proj).isAlive())) {
 		if(head->next == NULL) {
 			head = NULL;
 		}
-		else {
+		else if(!(head->proj).isAlive()){
 			toBeDeleted = head;
 			head = head->next;
 			delete(toBeDeleted);
 			toBeDeleted = NULL;
 		}
 	}
-
+}
 	
 ////////////////////
 /*
@@ -236,7 +237,49 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 		}
 	}
 	*/
-}
 
-void FUNZIONEDEBUG(projList* head, system_clock::time_point time_now) {
+
+int FUNZIONEDEBUG(projList* head, system_clock::time_point time_now) {
+	int ret = 0;
+	if(head != NULL) ret++;
+	projList *p = new projList;
+	p = head;
+	projList *toBeDeleted = new projList;
+	toBeDeleted = NULL;
+
+	//muovo i proiettili
+	//contemporaneamente setto alive a false in quelli che si sono schiantati
+	while(p != NULL) {
+		p->proj.checkIfTimeToMove(time_now);
+		p = p->next;
+	}
+
+	p = head;
+
+	//elimino i proiettili "morti"
+	while((p != NULL) && (p->next != NULL)) {
+		ret++;
+		if(!((p->next->proj).isAlive())) {
+			toBeDeleted = p->next;
+			p->next = p->next->next;
+			delete(toBeDeleted);
+			toBeDeleted = NULL;
+			ret--;
+		}
+		p = p->next;
+	}
+		//controllo il primo elemento della lista
+	if((head != NULL) && !((head->proj).isAlive())) {
+		if(head->next == NULL) {
+			head = NULL;
+		}
+		else {
+			toBeDeleted = head;
+			*head = *(head->next);
+			delete(toBeDeleted);
+			toBeDeleted = NULL;
+		}
+		ret--;
+	}
+	return ret;
 }

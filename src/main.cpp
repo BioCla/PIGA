@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 	Astolfo.setCurrentRoom(board.getWin());
 
 	// / prova nemico
-
+	int debug = 0;
 	
 	// /DEBUG
 
@@ -100,8 +100,9 @@ int main(int argc, char **argv)
 		p.HandleInput(ch);
 		Astolfo.checkIfTimeToMove(time_now);
 		speedygonzales.checkIfTimeToMove(time_now);
-		refreshProjectiles(p.getProjectilesShot(), time_now);	
-		
+		//refreshProjectiles(p.getProjectilesShot(), time_now);	
+		debug = FUNZIONEDEBUG(p.getProjectilesShot(), time_now);
+		mvaddch(15, 15, debug);
 		
 
 		if(ch=='f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
