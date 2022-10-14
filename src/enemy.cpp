@@ -28,7 +28,9 @@ Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_positi
 }
 
 void Enemy::spawn(Position position) {
-    mvprintw(position.y, position.x, icon);    
+    attron(COLOR_PAIR(ENEMY_PAIR));
+    mvprintw(position.y, position.x, icon);
+    attroff(COLOR_PAIR(ENEMY_PAIR));       
 }
 
 Position Enemy::getCurrentPosition(){
@@ -95,6 +97,9 @@ void Enemy::moveEnemy(){
         case DIR_NORTH:
             if (legalMove(current_position.x, current_position.y-1)){
                 deleteIcon();
+                attron(COLOR_PAIR(PAVE_PAIR));
+                mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.y--;
                 spawn(current_position);
             }                        
@@ -102,6 +107,9 @@ void Enemy::moveEnemy(){
         case DIR_EAST:
             if (legalMove(current_position.x+1, current_position.y)){
                 deleteIcon();
+                attron(COLOR_PAIR(PAVE_PAIR));
+                mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.x++;
                 spawn(current_position);
             }
@@ -109,6 +117,9 @@ void Enemy::moveEnemy(){
         case DIR_SOUTH:
             if (legalMove(current_position.x, current_position.y+1)){
                 deleteIcon();
+                attron(COLOR_PAIR(PAVE_PAIR));
+                mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.y++;;
                 spawn(current_position);
             }
@@ -116,6 +127,9 @@ void Enemy::moveEnemy(){
         case DIR_WEST:
             if (legalMove(current_position.x-1, current_position.y)){
                 deleteIcon();
+                attron(COLOR_PAIR(PAVE_PAIR));
+                mvprintw(current_position.y, current_position.x, " ");
+                attroff(COLOR_PAIR(PAVE_PAIR));
                 current_position.x--;
                 spawn(current_position);
             }

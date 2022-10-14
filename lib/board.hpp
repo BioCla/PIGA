@@ -9,12 +9,16 @@ using namespace std;
 #define PAVE      ' '
 #define PLAYER    '@'
 #define ROCK      '^'
+#define ENEMY     'A'
+#define PROJCTL   '*'
 
 
 #define WALL_PAIR      1
 #define PAVE_PAIR      2
 #define PLAYER_PAIR    3
 #define ROCK_PAIR      4
+#define ENEMY_PAIR 	   5
+#define PROJCTL_PAIR   6
 
 
 

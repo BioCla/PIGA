@@ -23,9 +23,11 @@ void Board::refresh(){
 }
 
 void Board::init(){
-	init_pair(WALL_PAIR, COLOR_BLUE, COLOR_BLUE);
-	init_pair(PAVE_PAIR, COLOR_CYAN, COLOR_CYAN);
+	init_pair(WALL_PAIR, 64, 64);
+	init_pair(PAVE_PAIR, 58, 58);
 	init_pair(PLAYER_PAIR, COLOR_WHITE, COLOR_WHITE);
+	init_pair(ENEMY_PAIR, COLOR_RED, COLOR_RED);
+	init_pair(PROJCTL_PAIR, COLOR_BLACK, COLOR_CYAN);
 }
 
 void Board::addBorder(){
