@@ -247,11 +247,8 @@ void Character::shoot() {
 
 void Character::createProjectile(int direction) {
     projList *p = new projList;
-<<<<<<< HEAD
     Projectile newProjectile = Projectile("*", current_position, direction, projectile_moving_frequency);
-=======
-    Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency);
->>>>>>> ece203b07e6f1cbe6551ae99ef161c13db9436da
+
     
     //head insert del nuovo proiettile
     p->next = projListHead;
