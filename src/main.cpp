@@ -30,28 +30,26 @@ int main(int argc, char **argv)
 	
 	 // Permette l'utilizzo di colori sullo schermo
 	
-	
+	initscr();
+	refresh();
 	srand(time(NULL));
-	int rows, cols;
-	resizeterm(20,50);
-	getmaxyx(stdscr, rows, cols);
+
 
 	///////////////////////////////////////////////////////////////////////////
 
 	// Inizializzazione della tavola principale iniziale
-	rows=rows-21;
-	cols=rows*2.5;
 	//Board board(rows, cols);
-	Board board(20,20);
-	getmaxyx(stdscr, rows, cols);
+	
+	Board board(BOARD_ROWS, BOARD_COLS);
+
 
 	
 
 
 	// Inizializzazione del personaggio principale
 	Position character_initial_position;
-	character_initial_position.x = getmaxx(stdscr)/2;
-	character_initial_position.y = getmaxy(stdscr)/2;
+	character_initial_position.x = getmaxx(board.getWin())/2;
+	character_initial_position.y = getmaxy(board.getWin())/2+2;
 	Character p = Character(character_initial_position.x, character_initial_position.y, "@", 30, "*", 100);
 	p.setRoomWin(board.getWin());
 
