@@ -1,7 +1,7 @@
 #include "../lib/board.hpp"
 
 
-/*Board::Board(){
+/*Board::Board(){ 
 	int xMax, yMax;
 	int height=10;
 	int width=20;
