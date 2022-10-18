@@ -255,7 +255,19 @@ int FUNZIONEDEBUG(projList* head, system_clock::time_point time_now) {
 	}
 
 	p = head;
-
+	//controllo il primo elemento della lista
+	while((head != NULL) && !((head->proj).isAlive())) {
+		if(head->next == NULL) {
+			head = NULL;
+		}
+		else {
+			toBeDeleted = head;
+			head = head->next;
+			delete(toBeDeleted);
+			toBeDeleted = NULL;
+		}
+		ret--;
+	}
 	//elimino i proiettili "morti"
 	while((p != NULL) && (p->next != NULL)) {
 		ret++;
@@ -268,18 +280,6 @@ int FUNZIONEDEBUG(projList* head, system_clock::time_point time_now) {
 		}
 		p = p->next;
 	}
-		//controllo il primo elemento della lista
-	if((head != NULL) && !((head->proj).isAlive())) {
-		if(head->next == NULL) {
-			head = NULL;
-		}
-		else {
-			toBeDeleted = head;
-			*head = *(head->next);
-			delete(toBeDeleted);
-			toBeDeleted = NULL;
-		}
-		ret--;
-	}
+	
 	return ret;
 }

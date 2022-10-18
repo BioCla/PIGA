@@ -63,11 +63,11 @@ int main(int argc, char **argv)
 	Position spawnpoint_projectile;
 	spawnpoint_projectile.x = 10; spawnpoint_projectile.y = 10;
 	duration <int, std::ratio <1,1000 > > time_interval_projectile(250);
-	/*
-	Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 1, 250);
-	speedygonzales.spawn(speedygonzales.getCurrentPosition());
 	
-	speedygonzales.setCurrentRoom(board.getWin());
+	//Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 1, 250);
+	//speedygonzales.spawn(speedygonzales.getCurrentPosition());
+	
+	//speedygonzales.setCurrentRoom(board.getWin());
 
 	
 
@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 	
 
 	// prova nemico
-	*/
+	
 	Position spawnpoint_enemy;
 	spawnpoint_enemy.x=20; spawnpoint_enemy.y=20;
 	duration <int, std::ratio <1,1000 > > idle_time_enemy(1000);
@@ -103,8 +103,11 @@ int main(int argc, char **argv)
 
 		p.HandleInput(ch);
 		Astolfo.checkIfTimeToMove(time_now);
-		speedygonzales.checkIfTimeToMove(time_now);
+		//speedygonzales.checkIfTimeToMove(time_now);
 		refreshProjectiles(p.getProjectilesShot(), time_now);	
+
+		//debug = FUNZIONEDEBUG(p.getProjectilesShot(), time_now);
+		//mvaddch(5, 5, debug);
 		
 		
 
