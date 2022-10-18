@@ -29,7 +29,9 @@ void Projectile::spawn(Position position) {
 }
 
 void Projectile::deleteIcon() {
+    attron(COLOR_PAIR(PAVE_PAIR));
     mvprintw(current_position.y, current_position.x, " ");
+    attron(COLOR_PAIR(PAVE_PAIR));
 }
 
 void Projectile::setPosition(Position set) {

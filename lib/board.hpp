@@ -5,6 +5,11 @@
 #include <stdlib.h>
 using namespace std;
 
+
+#define BOARD_DIM 55 
+#define BOARD_ROWS BOARD_DIM
+#define BOARD_COLS BOARD_ROWS * 2.5
+
 #define WALL      '#'
 #define PAVE      ' '
 #define PLAYER    '@'
@@ -39,7 +44,7 @@ class Board
 {
 protected:
 	WINDOW *board_win;
-	int screen_height, screen_width;
+	int screen_height, screen_width, xMin, yMin, xMax, yMax;
 	
 
 public:
@@ -51,7 +56,6 @@ public:
 	void fillall();
 	void fillPoint(int y, int x);
 	void clear();
-	void refresh();
 	void init();
 	WINDOW* getWin();
 };

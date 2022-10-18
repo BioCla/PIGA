@@ -12,15 +12,15 @@
 }*/
 
 Board::Board(int screen_height, int screen_width){
-	int xMax, yMax;	
+	this->screen_height = screen_height;
+	this->screen_width = screen_width;
 	getmaxyx(stdscr, yMax, xMax);
-	board_win = newwin(screen_height, screen_width, (yMax / 2) - (screen_height / 2), (xMax / 2) - (screen_width / 2));
+	board_win = newwin(screen_height, screen_width, (yMax / 2) - (screen_height/2)-12, (xMax / 2) - ((screen_width/2)+47));
+	getbegyx(board_win, yMin, xMin);
+	getmaxyx(board_win, yMax, xMax);
 	initialize();
 }
 
-void Board::refresh(){
-	wrefresh(board_win);
-}
 
 void Board::init(){
 	double changecolor = 1000/255;
@@ -31,20 +31,14 @@ void Board::init(){
 	init_pair(PAVE_PAIR, PAVE_FOREGROUND, PAVE_FOREGROUND);
 	init_pair(PLAYER_PAIR, PLAYER_FOREGROUND, PLAYER_FOREGROUND);
 	init_pair(ENEMY_PAIR, COLOR_RED, COLOR_RED);
-	init_pair(PROJCTL_PAIR, COLOR_BLACK, COLOR_CYAN);
+	init_pair(PROJCTL_PAIR, PLAYER_FOREGROUND, PAVE_FOREGROUND);
 }
 
 void Board::addBorder(){
-	int xMax, yMax, Offset;
-	getmaxyx(stdscr, yMax, xMax);
-	Offset=5;
-	xMax=xMax-Offset;
-	yMax=yMax-Offset;
-	init_pair(WALL_PAIR, COLOR_BLUE, COLOR_BLUE);
 	attron(COLOR_PAIR(WALL_PAIR));
-	for(int fy = Offset; fy < yMax; fy++){
-		for(int fx = Offset; fx < xMax; fx++){
-			if(fx == Offset || fy == Offset || fx == xMax-1 || fy == yMax-1){				
+	for(int fy = yMin; fy <= yMax; fy++){
+		for(int fx = xMin; fx <= xMax; fx++){
+			if(fx == xMin || fy == yMin || fx == xMax|| fy == yMax){				
 				mvaddch(fy, fx, WALL);
 			}			
 		}
@@ -55,16 +49,11 @@ void Board::addBorder(){
 
 
 void Board::fill(){
-	int xMax,yMax;
-	getmaxyx(stdscr,yMax,xMax);
-	int Offset=5;
-	xMax=xMax;
-	yMax=yMax-Offset;
-    for (int y = Offset+1; y < yMax-1; y++) {
-		attron(COLOR_PAIR(PAVE_PAIR));
-        mvhline(y, Offset+1, PAVE, xMax-12);
-		attroff(COLOR_PAIR(PAVE_PAIR));
+	attron(COLOR_PAIR(PAVE_PAIR));
+    for (int fy = yMin+1; fy < yMax; fy++) {
+        mvhline(fy, xMin+1, PAVE, xMax-4);	
     }  
+	attroff(COLOR_PAIR(PAVE_PAIR));
 }
 
 void Board::fillall(){
@@ -84,13 +73,12 @@ void Board::clear(){
 }
 
 void Board::initialize(){
-	initscr();	   // Inizializza lo schermo secondo la libreria ncurses
 	clear();	   // Svuota il terminale
 	noecho();	   // Rimuove l'input inserito nel terminale
 	cbreak();	   // Rimuove il buffer di input
 	curs_set(0); // Rende il cursore invisibile
 	nodelay(stdscr, true);   //altrimenti aspetta sempre l'input dell'utente
-	refresh();
+	wrefresh(board_win);
 	if(has_colors()== FALSE){
 		endwin();
 		printf("Il tuo terminale non supporta i colori");
