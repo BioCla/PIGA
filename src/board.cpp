@@ -1,4 +1,6 @@
 #include "../lib/board.hpp"
+#include <iostream>
+using namespace std;
 
 
 /*Board::Board(){ 
@@ -18,6 +20,7 @@ Board::Board(int screen_height, int screen_width){
 	board_win = newwin(screen_height, screen_width, (yMax / 2) - (screen_height/2)-12, (xMax / 2) - ((screen_width/2)+47));
 	getbegyx(board_win, yMin, xMin);
 	getmaxyx(board_win, yMax, xMax);
+	
 	initialize();
 }
 

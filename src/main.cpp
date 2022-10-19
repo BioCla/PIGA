@@ -37,6 +37,10 @@ int main(int argc, char **argv)
 	//Board board(rows, cols);
 	
 	Board board(BOARD_ROWS, BOARD_COLS);
+	int xMax, yMax;
+	getmaxyx(stdscr,yMax,xMax);
+	cout<<yMax<<endl; //84
+	cout<<xMax<<endl; //237
 
 
 	
