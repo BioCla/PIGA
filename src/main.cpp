@@ -18,11 +18,7 @@ using namespace std;
 #define BOARD_COLS BOARD_DIM * 2.5
 */
 
-/**
- * Main function file, runner of the program
- * Executes the primary initialiazation functions for the ncurses library and sets up the game
- * with board components and gameplay features
- */
+
 int main(int argc, char **argv)
 {
 
@@ -92,6 +88,8 @@ int main(int argc, char **argv)
 
 
 	system_clock::time_point time_now = system_clock::now();
+	int stdscrxmax, stdscrymax;
+	getmaxyx(stdscr, stdscrymax, stdscrxmax);
 
 	int ch; // Variabile di accesso al handler per gli input
 	while ((ch = getch()) != 'q')
@@ -109,7 +107,7 @@ int main(int argc, char **argv)
 		
 		
 
-		if(ch=='f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
+		if(ch == 'f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
 			p.shoot();
 		}
 		else if(ch=='g') {
@@ -133,6 +131,17 @@ int main(int argc, char **argv)
 			reset_prog_mode();
 			refresh();
  		}
+		
+		//PAUSA
+		else if(ch == 'p') {
+			ch = 'h'; //lettera a caso, basta che sia diversa da p
+			mvprintw(stdscrymax - 5, stdscrxmax/2 - 4, "**PAUSA**");
+			while(ch != 'p') {
+				ch = getch();
+				//beh nulla? coi menu diventerà un po' più complesso
+			}
+			mvprintw(stdscrymax - 5, stdscrxmax/2 - 9, "         ");
+		}
 
 
 		
