@@ -15,7 +15,7 @@ Board::Board(int screen_height, int screen_width){
 	this->screen_height = screen_height;
 	this->screen_width = screen_width;
 	getmaxyx(stdscr, yMax, xMax);
-	board_win = newwin(screen_height, screen_width, (yMax / 2) - (screen_height/2), (xMax / 2) - ((screen_width/2)));
+	board_win = newwin(screen_height, screen_width, (yMax / 2) - (screen_height/2)-12, (xMax / 2) - ((screen_width/2)+47));
 	getbegyx(board_win, yMin, xMin);
 	getmaxyx(board_win, yMax, xMax);
 	initialize();
@@ -39,7 +39,7 @@ void Board::addBorder(){
 	for(int fy = yMin; fy <= yMax; fy++){
 		for(int fx = xMin; fx <= xMax; fx++){
 			if(fx == xMin || fy == yMin || fx == xMax|| fy == yMax){				
-				mvaddch(fy, fx, WALL);
+				mvwaddch(board_win,fy, fx, WALL);
 			}			
 		}
 	}
@@ -51,7 +51,7 @@ void Board::addBorder(){
 void Board::fill(){
 	attron(COLOR_PAIR(PAVE_PAIR));
     for (int fy = yMin+1; fy < yMax; fy++) {
-        mvhline(fy, xMin+1, PAVE, xMax-4);	
+        mvwhline(board_win, fy, xMin+1, PAVE, xMax-4);	
     }  
 	attroff(COLOR_PAIR(PAVE_PAIR));
 }
