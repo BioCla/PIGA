@@ -140,7 +140,7 @@ int main(int argc, char **argv)
 				ch = getch();
 				//beh nulla? coi menu diventerà un po' più complesso
 			}
-			mvprintw(stdscrymax - 5, stdscrxmax/2 - 9, "         ");
+			mvprintw(stdscrymax - 5, stdscrxmax/2 - 4, "         ");
 		}
 
 
