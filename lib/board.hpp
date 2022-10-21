@@ -6,7 +6,7 @@
 using namespace std;
 
 
-#define BOARD_DIM 55 
+#define BOARD_DIM 35
 #define BOARD_ROWS BOARD_DIM
 #define BOARD_COLS BOARD_ROWS * 2.5
 

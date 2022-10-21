@@ -10,7 +10,14 @@ else
 endif
 
 
-all: build run clean
+all: resize build run clean
+
+resize:
+ifeq ($(detected_OS),Windows)
+	mode.com 200,45
+else
+	mode.com 200,45	
+endif
 
 build:
 ifeq ($(detected_OS),Windows)

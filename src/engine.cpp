@@ -188,11 +188,10 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 		if(head->next == NULL) {
 			head = NULL;
 		}
-		else if(!(head->proj).isAlive()){
+		else if(head->next != NULL){
 			toBeDeleted = head;
 			head = head->next;
-			delete(toBeDeleted);
-			toBeDeleted = NULL;
+			delete toBeDeleted;
 		}
 	}
 }

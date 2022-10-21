@@ -17,7 +17,7 @@ Board::Board(int screen_height, int screen_width){
 	this->screen_height = screen_height;
 	this->screen_width = screen_width;
 	getmaxyx(stdscr, yMax, xMax);
-	board_win = newwin(screen_height, screen_width, (yMax / 2) - (screen_height/2)-12, (xMax / 2) - ((screen_width/2)+47));
+	board_win = newwin(screen_height, screen_width, (yMax / 2) - (screen_height/2), (xMax / 2) - ((screen_width/2)) - 45);
 	getbegyx(board_win, yMin, xMin);
 	getmaxyx(board_win, yMax, xMax);
 	

@@ -58,21 +58,32 @@ int main(int argc, char **argv)
 
 
 	//DEBUG - prova del proiettile
-	Position spawnpoint_projectile;
-	spawnpoint_projectile.x = 10; spawnpoint_projectile.y = 10;
-	duration <int, std::ratio <1,1000 > > time_interval_projectile(250);
 	
-	//Projectile speedygonzales = Projectile("*", spawnpoint_projectile, 1, 250);
-	//speedygonzales.spawn(speedygonzales.getCurrentPosition());
+	mvaddch(25, 120, 35);
+	mvaddch(26, 120, 35);
+	mvaddch(27, 120, 35);
+	mvaddch(28, 120, 35);
+	mvaddch(29, 120, 35);
+	mvaddch(30, 120, 35);
+	mvaddch(31, 120, 35);
+	mvaddch(32, 120, 35);
+	mvaddch(25, 119, 35);
+	mvaddch(25, 118, 35);
+	mvaddch(25, 117, 35);
+	mvaddch(25, 116, 35);
+	mvaddch(25, 115, 35);
+	mvaddch(25, 114, 35);
+	mvaddch(25, 113, 35);
+	mvaddch(25, 112, 35);
+	mvaddch(25, 111, 35);
+	mvaddch(25, 110, 35);
+	mvaddch(25, 109, 35);
+	mvaddch(25, 80, 35);
+	//mvaddch(1, 2, 35);     //se attivi questo il proiettile buggato "spawna" e si distrugge subito dopo. è una nonsoluzione diciamo
+	//toglieteli pure tutti se danno fastidio
 	
-	//speedygonzales.setCurrentRoom(board.getWin());
 
-	
-
-		//-- prova character.legalMove()
-	
-
-		// /prova character.legalMove()
+		
 
 	
 
@@ -103,7 +114,7 @@ int main(int argc, char **argv)
 
 		p.HandleInput(ch);
 		Astolfo.checkIfTimeToMove(time_now);
-		//speedygonzales.checkIfTimeToMove(time_now);
+		
 		refreshProjectiles(p.getProjectilesShot(), time_now);	
 
 		//debug = FUNZIONEDEBUG(p.getProjectilesShot(), time_now);
