@@ -2,6 +2,7 @@
 #include "../lib/board.hpp"
 #include "../lib/character.hpp"
 #include "../lib/projectile.hpp"
+//#include "../lib/superProjectile.hpp"
 #include "../assets/position.hpp"
 #include "../lib/enemy.hpp"
 #include "../lib/engine.hpp"
@@ -127,7 +128,8 @@ int main(int argc, char **argv)
 			p.shoot();
 		}
 		else if(ch=='g') {
-			
+			//SuperProjectile MEGASPEEDYGONZALES = SuperProjectile("*", p.getCurrentPosition(), p.getLastDirection(), 100, 1000, 0, 100);
+			//DA FINIRE
 		}
 		else if(ch=='t') {
 			
