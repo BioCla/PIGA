@@ -81,6 +81,7 @@ int main(int argc, char **argv)
 	mvaddch(25, 80, 35);
 	//mvaddch(1, 2, 35);     //se attivi questo il proiettile buggato "spawna" e si distrugge subito dopo. è una nonsoluzione diciamo
 	//toglieteli pure tutti se danno fastidio
+	//li ho messi perchè i # del addborder della board non li prende per qualche motivo, servono solo per debuggare
 	
 
 		

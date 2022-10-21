@@ -54,7 +54,7 @@ void Projectile::moveProjectile() {
     switch(direction) {
         case DIR_NORTH:
             deleteIcon();
-            if(!collisionWithRoomWall(current_position.x, current_position.y - 1)) {
+            if((!collisionWithRoomWall(current_position.x, current_position.y - 1)) && (!outOfBorder())) {
                 attron(COLOR_PAIR(PAVE_PAIR));
                 mvprintw(current_position.y, current_position.x, " ");
                 attroff(COLOR_PAIR(PAVE_PAIR));
@@ -67,7 +67,7 @@ void Projectile::moveProjectile() {
             break;
         case DIR_EAST:
             deleteIcon();
-            if(!collisionWithRoomWall(current_position.x + 1, current_position.y)) {
+            if((!collisionWithRoomWall(current_position.x + 1, current_position.y)) && (!outOfBorder())) {
                 attron(COLOR_PAIR(PAVE_PAIR));
                 mvprintw(current_position.y, current_position.x, " ");
                 attroff(COLOR_PAIR(PAVE_PAIR));
@@ -80,7 +80,7 @@ void Projectile::moveProjectile() {
             break;
         case DIR_SOUTH:
             deleteIcon();
-            if(!collisionWithRoomWall(current_position.x, current_position.y + 1)) {
+            if((!collisionWithRoomWall(current_position.x, current_position.y + 1)) && (!outOfBorder())) {
                 attron(COLOR_PAIR(PAVE_PAIR));
                 mvprintw(current_position.y, current_position.x, " ");
                 attroff(COLOR_PAIR(PAVE_PAIR));
@@ -93,7 +93,7 @@ void Projectile::moveProjectile() {
             break;
         case DIR_WEST:
             deleteIcon();
-            if(!collisionWithRoomWall(current_position.x - 1, current_position.y)) {
+            if((!collisionWithRoomWall(current_position.x - 1, current_position.y)) && (!outOfBorder())) {
                 attron(COLOR_PAIR(PAVE_PAIR));
                 mvprintw(current_position.y, current_position.x, " ");
                 attroff(COLOR_PAIR(PAVE_PAIR));
@@ -122,6 +122,15 @@ bool Projectile::collisionWithRoomWall(int posx, int posy) {
     }
 
     return collided;
+}
+
+bool Projectile::outOfBorder() {
+    bool outofb = false;
+    if((current_position.y <= 0) || (current_position.y > getmaxy(stdscr)) ||
+    (current_position.x <= 0) || (current_position.x > getmaxx(stdscr))) {
+        outofb = true;
+    }
+    return outofb;
 }
 
 bool Projectile::isAlive() {

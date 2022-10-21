@@ -29,6 +29,7 @@ class Projectile {
         void moveProjectile();
         void checkIfTimeToMove(system_clock::time_point time_now);
         bool collisionWithRoomWall(int posx, int posy);
+        bool outOfBorder();
         bool isAlive();
         void setAliveStatus(bool set);
 };

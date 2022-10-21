@@ -163,7 +163,6 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 	projList *p = new projList;
 	p = head;
 	projList *toBeDeleted = new projList;
-	toBeDeleted = NULL;
 
 	//muovo i proiettili
 	while(p != NULL) {
@@ -178,8 +177,7 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 		if(!((p->next->proj).isAlive())) {
 			toBeDeleted = p->next;
 			p->next = p->next->next;
-			delete(toBeDeleted);
-			toBeDeleted = NULL;
+			delete toBeDeleted;
 		}
 		p = p->next;
 	}
@@ -188,97 +186,9 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 		if(head->next == NULL) {
 			head = NULL;
 		}
-		else if(head->next != NULL){
-			toBeDeleted = head;
+		else if(head->next != NULL) {
 			head = head->next;
-			delete toBeDeleted;
 		}
 	}
 }
 	
-////////////////////
-/*
-	projList *p = new projList;
-	p = head;
-	
-	//controllo per i primi elementi della lista. riguarda solo quelli da eliminare
-	//serve se più proiettili vanno eliminati contemporaneamente (molto raro in realtà)
-	while((head != NULL) && (!head->proj.isAlive())) {
-		head = head->next;
-		p->proj.deleteIcon();
-		delete(p);
-		p = head;
-	}
-
-	projList *pprec = new projList;
-	pprec = p;
-
-	//controllo sul primo proiettile della lista ancora "vivo". inoltre setto il pprec
-	if((p != NULL) && (p->next != NULL)) {
-		//il prossimo controllo agisce su p. ma io so che QUESTO p non è da cancellare (altrimenti non sarebbe uscito dal while)
-		p->proj.checkIfTimeToMove(time_now);
-		p = p->next;    //quindi passo a controllare il successivo, nel prossimo while
-	}
-	
-	//controllo il resto della lista
-	while(p != NULL) {
-		p->proj.checkIfTimeToMove(time_now);
-		pprec = p;
-
-		if(!(p->proj.isAlive())) {
-			pprec->next = p->next;
-			delete(p);
-			p = pprec->next;
-		}
-
-		if(p->next != NULL) {
-			p = p->next;
-		}
-	}
-	*/
-
-
-int FUNZIONEDEBUG(projList* head, system_clock::time_point time_now) {
-	int ret = 0;
-	if(head != NULL) ret++;
-	projList *p = new projList;
-	p = head;
-	projList *toBeDeleted = new projList;
-	toBeDeleted = NULL;
-
-	//muovo i proiettili
-	//contemporaneamente setto alive a false in quelli che si sono schiantati
-	while(p != NULL) {
-		p->proj.checkIfTimeToMove(time_now);
-		p = p->next;
-	}
-
-	p = head;
-	//controllo il primo elemento della lista
-	while((head != NULL) && !((head->proj).isAlive())) {
-		if(head->next == NULL) {
-			head = NULL;
-		}
-		else {
-			toBeDeleted = head;
-			head = head->next;
-			delete(toBeDeleted);
-			toBeDeleted = NULL;
-		}
-		ret--;
-	}
-	//elimino i proiettili "morti"
-	while((p != NULL) && (p->next != NULL)) {
-		ret++;
-		if(!((p->next->proj).isAlive())) {
-			toBeDeleted = p->next;
-			p->next = p->next->next;
-			delete(toBeDeleted);
-			toBeDeleted = NULL;
-			ret--;
-		}
-		p = p->next;
-	}
-	
-	return ret;
-}
