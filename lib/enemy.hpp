@@ -1,4 +1,4 @@
-#include <ncursesw/ncurses.h>
+#include "../assets/hch.h"
 #include "../assets/position.hpp"
 #include <chrono>
 using namespace std::chrono;

@@ -1,4 +1,4 @@
-#include <ncursesw/ncurses.h>
+#include "../assets/hch.h"
 #include "../lib/board.hpp"
 #include "../lib/character.hpp"
 #include "../lib/projectile.hpp"
