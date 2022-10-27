@@ -5,19 +5,12 @@ CFLAGS = -lncurses -lm -I $(HEADERS) -Wall
 
 ifeq ($(OS),Windows_NT)
     detected_OS := Windows
-else
+elsexterm install
     detected_OS := $(shell uname)
 endif
 
 
-all: resize build run clean
-
-resize:
-ifeq ($(detected_OS),Windows)
-	mode.com 200,45
-else
-	mode.com 200,45	
-endif
+all: build run clean
 
 build:
 ifeq ($(detected_OS),Windows)

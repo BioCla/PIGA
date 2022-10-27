@@ -1,4 +1,4 @@
-#include <ncursesw/ncurses.h>
+#include "../assets/hch.h"
 
 #include "../assets/projList.hpp"
 #include "../assets/superProjList.hpp"

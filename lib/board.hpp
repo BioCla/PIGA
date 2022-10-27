@@ -1,5 +1,5 @@
 #pragma once
-#include <ncursesw/ncurses.h>
+#include "../assets/hch.h"
 #include <string>
 #include <map>
 #include <stdlib.h>
