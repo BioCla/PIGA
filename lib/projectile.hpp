@@ -1,10 +1,12 @@
+#ifndef PROJECTILES
+#define PROJECTILES
+
 #include <ncursesw/ncurses.h>
 #include "../assets/position.hpp"
 #include <chrono>
 using namespace std::chrono;
 
-#ifndef PROJECTILE_HPP
-#define PROJECTILE_HPP
+
 class Projectile {
     protected:
         WINDOW* current_room_win;

@@ -19,13 +19,12 @@ Character::Character(int x, int y, const char * icon, int max_health, const char
     this->icon = icon;
     this->max_health = max_health;
     health = max_health;
-    damage = 5;   //numero a caso
+    damage = 5;   
     this->projectile_icon = projectile_icon;
     this->projectile_moving_frequency = projectile_moving_frequency;
-    //valori arbitrari:
     last_direction_taken = DIR_NORTH;
     damage = 5;
-    //projListHead = NULL;
+    projListHead = NULL;
 }
 
 void Character::updateHearts() {

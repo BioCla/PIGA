@@ -2,7 +2,7 @@
 #include "../lib/board.hpp"
 #include "../lib/character.hpp"
 #include "../lib/projectile.hpp"
-//#include "../lib/superProjectile.hpp"
+#include "../lib/superProjectile.hpp"
 #include "../assets/position.hpp"
 #include "../lib/enemy.hpp"
 #include "../lib/engine.hpp"
@@ -12,6 +12,7 @@
 using namespace std;
 
 #include "../assets/projList.hpp"
+#include "../assets/superProjList.hpp"
 
 
 /*#define BOARD_DIM 17
@@ -38,10 +39,6 @@ int main(int argc, char **argv)
 	//Board board(rows, cols);
 	
 	Board board(BOARD_ROWS, BOARD_COLS);
-	int xMax, yMax;
-	getmaxyx(stdscr,yMax,xMax);
-	cout<<yMax<<endl; //84
-	cout<<xMax<<endl; //237
 
 
 	
@@ -83,6 +80,17 @@ int main(int argc, char **argv)
 	//mvaddch(1, 2, 35);     //se attivi questo il proiettile buggato "spawna" e si distrugge subito dopo. è una nonsoluzione diciamo
 	//toglieteli pure tutti se danno fastidio
 	//li ho messi perchè i # del addborder della board non li prende per qualche motivo, servono solo per debuggare
+
+		//test superproiettile
+	superProjList* superProjListHead = NULL;
+
+	
+
+			
+
+	//projList** tempProjListForRefreshingSuperProjectiles = new projList*;
+	//*tempProjListForRefreshingSuperProjectiles = p.getProjectilesShot();
+		// / test superproiettile
 	
 
 		
@@ -99,7 +107,6 @@ int main(int argc, char **argv)
 	Astolfo.setCurrentRoom(board.getWin());
 
 	// / prova nemico
-	int debug = 0;
 	
 	// /DEBUG
 
@@ -107,6 +114,8 @@ int main(int argc, char **argv)
 	system_clock::time_point time_now = system_clock::now();
 	int stdscrxmax, stdscrymax;
 	getmaxyx(stdscr, stdscrymax, stdscrxmax);
+
+	
 
 	int ch; // Variabile di accesso al handler per gli input
 	while ((ch = getch()) != 'q')
@@ -117,10 +126,13 @@ int main(int argc, char **argv)
 		p.HandleInput(ch);
 		Astolfo.checkIfTimeToMove(time_now);
 		
-		refreshProjectiles(p.getProjectilesShot(), time_now);	
-
-		//debug = FUNZIONEDEBUG(p.getProjectilesShot(), time_now);
-		//mvaddch(5, 5, debug);
+		refreshSuperProjectiles(superProjListHead, time_now, p.getProjectilesShot());
+		refreshProjectiles(p.getProjectilesShot(), time_now);
+		
+		
+		
+		
+		
 		
 		
 
@@ -128,10 +140,17 @@ int main(int argc, char **argv)
 			p.shoot();
 		}
 		else if(ch=='g') {
-			//SuperProjectile MEGASPEEDYGONZALES = SuperProjectile("*", p.getCurrentPosition(), p.getLastDirection(), 100, 1000, 0, 100);
-			//DA FINIRE
+			SuperProjectile newProjectile = SuperProjectile("O", p.getCurrentPosition(), p.getLastDirection(),
+															100, 800, 100, "'");
+			superProjList *newproj = new superProjList;
+			newproj->sproj = newProjectile;
+			newproj->next = superProjListHead;
+			superProjListHead = newproj;
+			superProjListHead->sproj.moveProjectile();
+			(*p.getProjectilesShot()).proj.moveProjectile();
 		}
-		else if(ch=='t') {
+		
+		else if(ch=='t') {   //serve solo per il debug
 			
 			def_prog_mode();
 			endwin();

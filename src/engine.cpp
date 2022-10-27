@@ -178,6 +178,7 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 			toBeDeleted = p->next;
 			p->next = p->next->next;
 			delete toBeDeleted;
+			toBeDeleted = NULL;
 		}
 		p = p->next;
 	}
@@ -192,3 +193,39 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 	}
 }
 	
+void refreshSuperProjectiles(superProjList* head, system_clock::time_point time_now, projList* projListHead) {
+	superProjList *p = new superProjList;
+	p = head;
+	superProjList *toBeDeleted = new superProjList;
+
+	//muovo i proiettili
+	while(p != NULL) {
+		p->sproj.checkIfTimeToMove(time_now);
+		if(p->sproj.isAlive()) {
+			p->sproj.checkIfTimeToShoot(time_now, projListHead);
+		}
+		p = p->next;
+	}
+
+	p = head;
+
+	//elimino i proiettili "morti"
+	while((p != NULL) && (p->next != NULL)) {
+		if(!((p->next->sproj).isAlive())) {
+			toBeDeleted = p->next;
+			p->next = p->next->next;
+			delete toBeDeleted;
+			toBeDeleted = NULL;
+		}
+		p = p->next;
+	}
+		//controllo il primo elemento della lista
+	if((head != NULL) && !((head->sproj).isAlive())) {
+		if(head->next == NULL) {
+			head = NULL;
+		}
+		else if(head->next != NULL) {
+			head = head->next;
+		}
+	}
+}

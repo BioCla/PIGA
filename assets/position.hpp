@@ -1,5 +1,5 @@
-#ifndef POSITION_HPP
-#define POSITION_HPP
+#ifndef POSITION
+#define POSITION
 
 struct Position {
     int x;
