@@ -1,13 +1,14 @@
 #include "../assets/hch.h"
 
+#include "entity.hpp"
 #include "../assets/position.hpp"
 #include "../assets/projList.hpp"
-
-class Character {
+//-- tutti quelli che sono dentro la superclasse entity. quando entity funziona senza bug ricordarsi di cancellare la riga
+class Character : public Entity{
     protected:
 	// consiglio di convertire  l'utilizzo di `const char*` a `chtype` per ovviare a problemi di compatibilita' nelle funzioni di ncurses
 	// Basta cambiare qualche tipo e le `""` in `''`
-        const char* icon;
+        //--const char* icon;
         int health;
         int max_health;
         int num_hearts;   //se vogliamo far vedere i cuori invece che il numero, come nell'esempio del prof
@@ -15,8 +16,8 @@ class Character {
         int damage;    //il danno che i suoi proiettili fanno ai mostri
         const char* projectile_icon;
         int projectile_moving_frequency;
-        Position current_position;
-        WINDOW* current_room_win;
+        //--Position current_position;
+        //--WINDOW* current_room_win;
         int last_direction_taken;
         projList *projListHead;
 
@@ -35,8 +36,6 @@ class Character {
         int getHealth();
         void setDamage(int set);
         int getDamage();
-        void setIcon(const char* set);
-        const char* getIcon();
         void setProjectileIcon(const char * set);
         const char * getProjectileIcon();
         void setProjectileMovingFrequency(int set);
@@ -44,8 +43,7 @@ class Character {
         void setRoomWin(WINDOW* set);
         WINDOW* getRoomWin();
         int getLastDirection();
-        void PlayerMove(int x, int y);
-        Position getCurrentPosition();
+        void move(int x, int y);
         void HandleInput(int input);
         bool legalMove(int posx, int posy);
         bool steppedOnEnemy(int posx, int posy);

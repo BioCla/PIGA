@@ -14,6 +14,7 @@ Enemy::Enemy(){
     pathID = 1;
     //altri parametri
     // [creare più sottoclassi di nemici]
+    current_room_win = stdscr;
 }
 
 Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time){
@@ -25,16 +26,13 @@ Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_positi
     this->pathID=pathID;
     this->idle_time=idle_time;
     last_time_moved = system_clock::now();
+    current_room_win = stdscr;
 }
 
 void Enemy::spawn(Position position) {
-    attron(COLOR_PAIR(ENEMY_PAIR));
-    mvprintw(position.y, position.x, icon);
-    attroff(COLOR_PAIR(ENEMY_PAIR));       
-}
-
-Position Enemy::getCurrentPosition(){
-    return current_position;
+    wattron(current_room_win, COLOR_PAIR(ENEMY_PAIR));
+    mvwprintw(current_room_win, position.y, position.x, icon);
+    wattroff(current_room_win, COLOR_PAIR(ENEMY_PAIR));       
 }
 
 void Enemy::setHealth(int set){
@@ -53,20 +51,7 @@ int Enemy::getDamage(){
     return damage;
 }
 
-void Enemy::deleteIcon() {
-    mvprintw(current_position.y, current_position.x, " ");
-}
-
-void Enemy::setCurrentRoom(WINDOW* set) {
-    current_room_win = set;
-}
-
-WINDOW* Enemy::getCurrentRoom() {
-    return current_room_win;
-}
-
-
-void Enemy::moveEnemy(){
+void Enemy::move(){
     switch (pathID){
         /*
         case 1:
@@ -97,9 +82,9 @@ void Enemy::moveEnemy(){
         case DIR_NORTH:
             if (legalMove(current_position.x, current_position.y-1)){
                 deleteIcon();
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.y--;
                 spawn(current_position);
             }                        
@@ -107,9 +92,9 @@ void Enemy::moveEnemy(){
         case DIR_EAST:
             if (legalMove(current_position.x+1, current_position.y)){
                 deleteIcon();
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x++;
                 spawn(current_position);
             }
@@ -117,9 +102,9 @@ void Enemy::moveEnemy(){
         case DIR_SOUTH:
             if (legalMove(current_position.x, current_position.y+1)){
                 deleteIcon();
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.y++;;
                 spawn(current_position);
             }
@@ -127,9 +112,9 @@ void Enemy::moveEnemy(){
         case DIR_WEST:
             if (legalMove(current_position.x-1, current_position.y)){
                 deleteIcon();
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x--;
                 spawn(current_position);
             }
@@ -140,14 +125,14 @@ void Enemy::moveEnemy(){
 
 bool Enemy::legalMove(int posx, int posy) {
     int k;
-    k =  mvinch(posy,posx);
+    k =  mvwinch(current_room_win, posy,posx);
     return ((k & A_CHARTEXT) == PAVE);
 } 
 
 
 void Enemy::checkIfTimeToMove(system_clock::time_point time_now) {
     if(time_now > last_time_moved + idle_time) {
-        moveEnemy();
+        move();
         last_time_moved = time_now;
     }
 }

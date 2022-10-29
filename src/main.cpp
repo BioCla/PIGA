@@ -14,6 +14,8 @@ using namespace std;
 #include "../assets/projList.hpp"
 #include "../assets/superProjList.hpp"
 
+#include "entity.hpp"
+
 
 /*#define BOARD_DIM 17
 #define BOARD_ROWS BOARD_DIM
@@ -49,7 +51,7 @@ int main(int argc, char **argv)
 	
 	Board board(BOARD_ROWS, BOARD_COLS);
 	WINDOW* schermoliam = newwin(50, 211, (yMax / 2) - (50/2), (xMax / 2) - ((211/2)));
-	box(schermoliam, 1, 1);
+	box(schermoliam, 0, 0);
 	wrefresh(schermoliam);
 	box(board.getWin(), 0, 0);
 	wrefresh(board.getWin());	
@@ -57,13 +59,14 @@ int main(int argc, char **argv)
 
 	// Inizializzazione del personaggio principale
 	Position character_initial_position;
-	character_initial_position.x = xMax/2;
-	character_initial_position.y = yMax/2;
+	character_initial_position.x = 5;
+	character_initial_position.y = 5;
 	Character p = Character(character_initial_position.x, character_initial_position.y, "@", 30, "*", 100);
 	p.setRoomWin(board.getWin());
 
 	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
-	p.PlayerMove(character_initial_position.x, character_initial_position.y);
+	p.move(character_initial_position.x, character_initial_position.y);
+
 
 
 	//DEBUG - prova del proiettile
@@ -111,14 +114,15 @@ int main(int argc, char **argv)
 	// prova nemico
 	
 	Position spawnpoint_enemy;
-	spawnpoint_enemy.x=20; spawnpoint_enemy.y=20;
+	spawnpoint_enemy.x=15; spawnpoint_enemy.y=15;
 	duration <int, std::ratio <1,1000 > > idle_time_enemy(1000);
 	Enemy Astolfo = Enemy("A",10,1,spawnpoint_enemy,1,idle_time_enemy);
-	Astolfo.spawn(Astolfo.getCurrentPosition());
 	Astolfo.setCurrentRoom(board.getWin());
+	Astolfo.spawn(Astolfo.getCurrentPosition());
+	
 
 	// / prova nemico
-	
+
 	// /DEBUG
 
 
@@ -152,13 +156,13 @@ int main(int argc, char **argv)
 		}
 		else if(ch=='g') {
 			SuperProjectile newProjectile = SuperProjectile("O", p.getCurrentPosition(), p.getLastDirection(),
-															100, 800, 100, "'");
+															100, 800, 100, "'", p.getWin());
 			superProjList *newproj = new superProjList;
 			newproj->sproj = newProjectile;
 			newproj->next = superProjListHead;
 			superProjListHead = newproj;
-			superProjListHead->sproj.moveProjectile();
-			(*p.getProjectilesShot()).proj.moveProjectile();
+			superProjListHead->sproj.move();
+			(*p.getProjectilesShot()).proj.move();
 		}
 		
 		else if(ch=='t') {   //serve solo per il debug
@@ -195,7 +199,7 @@ int main(int argc, char **argv)
 		
 
 		
-		p.PlayerMove(p.getCurrentPosition().x,p.getCurrentPosition().y);  //si assicura che il personaggio sia in primo piano
+		p.move(p.getCurrentPosition().x,p.getCurrentPosition().y);  //si assicura che il personaggio sia in primo piano
 		refresh();
 		
 	}

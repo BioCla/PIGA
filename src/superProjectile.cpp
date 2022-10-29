@@ -7,10 +7,11 @@ SuperProjectile::SuperProjectile() {
     direction = DIR_EAST;     
     //a caso, giusto per vederlo vagare sullo schermo
     alive = true;
+    current_room_win = stdscr;
 }
 
 SuperProjectile::SuperProjectile(const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency,
-                                int child_moving_frequency, const char* child_icon) {
+                                int child_moving_frequency, const char* child_icon, WINDOW* win) {
     this->icon = icon;
     current_position = position;
     this->direction = direction;
@@ -26,6 +27,7 @@ SuperProjectile::SuperProjectile(const char* icon, Position position, int direct
     child_moving_frequency_multiplyer = child_moving_frequency;
     this->child_moving_frequency = child_moving_frequency_multiplyer * one_millisecond;
     this->child_icon = child_icon;
+    this->current_room_win = win;
 }
 
 void SuperProjectile::shootProjectiles(projList* projListHead) {
@@ -46,14 +48,14 @@ void SuperProjectile::shootProjectiles(projList* projListHead) {
 
 void SuperProjectile::createProjectile(int direction, projList* projListHead) {
     projList *p = new projList;
-    Projectile newProjectile = Projectile(child_icon, current_position, direction, child_moving_frequency_multiplyer);
+    Projectile newProjectile = Projectile(child_icon, current_position, direction, child_moving_frequency_multiplyer, current_room_win);
     
     //head insert del nuovo proiettile
     p->next = projListHead;
     p->proj = newProjectile;
 
     //stampa il proiettile
-    p->proj.moveProjectile(); 
+    p->proj.move(); 
 
     projListHead = p;
 

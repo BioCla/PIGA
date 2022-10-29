@@ -9,9 +9,10 @@ Projectile::Projectile() {
     direction = DIR_EAST;     
     //a caso, giusto per vederlo vagare sullo schermo
     alive = true;
+    current_room_win = stdscr;
 }
 
-Projectile::Projectile(const char* icon, Position position, int direction, int moving_frequency) {
+Projectile::Projectile(const char* icon, Position position, int direction, int moving_frequency, WINDOW* win) {
     this->icon = icon;
     current_position = position;
     this->direction = direction;
@@ -20,44 +21,33 @@ Projectile::Projectile(const char* icon, Position position, int direction, int m
     this->moving_frequency = moving_frequency_multiplyer * one_millisecond;
     last_time_moved = system_clock::now();
     alive = true;
+    current_room_win = win;
 }
 
 void Projectile::spawn(Position position) {
-    attron(COLOR_PAIR(PROJCTL_PAIR));
-    mvprintw(position.y, position.x, icon);
-    attroff(COLOR_PAIR(PROJCTL_PAIR));
+    wattron(current_room_win, COLOR_PAIR(PROJCTL_PAIR));
+    mvwprintw(current_room_win, position.y, position.x, icon);
+    wattroff(current_room_win, COLOR_PAIR(PROJCTL_PAIR));
 }
 
 void Projectile::deleteIcon() {
-    attron(COLOR_PAIR(PAVE_PAIR));
-    mvprintw(current_position.y, current_position.x, " ");
-    attron(COLOR_PAIR(PAVE_PAIR));
+    wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+    mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+    wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
 }
 
 void Projectile::setPosition(Position set) {
     current_position = set;
 }
 
-Position Projectile::getCurrentPosition() {
-    return current_position;
-}
-
-void Projectile::setCurrentRoom(WINDOW* set) {
-    current_room_win = set;
-}
-
-WINDOW* Projectile::getCurrentRoom() {
-    return current_room_win;
-}
-
-void Projectile::moveProjectile() {
+void Projectile::move() {
     switch(direction) {
         case DIR_NORTH:
             deleteIcon();
             if((!collisionWithRoomWall(current_position.x, current_position.y - 1)) && (!outOfBorder())) {
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.y = current_position.y - 1;
                 spawn(current_position);
             }
@@ -68,9 +58,9 @@ void Projectile::moveProjectile() {
         case DIR_EAST:
             deleteIcon();
             if((!collisionWithRoomWall(current_position.x + 1, current_position.y)) && (!outOfBorder())) {
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x = current_position.x + 1;
                 spawn(current_position);
             }
@@ -81,9 +71,9 @@ void Projectile::moveProjectile() {
         case DIR_SOUTH:
             deleteIcon();
             if((!collisionWithRoomWall(current_position.x, current_position.y + 1)) && (!outOfBorder())) {
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.y = current_position.y + 1;
                 spawn(current_position);
             }
@@ -94,9 +84,9 @@ void Projectile::moveProjectile() {
         case DIR_WEST:
             deleteIcon();
             if((!collisionWithRoomWall(current_position.x - 1, current_position.y)) && (!outOfBorder())) {
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x = current_position.x - 1;
                 spawn(current_position);
             }
@@ -109,7 +99,7 @@ void Projectile::moveProjectile() {
 
 void Projectile::checkIfTimeToMove(system_clock::time_point time_now) {
     if(time_now > last_time_moved + moving_frequency) {
-        moveProjectile();
+        move();
         last_time_moved = time_now;
     }
 }
@@ -131,14 +121,6 @@ bool Projectile::outOfBorder() {
         outofb = true;
     }
     return outofb;
-}
-
-bool Projectile::isAlive() {
-    return alive;
-}
-
-void Projectile::setAliveStatus(bool set) {
-    alive = set;
 }
 
 /*   UTILIZZO TIMER CON CHRONO

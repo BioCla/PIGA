@@ -11,6 +11,7 @@ Character::Character() {
     projectile_moving_frequency = 1000;
     last_direction_taken = DIR_EAST;   //arbitrario. se spara senza muoversi i proiettili devono andare da qualche parte
     projListHead = NULL;
+    current_room_win = stdscr;
 }
 
 Character::Character(int x, int y, const char * icon, int max_health, const char * projectile_icon, int projectile_moving_frequency){
@@ -25,6 +26,7 @@ Character::Character(int x, int y, const char * icon, int max_health, const char
     last_direction_taken = DIR_NORTH;
     damage = 5;
     projListHead = NULL;
+    current_room_win = stdscr;
 }
 
 void Character::updateHearts() {
@@ -65,14 +67,6 @@ int Character::getDamage() {
     return damage;
 }
 
-void Character::setIcon(const char* set) {
-    icon = set;
-}
-
-const char* Character::getIcon() {
-    return icon;
-}
-
 void Character::setProjectileIcon(const char * set) {
     projectile_icon = set;
 }
@@ -101,17 +95,15 @@ int Character::getLastDirection() {
     return last_direction_taken;
 }
 
-void Character::PlayerMove(int x, int y) {
+void Character::move(int x, int y) {
 
     current_position.x=x;
     current_position.y=y;
-    attron(COLOR_PAIR(PLAYER_PAIR));
-    mvprintw(current_position.y, current_position.x, icon);
-    attroff(COLOR_PAIR(PLAYER_PAIR));
-}
+    wattron(current_room_win, COLOR_PAIR(PLAYER_PAIR));
+    mvwprintw(current_room_win, current_position.y, current_position.x, icon);
+    wattroff(current_room_win, COLOR_PAIR(PLAYER_PAIR));
 
-Position Character::getCurrentPosition() {
-    return current_position;
+    wrefresh(current_room_win);
 }
 
 void Character::HandleInput(int input){
@@ -144,12 +136,12 @@ void Character::HandleInput(int input){
                     //non lo so fai qualcosa
                     //updateHealth(+10) non lo so
                 }
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 //Board::fillPoint(current_position.y, current_position.x); non so come implementare in modo che usi la classe Board e usi la funzione per riempire lo spazio
                 current_position.y--;
-                PlayerMove(current_position.x, current_position.y);
+                move(current_position.x, current_position.y);
                 last_direction_taken = DIR_NORTH;
             }
             else if (steppedOnEnemy(current_position.x, current_position.y - 1)) {
@@ -168,11 +160,11 @@ void Character::HandleInput(int input){
         case 'd':
         case 'D':
             if(legalMove(current_position.x + 1, current_position.y)) {
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x++;
-                PlayerMove(current_position.x, current_position.y);
+                move(current_position.x, current_position.y);
                 last_direction_taken = DIR_EAST;
             }
             else if (steppedOnEnemy(current_position.x + 1, current_position.y)) {
@@ -183,11 +175,11 @@ void Character::HandleInput(int input){
         case 's':
         case 'S':
             if(legalMove(current_position.x, current_position.y + 1)) {
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.y++;
-                PlayerMove(current_position.x, current_position.y);
+                move(current_position.x, current_position.y);
                 last_direction_taken = DIR_SOUTH;
             }
             else if (steppedOnEnemy(current_position.x, current_position.y + 1)) {
@@ -198,11 +190,11 @@ void Character::HandleInput(int input){
         case 'a':
         case 'A':
             if(legalMove(current_position.x - 1, current_position.y)) {
-                attron(COLOR_PAIR(PAVE_PAIR));
-                mvprintw(current_position.y, current_position.x, " ");
-                attroff(COLOR_PAIR(PAVE_PAIR));
+                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x--;
-                PlayerMove(current_position.x, current_position.y);
+                move(current_position.x, current_position.y);
                 last_direction_taken = DIR_WEST;
             }
             else if (steppedOnEnemy(current_position.x - 1, current_position.y)) {
@@ -213,11 +205,13 @@ void Character::HandleInput(int input){
         default:
             break;   
     }
+
+    wrefresh(current_room_win);
 }
 
 bool Character::legalMove(int posx, int posy) {
     int k;
-    k =  mvinch(posy,posx);
+    k =  mvwinch(current_room_win, posy,posx);
     return ((k & A_CHARTEXT) == PAVE);
 } 
 
@@ -246,7 +240,7 @@ void Character::shoot() {
 
 void Character::createProjectile(int direction) {
     projList *p = new projList;
-    Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency);
+    Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency, current_room_win);
     
     //head insert del nuovo proiettile
     p->next = projListHead;
@@ -256,7 +250,7 @@ void Character::createProjectile(int direction) {
     projListHead = p;
 
     //stampa il proiettile
-    projListHead->proj.moveProjectile();
+    projListHead->proj.move();
 }
 
 projList* Character::getProjectilesShot() {

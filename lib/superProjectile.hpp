@@ -24,7 +24,7 @@ class SuperProjectile : public Projectile {
     public:
     SuperProjectile();
     SuperProjectile(const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency, 
-                    int child_moving_frequency, const char* child_icon);
+                    int child_moving_frequency, const char* child_icon, WINDOW* win);
     void shootProjectiles(projList* projListHead);
     void createProjectile(int direction, projList* projListHead);
     void checkIfTimeToShoot(system_clock::time_point time_now, projList* projListHead);
