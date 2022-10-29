@@ -38,16 +38,27 @@ int main(int argc, char **argv)
 	// Inizializzazione della tavola principale iniziale
 	//Board board(rows, cols);
 	
-	Board board(BOARD_ROWS, BOARD_COLS);
-
-
+	int xMax, yMax;
+	getmaxyx(stdscr, yMax, xMax);
+	/*while(yMax>50 && xMax >200){
+		mvprintw(yMax/2, xMax/2, "rimpicciolisci il terminale");
+	}
+	while(yMax<30 && xMax >\){
+		mvprintw(yMax/2, xMax/2, "rimpicciolisci il terminale");
+	}*/
 	
+	Board board(BOARD_ROWS, BOARD_COLS);
+	WINDOW* schermoliam = newwin(50, 211, (yMax / 2) - (50/2), (xMax / 2) - ((211/2)));
+	box(schermoliam, 1, 1);
+	wrefresh(schermoliam);
+	box(board.getWin(), 0, 0);
+	wrefresh(board.getWin());	
 
 
 	// Inizializzazione del personaggio principale
 	Position character_initial_position;
-	character_initial_position.x = getmaxx(board.getWin())/2;
-	character_initial_position.y = getmaxy(board.getWin())/2+2;
+	character_initial_position.x = xMax/2;
+	character_initial_position.y = yMax/2;
 	Character p = Character(character_initial_position.x, character_initial_position.y, "@", 30, "*", 100);
 	p.setRoomWin(board.getWin());
 
@@ -56,7 +67,7 @@ int main(int argc, char **argv)
 
 
 	//DEBUG - prova del proiettile
-	
+	/*
 	mvaddch(25, 120, 35);
 	mvaddch(26, 120, 35);
 	mvaddch(27, 120, 35);
@@ -76,7 +87,7 @@ int main(int argc, char **argv)
 	mvaddch(25, 111, 35);
 	mvaddch(25, 110, 35);
 	mvaddch(25, 109, 35);
-	mvaddch(25, 80, 35);
+	mvaddch(25, 80, 35);*/
 	//mvaddch(1, 2, 35);     //se attivi questo il proiettile buggato "spawna" e si distrugge subito dopo. è una nonsoluzione diciamo
 	//toglieteli pure tutti se danno fastidio
 	//li ho messi perchè i # del addborder della board non li prende per qualche motivo, servono solo per debuggare
