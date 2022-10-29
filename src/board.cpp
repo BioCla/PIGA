@@ -37,25 +37,25 @@ void Board::init(){
 }
 
 void Board::addBorder(){
-	attron(COLOR_PAIR(WALL_PAIR));
-	for(int fy = yMin; fy <= yMax; fy++){
-		for(int fx = xMin; fx <= xMax; fx++){
-			if(fx == xMin || fy == yMin || fx == xMax|| fy == yMax){				
-				mvwaddch(board_win,fy, fx, WALL);
+	wattron(board_win, COLOR_PAIR(WALL_PAIR));
+	for(int fy = 0; fy <= yMax; fy++){
+		for(int fx = 0; fx <= xMax; fx++){
+			if(fx == 0 || fy == 0 || fx == xMax-1|| fy == yMax-1){ //è +2 per il numero massimo perchè si conta 2 volte l'errore relativo alla window				
+				mvwaddch(board_win, fy, fx, WALL);
 			}			
 		}
 	}
-	attroff(COLOR_PAIR(WALL_PAIR));
+	wattroff(board_win, COLOR_PAIR(WALL_PAIR));
 	fill();
 }
 
 
 void Board::fill(){
-	attron(COLOR_PAIR(PAVE_PAIR));
-    for (int fy = yMin+1; fy < yMax; fy++) {
-        mvwhline(board_win, fy, xMin+1, PAVE, xMax-4);	
+	wattron(board_win, COLOR_PAIR(PAVE_PAIR));
+    for (int fy = 1; fy < yMax-1; fy++) {
+			mvwhline(board_win, fy, 1, PAVE, xMax-2);	
     }  
-	attroff(COLOR_PAIR(PAVE_PAIR));
+	wattroff(board_win, COLOR_PAIR(PAVE_PAIR));
 }
 
 void Board::fillall(){
@@ -70,26 +70,24 @@ void Board::fillPoint(int y, int x){
 }
 
 void Board::clear(){
-	wclear(board_win);
-	//addBorder();
-	box(board_win, 0, 0);
-	
+	//wclear(board_win);
+	addBorder();
+	//box(board_win, 0, 0);
+
+}
+
+void Board::checkColor(){
+	init();
 }
 
 void Board::initialize(){
-	clear();	   // Svuota il terminale
 	noecho();	   // Rimuove l'input inserito nel terminale
 	cbreak();	   // Rimuove il buffer di input
 	curs_set(0); // Rende il cursore invisibile
 	nodelay(stdscr, true);   //altrimenti aspetta sempre l'input dell'utente
+	checkColor();
+	clear();	   // Svuota il terminale
 	wrefresh(board_win);
-	if(has_colors()== FALSE){
-		endwin();
-		printf("Il tuo terminale non supporta i colori");
-		exit(1);
-	}
-	start_color();
-	init();
 }
 
 WINDOW* Board::getWin(){

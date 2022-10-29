@@ -31,6 +31,12 @@ int main(int argc, char **argv)
 	initscr();
 	refresh();
 	srand(time(NULL));
+	if(has_colors()== FALSE){
+		endwin();
+		printf("Il tuo terminale non supporta i colori");
+		exit(1);
+	}
+	start_color();
 
 
 	///////////////////////////////////////////////////////////////////////////
@@ -48,11 +54,11 @@ int main(int argc, char **argv)
 	}*/
 	
 	Board board(BOARD_ROWS, BOARD_COLS);
-	WINDOW* schermoliam = newwin(49, 206.78, (yMax / 2) - (50/2), (xMax / 2) - ((211/2)));
-	box(schermoliam, 1, 1);
-	wrefresh(schermoliam);
-	box(board.getWin(), 0, 0);
-	wrefresh(board.getWin());	
+	//WINDOW* schermoliam = newwin(50, 211, (yMax / 2) - (50/2), (xMax / 2) - ((211/2)));
+	//box(schermoliam, 1, 1);
+	//wrefresh(schermoliam);
+	//box(board.getWin(), 0, 0);
+	//wrefresh(board.getWin());	
 
 
 	// Inizializzazione del personaggio principale
