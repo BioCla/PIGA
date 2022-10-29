@@ -58,4 +58,5 @@ public:
 	void clear();
 	void init();
 	WINDOW* getWin();
+	void checkColor();
 };
