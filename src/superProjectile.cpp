@@ -27,7 +27,7 @@ SuperProjectile::SuperProjectile(const char* icon, Position position, int direct
     this->child_moving_frequency = child_moving_frequency_multiplyer * one_millisecond;
     this->child_icon = child_icon;
 }
-/*
+
 void SuperProjectile::shootProjectiles(projList* projListHead) {
     projList *p1 = new projList;
     projList *p2 = new projList;
@@ -64,4 +64,3 @@ void SuperProjectile::checkIfTimeToShoot(system_clock::time_point time_now, proj
         last_time_shot = time_now;
     }
 }
-*/
