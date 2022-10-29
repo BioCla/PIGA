@@ -2,7 +2,7 @@
 #include "../lib/engine.hpp"
 #include <chrono>
 
-#include <iostream>
+//#include <iostream>
 using namespace std;
 
 // Inizializza ncurses
