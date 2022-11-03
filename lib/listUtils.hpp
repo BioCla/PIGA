@@ -3,19 +3,21 @@
 
 #include "../lib/entity.hpp"
 
-class List{
-    protected:
-        List *next;
-        Entity ent;
-
-    public:
-    bool isEmpty(List* head);
-    List* *createEmptyList();
-    int listLenght(List* head);
-    List* headInsert(List* head, Entity entity);
-    List* tailInsert(List* head, Entity entity);
-    List* removeFromList(List* head, Entity *entity);
+template <class T> struct Node{
+    T data;
+    Node *next;
 };
-typedef List *plist;
 
+template <class T> class List{
+    protected:
+        Node<T> *head; 
+    public:
+        List();     //crea lista vuota
+        bool isEmpty();     //ritorna true se la lista è vuota, false altrimenti
+        int listLenght();      //ritorna la lunghezza della lista
+        void headInsert(T element);     //inserisce un elemento in testa
+        void tailInsert(T element);     //inserisce un elemento in coda
+        void removeElement(T element);      //rimuove un elemento
+};
 #endif
+//typedef Node *pnode;

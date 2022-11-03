@@ -1,61 +1,94 @@
 #include "../lib/listUtils.hpp"
 #include <cstddef>
 
+template <class T> List<T>::List(){
+    head = NULL;
+}
 
-bool List::isEmpty(plist head){
+template <class T> bool List<T>::isEmpty(){
     return (head==NULL);
 }
 
-plist *createEmptyList(){
-    return (NULL);
-}
-// ritorna il numero di elementi di una lista
-int List::listLenght(plist head){
-    plist tmp=head;
+template <class T> int List<T>::listLenght(){
+    Node<T> *tmp = head;
     int k=0;
-    while(tmp!=NULL){
+    while (tmp!=NULL){
         tmp=tmp->next;
         k++;
     }
     return k;
 }
 
-plist List::headInsert(plist head, Entity entity){
-    plist tmp = new List;
+template <class T> void List<T>::headInsert(T element){
+    Node<T> *tmp = new Node<T>();
+    tmp->data=element;
     tmp->next=head;
-    tmp->ent=entity;
-    return tmp;
+    head=tmp;
 }
 
-plist List::tailInsert(plist head, Entity entity){
-    if (head==NULL){
-        head = new List;
+template <class T> void List<T>::tailInsert(T element){
+    if (head == NULL){
+        head = new Node<T>();
         head->next=NULL;
-        head->ent=entity;
+        head->data=element;
     }
     else{
-        plist tmp = head;
+        Node<T> *tmp = head;
         while (tmp->next!=NULL) tmp=tmp->next;
-        tmp->next = new List;
+        tmp->next = new Node<T>();
         tmp=tmp->next;
-        tmp->next=NULL;
-        tmp->ent=entity;
+        tmp->next = NULL;
+        tmp->data = element;
     }
 }
 
-plist List::removeFromList(plist head, Entity *entity){
-    if (head==NULL) return head;
-    else if (&head->ent==entity){
-        plist tmp=head->next;
+template <class T> void List<T>::removeElement(T element){
+    if (head==NULL){
+        return;
+    }
+    else if(head->data==element){
+        Node<T> *tmp=head->next;
         delete head;
+        head = tmp;
+    }
+    else{
+        bool flag = false;
+        Node<T> *tmp = head;
+        Node<T> *tmpafter = head->next;
+        while((!flag)&&(tmpafter!=NULL)){
+            if(tmpafter->data==element){
+                tmp->next = tmpafter->next;
+                flag = true;
+                delete tmpafter;
+            }
+            else{
+                tmp = tmpafter;
+                tmpafter=tmpafter->next;
+            }
+        }
+    }
+
+}
+
+
+
+/*
+ignorare tentativi passati
+
+template <class T>
+*Node Node<T>::removeFromList(Node *phead, T d){
+    if (phead==NULL) return phead;
+    else if (phead->data==d){
+        Node *tmp=phead->next;
+        delete phead;
         return tmp;
     }
     else{
         bool flag=false;
-        plist tmp = head;
-        plist tmpafter = head->next;
+        Node *tmp = phead;
+        Node *tmpafter = phead->next;
         while((!flag) && (tmpafter!=NULL)){
-            if(&tmpafter->ent==entity){
+            if(tmpafter->data==d){
                 tmp->next=tmpafter->next;
                 flag = true;
                 delete tmpafter;
@@ -66,7 +99,6 @@ plist List::removeFromList(plist head, Entity *entity){
             }
         }
     }
-    return (head);
+    return (phead);
 }
-
-
+*/
