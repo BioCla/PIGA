@@ -1,3 +1,6 @@
+#ifndef CHARACTER
+#define CHARACTER
+
 #include "../assets/hch.h"
 
 #include "entity.hpp"
@@ -53,3 +56,5 @@ class Character : public Entity{
         projList* getProjectilesShot();
         void settanuovahead(projList* head);
 };
+
+#endif

@@ -110,8 +110,8 @@ int main(int argc, char **argv)
 
 	Projectile speedygonzales = Projectile("s", {6,6}, DIR_EAST, 100, p.getWin());
 	projList* projlistdebug = new projList;
-	projlistdebug->next = p.getProjectilesShot();
 	projlistdebug->proj = speedygonzales;
+	projlistdebug->next = p.getProjectilesShot();
 	p.settanuovahead(projlistdebug);
 
 	
@@ -197,6 +197,8 @@ int main(int argc, char **argv)
 
 			puppet.move(puppet.getCurrentPosition().x + 1, puppet.getCurrentPosition().y);
 
+			speedygonzales.move();
+
 			
 			
 		}
@@ -215,7 +217,7 @@ int main(int argc, char **argv)
 			cout << "posizione x,y nemico: " << Astolfo.getCurrentPosition().x << ", " << Astolfo.getCurrentPosition().y << endl;
 			cout << "posizione x,y del superproiettile: " << thiccboi.getCurrentPosition().x << ", " << thiccboi.getCurrentPosition().y << endl;
 			cout << "posizione x,y dell' Entity: " << puppet.getCurrentPosition().x << ", " << puppet.getCurrentPosition().y << endl;
-			
+			cout << "posizione x,y head di p: " << p.getProjectilesShot()->proj.getCurrentPosition().x << ", " << p.getProjectilesShot()->proj.getCurrentPosition().y << endl; 
 
 			// -- fine codice --
 			int inutile;

@@ -62,6 +62,8 @@ void Projectile::move() {
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x++;
                 spawn(current_position);
+
+                mvaddch(getCurrentPosition().y + 1, getCurrentPosition().x, getCurrentPosition().x);
             }
             else {
                 alive = false;
