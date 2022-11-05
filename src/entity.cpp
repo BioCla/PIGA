@@ -10,11 +10,11 @@ Entity::Entity() {
     current_room_win = stdscr;
 }
 
-Entity::Entity(const char* icon, Position initial_position) {
+Entity::Entity(const char* icon, Position initial_position, WINDOW* win) {
     alive = true;
     this->icon = icon;
     current_position = initial_position;
-    this->current_room_win = stdscr;   //poi basta aggiungere nei parametri la window e scambiare stdscr col parametro
+    this->current_room_win = win;   //poi basta aggiungere nei parametri la window e scambiare stdscr col parametro
 }
 
 bool Entity::isAlive() {

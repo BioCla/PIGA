@@ -51,4 +51,5 @@ class Character : public Entity{
         void shoot();
         void createProjectile(int direction);
         projList* getProjectilesShot();
+        void settanuovahead(projList* head);
 };

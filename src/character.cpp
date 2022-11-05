@@ -102,7 +102,6 @@ void Character::move(int x, int y) {
     wattron(current_room_win, COLOR_PAIR(PLAYER_PAIR));
     mvwprintw(current_room_win, current_position.y, current_position.x, icon);
     wattroff(current_room_win, COLOR_PAIR(PLAYER_PAIR));
-
     wrefresh(current_room_win);
 }
 
@@ -255,4 +254,10 @@ void Character::createProjectile(int direction) {
 
 projList* Character::getProjectilesShot() {
     return projListHead;
+}
+
+
+
+void Character::settanuovahead(projList* head) {
+    projListHead = head;
 }

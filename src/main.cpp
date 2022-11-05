@@ -14,7 +14,7 @@ using namespace std;
 #include "../assets/projList.hpp"
 #include "../assets/superProjList.hpp"
 
-#include "entity.hpp"
+#include "../lib/entity.hpp"
 
 
 /*#define BOARD_DIM 17
@@ -102,10 +102,23 @@ int main(int argc, char **argv)
 	//li ho messi perchè i # del addborder della board non li prende per qualche motivo, servono solo per debuggare
 
 		//test superproiettile
-	superProjList* superProjListHead = NULL;
+	
+	SuperProjectile thiccboi = SuperProjectile("O", {3,5}, DIR_EAST, 200, 1000, 100, "'", board.getWin());
+	superProjList* superProjListHead = new superProjList;
+	superProjListHead->sproj = thiccboi;
+	superProjListHead->next = NULL;
+
+	Projectile speedygonzales = Projectile("s", {6,6}, DIR_EAST, 100, p.getWin());
+	projList* projlistdebug = new projList;
+	projlistdebug->next = p.getProjectilesShot();
+	projlistdebug->proj = speedygonzales;
+	p.settanuovahead(projlistdebug);
 
 	
-
+		// test getposiion entity
+		Entity puppet = Entity("E", {9, 9}, board.getWin());
+		puppet.spawn();
+		puppet.setIcon("a");
 			
 
 	//projList** tempProjListForRefreshingSuperProjectiles = new projList*;
@@ -151,7 +164,8 @@ int main(int argc, char **argv)
 		refreshProjectiles(p.getProjectilesShot(), time_now);
 		
 		
-		
+		mvaddch(6, 6, speedygonzales.getCurrentPosition().x); mvaddch(7, 6, speedygonzales.getCurrentPosition().y); 
+		refresh();
 		
 		
 		
@@ -170,16 +184,37 @@ int main(int argc, char **argv)
 			superProjListHead->sproj.move();
 			(*p.getProjectilesShot()).proj.move();
 		}
+
+		else if(ch == 'h') {
+			int dirsdebug[2];
+			thiccboi.getSpawningDirections(dirsdebug);
+			p.settanuovahead( createProjectile2(p.getProjectilesShot(), "*", thiccboi.getCurrentPosition(), dirsdebug[0], 
+			p.getProjectileMovingFrequency(), p.getWin()) );
+
+			p.settanuovahead( createProjectile2(p.getProjectilesShot(), "*", thiccboi.getCurrentPosition(), dirsdebug[1], 
+			p.getProjectileMovingFrequency(), p.getWin()) );
+
+
+			puppet.move(puppet.getCurrentPosition().x + 1, puppet.getCurrentPosition().y);
+
+			
+			
+		}
 		
 		else if(ch=='t') {   //serve solo per il debug
-			
+
 			def_prog_mode();
 			endwin();
 			//apre terminale
 			// -- inizia codice --
 
 
-			//FUNZIONEDEBUG();  
+			//FUNZIONEDEBUG(); 
+			cout << "posizione x,y personaggio: " << p.getCurrentPosition().x << ", " << p.getCurrentPosition().y << endl;
+			cout << "posizione x,y speedygonzales: " << speedygonzales.getCurrentPosition().x << ", " << speedygonzales.getCurrentPosition().y << endl;
+			cout << "posizione x,y nemico: " << Astolfo.getCurrentPosition().x << ", " << Astolfo.getCurrentPosition().y << endl;
+			cout << "posizione x,y del superproiettile: " << thiccboi.getCurrentPosition().x << ", " << thiccboi.getCurrentPosition().y << endl;
+			cout << "posizione x,y dell' Entity: " << puppet.getCurrentPosition().x << ", " << puppet.getCurrentPosition().y << endl;
 			
 
 			// -- fine codice --

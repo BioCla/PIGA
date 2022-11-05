@@ -9,6 +9,8 @@ class List{
         Entity ent;
 
     public:
+    List();
+    List(Entity entry);
     bool isEmpty(List* head);
     List* *createEmptyList();
     int listLenght(List* head);

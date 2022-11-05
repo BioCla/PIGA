@@ -1,6 +1,16 @@
 #include "../lib/listUtils.hpp"
 #include <cstddef>
 
+List::List() {
+    Entity default_entity = Entity();
+    ent = default_entity;
+    next = NULL;
+}
+
+List::List(Entity entry) {
+    ent = entry;
+    next = NULL;
+}
 
 bool List::isEmpty(plist head){
     return (head==NULL);
