@@ -54,7 +54,7 @@ class Character : public Entity{
         void shoot();
         void createProjectile(int direction);
         projList* getProjectilesShot();
-        void settanuovahead(projList* head);
+        void settanuovahead(projList* head);   //funzione meh, per adesso non la userei finchè non implementiamo le liste bene
 };
 
 #endif

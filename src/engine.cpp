@@ -193,7 +193,12 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 		}
 	}
 }
-	
+
+
+/*		le funzioni refreshSuperProjectiles e createProjectile2 non funzionano ancora bene		*/
+
+//DA FINIRE
+//sistemare il primo ciclo, bisogna aggiungere decentemente i nuovi proiettili alla lista
 void refreshSuperProjectiles(superProjList* head, system_clock::time_point time_now, projList* projListHead) {
 	superProjList *p = new superProjList;
 	p = head;
@@ -238,7 +243,8 @@ void refreshSuperProjectiles(superProjList* head, system_clock::time_point time_
 		}
 	}
 }
-
+//MEH
+//un po' surrogata, quando implementiamo le liste coi template questa va cambiata
 projList* createProjectile2(projList* projListHead, const char* icon, Position position, int direction, int moving_frequency, WINDOW* win) {
 	projList *p = new projList;
 	Projectile newProjectile = Projectile(icon, position, direction, moving_frequency, win);
