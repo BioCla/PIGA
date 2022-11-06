@@ -1,20 +1,22 @@
 #include "../assets/hch.h"
 #include "../lib/board.hpp"
+#include "../lib/entity.hpp"
 #include "../lib/character.hpp"
 #include "../lib/projectile.hpp"
 #include "../lib/superProjectile.hpp"
 #include "../assets/position.hpp"
 #include "../lib/enemy.hpp"
 #include "../lib/engine.hpp"
+#include "../assets/projList.hpp"
+#include "../assets/superProjList.hpp"
 #include <stdlib.h>
 #include <ctime>
 #include <iostream>
 using namespace std;
 
-#include "../assets/projList.hpp"
-#include "../assets/superProjList.hpp"
 
-#include "entity.hpp"
+
+
 
 
 /*#define BOARD_DIM 17
@@ -26,9 +28,7 @@ using namespace std;
 int main(int argc, char **argv)
 {
 
-	// Questo dovra' andare in una funzione separate prima o poi:
 	
-	 // Permette l'utilizzo di colori sullo schermo
 	
 	initscr();
 	refresh();
@@ -46,8 +46,8 @@ int main(int argc, char **argv)
 	// Inizializzazione della tavola principale iniziale
 	//Board board(rows, cols);
 	
-	int xMax, yMax;
-	getmaxyx(stdscr, yMax, xMax);
+	int stdscrxmax, stdscrymax;
+	getmaxyx(stdscr, stdscrymax, stdscrxmax);
 	/*while(yMax>50 && xMax >200){
 		mvprintw(yMax/2, xMax/2, "rimpicciolisci il terminale");
 	}
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 	}*/
 	
 	Board board(BOARD_ROWS, BOARD_COLS);
-	WINDOW* schermoliam = newwin(50, 211, (yMax / 2) - (50/2), (xMax / 2) - ((211/2)));
+	WINDOW* schermoliam = newwin(50, 211, (stdscrymax / 2) - (50/2), (stdscrxmax / 2) - ((211/2)));
 	box(schermoliam, 1, 1);
 	wrefresh(schermoliam);
 	box(board.getWin(), 0, 0);
@@ -76,41 +76,15 @@ int main(int argc, char **argv)
 
 
 	//DEBUG - prova del proiettile
-	/*
-	mvaddch(25, 120, 35);
-	mvaddch(26, 120, 35);
-	mvaddch(27, 120, 35);
-	mvaddch(28, 120, 35);
-	mvaddch(29, 120, 35);
-	mvaddch(30, 120, 35);
-	mvaddch(31, 120, 35);
-	mvaddch(32, 120, 35);
-	mvaddch(25, 119, 35);
-	mvaddch(25, 118, 35);
-	mvaddch(25, 117, 35);
-	mvaddch(25, 116, 35);
-	mvaddch(25, 115, 35);
-	mvaddch(25, 114, 35);
-	mvaddch(25, 113, 35);
-	mvaddch(25, 112, 35);
-	mvaddch(25, 111, 35);
-	mvaddch(25, 110, 35);
-	mvaddch(25, 109, 35);
-	mvaddch(25, 80, 35);*/
-	//mvaddch(1, 2, 35);     //se attivi questo il proiettile buggato "spawna" e si distrugge subito dopo. è una nonsoluzione diciamo
-	//toglieteli pure tutti se danno fastidio
-	//li ho messi perchè i # del addborder della board non li prende per qualche motivo, servono solo per debuggare
-
-		//test superproiettile
-	superProjList* superProjListHead = NULL;
-
 	
 
-			
+		
+	
+	
+	superProjList* superProjListHead = new superProjList;	superProjListHead = NULL;
+	//se cancellate la riga sopra commentate il refreshSuperProjectiles nel ciclo
 
-	//projList** tempProjListForRefreshingSuperProjectiles = new projList*;
-	//*tempProjListForRefreshingSuperProjectiles = p.getProjectilesShot();
-		// / test superproiettile
+
 	
 
 		
@@ -133,16 +107,15 @@ int main(int argc, char **argv)
 
 
 	system_clock::time_point time_now = system_clock::now();
-	int stdscrxmax, stdscrymax;
-	getmaxyx(stdscr, stdscrymax, stdscrxmax);
+	
 
 	
 
 	int ch; // Variabile di accesso al handler per gli input
 	while ((ch = getch()) != 'q')
 	{
-
 		time_now = system_clock::now();
+
 
 		p.HandleInput(ch);
 		Astolfo.checkIfTimeToMove(time_now);
@@ -152,6 +125,7 @@ int main(int argc, char **argv)
 		
 		
 		
+		refresh();
 		
 		
 		
@@ -160,7 +134,7 @@ int main(int argc, char **argv)
 		if(ch == 'f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
 			p.shoot();
 		}
-		else if(ch=='g') {
+		else if(ch=='g') {    //tasti di debug se li premete potrebbe buggarsi qualcosa
 			SuperProjectile newProjectile = SuperProjectile("O", p.getCurrentPosition(), p.getLastDirection(),
 															100, 800, 100, "'", p.getWin());
 			superProjList *newproj = new superProjList;
@@ -170,18 +144,29 @@ int main(int argc, char **argv)
 			superProjListHead->sproj.move();
 			(*p.getProjectilesShot()).proj.move();
 		}
+
+		else if(ch == 'h') {    //tasti di debug se li premete potrebbe buggarsi qualcosa
+			/*int dirsdebug[2];
+			superProjListHead->proj.getSpawningDirections(dirsdebug);
+			p.settanuovahead( createProjectile2(p.getProjectilesShot(), "*", thiccboi.getCurrentPosition(), dirsdebug[0], 
+			p.getProjectileMovingFrequency(), p.getWin()) );
+
+			p.settanuovahead( createProjectile2(p.getProjectilesShot(), "*", thiccboi.getCurrentPosition(), dirsdebug[1], 
+			p.getProjectileMovingFrequency(), p.getWin()) );
+			*/
+
+		}
 		
 		else if(ch=='t') {   //serve solo per il debug
-			
+
 			def_prog_mode();
 			endwin();
 			//apre terminale
 			// -- inizia codice --
 
 
-			//FUNZIONEDEBUG();  
+			//FUNZIONEDEBUG(); 
 			
-
 			// -- fine codice --
 			int inutile;
 			cin >> inutile;

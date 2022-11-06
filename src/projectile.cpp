@@ -7,8 +7,7 @@ Projectile::Projectile() {
     icon = "-";
     current_position = {1, 1};
     direction = DIR_EAST;     
-    //a caso, giusto per vederlo vagare sullo schermo
-    alive = true;
+    alive = false;
     current_room_win = stdscr;
 }
 
@@ -48,7 +47,7 @@ void Projectile::move() {
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                current_position.y = current_position.y - 1;
+                current_position.y--;
                 spawn(current_position);
             }
             else {
@@ -61,7 +60,7 @@ void Projectile::move() {
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                current_position.x = current_position.x + 1;
+                current_position.x++;
                 spawn(current_position);
             }
             else {
@@ -74,7 +73,7 @@ void Projectile::move() {
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                current_position.y = current_position.y + 1;
+                current_position.y++;
                 spawn(current_position);
             }
             else {
@@ -87,7 +86,7 @@ void Projectile::move() {
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                current_position.x = current_position.x - 1;
+                current_position.x--;
                 spawn(current_position);
             }
             else {
@@ -116,8 +115,10 @@ bool Projectile::collisionWithRoomWall(int posx, int posy) {
 
 bool Projectile::outOfBorder() {
     bool outofb = false;
-    if((current_position.y <= 0) || (current_position.y > getmaxy(stdscr)) ||
-    (current_position.x <= 0) || (current_position.x > getmaxx(stdscr))) {
+    int xmax, ymax;
+    getmaxyx(current_room_win, ymax, xmax);
+    if((current_position.y <= 0) || (current_position.y > ymax) ||
+    (current_position.x <= 0) || (current_position.x > xmax)) {
         outofb = true;
     }
     return outofb;

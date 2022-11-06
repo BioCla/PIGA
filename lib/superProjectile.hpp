@@ -27,8 +27,11 @@ class SuperProjectile : public Projectile {
                     int child_moving_frequency, const char* child_icon, WINDOW* win);
     void shootProjectiles(projList* projListHead);
     void createProjectile(int direction, projList* projListHead);
-    void checkIfTimeToShoot(system_clock::time_point time_now, projList* projListHead);
+    bool checkIfTimeToShoot(system_clock::time_point time_now, projList* projListHead);
     projList* getProjectilesHead();
+    const char* getChildIcon();
+    void getSpawningDirections(int directions[2]);
+    int getChildMovingFrequency();
 };
 
 #endif

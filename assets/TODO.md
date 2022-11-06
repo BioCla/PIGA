@@ -5,6 +5,20 @@
 ### Manto
 non segarsi non segarsi non segarsi
 
+Room.hpp {   //o come si chiama
+    protected:
+        ...
+        List listaDiProiettili, listaNemici, ...   //List è la tua lista
+        ...
+}
+
+main.cpp {
+    ...
+    Projectile newProjectile = Projectile(parametro1, parametro2, ...);
+    current_room.getListaProiettili().add(newProjectile);  //add o come si chiama
+    ...
+}
+
 ### HAZE
 non segarsi non segarsi non segarsi
 

@@ -4,7 +4,7 @@
 SuperProjectile::SuperProjectile() {
     icon = "-";
     current_position = {1, 1};
-    direction = DIR_EAST;     
+    direction = DIR_EAST;
     //a caso, giusto per vederlo vagare sullo schermo
     alive = true;
     current_room_win = stdscr;
@@ -31,25 +31,22 @@ SuperProjectile::SuperProjectile(const char* icon, Position position, int direct
 }
 
 void SuperProjectile::shootProjectiles(projList* projListHead) {
-    projList *p1 = new projList;
-    projList *p2 = new projList;
+    //projList *p1 = new projList;
+    //projList *p2 = new projList;
     if(spawning_axis == VERTICAL) {
         createProjectile(DIR_NORTH, projListHead);
         createProjectile(DIR_SOUTH, projListHead);
-        p1->next = p2;
     }
     else if(spawning_axis == HORIZONTAL) {
         createProjectile(DIR_EAST, projListHead);
         createProjectile(DIR_WEST, projListHead);
     }
-
-    projListHead = p1;
 }
 
 void SuperProjectile::createProjectile(int direction, projList* projListHead) {
     projList *p = new projList;
     Projectile newProjectile = Projectile(child_icon, current_position, direction, child_moving_frequency_multiplyer, current_room_win);
-    
+
     //head insert del nuovo proiettile
     p->next = projListHead;
     p->proj = newProjectile;
@@ -58,11 +55,33 @@ void SuperProjectile::createProjectile(int direction, projList* projListHead) {
     p->proj.move(); 
 
     projListHead = p;
-
 }
 
-void SuperProjectile::checkIfTimeToShoot(system_clock::time_point time_now, projList* projListHead) {
+bool SuperProjectile::checkIfTimeToShoot(system_clock::time_point time_now, projList* projListHead) {
+    bool is_time = false;
     if(time_now > last_time_shot + spawning_frequency) {
         last_time_shot = time_now;
+        //shootProjectiles(projListHead);
+        is_time = true;
     }
+    return is_time;
+}
+
+const char* SuperProjectile::getChildIcon() {
+    return child_icon;
+}
+
+void SuperProjectile::getSpawningDirections(int directions[2]) {
+    if(spawning_axis == VERTICAL) {
+        directions[0] = DIR_NORTH;
+        directions[1] = DIR_SOUTH;
+    }
+    else if(spawning_axis == HORIZONTAL) {
+        directions[0] = DIR_EAST;
+        directions[1] = DIR_WEST;
+    }
+}
+
+int SuperProjectile::getChildMovingFrequency() {
+    return child_moving_frequency_multiplyer;
 }

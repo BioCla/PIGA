@@ -15,7 +15,7 @@ class Entity {
 
     public:
         Entity();
-        Entity(const char* icon, Position initial_position);
+        Entity(const char* icon, Position initial_position, WINDOW* win);
         bool isAlive();
         void setIcon(const char* new_icon);
         const char* getIcon();
