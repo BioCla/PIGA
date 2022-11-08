@@ -1,14 +1,18 @@
 #ifndef LISTS
 #define LISTS
-
 #include "../lib/entity.hpp"
+#include <cstddef>
+template <typename T> class Node{
 
-template <class T> struct Node{
-    T data;
-    Node *next;
+    protected:
+        T data;
+        Node<T> *next;
+        template <typename U> friend class List;
+    public:
+        Node();
 };
 
-template <class T> class List{
+template <typename T> class List{
     protected:
         Node<T> *head; 
     public:
@@ -16,8 +20,11 @@ template <class T> class List{
         bool isEmpty();     //ritorna true se la lista è vuota, false altrimenti
         int listLenght();      //ritorna la lunghezza della lista
         void headInsert(T element);     //inserisce un elemento in testa
-        void tailInsert(T element);     //inserisce un elemento in coda
-        void removeElement(T element);      //rimuove un elemento
+        void removeElement(T *element);      //rimuove un elemento
+//        void tailInsert(T element);     //inserisce un elemento in coda
 };
+
+
+#include "../src/listUtils.tpp"
+
 #endif
-//typedef Node *pnode;

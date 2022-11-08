@@ -29,3 +29,4 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         bool legalMove(int posx, int posy);
         void checkIfTimeToMove(system_clock::time_point time_now);
 };
+
