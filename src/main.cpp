@@ -101,15 +101,15 @@ int main(int argc, char **argv)
 	Astolfo.setCurrentRoom(board.getWin());
 	Astolfo.spawn(Astolfo.getCurrentPosition());
 	
-	Position p1={20,30};
-	Position p2={30,40};
+	Position p1={14,14};
+	Position p2={16,16};
 	Enemy cane = Enemy("A",10,10,p1,1,idle_time_enemy);
 	Enemy canguro = Enemy("A",10,10,p2,1,idle_time_enemy);
 	List<Enemy> Enemies;
 	Enemies.headInsert(cane);
 	Enemies.headInsert(canguro);
 	Enemies.spawnEnemies();
-	cout << Enemies.listLenght() << endl;
+	//cout << Enemies.listLenght() << endl;
 	//Enemies.removeElement(&cane);
 	// /DEBUG
 
@@ -126,7 +126,7 @@ int main(int argc, char **argv)
 
 
 		p.HandleInput(ch);
-		Astolfo.checkIfTimeToMove(time_now);
+		//Astolfo.checkIfTimeToMove(time_now);
 		
 		refreshSuperProjectiles(superProjListHead, time_now, p.getProjectilesShot());
 		refreshProjectiles(p.getProjectilesShot(), time_now);
