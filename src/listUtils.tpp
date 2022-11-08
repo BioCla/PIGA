@@ -1,3 +1,5 @@
+#include "../lib/entity.hpp"
+
 template <typename T> Node<T>::Node(){
     this->next=NULL;
 }
@@ -55,6 +57,14 @@ template <typename T> void List<T>::removeElement(T *element){
     }
 
 }
+template <> void List<Enemy>::spawnEnemies(){
+    Node<Enemy> *tmp = this->head;
+    while (tmp!=NULL) {
+        tmp->data.spawn(head->data.getCurrentPosition());
+        tmp=tmp->next;
+    }
+}
+
 /*
 template <typename T> void List<T>::tailInsert(T element){
     if (head == NULL){

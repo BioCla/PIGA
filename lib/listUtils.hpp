@@ -21,6 +21,7 @@ template <typename T> class List{
         int listLenght();      //ritorna la lunghezza della lista
         void headInsert(T element);     //inserisce un elemento in testa
         void removeElement(T *element);      //rimuove un elemento
+        void spawnEnemies();
 //        void tailInsert(T element);     //inserisce un elemento in coda
 };
 
