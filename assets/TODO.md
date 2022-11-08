@@ -5,6 +5,10 @@
 ### Manto
 non segarsi non segarsi non segarsi
 
+sistemare remove
+posizioni???
+costruttore brutto di Enemy
+
 Room.hpp {   //o come si chiama
     protected:
         ...

@@ -96,19 +96,25 @@ int main(int argc, char **argv)
 	
 	Position spawnpoint_enemy;
 	spawnpoint_enemy.x=15; spawnpoint_enemy.y=15;
-	duration <int, std::ratio <1,1000 > > idle_time_enemy(1000);
-	Enemy Astolfo = Enemy("A",10,1,spawnpoint_enemy,1,idle_time_enemy);
+	duration <int, std::ratio <1,1000 > > idle_time_enemy(500);
+	Enemy Astolfo = Enemy("A",10,1,spawnpoint_enemy,1,idle_time_enemy,board.getWin());
 	Astolfo.setCurrentRoom(board.getWin());
-	Astolfo.spawn(Astolfo.getCurrentPosition());
+	//Astolfo.spawn(Astolfo.getCurrentPosition());
 	
-	Position p1={14,14};
-	Position p2={16,16};
-	Enemy cane = Enemy("A",10,10,p1,1,idle_time_enemy);
-	Enemy canguro = Enemy("A",10,10,p2,1,idle_time_enemy);
+	Position p1={20,20};
+	Position p2={10,10};
+	Position p3={30,30};
+	Position p4={20,25};
+	Enemy cane = Enemy("A",10,10,p1,1,idle_time_enemy,board.getWin());
+	Enemy canguro = Enemy("A",10,10,p2,1,idle_time_enemy,board.getWin());
+	Enemy xilofono = Enemy("A",10,10,p3,1,idle_time_enemy,board.getWin());
+	Enemy gatto = Enemy("A",10,10,p4,1,idle_time_enemy,board.getWin());
 	List<Enemy> Enemies;
 	Enemies.headInsert(cane);
 	Enemies.headInsert(canguro);
-	Enemies.spawnEnemies();
+	Enemies.headInsert(xilofono);
+	Enemies.headInsert(gatto);
+	//Enemies.spawnEnemies();
 	//cout << Enemies.listLenght() << endl;
 	//Enemies.removeElement(&cane);
 	// /DEBUG
@@ -130,7 +136,7 @@ int main(int argc, char **argv)
 		
 		refreshSuperProjectiles(superProjListHead, time_now, p.getProjectilesShot());
 		refreshProjectiles(p.getProjectilesShot(), time_now);
-		
+		Enemies.moveEnemies(time_now);
 		
 		
 		refresh();

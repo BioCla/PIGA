@@ -17,16 +17,12 @@ Enemy::Enemy(){
     current_room_win = stdscr;
 }
 
-Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time){
-
-    this->icon = icon;
-    current_position = spawn_position;
+Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time,WINDOW* win) : Entity(icon, spawn_position, win){
     this->max_health=max_health;
     this->damage=damage;
     this->pathID=pathID;
     this->idle_time=idle_time;
     last_time_moved = system_clock::now();
-    current_room_win = stdscr;
 }
 
 void Enemy::spawn(Position position) {

@@ -1,3 +1,6 @@
+#ifndef ENEMIES
+#define ENEMIES
+
 #include "../assets/hch.h"
 #include "entity.hpp"
 #include "../assets/position.hpp"
@@ -19,7 +22,7 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
 
     public:
         Enemy();
-        Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time);
+        Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time,WINDOW* win);
         void spawn(Position initial_position);
         void setHealth(int set);
         int getHealth();
@@ -30,3 +33,4 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         void checkIfTimeToMove(system_clock::time_point time_now);
 };
 
+#endif

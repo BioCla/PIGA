@@ -1,4 +1,5 @@
 #include "../lib/entity.hpp"
+#include <chrono>
 
 template <typename T> Node<T>::Node(){
     this->next=NULL;
@@ -60,9 +61,17 @@ template <typename T> void List<T>::removeElement(T *element){
 template <> void List<Enemy>::spawnEnemies(){
     Node<Enemy> *tmp = this->head;
     while (tmp!=NULL) {
-        tmp->data.spawn(head->data.getCurrentPosition());
+        tmp->data.spawn(tmp->data.getCurrentPosition());
         tmp=tmp->next;
     }
+}
+
+template <> void List<Enemy>::moveEnemies(system_clock::time_point time_now){
+    Node<Enemy> *tmp = this->head;
+    while (tmp!=NULL) {
+        tmp->data.checkIfTimeToMove(time_now);
+        tmp=tmp->next;
+    }    
 }
 
 /*
