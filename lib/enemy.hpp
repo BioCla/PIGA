@@ -7,17 +7,21 @@
 #include <chrono>
 using namespace std::chrono;
 
+#define RANDOM 0
+#define STSLR 1
+#define STSUD 2 
+#define CHASE 3
+
 class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di questa classe
     protected:
-        //--WINDOW* current_room_win;
-        //--const char* icon;
         int health;
         int max_health;
         int damage;       //danno che infligge il nemico al giocatore
-        //--Position current_position;
+        int pathing;
         int pathID; // percorso che fa il nemico (pathID =1 un pattern, pathID = 2 un altro pattern)[da cambiare]
         duration <int, std::ratio <1,1000 > > idle_time;
         system_clock::time_point last_time_moved;
+        //Position distanceToPlayer;
         //
 
     public:
@@ -28,9 +32,14 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         int getHealth();
         void setDamage(int set);
         int getDamage();
+        void moveUp();
+        void moveDown();
+        void moveLeft();
+        void moveRight();
         void move();
         bool legalMove(int posx, int posy);
         void checkIfTimeToMove(system_clock::time_point time_now);
+        void setDistanceToPlayer(Position player_pos);
 };
 
 #endif

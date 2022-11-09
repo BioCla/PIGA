@@ -11,16 +11,13 @@ Projectile::Projectile() {
     current_room_win = stdscr;
 }
 
-Projectile::Projectile(const char* icon, Position position, int direction, int moving_frequency, WINDOW* win) {
-    this->icon = icon;
-    current_position = position;
+Projectile::Projectile(const char* icon, Position position, int direction, int moving_frequency, WINDOW* win) : Entity(icon,position,win){
     this->direction = direction;
     moving_frequency_multiplyer = moving_frequency;
     duration <int, std::ratio <1,1000 > > one_millisecond (1);
     this->moving_frequency = moving_frequency_multiplyer * one_millisecond;
     last_time_moved = system_clock::now();
     alive = true;
-    current_room_win = win;
 }
 
 void Projectile::spawn(Position position) {
