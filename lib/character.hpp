@@ -6,6 +6,7 @@
 #include "entity.hpp"
 #include "../assets/position.hpp"
 #include "../assets/projList.hpp"
+
 //-- tutti quelli che sono dentro la superclasse entity. quando entity funziona senza bug ricordarsi di cancellare la riga
 class Character : public Entity{
     protected:
@@ -55,6 +56,7 @@ class Character : public Entity{
         void createProjectile(int direction);
         projList* getProjectilesShot();
         void settanuovahead(projList* head);   //funzione meh, per adesso non la userei finchè non implementiamo le liste bene
+        //void nuovafunzionetest(List<Projectile> listaProj);
 };
 
 #endif

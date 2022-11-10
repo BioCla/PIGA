@@ -49,6 +49,7 @@ salute    num_cuori
 void Character::updateHealth(int mod) {
     health = health + mod;
     if (health > max_health) health = max_health;
+    if(health <= 0) alive = false;
 }
 
 void Character::setHealth(int set) {
@@ -261,3 +262,10 @@ projList* Character::getProjectilesShot() {
 void Character::settanuovahead(projList* head) {
     projListHead = head;
 }
+/*
+void Character::nuovafunzionetest(List<Projectile> listaProj) {
+    Projectile newProjectile = Projectile("+", current_position, last_direction_taken, projectile_moving_frequency, current_room_win);
+    listaProj.headInsert(newProjectile);
+    newProjectile.move();
+}
+*/
