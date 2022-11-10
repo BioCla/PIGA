@@ -77,6 +77,11 @@ int main(int argc, char **argv)
 
 
 	//DEBUG - prova del proiettile
+
+	Projectile speedygonzales("s", {5,5}, DIR_EAST, 100, board.getWin());
+
+	List<Projectile> projectilesList;
+	projectilesList.headInsert(speedygonzales);
 	
 
 		
@@ -118,6 +123,10 @@ int main(int argc, char **argv)
 	Enemies.spawnEnemies();
 	//cout << Enemies.listLenght() << endl;
 	//Enemies.removeElement(&cane);
+
+
+
+
 	// /DEBUG
 
 
@@ -137,7 +146,7 @@ int main(int argc, char **argv)
 		
 		refreshSuperProjectiles(superProjListHead, time_now, p.getProjectilesShot());
 		refreshProjectiles(p.getProjectilesShot(), time_now);
-		Enemies.moveEnemies(time_now);
+		
 		
 		
 		refresh();
@@ -181,7 +190,8 @@ int main(int argc, char **argv)
 
 
 			//FUNZIONEDEBUG(); 
-			cout << Enemies.listLenght() << endl;;
+			cout << Enemies.listLenght() << endl;
+			cout << projectilesList.listLenght() << endl;
 			// -- fine codice --
 			int inutile;
 			cin >> inutile;

@@ -6,6 +6,9 @@
 #include "entity.hpp"
 #include "../assets/position.hpp"
 #include "../assets/projList.hpp"
+#include "../lib/listUtils.hpp"
+
+
 //-- tutti quelli che sono dentro la superclasse entity. quando entity funziona senza bug ricordarsi di cancellare la riga
 class Character : public Entity{
     protected:
