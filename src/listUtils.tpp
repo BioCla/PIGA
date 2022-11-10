@@ -65,6 +65,41 @@ template <> void List<Enemy>::spawnEnemies(){
     }
 }
 
+template <typename T> void List<T>::moveEntities(system_clock::time_point time_now){
+    Node<T> *tmp = this->head;
+    while (tmp!=NULL) {
+        tmp->data.checkIfTimeToMove(time_now);
+        tmp=tmp->next;
+    }    
+}
+
+template <typename T> void List<T>::removeDeadEntities(){
+    if (head==NULL) return;
+    else if((head->next==NULL)&&(!head->data.isAlive())){
+        delete head;
+        head = NULL;
+    }
+    else{
+        Node<T> *tmp = head;
+        Node<T> *tmpafter = head->next;
+        while(tmpafter!=NULL){
+            if(!tmpafter->data.isAlive()){
+                tmp->next = tmpafter->next;
+                delete tmpafter;
+            }
+            else{
+                tmp = tmpafter;
+                tmpafter=tmpafter->next;
+            }
+        }
+
+    }
+}
+
+template class List<Enemy>;
+template class List<Projectile>;
+//template class List<Item>;
+
 /*
 template <typename T> void List<T>::tailInsert(T element){
     if (head == NULL){

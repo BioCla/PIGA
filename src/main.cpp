@@ -90,7 +90,6 @@ int main(int argc, char **argv)
 	superProjList* superProjListHead = new superProjList;	superProjListHead = NULL;
 	//se cancellate la riga sopra commentate il refreshSuperProjectiles nel ciclo
 
-	List<Projectile> projectilesList;
 
 
 	
