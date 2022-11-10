@@ -6,8 +6,9 @@
 non segarsi non segarsi non segarsi
 
 sistemare remove
-posizioni???
-costruttore brutto di Enemy
+movimenti Enemy(manca chase)
+costruttore brutto di character
+Enemy proiettili
 
 Room.hpp {   //o come si chiama
     protected:
