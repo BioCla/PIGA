@@ -2,6 +2,8 @@
 #define LISTS
 #include "../lib/entity.hpp"
 #include <cstddef>
+#include <chrono>
+
 template <typename T> class Node{
 
     protected:
