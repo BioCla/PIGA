@@ -9,6 +9,7 @@ sistemare remove
 movimenti Enemy(manca chase)
 costruttore brutto di character
 Enemy proiettili
+items
 
 Room.hpp {   //o come si chiama
     protected:
