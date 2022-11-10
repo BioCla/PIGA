@@ -5,7 +5,7 @@ CFLAGS = -lncurses -lm -I $(HEADERS) -Wall
 
 ifeq ($(OS),Windows_NT)
     detected_OS := Windows
-elsexterm install
+else
     detected_OS := $(shell uname)
 endif
 

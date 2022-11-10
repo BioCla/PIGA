@@ -121,6 +121,7 @@ int main(int argc, char **argv)
 	Enemies.headInsert(xilofono);
 	Enemies.headInsert(gatto);
 	Enemies.spawnEnemies();
+	Enemies.removeDeadEntities();
 	//cout << Enemies.listLenght() << endl;
 	//Enemies.removeElement(&cane);
 
@@ -146,7 +147,7 @@ int main(int argc, char **argv)
 		
 		refreshSuperProjectiles(superProjListHead, time_now, p.getProjectilesShot());
 		refreshProjectiles(p.getProjectilesShot(), time_now);
-		
+		Enemies.moveEnemies(time_now);
 		
 		
 		refresh();
