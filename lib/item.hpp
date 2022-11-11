@@ -3,7 +3,6 @@
 
 #include "../assets/hch.h"
 #include "entity.hpp"
-#include "../assets/position.hpp"
 
 class Item : public Entity{
     protected:

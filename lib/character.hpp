@@ -4,7 +4,6 @@
 #include "../assets/hch.h"
 
 #include "entity.hpp"
-#include "../assets/position.hpp"
 #include "../assets/projList.hpp"
 
 //-- tutti quelli che sono dentro la superclasse entity. quando entity funziona senza bug ricordarsi di cancellare la riga

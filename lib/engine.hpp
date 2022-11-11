@@ -3,7 +3,6 @@
 
 #include "../assets/hch.h"
 
-#include "../assets/projList.hpp"
 #include "../assets/superProjList.hpp"
 
 #define EMPTY ' '

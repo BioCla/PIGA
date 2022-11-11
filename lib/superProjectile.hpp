@@ -1,9 +1,7 @@
 #ifndef SUPERPROJECTILES
 #define SUPERPROJECTILES
 
-#include "projectile.hpp"
 #include "../assets/projList.hpp"
-#include "../assets/position.hpp"
 #include <chrono>
 using namespace std::chrono;
 #define VERTICAL 0
