@@ -68,8 +68,7 @@ int main(int argc, char **argv)
 	Position character_initial_position;
 	character_initial_position.x = 5;
 	character_initial_position.y = 5;
-	Character p = Character(character_initial_position.x, character_initial_position.y, "@", 30, "*", 100);
-	p.setRoomWin(board.getWin());
+	Character p = Character("@", character_initial_position, 30, "*", 100, board.getWin());
 
 	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
 	p.move(character_initial_position.x, character_initial_position.y);
@@ -96,15 +95,15 @@ int main(int argc, char **argv)
 	
 	Position spawnpoint_enemy;
 	spawnpoint_enemy.x=15; spawnpoint_enemy.y=15;
-	duration <int, std::ratio <1,1000 > > idle_time_enemy(50);
+	duration <int, std::ratio <1,1000 > > idle_time_enemy(2000);
 	Enemy Astolfo = Enemy("A",10,1,spawnpoint_enemy,1,idle_time_enemy,board.getWin());
 	Astolfo.setCurrentRoom(board.getWin());
 	//Astolfo.spawn(Astolfo.getCurrentPosition());
 	
-	Position p1={20,20};
-	Position p2={10,10};
-	Position p3={30,30};
-	Position p4={20,25};
+	Position p1={2,2};
+	Position p2={6,6};
+	Position p3={10,10};
+	Position p4={15,15};
 	Enemy cane = Enemy("A",10,10,p1,RANDOM,idle_time_enemy,board.getWin());
 	Enemy canguro = Enemy("A",10,10,p2,STSLR,idle_time_enemy,board.getWin());
 	Enemy xilofono = Enemy("A",10,10,p3,STSUD,idle_time_enemy,board.getWin());
@@ -121,6 +120,11 @@ int main(int argc, char **argv)
 	//Enemies.removeElement(&cane);
 	// /DEBUG
 
+//	Enemies.killEnemy(2);
+	Enemies.killEnemy(3);
+	Enemies.killEnemy(1);
+	Enemies.killEnemy(0);
+	Enemies.removeDeadEntities();
 
 	system_clock::time_point time_now = system_clock::now();
 	
@@ -162,15 +166,6 @@ int main(int argc, char **argv)
 		}
 
 		else if(ch == 'h') {    //tasti di debug se li premete potrebbe buggarsi qualcosa
-			/*int dirsdebug[2];
-			superProjListHead->proj.getSpawningDirections(dirsdebug);
-			p.settanuovahead( createProjectile2(p.getProjectilesShot(), "*", thiccboi.getCurrentPosition(), dirsdebug[0], 
-			p.getProjectileMovingFrequency(), p.getWin()) );
-
-			p.settanuovahead( createProjectile2(p.getProjectilesShot(), "*", thiccboi.getCurrentPosition(), dirsdebug[1], 
-			p.getProjectileMovingFrequency(), p.getWin()) );
-			*/
-
 		}
 		
 		else if(ch=='t') {   //serve solo per il debug

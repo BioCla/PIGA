@@ -32,6 +32,7 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         int getHealth();
         void setDamage(int set);
         int getDamage();
+        void updateHealth(int mod);
         void moveUp();
         void moveDown();
         void moveLeft();

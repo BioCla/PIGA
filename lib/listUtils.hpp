@@ -25,6 +25,8 @@ template <typename T> class List{
         void moveEntities(system_clock::time_point time_now);
 //        void tailInsert(T element);     //inserisce un elemento in coda
         void removeDeadEntities();
+            //Funzioni debug
+        void killEnemy(int o);
 };
 
 

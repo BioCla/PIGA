@@ -19,7 +19,7 @@ Enemy::Enemy(){
 }
 
 Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time,WINDOW* win) : Entity(icon, spawn_position, win){
-    this->max_health=max_health;
+    this->health=max_health;
     this->damage=damage;
     this->pathID=pathID;
     this->idle_time=idle_time;
@@ -47,6 +47,11 @@ void Enemy::setDamage(int set){
 
 int Enemy::getDamage(){
     return damage;
+}
+
+void Enemy::updateHealth(int mod){
+    health+=mod;
+    if (health<=0) this->alive=false;
 }
 
 void Enemy::moveUp(){

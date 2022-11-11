@@ -14,10 +14,7 @@ Character::Character() {
     current_room_win = stdscr;
 }
 
-Character::Character(int x, int y, const char * icon, int max_health, const char * projectile_icon, int projectile_moving_frequency){
-    current_position.x = x;
-    current_position.y = y;
-    this->icon = icon;
+Character::Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int projectile_moving_frequency, WINDOW* win):Entity(icon, pos, win){
     this->max_health = max_health;
     health = max_health;
     damage = 5;   
@@ -26,7 +23,6 @@ Character::Character(int x, int y, const char * icon, int max_health, const char
     last_direction_taken = DIR_NORTH;
     damage = 5;
     projListHead = NULL;
-    current_room_win = stdscr;
 }
 
 void Character::updateHearts() {

@@ -1,6 +1,3 @@
-#include "../lib/entity.hpp"
-#include <chrono>
-
 template <typename T> Node<T>::Node(){
     this->next=NULL;
 }
@@ -56,8 +53,8 @@ template <typename T> void List<T>::removeElement(T *element){
             }
         }
     }
-
 }
+
 template <> void List<Enemy>::spawnEnemies(){
     Node<Enemy> *tmp = this->head;
     while (tmp!=NULL) {
@@ -77,6 +74,7 @@ template <typename T> void List<T>::moveEntities(system_clock::time_point time_n
 template <typename T> void List<T>::removeDeadEntities(){
     if (head==NULL) return;
     else if((head->next==NULL)&&(!head->data.isAlive())){
+        head->data.deleteIcon();
         delete head;
         head = NULL;
     }
@@ -86,16 +84,35 @@ template <typename T> void List<T>::removeDeadEntities(){
         while(tmpafter!=NULL){
             if(!tmpafter->data.isAlive()){
                 tmp->next = tmpafter->next;
+                tmpafter->data.deleteIcon();
                 delete tmpafter;
             }
             else{
                 tmp = tmpafter;
-                tmpafter=tmpafter->next;
             }
+                tmpafter = tmp->next;
+        }
+        if (!head->data.isAlive()){
+            Node<T> *tmp = head->next;
+            head->data.deleteIcon();
+            delete head;
+            head=tmp;
         }
 
     }
 }
+//FUNZIONI DEBUG
+template <> void List<Enemy>::killEnemy(int o){
+    Node<Enemy> *tmp = this->head;
+    int h=0;
+    while(h!=o){
+        tmp=tmp->next;
+        h++;
+    }
+    tmp->data.updateHealth(-11);
+}
+
+
 
 template class List<Enemy>;
 template class List<Projectile>;

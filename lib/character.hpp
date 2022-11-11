@@ -32,7 +32,7 @@ class Character : public Entity{
 
     public:
         Character();
-        Character(int x, int y, const char * icon, int max_health, const char * projectile_icon, int projectile_moving_frequency);
+        Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int projectile_moving_frequency, WINDOW* win);
         void updateHearts();
         void updateHealth(int mod);
         void setHealth(int set);

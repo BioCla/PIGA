@@ -11,15 +11,12 @@ SuperProjectile::SuperProjectile() {
 }
 
 SuperProjectile::SuperProjectile(const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency,
-                                int child_moving_frequency, const char* child_icon, WINDOW* win) {
-    this->icon = icon;
-    current_position = position;
-    this->direction = direction;
-    moving_frequency_multiplyer = moving_frequency;
+                                int child_moving_frequency, const char* child_icon, WINDOW* win) : Projectile(icon, position, direction, moving_frequency, win) {
+
+
+   
     duration <int, std::ratio <1,1000 > > one_millisecond (1);
-    this->moving_frequency = moving_frequency_multiplyer * one_millisecond;
     last_time_moved = system_clock::now();
-    alive = true;
     spawning_frequency_multiplyer = spawning_frequency;
     this->spawning_frequency = spawning_frequency_multiplyer * one_millisecond;
     if((direction == DIR_NORTH) || (direction == DIR_SOUTH)) spawning_axis = HORIZONTAL;
@@ -27,7 +24,7 @@ SuperProjectile::SuperProjectile(const char* icon, Position position, int direct
     child_moving_frequency_multiplyer = child_moving_frequency;
     this->child_moving_frequency = child_moving_frequency_multiplyer * one_millisecond;
     this->child_icon = child_icon;
-    this->current_room_win = win;
+
 }
 
 void SuperProjectile::shootProjectiles(projList* projListHead) {
