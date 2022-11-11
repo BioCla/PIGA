@@ -45,6 +45,7 @@ salute    num_cuori
 void Character::updateHealth(int mod) {
     health = health + mod;
     if (health > max_health) health = max_health;
+    if(health <= 0) alive = false;
 }
 
 void Character::setHealth(int set) {
@@ -126,6 +127,7 @@ void Character::HandleInput(int input){
         /*si muove in su*/
         case 'w':
         case 'W':
+            last_direction_taken = DIR_NORTH;
             if (legalMove(current_position.x, current_position.y - 1)) {
                 if(steppedOnArtifact(current_position.x, current_position.y - 1)) {
                     //non lo so fai qualcosa
@@ -137,7 +139,6 @@ void Character::HandleInput(int input){
                 //Board::fillPoint(current_position.y, current_position.x); non so come implementare in modo che usi la classe Board e usi la funzione per riempire lo spazio
                 current_position.y--;
                 move(current_position.x, current_position.y);
-                last_direction_taken = DIR_NORTH;
             }
             else if (steppedOnEnemy(current_position.x, current_position.y - 1)) {
                 //calcoladanno();
@@ -154,13 +155,13 @@ void Character::HandleInput(int input){
         /*si muove a destra*/
         case 'd':
         case 'D':
+            last_direction_taken = DIR_EAST;
             if(legalMove(current_position.x + 1, current_position.y)) {
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x++;
                 move(current_position.x, current_position.y);
-                last_direction_taken = DIR_EAST;
             }
             else if (steppedOnEnemy(current_position.x + 1, current_position.y)) {
                 //calcoladanno();
@@ -169,13 +170,13 @@ void Character::HandleInput(int input){
         /*si muove in giù*/
         case 's':
         case 'S':
+            last_direction_taken = DIR_SOUTH;
             if(legalMove(current_position.x, current_position.y + 1)) {
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.y++;
                 move(current_position.x, current_position.y);
-                last_direction_taken = DIR_SOUTH;
             }
             else if (steppedOnEnemy(current_position.x, current_position.y + 1)) {
                 //calcoladanno();
@@ -184,13 +185,13 @@ void Character::HandleInput(int input){
         /*si muove a sinistra*/
         case 'a':
         case 'A':
+            last_direction_taken = DIR_WEST;
             if(legalMove(current_position.x - 1, current_position.y)) {
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x--;
                 move(current_position.x, current_position.y);
-                last_direction_taken = DIR_WEST;
             }
             else if (steppedOnEnemy(current_position.x - 1, current_position.y)) {
                 //calcoladanno();
@@ -246,6 +247,8 @@ void Character::createProjectile(int direction) {
 
     //stampa il proiettile
     projListHead->proj.move();
+
+    
 }
 
 projList* Character::getProjectilesShot() {
@@ -257,3 +260,10 @@ projList* Character::getProjectilesShot() {
 void Character::settanuovahead(projList* head) {
     projListHead = head;
 }
+/*
+void Character::nuovafunzionetest(List<Projectile> listaProj) {
+    Projectile newProjectile = Projectile("+", current_position, last_direction_taken, projectile_moving_frequency, current_room_win);
+    listaProj.headInsert(newProjectile);
+    newProjectile.move();
+}
+*/

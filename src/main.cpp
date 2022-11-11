@@ -76,6 +76,11 @@ int main(int argc, char **argv)
 
 
 	//DEBUG - prova del proiettile
+
+	Projectile speedygonzales("s", {5,5}, DIR_EAST, 100, board.getWin());
+
+	List<Projectile> projectilesList;
+	projectilesList.headInsert(speedygonzales);
 	
 
 		
@@ -83,6 +88,7 @@ int main(int argc, char **argv)
 	
 	superProjList* superProjListHead = new superProjList;	superProjListHead = NULL;
 	//se cancellate la riga sopra commentate il refreshSuperProjectiles nel ciclo
+
 
 
 	
@@ -118,6 +124,10 @@ int main(int argc, char **argv)
 	Enemies.removeDeadEntities();
 	//cout << Enemies.listLenght() << endl;
 	//Enemies.removeElement(&cane);
+
+
+
+
 	// /DEBUG
 
 //	Enemies.killEnemy(2);
@@ -143,6 +153,7 @@ int main(int argc, char **argv)
 		refreshSuperProjectiles(superProjListHead, time_now, p.getProjectilesShot());
 		refreshProjectiles(p.getProjectilesShot(), time_now);
 		Enemies.moveEntities(time_now);
+
 		
 		
 		refresh();
@@ -152,6 +163,7 @@ int main(int argc, char **argv)
 		
 
 		if(ch == 'f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
+			//p.nuovafunzionetest(projectilesList);
 			p.shoot();
 		}
 		else if(ch=='g') {    //tasti di debug se li premete potrebbe buggarsi qualcosa
@@ -177,7 +189,8 @@ int main(int argc, char **argv)
 
 
 			//FUNZIONEDEBUG(); 
-			cout << Enemies.listLenght() << endl;;
+			cout << Enemies.listLenght() << endl;
+			cout << projectilesList.listLenght() << endl;
 			// -- fine codice --
 			int inutile;
 			cin >> inutile;
