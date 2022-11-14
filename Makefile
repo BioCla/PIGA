@@ -1,7 +1,8 @@
 CC = g++
 SOURCES = ./src/*.cpp
 HEADERS = ./lib/
-CFLAGS = -lncurses -lm -I $(HEADERS) -Wall -Wunused-parameter
+WARNINGS = -Wall -Wunused-parameter
+CFLAGS = -lncurses -lm -I $(HEADERS) $(WARNINGS)
 
 ifeq ($(OS),Windows_NT)
     detected_OS := Windows
