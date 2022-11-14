@@ -55,7 +55,7 @@ template <typename T> void List<T>::removeElement(T *element){
     }
 }
 
-template <> void List<Enemy>::spawnEnemies(){
+template <> void inline List<Enemy>::spawnEnemies(){
     Node<Enemy> *tmp = this->head;
     while (tmp!=NULL) {
         tmp->data.spawn(tmp->data.getCurrentPosition());
@@ -102,7 +102,7 @@ template <typename T> void List<T>::removeDeadEntities(){
     }
 }
 //FUNZIONI DEBUG
-template <> void List<Enemy>::killEnemy(int o){
+template <> void inline List<Enemy>::killEnemy(int o){
     Node<Enemy> *tmp = this->head;
     int h=0;
     while(h!=o){

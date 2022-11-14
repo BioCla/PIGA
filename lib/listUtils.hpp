@@ -24,12 +24,12 @@ template <typename T> class List{
         int listLenght();      //ritorna la lunghezza della lista
         void headInsert(T element);     //inserisce un elemento in testa
         void removeElement(T *element);      //rimuove un elemento
-        void spawnEnemies();
+        void inline spawnEnemies();
         void moveEntities(system_clock::time_point time_now);
 //        void tailInsert(T element);     //inserisce un elemento in coda
         void removeDeadEntities();
             //Funzioni debug
-        void killEnemy(int o);
+        void inline killEnemy(int o);
 };
 
 
