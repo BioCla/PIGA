@@ -20,7 +20,7 @@ Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_positi
     this->health=max_health;
     this->damage=damage;
     this->pathID=pathID;
-    this->idle_time=idle_time;
+    this->idle_time_move=idle_time;
     last_time_moved = system_clock::now();
     last_time_shot = system_clock::now();
     this->pathing=5;
@@ -145,8 +145,13 @@ void Enemy::move(){
 }
 
 void Enemy::shoot(){
-    Projectile p = Projectile("*",this->current_position,DIR_SOUTH, 500, getWin());
+    Projectile p = Projectile("*",this->current_position,DIR_SOUTH, 100, current_room_win);
     this->projlist.headInsert(p);
+}
+
+void Enemy::refreshProj(system_clock::time_point time_now){
+    projlist.moveEntities(time_now);
+    projlist.removeDeadEntities();
 }
 
 bool Enemy::legalMove(int posx, int posy) {
@@ -156,14 +161,14 @@ bool Enemy::legalMove(int posx, int posy) {
 } 
 
 void Enemy::checkIfTimeToMove(system_clock::time_point time_now) {
-    if(time_now > last_time_moved + idle_time) {
+    if(time_now > last_time_moved + idle_time_move) {
         move();
         last_time_moved = time_now;
     }
 }
 
 void Enemy::checkIfTimeToShoot(system_clock::time_point time_now){
-    if(time_now>last_time_shot + idle_time){
+    if(time_now>last_time_shot + idle_time_move){
         shoot();
         last_time_shot = time_now;
     }

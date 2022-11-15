@@ -22,7 +22,8 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         int damage;       //danno che infligge il nemico al giocatore
         int pathing;
         int pathID; // percorso che fa il nemico (pathID =1 un pattern, pathID = 2 un altro pattern)[da cambiare]
-        duration <int, std::ratio <1,1000 > > idle_time;
+        duration <int, std::ratio <1,1000 > > idle_time_move;
+        duration <int, std::ratio <1,1000 > > idle_time_shoot;
         system_clock::time_point last_time_moved;
         system_clock::time_point last_time_shot;
         List<Projectile> projlist;
@@ -45,9 +46,12 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         void move();
         void shoot();
         bool legalMove(int posx, int posy);
+        void refreshProj(system_clock::time_point time_now);
         void checkIfTimeToMove(system_clock::time_point time_now);
         void checkIfTimeToShoot(system_clock::time_point time_now);
         void setDistanceToPlayer(Position player_pos);
 };
+
+#include "../src/listUtilsSpec.tpp"
 
 #endif

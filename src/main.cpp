@@ -131,9 +131,6 @@ int main(int argc, char **argv)
 	// /DEBUG
 
 //	Enemies.killEnemy(2);
-	Enemies.killEnemy(3);
-	Enemies.killEnemy(1);
-	Enemies.killEnemy(0);
 	Enemies.removeDeadEntities();
 
 	system_clock::time_point time_now = system_clock::now();
@@ -154,7 +151,7 @@ int main(int argc, char **argv)
 		refreshProjectiles(p.getProjectilesShot(), time_now);
 		Enemies.moveEntities(time_now);
 		Enemies.enemyShooting(time_now);
-		
+		Enemies.refreshEnemyProj(time_now);
 		
 		refresh();
 		
