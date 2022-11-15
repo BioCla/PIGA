@@ -145,7 +145,9 @@ void Enemy::move(){
 }
 
 void Enemy::shoot(){
-    Projectile p = Projectile("*",this->current_position,DIR_SOUTH, 100, current_room_win);
+    Position p1 = this->current_position;
+    p1.y++;
+    Projectile p = Projectile("*",p1,DIR_SOUTH, 100, current_room_win);
     this->projlist.headInsert(p);
 }
 
