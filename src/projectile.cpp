@@ -102,8 +102,9 @@ void Projectile::checkIfTimeToMove(system_clock::time_point time_now) {
 
 bool Projectile::collisionWithRoomWall(int posx, int posy) {
     bool collided = false;
+    int k = mvwinch(stdscr, posy, posx) & A_CHARTEXT;
 
-    if(((mvwinch(stdscr, posy, posx) & A_CHARTEXT) == 35)) {
+    if(k == 35) {   //35 = "#"
         collided = true;
     }
 
@@ -114,11 +115,18 @@ bool Projectile::outOfBorder() {
     bool outofb = false;
     int xmax, ymax;
     getmaxyx(current_room_win, ymax, xmax);
-    if((current_position.y <= 0) || (current_position.y > ymax) ||
-    (current_position.x <= 0) || (current_position.x > xmax)) {
+    if((current_position.y <= 0) || (current_position.y > ymax) || (current_position.x <= 0) || (current_position.x > xmax)) {
         outofb = true;
     }
     return outofb;
+}
+
+void Projectile::setDamage(int damage) {
+    this->damage = damage;
+}
+
+int Projectile::getDamage() {
+    return this->damage;
 }
 
 /*   UTILIZZO TIMER CON CHRONO

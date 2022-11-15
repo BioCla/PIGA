@@ -69,8 +69,6 @@ int main(int argc, char **argv)
 	character_initial_position.x = 5;
 	character_initial_position.y = 5;
 	Character p = Character("@", character_initial_position, 30, "*", 100, board.getWin());
-
-	// Posizionamento del personaggio principale nel terminale, posizione relativa da 0,0 (alto sinistra del terminale per adesso)
 	p.move(character_initial_position.x, character_initial_position.y);
 
 
@@ -135,9 +133,6 @@ int main(int argc, char **argv)
 
 	system_clock::time_point time_now = system_clock::now();
 	
-
-	
-
 	int ch; // Variabile di accesso al handler per gli input
 	while ((ch = getch()) != 'q')
 	{
@@ -147,17 +142,12 @@ int main(int argc, char **argv)
 		p.HandleInput(ch);
 		//Astolfo.checkIfTimeToMove(time_now);
 		
-		refreshSuperProjectiles(superProjListHead, time_now, p.getProjectilesShot());
 		refreshProjectiles(p.getProjectilesShot(), time_now);
 		Enemies.moveEntities(time_now);
 		Enemies.enemyShooting(time_now);
 		Enemies.refreshEnemyProj(time_now);
 		
 		refresh();
-		
-		
-		
-		
 
 		if(ch == 'f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
 			//p.nuovafunzionetest(projectilesList);
@@ -208,9 +198,6 @@ int main(int argc, char **argv)
 		}
 
 
-		
-
-		
 		p.move(p.getCurrentPosition().x,p.getCurrentPosition().y);  //si assicura che il personaggio sia in primo piano
 		refresh();
 		

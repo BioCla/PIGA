@@ -30,7 +30,6 @@ WINDOW *alert(const char *string);
 chtype getcharat(int y, int x);
 int legalMove(int y, int x);
 void refreshProjectiles(projList* head, system_clock::time_point time_now);
-void refreshSuperProjectiles(superProjList* head, system_clock::time_point time_now, projList* projListHead);
-projList* createProjectile2(projList* projListHead, const char* icon, Position position, int direction, int moving_frequency, WINDOW* win);
+
 
 #endif

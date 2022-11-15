@@ -206,9 +206,10 @@ void Character::HandleInput(int input){
 }
 
 bool Character::legalMove(int posx, int posy) {
-    int k;
+    int k, kk;
     k =  mvwinch(current_room_win, posy,posx);
-    return ((k & A_CHARTEXT) == PAVE);
+    kk = k & A_CHARTEXT;
+    return ((kk == PAVE) || (kk == 42));   //42 = "*"
 } 
 
 bool Character::steppedOnEnemy(int posx, int posy) {
@@ -230,11 +231,10 @@ bool Character::steppedOnArtifact(int posx, int posy) {
 
 void Character::shoot() {
     //controlla se il tempo di ricarica è passato
-    //controlla se sta sparando attaccato ad un muro contro il muro
     createProjectile(last_direction_taken);
 }
 
-void Character::createProjectile(int direction) {
+void Character::createProjectile(int direction) {    //obsoleta bisogna usare le listutils.hpp
     projList *p = new projList;
     Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency, current_room_win);
     
@@ -255,15 +255,3 @@ projList* Character::getProjectilesShot() {
     return projListHead;
 }
 
-
-
-void Character::settanuovahead(projList* head) {
-    projListHead = head;
-}
-/*
-void Character::nuovafunzionetest(List<Projectile> listaProj) {
-    Projectile newProjectile = Projectile("+", current_position, last_direction_taken, projectile_moving_frequency, current_room_win);
-    listaProj.headInsert(newProjectile);
-    newProjectile.move();
-}
-*/
