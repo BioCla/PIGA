@@ -71,6 +71,14 @@ template <typename T> void List<T>::moveEntities(system_clock::time_point time_n
     }    
 }
 
+template <> void List<Enemy>::enemyShooting(system_clock::time_point time_now){
+    Node<Enemy> *tmp = this->head;
+    while (tmp!=NULL) {
+        tmp->data.checkIfTimeToShoot(time_now);
+        tmp=tmp->next;
+    }    
+}
+
 template <typename T> void List<T>::removeDeadEntities(){
     if (head==NULL) return;
     else if((head->next==NULL)&&(!head->data.isAlive())){

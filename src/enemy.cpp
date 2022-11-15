@@ -1,6 +1,4 @@
 #include "../lib/enemy.hpp"
-#include "../lib/board.hpp"
-#include "../lib/engine.hpp"
 #include <chrono>
 #include <ctime>
 
@@ -24,6 +22,7 @@ Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_positi
     this->pathID=pathID;
     this->idle_time=idle_time;
     last_time_moved = system_clock::now();
+    last_time_shot = system_clock::now();
     this->pathing=5;
 }
 
@@ -145,6 +144,11 @@ void Enemy::move(){
     }
 }
 
+void Enemy::shoot(){
+    Projectile p = Projectile("*",this->current_position,DIR_SOUTH, 500, getWin());
+    this->projlist.headInsert(p);
+}
+
 bool Enemy::legalMove(int posx, int posy) {
     int k;
     k =  mvwinch(current_room_win, posy,posx);
@@ -157,6 +161,14 @@ void Enemy::checkIfTimeToMove(system_clock::time_point time_now) {
         last_time_moved = time_now;
     }
 }
+
+void Enemy::checkIfTimeToShoot(system_clock::time_point time_now){
+    if(time_now>last_time_shot + idle_time){
+        shoot();
+        last_time_shot = time_now;
+    }
+}
+
 /*
 void Enemy::setDistanceToPlayer(Position player_pos){
     this->distanceToPlayer={current_position.x-player_pos.x,current_position.y-player_pos.y};

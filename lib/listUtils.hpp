@@ -26,6 +26,7 @@ template <typename T> class List{
         void removeElement(T *element);      //rimuove un elemento
         void inline spawnEnemies();
         void moveEntities(system_clock::time_point time_now);
+        void inline enemyShooting(system_clock::time_point time_now);
 //        void tailInsert(T element);     //inserisce un elemento in coda
         void removeDeadEntities();
             //Funzioni debug

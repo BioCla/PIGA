@@ -153,7 +153,7 @@ int main(int argc, char **argv)
 		refreshSuperProjectiles(superProjListHead, time_now, p.getProjectilesShot());
 		refreshProjectiles(p.getProjectilesShot(), time_now);
 		Enemies.moveEntities(time_now);
-
+		Enemies.enemyShooting(time_now);
 		
 		
 		refresh();

@@ -3,6 +3,10 @@
 
 #include "../assets/hch.h"
 #include "entity.hpp"
+#include "board.hpp"
+#include "engine.hpp"
+#include "projectile.hpp"
+#include "listUtils.hpp"
 #include <chrono>
 using namespace std::chrono;
 
@@ -20,6 +24,8 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         int pathID; // percorso che fa il nemico (pathID =1 un pattern, pathID = 2 un altro pattern)[da cambiare]
         duration <int, std::ratio <1,1000 > > idle_time;
         system_clock::time_point last_time_moved;
+        system_clock::time_point last_time_shot;
+        List<Projectile> projlist;
         //Position distanceToPlayer;
         //
 
@@ -37,8 +43,10 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         void moveLeft();
         void moveRight();
         void move();
+        void shoot();
         bool legalMove(int posx, int posy);
         void checkIfTimeToMove(system_clock::time_point time_now);
+        void checkIfTimeToShoot(system_clock::time_point time_now);
         void setDistanceToPlayer(Position player_pos);
 };
 
