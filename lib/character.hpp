@@ -5,6 +5,9 @@
 
 #include "entity.hpp"
 #include "../assets/projList.hpp"
+#include "listUtils.hpp"
+#include "engine.hpp"
+#include "board.hpp"
 
 
 class Character : public Entity{
@@ -18,6 +21,7 @@ class Character : public Entity{
         int projectile_moving_frequency;
         int last_direction_taken;
         projList *projListHead;
+        List<Projectile> projectilesCharacter;
 
         //inventario?
         //velocità?
@@ -47,6 +51,7 @@ class Character : public Entity{
         void shoot();
         void createProjectile(int direction);
         projList* getProjectilesShot();
+        List<Projectile> getNuovaListaProiettili();
 };
 
 #endif

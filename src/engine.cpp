@@ -1,6 +1,6 @@
 //File contiene tutte le funzioni inerenti ncurses e la gestione dello schermo
 #include "../lib/engine.hpp"
-#include <chrono>
+
 
 
 //#include <iostream>

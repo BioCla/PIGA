@@ -1,6 +1,4 @@
 #include "../lib/character.hpp"
-#include "../lib/engine.hpp"
-#include "../lib/board.hpp"
 
 Character::Character() {
     icon = "@";
@@ -239,6 +237,7 @@ void Character::createProjectile(int direction) {    //obsoleta bisogna usare le
     Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency, current_room_win);
     
     //head insert del nuovo proiettile
+    /*
     p->next = projListHead;
     p->proj = newProjectile;
     
@@ -247,7 +246,10 @@ void Character::createProjectile(int direction) {    //obsoleta bisogna usare le
 
     //stampa il proiettile
     projListHead->proj.move();
+    */
 
+   projectilesCharacter.headInsert(newProjectile);
+   newProjectile.move();
     
 }
 
@@ -255,3 +257,6 @@ projList* Character::getProjectilesShot() {
     return projListHead;
 }
 
+List<Projectile> Character::getNuovaListaProiettili() {
+    return projectilesCharacter;
+}

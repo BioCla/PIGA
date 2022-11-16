@@ -1,7 +1,6 @@
 #include "../lib/projectile.hpp"
 #include "../lib/engine.hpp"
-#include "../lib/board.hpp"
-#include <chrono>
+
 
 Projectile::Projectile() {
     icon = "-";

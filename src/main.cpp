@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 	Projectile speedygonzales("s", {5,5}, DIR_EAST, 100, board.getWin());
 
 	List<Projectile> projectilesList;
-	projectilesList.headInsert(speedygonzales);
+	projectilesList = p.getNuovaListaProiettili();
 	
 
 		
@@ -123,7 +123,7 @@ int main(int argc, char **argv)
 	//cout << Enemies.listLenght() << endl;
 	//Enemies.removeElement(&cane);
 
-
+	
 
 
 	// /DEBUG
@@ -146,6 +146,10 @@ int main(int argc, char **argv)
 		Enemies.moveEntities(time_now);
 		Enemies.enemyShooting(time_now);
 		Enemies.refreshEnemyProj(time_now);
+		projectilesList = p.getNuovaListaProiettili();
+		projectilesList.moveEntities(time_now);
+		projectilesList.removeDeadEntities();
+
 		
 		refresh();
 
