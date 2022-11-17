@@ -4,22 +4,17 @@
 #include "../assets/hch.h"
 #include "entity.hpp"
 
-class item
+class Item : public Entity
 {
 private:
-	int id;
 	const char *name;
-	int posx, posy;
 
 public:
-	item(int id, const char *name);
-	void setID(int id);
+	Item(char icon, const char *name);
 	void setName(const char *name);
-	int getID();
 	const char *getName();
-	void setPos(int x, int y);
 };
 
-void initItemDict(item itemList[]);
+void initItemDict(Item itemList[]);
 
 #endif

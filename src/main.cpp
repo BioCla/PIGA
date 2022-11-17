@@ -26,7 +26,7 @@ using namespace std;
 #define BOARD_COLS BOARD_DIM * 2.5
 */
 
-item itemDictionary[256];
+Item itemDictionary[256];
 
 int main(int argc, char **argv)
 {

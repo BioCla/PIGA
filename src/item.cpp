@@ -1,19 +1,27 @@
 #include "../lib/listUtils.hpp"
 #include "../lib/item.hpp"
 
-item::item(int id, const char *name)
+Item::Item(char icon, const char *name) : Entity(&icon, {0, 0}, stdscr)
 {
-	this->id = id;
 	this->name = name;
 }
 
-void initItemDict(item itemList[])
+void initItemDict(Item itemList[])
 {
-	itemList[0] = item(0, "Big Muscles");
-	itemList[1] = item(1, "Milk");
-	itemList[2] = item(2, "AAAUUURRGGGHHHH");
-	itemList[3] = item(3, "David");
-	itemList[4] = item(4, "Uno reverse card");
-	itemList[5] = item(5, "More Projectiles");
-	itemList[6] = item(6, "Health");
+	itemList[0] = Item('!', "Potion");
+	itemList[1] = Item('?', "Scroll");
+	itemList[2] = Item('(', "Sword");
+	itemList[3] = Item(')', "Shield");
+	itemList[4] = Item('[', "Bow");
+	itemList[5] = Item(']', "Arrow");
+	itemList[6] = Item('{', "Staff");
+	itemList[7] = Item('}', "Wand");
+	itemList[8] = Item('/', "Axe");
+	itemList[9] = Item('\\', "Hammer");
+	itemList[10] = Item('=', "Spear");
+	itemList[11] = Item('`', "Dagger");
+	itemList[12] = Item('~', "Mace");
+	itemList[13] = Item(';', "Ring");
+	itemList[14] = Item('"', "Necklace");
+
 }
