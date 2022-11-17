@@ -22,9 +22,9 @@ template <typename T> class List{
         int listLenght();      //ritorna la lunghezza della lista
         void headInsert(T element);     //inserisce un elemento in testa
         void inline spawnEnemies();
-        void moveEntities(system_clock::time_point time_now);
-        void inline enemyShooting(system_clock::time_point time_now);
-        void inline refreshEnemyProj(system_clock::time_point time_now);
+        void moveEntities(std::chrono::_V2::system_clock::time_point time_now);
+        void inline enemyShooting(std::chrono::_V2::system_clock::time_point time_now);
+        void inline refreshEnemyProj(std::chrono::_V2::system_clock::time_point time_now);
 //        void tailInsert(T element);     //inserisce un elemento in coda
         void removeDeadEntities();
             //Funzioni debug

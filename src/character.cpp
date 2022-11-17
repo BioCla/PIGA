@@ -1,4 +1,5 @@
 #include "../lib/character.hpp"
+#include "../lib/item.hpp"
 
 Character::Character() {
     icon = "@";
@@ -259,4 +260,16 @@ projList* Character::getProjectilesShot() {
 
 List<Projectile> Character::getNuovaListaProiettili() {
     return projectilesCharacter;
+}
+
+void Character::addToInventory(int ID) {
+	
+}
+
+void Character::removeFromInventory(int ID) {
+	
+}
+
+List<Item> Character::getInventory() {
+	return inventory;
 }

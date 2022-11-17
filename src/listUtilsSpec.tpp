@@ -78,5 +78,4 @@ template <> void inline List<Enemy>::killEnemy(int o){
 
 template class List<Enemy>;
 template class List<Projectile>;
-
 #endif

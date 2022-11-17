@@ -8,6 +8,7 @@
 #include "listUtils.hpp"
 #include "engine.hpp"
 #include "board.hpp"
+#include "item.hpp"
 
 
 class Character : public Entity{
@@ -23,6 +24,7 @@ class Character : public Entity{
         projList *projListHead;
         List<Projectile> projectilesCharacter;
 
+		List<Item> inventory;
         //inventario?
         //velocità?
 
@@ -52,6 +54,9 @@ class Character : public Entity{
         void createProjectile(int direction);
         projList* getProjectilesShot();
         List<Projectile> getNuovaListaProiettili();
+		void addToInventory(int ID);
+		void removeFromInventory(int ID);
+		List<Item> getInventory();
 };
 
 #endif
