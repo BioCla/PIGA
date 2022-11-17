@@ -10,6 +10,7 @@
 #include "../lib/listUtils.hpp"
 #include "../assets/projList.hpp"
 #include "../assets/superProjList.hpp"
+#include "../lib/item.hpp"
 #include <stdlib.h>
 #include <ctime>
 #include <iostream>
@@ -25,12 +26,10 @@ using namespace std;
 #define BOARD_COLS BOARD_DIM * 2.5
 */
 
+item itemDictionary[256];
 
 int main(int argc, char **argv)
 {
-
-	
-	
 	initscr();
 	refresh();
 	srand(time(NULL));
@@ -41,6 +40,7 @@ int main(int argc, char **argv)
 	}
 	start_color();
 
+	initItemDict(itemDictionary);
 
 	///////////////////////////////////////////////////////////////////////////
 

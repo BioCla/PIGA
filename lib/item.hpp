@@ -4,12 +4,22 @@
 #include "../assets/hch.h"
 #include "entity.hpp"
 
-class Item : public Entity{
-    protected:
-        int ID;
-    public:
-        Item(int ID, Position pos, WINDOW* win);
-        int getID();
+class item
+{
+private:
+	int id;
+	const char *name;
+	int posx, posy;
+
+public:
+	item(int id, const char *name);
+	void setID(int id);
+	void setName(const char *name);
+	int getID();
+	const char *getName();
+	void setPos(int x, int y);
 };
+
+void initItemDict(item itemList[]);
 
 #endif
