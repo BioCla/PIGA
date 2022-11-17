@@ -32,7 +32,7 @@ Haz3:
 GENERALI
 - hit/collisioni [Liam/Manto]
 - mappa/porte [Catti]
-- items (sub entity) [Brian]
+- items (sub entity) [Brian] ~
 - GUI[] 
 
 OPZIONALI
