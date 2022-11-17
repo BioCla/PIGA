@@ -17,16 +17,10 @@
 using namespace std;
 
 
-
-
-
-
 /*#define BOARD_DIM 17
 #define BOARD_ROWS BOARD_DIM
 #define BOARD_COLS BOARD_DIM * 2.5
 */
-
-Item itemDictionary[256];
 
 int main(int argc, char **argv)
 {
@@ -39,8 +33,6 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 	start_color();
-
-	initItemDict(itemDictionary);
 
 	///////////////////////////////////////////////////////////////////////////
 
