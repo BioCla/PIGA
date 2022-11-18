@@ -22,7 +22,7 @@ class Character : public Entity{
         int projectile_moving_frequency;
         int last_direction_taken;
         projList *projListHead;
-        List<Projectile> projectilesCharacter;
+        //List<Projectile> projectilesCharacter;
 
 		List<Item> inventory;
         //inventario?
@@ -50,10 +50,10 @@ class Character : public Entity{
         bool legalMove(int posx, int posy);
         bool steppedOnEnemy(int posx, int posy);
         bool steppedOnArtifact(int posx, int posy);
-        void shoot();
-        void createProjectile(int direction);
+        void shoot(List<Projectile> *projectilesList);
+        void createProjectile(int direction, List<Projectile> *projectilesList);
         projList* getProjectilesShot();
-        List<Projectile> getNuovaListaProiettili();
+        //List<Projectile> getNuovaListaProiettili();
 		void addToInventory(int ID);
 		void removeFromInventory(int ID);
 		List<Item> getInventory();

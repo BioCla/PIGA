@@ -93,3 +93,14 @@ void Board::initialize(){
 WINDOW* Board::getWin(){
 	return board_win;
 }
+
+
+
+
+List<Projectile> Board::getProjectilesList() {
+	return projectilesList;
+}
+
+List<SuperProjectile> Board::getSuperProjectilesList() {
+	return superProjectilesList;
+}

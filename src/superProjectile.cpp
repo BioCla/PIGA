@@ -27,23 +27,21 @@ SuperProjectile::SuperProjectile(const char* icon, Position position, int direct
 
 }
 
-void SuperProjectile::shootProjectiles(projList* projListHead) {
-    //projList *p1 = new projList;
-    //projList *p2 = new projList;
+void SuperProjectile::shootProjectiles(List<Projectile> *projList) {
     if(spawning_axis == VERTICAL) {
-        createProjectile(DIR_NORTH, projListHead);
-        createProjectile(DIR_SOUTH, projListHead);
+        createProjectile(DIR_NORTH, projList);
+        createProjectile(DIR_SOUTH, projList);
     }
     else if(spawning_axis == HORIZONTAL) {
-        createProjectile(DIR_EAST, projListHead);
-        createProjectile(DIR_WEST, projListHead);
+        createProjectile(DIR_EAST, projList);
+        createProjectile(DIR_WEST, projList);
     }
 }
 
-void SuperProjectile::createProjectile(int direction, projList* projListHead) {
-    projList *p = new projList;
+void SuperProjectile::createProjectile(int direction, List<Projectile> *projList) {
+    //projList *p = new projList;
     Projectile newProjectile = Projectile(child_icon, current_position, direction, child_moving_frequency_multiplyer, current_room_win);
-
+    /*
     //head insert del nuovo proiettile
     p->next = projListHead;
     p->proj = newProjectile;
@@ -52,16 +50,16 @@ void SuperProjectile::createProjectile(int direction, projList* projListHead) {
     p->proj.move(); 
 
     projListHead = p;
+    */
+   projList->headInsert(newProjectile);
+   newProjectile.move();
 }
 
-bool SuperProjectile::checkIfTimeToShoot(system_clock::time_point time_now, projList* projListHead) {
-    bool is_time = false;
+void SuperProjectile::checkIfTimeToShoot(system_clock::time_point time_now, List<Projectile> *projList) {
     if(time_now > last_time_shot + spawning_frequency) {
         last_time_shot = time_now;
-        //shootProjectiles(projListHead);
-        is_time = true;
+        shootProjectiles(projList);
     }
-    return is_time;
 }
 
 const char* SuperProjectile::getChildIcon() {

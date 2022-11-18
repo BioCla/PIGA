@@ -1,5 +1,6 @@
 #include "../lib/projectile.hpp"
 #include "../lib/engine.hpp"
+#include "../lib/board.hpp"
 
 
 Projectile::Projectile() {

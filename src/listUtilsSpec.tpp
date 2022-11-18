@@ -74,8 +74,20 @@ template <> void inline List<Enemy>::killEnemy(int o){
     }
     tmp->data.updateHealth(-11);
 }
+/*
+template <> void List<SuperProjectile>::refreshSuperProjectiles(system_clock::time_point time_now, List<typename T> *projectilesList) {
+    moveEntities(time_now);
+    removeDeadEntities();
+    Node<SuperProjectile> *tmp = this->head;
+    while (tmp != NULL) {
+        tmp->data.checkIfTimeToShoot(time_now, projectilesList);
+        tmp = tmp->next;
+    }
+}
+*/
 
 
 template class List<Enemy>;
 template class List<Projectile>;
+template class List<SuperProjectile>;
 #endif

@@ -1,5 +1,7 @@
 #pragma once
 #include "../assets/hch.h"
+#include "superProjectile.hpp"
+#include "listUtils.hpp"
 #include <string>
 #include <map>
 #include <stdlib.h>
@@ -45,6 +47,9 @@ class Board
 protected:
 	WINDOW *board_win;
 	int screen_height, screen_width, xMin, yMin, xMax, yMax;
+
+	List<Projectile> projectilesList;
+	List<SuperProjectile> superProjectilesList;
 	
 
 public:
@@ -59,4 +64,7 @@ public:
 	void init();
 	WINDOW* getWin();
 	void checkColor();
+
+	List<Projectile> getProjectilesList();
+	List<SuperProjectile> getSuperProjectilesList();
 };

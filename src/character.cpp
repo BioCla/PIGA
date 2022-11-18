@@ -228,13 +228,13 @@ bool Character::steppedOnArtifact(int posx, int posy) {
    return flag;
 }
 
-void Character::shoot() {
+void Character::shoot(List<Projectile> *projectilesList) {
     //controlla se il tempo di ricarica è passato
-    createProjectile(last_direction_taken);
+    createProjectile(last_direction_taken, projectilesList);
 }
 
-void Character::createProjectile(int direction) {    //obsoleta bisogna usare le listutils.hpp
-    projList *p = new projList;
+void Character::createProjectile(int direction, List<Projectile> *projectilesList) {    //obsoleta bisogna usare le listutils.hpp
+    //projList *p = new projList;
     Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency, current_room_win);
     
     //head insert del nuovo proiettile
@@ -249,7 +249,7 @@ void Character::createProjectile(int direction) {    //obsoleta bisogna usare le
     projListHead->proj.move();
     */
 
-   projectilesCharacter.headInsert(newProjectile);
+   projectilesList->headInsert(newProjectile);
    newProjectile.move();
     
 }
@@ -257,10 +257,11 @@ void Character::createProjectile(int direction) {    //obsoleta bisogna usare le
 projList* Character::getProjectilesShot() {
     return projListHead;
 }
-
+/*
 List<Projectile> Character::getNuovaListaProiettili() {
     return projectilesCharacter;
 }
+*/
 
 void Character::addToInventory(int ID) {
 	

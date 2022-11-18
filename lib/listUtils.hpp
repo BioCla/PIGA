@@ -29,6 +29,7 @@ template <typename T> class List{
         void removeDeadEntities();
             //Funzioni debug
         void inline killEnemy(int o);
+        //void refreshSuperProjectiles(std::chrono::_V2::system_clock::time_point time_now, List<typename T> *projectilesList);
 };
 
 

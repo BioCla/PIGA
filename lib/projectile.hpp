@@ -2,7 +2,6 @@
 #define PROJECTILES
 
 #include "../assets/hch.h"
-#include "board.hpp"
 #include "entity.hpp"
 #include <chrono>
 using namespace std::chrono;
