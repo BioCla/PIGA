@@ -51,7 +51,6 @@ protected:
 	List<Projectile> projectilesList;
 	List<SuperProjectile> superProjectilesList;
 	
-
 public:
 	// Board();
 	Board(int screen_height, int screen_width);
@@ -65,6 +64,6 @@ public:
 	WINDOW* getWin();
 	void checkColor();
 
-	List<Projectile> getProjectilesList();
-	List<SuperProjectile> getSuperProjectilesList();
+	List<Projectile>* getProjectilesList();
+	List<SuperProjectile>* getSuperProjectilesList();
 };

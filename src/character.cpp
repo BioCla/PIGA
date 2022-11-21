@@ -249,7 +249,7 @@ void Character::createProjectile(int direction, List<Projectile> *projectilesLis
     projListHead->proj.move();
     */
 
-   projectilesList->headInsert(newProjectile);
+   (*projectilesList).headInsert(newProjectile);
    newProjectile.move();
     
 }

@@ -69,17 +69,17 @@ int main(int argc, char **argv)
 
 	Projectile speedygonzales("s", {5,5}, DIR_EAST, 100, board.getWin());
 
-	List<Projectile> projectilesList;
+	List<Projectile> *projectilesList;
 	projectilesList = board.getProjectilesList();
 	
 
 		
 	
 	
-	List<SuperProjectile> superProjectilesList;
+	List<SuperProjectile>* superProjectilesList;
 	superProjectilesList = board.getSuperProjectilesList();
 	//se cancellate la riga sopra commentate il refreshSuperProjectiles nel ciclo
-	SuperProjectile thiccboi = SuperProjectile("O", {10, 10}, DIR_EAST, 100, 1000, 100, "*", board.getWin());
+	//SuperProjectile thiccboi = SuperProjectile("O", {10, 10}, DIR_EAST, 100, 1000, 100, "*", board.getWin());
 	//thiccboi.move();
 	//superProjectilesList.headInsert(thiccboi);
 
@@ -141,25 +141,27 @@ int main(int argc, char **argv)
 		Enemies.moveEntities(time_now);
 		Enemies.enemyShooting(time_now);
 		Enemies.refreshEnemyProj(time_now);
-		projectilesList.moveEntities(time_now);
-		projectilesList.removeDeadEntities();
+		(*projectilesList).moveEntities(time_now);
+		(*projectilesList).removeDeadEntities();
 
 		//thiccboi.checkIfTimeToMove(time_now);
 		//thiccboi.checkIfTimeToShoot(time_now, &projectilesList);
 
 		//superProjectilesList.refreshSuperProjectiles(time_now, &projectilesList);
+		superProjectilesList->moveEntities(time_now);
+		superProjectilesList->removeDeadEntities();
 
 		
 		refresh();
 
 		if(ch == 'f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
 		//DEVO FARE: mettere "f" nell'handleInput di Character
-			p.shoot(&projectilesList);
+			p.shoot(projectilesList);
 		}
 		else if(ch=='g') {    //tasti di debug se li premete potrebbe buggarsi qualcosa
 			SuperProjectile newSuperProjectile = SuperProjectile("O", p.getCurrentPosition(), p.getLastDirection(), 100,
 																	1000, 100, "*", p.getWin());
-			superProjectilesList.headInsert(newSuperProjectile);
+			superProjectilesList->headInsert(newSuperProjectile);
 			newSuperProjectile.move();
 		}
 
@@ -175,11 +177,13 @@ int main(int argc, char **argv)
 
 
 			//FUNZIONEDEBUG(); 
-			cout << Enemies.listLenght() << endl;
-			cout << projectilesList.listLenght() << endl;
-			cout << "posizione thiccboi x: " << thiccboi.getCurrentPosition().x << ", y: " << thiccboi.getCurrentPosition().y << endl;
-			cout << "posizione speedygonazales x: " << speedygonzales.getCurrentPosition().x << " y, : " << speedygonzales.getCurrentPosition().y << endl;
+			cout << "numero nemici: " << Enemies.listLenght() << endl;
+			cout << "n proiettili sul main: " << (*projectilesList).listLenght() << endl;
+			//cout << "posizione thiccboi x: " << thiccboi.getCurrentPosition().x << ", y: " << thiccboi.getCurrentPosition().y << endl;
+			cout << "posizione speedygonazales x: " << speedygonzales.getCurrentPosition().x << ", y : " << speedygonzales.getCurrentPosition().y << endl;
+			cout << "numero proiettili board: " << (*board.getProjectilesList()).listLenght() << endl;
 			//cout << "posizione head proj x: " << projectilesList.getHead().getCurrentPosition().x << "y, : " << projectilesList.getHead().getCurrentPosition().x << endl;
+			cout << "numero superproiettili board: " << (*board.getSuperProjectilesList()).listLenght() << endl;
 			// -- fine codice --
 			int inutile;
 			cin >> inutile;

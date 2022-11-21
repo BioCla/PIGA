@@ -97,10 +97,10 @@ WINDOW* Board::getWin(){
 
 
 
-List<Projectile> Board::getProjectilesList() {
-	return projectilesList;
+List<Projectile>* Board::getProjectilesList() {
+	return &projectilesList;
 }
 
-List<SuperProjectile> Board::getSuperProjectilesList() {
-	return superProjectilesList;
+List<SuperProjectile>* Board::getSuperProjectilesList() {
+	return &superProjectilesList;
 }
