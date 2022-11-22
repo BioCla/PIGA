@@ -2,6 +2,14 @@ template <typename T> Node<T>::Node(){
     this->next=NULL;
 }
 
+template <typename T> T Node<T>::getData() {
+    return data;
+}
+
+template <typename T> Node<T>* Node<T>::getNext() {
+    return next;
+}
+
 template <typename T> List<T>::List(){
     this->head = NULL;
 }
@@ -47,4 +55,6 @@ template <typename T> void List<T>::tailInsert(T element){
 }
 */
 
-
+template <typename T> Node<T> *List<T>::getHead() {
+    return head;
+}

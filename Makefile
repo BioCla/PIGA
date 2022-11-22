@@ -2,7 +2,7 @@ CC = g++
 SOURCES = ./src/*.cpp
 HEADERS = ./lib/
 WARNINGS = -Wall -Wno-format-security
-CFLAGS = -lncurses -lm -I $(HEADERS) $(WARNINGS)
+CFLAGS = -lncurses -lm -I $(HEADERS) $(WARNINGS) -O3
 
 ifeq ($(OS),Windows_NT)
     detected_OS := Windows

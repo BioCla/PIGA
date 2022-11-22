@@ -147,10 +147,10 @@ int main(int argc, char **argv)
 		//thiccboi.checkIfTimeToMove(time_now);
 		//thiccboi.checkIfTimeToShoot(time_now, &projectilesList);
 
-		//superProjectilesList.refreshSuperProjectiles(time_now, &projectilesList);
-		superProjectilesList->moveEntities(time_now);
-		superProjectilesList->removeDeadEntities();
+		
 
+		
+		
 		
 		refresh();
 
@@ -166,6 +166,10 @@ int main(int argc, char **argv)
 		}
 
 		else if(ch == 'h') {    //tasti di debug se li premete potrebbe buggarsi qualcosa
+			refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
+			//superProjectilesList->moveEntities(time_now);
+			//superProjectilesList->removeDeadEntities();
+			
 		}
 		
 		else if(ch=='t') {   //serve solo per il debug

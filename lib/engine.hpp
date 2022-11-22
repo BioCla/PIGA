@@ -3,6 +3,7 @@
 
 #include "../assets/hch.h"
 #include "../assets/superProjList.hpp"
+#include "listUtils.hpp"
 #include <chrono>
 
 #define EMPTY ' '
@@ -31,6 +32,7 @@ WINDOW *alert(const char *string);
 chtype getcharat(int y, int x);
 int legalMove(int y, int x);
 void refreshProjectiles(projList* head, system_clock::time_point time_now);
+void refreshSuperProjectiles(std::chrono::_V2::system_clock::time_point time_now, List<SuperProjectile> *superProjectilesList, List<Projectile> *projectilesList);
 
 
 #endif
