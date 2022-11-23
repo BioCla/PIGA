@@ -9,7 +9,6 @@ Character::Character() {
     projectile_icon = "-";
     projectile_moving_frequency = 1000;
     last_direction_taken = DIR_EAST;   //arbitrario. se spara senza muoversi i proiettili devono andare da qualche parte
-    projListHead = NULL;
     current_room_win = stdscr;
 }
 
@@ -21,7 +20,6 @@ Character::Character(const char * icon, Position pos, int max_health, const char
     this->projectile_moving_frequency = projectile_moving_frequency;
     last_direction_taken = DIR_NORTH;
     damage = 5;
-    projListHead = NULL;
 }
 
 void Character::updateHearts() {
@@ -234,34 +232,11 @@ void Character::shoot(List<Projectile> *projectilesList) {
 }
 
 void Character::createProjectile(int direction, List<Projectile> *projectilesList) {    //obsoleta bisogna usare le listutils.hpp
-    //projList *p = new projList;
     Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency, current_room_win);
-    
-    //head insert del nuovo proiettile
-    /*
-    p->next = projListHead;
-    p->proj = newProjectile;
-    
-    //salva la nuova head
-    projListHead = p;
-
-    //stampa il proiettile
-    projListHead->proj.move();
-    */
-
-   (*projectilesList).headInsert(newProjectile);
-   newProjectile.move();
+    (*projectilesList).headInsert(newProjectile);
+    newProjectile.move();
     
 }
-
-projList* Character::getProjectilesShot() {
-    return projListHead;
-}
-/*
-List<Projectile> Character::getNuovaListaProiettili() {
-    return projectilesCharacter;
-}
-*/
 
 void Character::addToInventory(int ID) {
 	

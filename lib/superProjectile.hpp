@@ -1,14 +1,13 @@
 #ifndef SUPERPROJECTILES
 #define SUPERPROJECTILES
 
-#include "../assets/projList.hpp"
 #include "listUtils.hpp"
+#include "projectile.hpp"
 #include <chrono>
 using namespace std::chrono;
 #define VERTICAL 0
 #define HORIZONTAL 1
 
-typedef projList *p_projList;
 
 class SuperProjectile : public Projectile {
     protected:

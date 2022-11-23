@@ -8,8 +8,6 @@
 #include "../lib/enemy.hpp"
 #include "../lib/engine.hpp"
 #include "../lib/listUtils.hpp"
-#include "../assets/projList.hpp"
-#include "../assets/superProjList.hpp"
 #include "../lib/item.hpp"
 #include <stdlib.h>
 #include <ctime>
@@ -67,21 +65,8 @@ int main(int argc, char **argv)
 
 	//DEBUG - prova del proiettile
 
-	Projectile speedygonzales("s", {5,5}, DIR_EAST, 100, board.getWin());
 
-	List<Projectile> *projectilesList;
-	projectilesList = board.getProjectilesList();
 	
-
-		
-	
-	
-	List<SuperProjectile>* superProjectilesList;
-	superProjectilesList = board.getSuperProjectilesList();
-	//se cancellate la riga sopra commentate il refreshSuperProjectiles nel ciclo
-	//SuperProjectile thiccboi = SuperProjectile("O", {10, 10}, DIR_EAST, 100, 1000, 100, "*", board.getWin());
-	//thiccboi.move();
-	//superProjectilesList.headInsert(thiccboi);
 
 
 
@@ -118,15 +103,21 @@ int main(int argc, char **argv)
 	Enemies.removeDeadEntities();
 	//cout << Enemies.listLenght() << endl;
 	//Enemies.removeElement(&cane);
+//	Enemies.killEnemy(2);
+	Enemies.removeDeadEntities();
 
 	
 
 
 	// /DEBUG
 
-//	Enemies.killEnemy(2);
-	Enemies.removeDeadEntities();
+	//strutture per tenere proiettili e superproiettili
+	List<Projectile> *projectilesList;
+	projectilesList = board.getProjectilesList();
+	List<SuperProjectile>* superProjectilesList;
+	superProjectilesList = board.getSuperProjectilesList();
 
+	//gestione del tempo
 	system_clock::time_point time_now = system_clock::now();
 	
 	int ch; // Variabile di accesso al handler per gli input
@@ -141,18 +132,16 @@ int main(int argc, char **argv)
 		Enemies.moveEntities(time_now);
 		Enemies.enemyShooting(time_now);
 		Enemies.refreshEnemyProj(time_now);
+
 		(*projectilesList).moveEntities(time_now);
 		(*projectilesList).removeDeadEntities();
 
-		//thiccboi.checkIfTimeToMove(time_now);
-		//thiccboi.checkIfTimeToShoot(time_now, &projectilesList);
 		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
 		
 
-		
-		
-		
 		refresh();
+
+		//IF CAMBI STANZA: RIASSEGNA projectilesList e superProjectilesList
 
 		if(ch == 'f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
 		//DEVO FARE: mettere "f" nell'handleInput di Character
@@ -163,12 +152,6 @@ int main(int argc, char **argv)
 																	1000, 100, "*", p.getWin());
 		}
 
-		else if(ch == 'h') {    //tasto di debug se lo premete potrebbe buggarsi qualcosa
-			
-			//superProjectilesList->moveEntities(time_now);
-			//superProjectilesList->removeDeadEntities();
-			
-		}
 		
 		else if(ch=='t') {   //serve solo per il debug
 
@@ -182,7 +165,6 @@ int main(int argc, char **argv)
 			cout << "numero nemici: " << Enemies.listLenght() << endl;
 			cout << "n proiettili sul main: " << (*projectilesList).listLenght() << endl;
 			//cout << "posizione thiccboi x: " << thiccboi.getCurrentPosition().x << ", y: " << thiccboi.getCurrentPosition().y << endl;
-			cout << "posizione speedygonazales x: " << speedygonzales.getCurrentPosition().x << ", y : " << speedygonzales.getCurrentPosition().y << endl;
 			cout << "numero proiettili board: " << (*board.getProjectilesList()).listLenght() << endl;
 			//cout << "posizione head proj x: " << projectilesList.getHead().getCurrentPosition().x << "y, : " << projectilesList.getHead().getCurrentPosition().x << endl;
 			cout << "numero superproiettili board: " << (*board.getSuperProjectilesList()).listLenght() << endl;

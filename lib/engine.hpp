@@ -2,7 +2,7 @@
 #define ENGINE
 
 #include "../assets/hch.h"
-#include "../assets/superProjList.hpp"
+#include "superProjectile.hpp"
 #include "listUtils.hpp"
 #include <chrono>
 
@@ -31,7 +31,6 @@ void corners(WINDOW *room);
 WINDOW *alert(const char *string);
 chtype getcharat(int y, int x);
 int legalMove(int y, int x);
-//void refreshProjectiles(projList* head, system_clock::time_point time_now);
 void refreshSuperProjectiles(std::chrono::_V2::system_clock::time_point time_now, List<SuperProjectile> *superProjectilesList, List<Projectile> *projectilesList);
 void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
                             const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency, 

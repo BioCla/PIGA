@@ -39,20 +39,9 @@ void SuperProjectile::shootProjectiles(List<Projectile> *projList) {
 }
 
 void SuperProjectile::createProjectile(int direction, List<Projectile> *projList) {
-    //projList *p = new projList;
     Projectile newProjectile = Projectile(child_icon, current_position, direction, child_moving_frequency_multiplyer, current_room_win);
-    /*
-    //head insert del nuovo proiettile
-    p->next = projListHead;
-    p->proj = newProjectile;
-
-    //stampa il proiettile
-    p->proj.move(); 
-
-    projListHead = p;
-    */
-   projList->headInsert(newProjectile);
-   newProjectile.move();
+    projList->headInsert(newProjectile);
+    newProjectile.move();
 }
 
 void SuperProjectile::checkIfTimeToShoot(system_clock::time_point time_now, List<Projectile> *projList) {

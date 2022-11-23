@@ -4,7 +4,6 @@
 #include "../assets/hch.h"
 
 #include "entity.hpp"
-#include "../assets/projList.hpp"
 #include "listUtils.hpp"
 #include "engine.hpp"
 #include "board.hpp"
@@ -22,8 +21,6 @@ class Character : public Entity{
         const char* projectile_icon;
         int projectile_moving_frequency;
         int last_direction_taken;
-        projList *projListHead;
-        //List<Projectile> projectilesCharacter;
 
 		Inventory inventory;	//Inventario del personaggio
         //inventario?
@@ -53,8 +50,6 @@ class Character : public Entity{
         bool steppedOnArtifact(int posx, int posy);
         void shoot(List<Projectile> *projectilesList);
         void createProjectile(int direction, List<Projectile> *projectilesList);
-        projList* getProjectilesShot();
-        //List<Projectile> getNuovaListaProiettili();
 		void addToInventory(int ID);
 		void removeFromInventory(int ID);
 		List<Item> getInventory();
