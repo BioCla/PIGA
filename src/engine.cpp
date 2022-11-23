@@ -167,17 +167,6 @@ void refreshSuperProjectiles(system_clock::time_point time_now, List<SuperProjec
     while (tmp != NULL) {
 		tmp->getData()->checkIfTimeToShoot(time_now, projectilesList);
         tmp = tmp->getNext();
-
-
-
-
-
-		if (tmp == NULL) {
-			mvprintw(10, 10, "ffff");
-		}
-		else {
-			mvprintw(11, 11, "eeee");
-		}
     }
 }
 

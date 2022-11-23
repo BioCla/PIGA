@@ -47,7 +47,10 @@ class Board
 protected:
 	WINDOW *board_win;
 	int screen_height, screen_width, xMin, yMin, xMax, yMax;
+	
 
+	//questi due campi ignorali tranquillamente
+	//sono solo cose che usano altre classi e vengono salvate nella stanza
 	List<Projectile> projectilesList;
 	List<SuperProjectile> superProjectilesList;
 	
@@ -64,6 +67,8 @@ public:
 	WINDOW* getWin();
 	void checkColor();
 
+
+	//funzioni dei campi che puoi ignorare
 	List<Projectile>* getProjectilesList();
 	List<SuperProjectile>* getSuperProjectilesList();
 };

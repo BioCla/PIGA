@@ -96,6 +96,7 @@ WINDOW* Board::getWin(){
 
 
 
+//----- roba delle altre classi
 
 List<Projectile>* Board::getProjectilesList() {
 	return &projectilesList;
