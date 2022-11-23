@@ -2,8 +2,8 @@ template <typename T> Node<T>::Node(){
     this->next=NULL;
 }
 
-template <typename T> T Node<T>::getData() {
-    return data;
+template <typename T> T* Node<T>::getData() {
+    return &data;
 }
 
 template <typename T> Node<T>* Node<T>::getNext() {

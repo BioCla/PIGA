@@ -159,7 +159,7 @@ int legalMove(int y, int x) {
     testch = mvinch(y, x);
     return (((testch & A_CHARTEXT) == EMPTY)/* || se e' un artefatto */);
 }
-
+/*
 void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 	projList *p = new projList;
 	p = head;
@@ -193,13 +193,14 @@ void refreshProjectiles(projList* head, system_clock::time_point time_now) {
 		}
 	}
 }
+*/
 
 void refreshSuperProjectiles(system_clock::time_point time_now, List<SuperProjectile> *superProjectilesList, List<Projectile> *projectilesList) {
     superProjectilesList->moveEntities(time_now);
     superProjectilesList->removeDeadEntities();
     Node<SuperProjectile> *tmp = superProjectilesList->getHead();
     while (tmp != NULL) {
-        tmp->getData().checkIfTimeToShoot(time_now, projectilesList);
+		tmp->getData()->checkIfTimeToShoot(time_now, projectilesList);
         tmp = tmp->getNext();
 
 
@@ -213,4 +214,14 @@ void refreshSuperProjectiles(system_clock::time_point time_now, List<SuperProjec
 			mvprintw(11, 11, "eeee");
 		}
     }
+}
+
+void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
+                            const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency, 
+                            int child_moving_frequency, const char* child_icon, WINDOW* win) {
+	
+	SuperProjectile newSuperProjectile = SuperProjectile(icon, position, direction, moving_frequency, spawning_frequency,
+															child_moving_frequency, child_icon, win);
+	superProjectilesList->headInsert(newSuperProjectile);
+	newSuperProjectile.move();
 }

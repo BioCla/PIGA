@@ -11,7 +11,7 @@ template <typename T> class Node{
         template <typename U> friend class List;
     public:
         Node();
-        T getData();
+        T* getData();
         Node<T>* getNext();
 };
 

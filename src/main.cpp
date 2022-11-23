@@ -146,7 +146,7 @@ int main(int argc, char **argv)
 
 		//thiccboi.checkIfTimeToMove(time_now);
 		//thiccboi.checkIfTimeToShoot(time_now, &projectilesList);
-
+		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
 		
 
 		
@@ -158,15 +158,13 @@ int main(int argc, char **argv)
 		//DEVO FARE: mettere "f" nell'handleInput di Character
 			p.shoot(projectilesList);
 		}
-		else if(ch=='g') {    //tasti di debug se li premete potrebbe buggarsi qualcosa
-			SuperProjectile newSuperProjectile = SuperProjectile("O", p.getCurrentPosition(), p.getLastDirection(), 100,
+		else if(ch=='g') {    //poi non penso che il personaggio sparerà questi, magari li spara il boss
+			createSuperProjectile(superProjectilesList, "O", p.getCurrentPosition(), p.getLastDirection(), 100,
 																	1000, 100, "*", p.getWin());
-			superProjectilesList->headInsert(newSuperProjectile);
-			newSuperProjectile.move();
 		}
 
-		else if(ch == 'h') {    //tasti di debug se li premete potrebbe buggarsi qualcosa
-			refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
+		else if(ch == 'h') {    //tasto di debug se lo premete potrebbe buggarsi qualcosa
+			
 			//superProjectilesList->moveEntities(time_now);
 			//superProjectilesList->removeDeadEntities();
 			
