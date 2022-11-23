@@ -3,6 +3,12 @@
 #define ITEMS_LIST
 #include "../lib/item.hpp"
 
+// debug items
+itemProperties _Debug[] = { 
+	{"Misc", "Misc", "Misc", 10, WEAPON},
+	{ "default", "default", "default", 11, WEAPON },
+};
+
 // itemProperties of the effects you can find in the game
 itemProperties effects[] = {
 	{"Health UP!", "Increases your max health by 1", "H", 0, BUFF},
