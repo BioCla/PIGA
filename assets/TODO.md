@@ -33,7 +33,10 @@ GENERALI
 - hit/collisioni [Liam/Manto]
 - mappa/porte [Catti]
 - items (sub entity) [Brian] ~
-- GUI[] 
+- GUI[] (
+	Gestire lo schermo, partizionare la std screen
+	creare diverse windows (NCURSES) e gestioni separate
+)
 
 OPZIONALI
 - Inventario [Brian]

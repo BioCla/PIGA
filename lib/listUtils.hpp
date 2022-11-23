@@ -15,6 +15,9 @@ template <typename T> class Node{
         Node<T>* getNext();
 };
 
+/**
+ * @brief Template for a linked list of type `T`
+*/
 template <typename T> class List{
     protected:
         Node<T> *head; 
@@ -23,6 +26,9 @@ template <typename T> class List{
         bool isEmpty();     //ritorna true se la lista è vuota, false altrimenti
         int listLenght();      //ritorna la lunghezza della lista
         void headInsert(T element);     //inserisce un elemento in testa
+
+				void removeElement(int& tracker);	//rimuove un elemento dalla lista
+
         void inline spawnEnemies();
         void moveEntities(std::chrono::_V2::system_clock::time_point time_now);
         void inline enemyShooting(std::chrono::_V2::system_clock::time_point time_now);

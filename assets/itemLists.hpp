@@ -3,8 +3,8 @@
 #define ITEMS_LIST
 #include "../lib/item.hpp"
 
-// Properties of the effects you can find in the game
-Properties effects[] = {
+// itemProperties of the effects you can find in the game
+itemProperties effects[] = {
 	{"Health UP!", "Increases your max health by 1", "H", 0, BUFF},
 	{"Damage UP!", "Increases your damage by 1", "D", 1, BUFF},
 	{"Speed UP!", "Increases your speed by 1", "S", 2, BUFF},
@@ -14,8 +14,8 @@ Properties effects[] = {
 	{"Heart", "Add one Health point if you were missing some", "♥", 9, BUFF},
 };
 
-// Properties of the artifacts you can find in the game
-Properties artifacts[] = {
+// itemProperties of the artifacts you can find in the game
+itemProperties artifacts[] = {
 	{"Key", "Opens doors", "K", 6, ARTIFACT},
 	{"LAZER!!!!!", "IMA LAZERBEAMMMMMM", "L", 7, WEAPON},
 	{"BOMB!", "Explodes", "B", 8, WEAPON},

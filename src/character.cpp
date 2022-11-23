@@ -272,5 +272,5 @@ void Character::removeFromInventory(int ID) {
 }
 
 List<Item> Character::getInventory() {
-	return inventory;
+	return inventory.getInventory();
 }

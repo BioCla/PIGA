@@ -9,6 +9,7 @@
 #include "engine.hpp"
 #include "board.hpp"
 #include "item.hpp"
+#include "inventory.hpp"
 
 
 class Character : public Entity{
@@ -24,7 +25,7 @@ class Character : public Entity{
         projList *projListHead;
         //List<Projectile> projectilesCharacter;
 
-		List<Item> inventory;
+		Inventory inventory;	//Inventario del personaggio
         //inventario?
         //velocità?
 

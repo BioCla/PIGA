@@ -11,7 +11,7 @@ enum ItemType {
 	WEAPON, // colore blu
 };
 
-struct Properties {
+struct itemProperties {
 	const char* name;
 	const char* description;
 	const char* icon;
@@ -19,16 +19,21 @@ struct Properties {
 	ItemType type;
 };
 
+/**
+ * @brief Class that represents an item in the game (entity)
+*/
 class Item : public Entity
 {
 private:
-	Properties properties;
+	itemProperties properties;
 
 public:
+	//default constructor (necessary to initialize Lists of Items)
+	Item();
 	// Used to create a new Item within lists
-	Item(Properties properties, Position position, WINDOW* win);
+	Item(itemProperties properties, Position position, WINDOW* win);
 	// returns the properties of an initialized Item
-	Properties getProperties();
+	itemProperties getProperties();
 };
 
 /**
