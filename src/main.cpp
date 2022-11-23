@@ -106,8 +106,8 @@ int main(int argc, char **argv)
 //	Enemies.killEnemy(2);
 	Enemies.removeDeadEntities();
 
-	
 
+	
 
 	// /DEBUG
 
