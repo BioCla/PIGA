@@ -94,9 +94,28 @@ WINDOW* Board::getWin(){
 	return board_win;
 }
 
-
-
 //----- roba delle altre classi
+
+void Board::generateEnemies(){
+	int ne = (rand() % 3) + 4;
+	for(int i=0;i<ne;i++){
+		int rs = (rand()%1000)+300;
+		int rp = (rand() % 3);
+		Position spawnEnemy;
+		spawnEnemy.x=(rand()%(BOARD_COLS-1))+1;
+		spawnEnemy.y=(rand()%(BOARD_ROWS-1))+1;
+		Enemy e = Enemy("A",10,5,spawnEnemy,rp,rs,board_win);
+		enemiesList.headInsert(e);
+	}
+	enemiesList.spawnEnemies();
+}
+
+void Board::refreshEnemies(system_clock::time_point time_now){
+	enemiesList.moveEntities(time_now);
+	enemiesList.enemyShooting(time_now);
+	enemiesList.removeDeadEntities();
+}
+
 
 List<Projectile>* Board::getProjectilesList() {
 	return &projectilesList;
@@ -104,4 +123,8 @@ List<Projectile>* Board::getProjectilesList() {
 
 List<SuperProjectile>* Board::getSuperProjectilesList() {
 	return &superProjectilesList;
+}
+
+List<Enemy>* Board::getEnemiesList(){
+	return &enemiesList;
 }

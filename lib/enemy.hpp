@@ -3,7 +3,6 @@
 
 #include "../assets/hch.h"
 #include "entity.hpp"
-#include "board.hpp"
 #include "engine.hpp"
 #include "projectile.hpp"
 #include "listUtils.hpp"
@@ -32,7 +31,7 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
 
     public:
         Enemy();
-        Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time,WINDOW* win);
+        Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, int idle,WINDOW* win);
         void spawn(Position initial_position);
         void setHealth(int set);
         int getHealth();

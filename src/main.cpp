@@ -78,13 +78,7 @@ int main(int argc, char **argv)
 
 	// prova nemico
 	
-	Position spawnpoint_enemy;
-	spawnpoint_enemy.x=15; spawnpoint_enemy.y=15;
-	duration <int, std::ratio <1,1000 > > idle_time_enemy(2000);
-	Enemy Astolfo = Enemy("A",10,1,spawnpoint_enemy,1,idle_time_enemy,board.getWin());
-	Astolfo.setCurrentRoom(board.getWin());
-	//Astolfo.spawn(Astolfo.getCurrentPosition());
-	
+	/*
 	Position p1={2,2};
 	Position p2={6,6};
 	Position p3={10,10};
@@ -105,10 +99,12 @@ int main(int argc, char **argv)
 	//Enemies.removeElement(&cane);
 //	Enemies.killEnemy(2);
 	Enemies.removeDeadEntities();
+	*/
 
 
 	
 
+	board.generateEnemies();
 	// /DEBUG
 
 	//strutture per tenere proiettili e superproiettili
@@ -116,7 +112,6 @@ int main(int argc, char **argv)
 	projectilesList = board.getProjectilesList();
 	List<SuperProjectile>* superProjectilesList;
 	superProjectilesList = board.getSuperProjectilesList();
-
 	//gestione del tempo
 	system_clock::time_point time_now = system_clock::now();
 	
@@ -128,11 +123,12 @@ int main(int argc, char **argv)
 
 		p.HandleInput(ch);
 		//Astolfo.checkIfTimeToMove(time_now);
-		
+		/*
 		Enemies.moveEntities(time_now);
 		Enemies.enemyShooting(time_now);
 		Enemies.refreshEnemyProj(time_now);
-
+		*/
+		board.refreshEnemies(time_now);
 		(*projectilesList).moveEntities(time_now);
 		(*projectilesList).removeDeadEntities();
 
@@ -162,7 +158,7 @@ int main(int argc, char **argv)
 
 
 			//FUNZIONEDEBUG(); 
-			cout << "numero nemici: " << Enemies.listLenght() << endl;
+			//cout << "numero nemici: " << Enemies.listLenght() << endl;
 			cout << "n proiettili sul main: " << (*projectilesList).listLenght() << endl;
 			//cout << "posizione thiccboi x: " << thiccboi.getCurrentPosition().x << ", y: " << thiccboi.getCurrentPosition().y << endl;
 			cout << "numero proiettili board: " << (*board.getProjectilesList()).listLenght() << endl;

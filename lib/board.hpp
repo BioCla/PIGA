@@ -1,6 +1,7 @@
 #pragma once
 #include "../assets/hch.h"
 #include "superProjectile.hpp"
+#include "enemy.hpp"
 #include "listUtils.hpp"
 #include <string>
 #include <map>
@@ -10,7 +11,7 @@ using namespace std;
 
 #define BOARD_DIM 35
 #define BOARD_ROWS BOARD_DIM
-#define BOARD_COLS BOARD_ROWS * 2.5
+#define BOARD_COLS (int) (BOARD_ROWS * 2.5)
 
 #define WALL      '#'
 #define PAVE      ' '
@@ -42,17 +43,18 @@ using namespace std;
  * Description:
  *
  */
+
 class Board
 {
 protected:
 	WINDOW *board_win;
 	int screen_height, screen_width, xMin, yMin, xMax, yMax;
-	
 
 	//questi due campi ignorali tranquillamente
 	//sono solo cose che usano altre classi e vengono salvate nella stanza
 	List<Projectile> projectilesList;
 	List<SuperProjectile> superProjectilesList;
+	List<Enemy> enemiesList;
 	
 public:
 	// Board();
@@ -69,6 +71,9 @@ public:
 
 
 	//funzioni dei campi che puoi ignorare
+	void refreshEnemies(system_clock::time_point time_now);
+	void generateEnemies();
 	List<Projectile>* getProjectilesList();
 	List<SuperProjectile>* getSuperProjectilesList();
+	List<Enemy>* getEnemiesList();
 };

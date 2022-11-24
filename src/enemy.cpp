@@ -1,4 +1,5 @@
 #include "../lib/enemy.hpp"
+#include "../lib/board.hpp"
 #include <chrono>
 #include <ctime>
 
@@ -16,11 +17,12 @@ Enemy::Enemy(){
     current_room_win = stdscr;
 }
 
-Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, duration <int, std::ratio <1,1000> > idle_time,WINDOW* win) : Entity(icon, spawn_position, win){
+Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, int idle,WINDOW* win) : Entity(icon, spawn_position, win){
+    duration <int, std::ratio <1,1000> > one_millisecond(1);
     this->health=max_health;
     this->damage=damage;
     this->pathID=pathID;
-    this->idle_time_move=idle_time;
+    this->idle_time_move=one_millisecond*idle;
     last_time_moved = system_clock::now();
     last_time_shot = system_clock::now();
     this->pathing=5;
