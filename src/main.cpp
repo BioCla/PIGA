@@ -158,12 +158,12 @@ int main(int argc, char **argv)
 
 
 			//FUNZIONEDEBUG(); 
-			//cout << "numero nemici: " << Enemies.listLenght() << endl;
-			cout << "n proiettili sul main: " << (*projectilesList).listLenght() << endl;
+			cout << "numero nemici: " << (*board.getEnemiesList()).listLength() << endl;
+			cout << "n proiettili sul main: " << (*projectilesList).listLength() << endl;
 			//cout << "posizione thiccboi x: " << thiccboi.getCurrentPosition().x << ", y: " << thiccboi.getCurrentPosition().y << endl;
-			cout << "numero proiettili board: " << (*board.getProjectilesList()).listLenght() << endl;
+			cout << "numero proiettili board: " << (*board.getProjectilesList()).listLength() << endl;
 			//cout << "posizione head proj x: " << projectilesList.getHead().getCurrentPosition().x << "y, : " << projectilesList.getHead().getCurrentPosition().x << endl;
-			cout << "numero superproiettili board: " << (*board.getSuperProjectilesList()).listLenght() << endl;
+			cout << "numero superproiettili board: " << (*board.getSuperProjectilesList()).listLength() << endl;
 			// -- fine codice --
 			int inutile;
 			cin >> inutile;

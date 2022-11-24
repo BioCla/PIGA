@@ -18,7 +18,7 @@ template <typename T> bool List<T>::isEmpty(){
     return (this->head==NULL);
 }
 
-template <typename T> int List<T>::listLenght(){
+template <typename T> int List<T>::listLength(){
     Node<T> *tmp = this->head;
     int k=0;
     while (tmp!=NULL){

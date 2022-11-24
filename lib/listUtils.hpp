@@ -24,7 +24,7 @@ template <typename T> class List{
     public:
         List();     //crea lista vuota
         bool isEmpty();     //ritorna true se la lista è vuota, false altrimenti
-        int listLenght();      //ritorna la lunghezza della lista
+        int listLength();      //ritorna la lunghezza della lista
         void headInsert(T element);     //inserisce un elemento in testa
 
 				void removeElement(int& tracker);	//rimuove un elemento dalla lista
