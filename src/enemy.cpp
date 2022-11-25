@@ -171,9 +171,12 @@ void Enemy::checkIfTimeToMove(system_clock::time_point time_now) {
     }
 }
 
-void Enemy::checkIfTimeToShoot(system_clock::time_point time_now){
+void Enemy::checkIfTimeToShoot(system_clock::time_point time_now, List<Projectile> *Projlist){
     if(time_now>last_time_shot + idle_time_move){
-        shoot();
+        Position p1 = this->current_position;
+        p1.y++;
+        Projectile p = Projectile("*",p1,DIR_SOUTH, 100, current_room_win);
+        (*Projlist).headInsert(p);
         last_time_shot = time_now;
     }
 }

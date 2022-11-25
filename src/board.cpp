@@ -110,9 +110,17 @@ void Board::generateEnemies(){
 	enemiesList.spawnEnemies();
 }
 
+void Board::generateEnemiesProj(system_clock::time_point time_now){
+	Node<Enemy> *tmp = enemiesList.getHead();
+    while (tmp!=NULL) {
+    	tmp->getData()->checkIfTimeToShoot(time_now,&projectilesList);
+        tmp=tmp->getNext();
+    }   
+}
+
 void Board::refreshEnemies(system_clock::time_point time_now){
 	enemiesList.moveEntities(time_now);
-	enemiesList.enemyShooting(time_now);
+	generateEnemiesProj(time_now);
 	enemiesList.removeDeadEntities();
 }
 

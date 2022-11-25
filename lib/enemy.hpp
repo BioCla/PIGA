@@ -47,7 +47,7 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         bool legalMove(int posx, int posy);
         void refreshProj(system_clock::time_point time_now);
         void checkIfTimeToMove(system_clock::time_point time_now);
-        void checkIfTimeToShoot(system_clock::time_point time_now);
+        void checkIfTimeToShoot(system_clock::time_point time_now, List <Projectile>* Projlist);
         void setDistanceToPlayer(Position player_pos);
 };
 

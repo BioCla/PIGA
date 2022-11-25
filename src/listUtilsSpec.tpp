@@ -47,7 +47,7 @@ template <> void inline List<Enemy>::spawnEnemies(){
         tmp=tmp->next;
     }
 }
-
+/*
 template <> void inline List<Enemy>::enemyShooting(system_clock::time_point time_now){
     Node<Enemy> *tmp = this->head;
     while (tmp!=NULL) {
@@ -55,6 +55,7 @@ template <> void inline List<Enemy>::enemyShooting(system_clock::time_point time
         tmp=tmp->next;
     }    
 }
+*/
 
 template <> void inline List<Enemy>::refreshEnemyProj(system_clock::time_point time_now){
     Node<Enemy> *tmp = this->head;
