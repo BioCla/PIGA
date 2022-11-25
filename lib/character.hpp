@@ -23,8 +23,6 @@ class Character : public Entity{
         int last_direction_taken;
 
 		Inventory inventory;	//Inventario del personaggio
-        //inventario?
-        //velocità?
 
 
     public:

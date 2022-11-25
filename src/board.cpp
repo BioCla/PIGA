@@ -94,7 +94,13 @@ WINDOW* Board::getWin(){
 	return board_win;
 }
 
+
+
+//-----------------------------
 //----- roba delle altre classi
+//-----------------------------
+
+
 
 void Board::checkHits(){
 	Node<Enemy> *tmp1 = enemiesList.getHead();

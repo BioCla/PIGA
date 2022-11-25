@@ -128,13 +128,13 @@ int main(int argc, char **argv)
 		Enemies.enemyShooting(time_now);
 		Enemies.refreshEnemyProj(time_now);
 		*/
-		board.refreshEnemies(time_now);
 		(*projectilesList).moveEntities(time_now);
 		(*projectilesList).removeDeadEntities();
 
 		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
 		
 		board.checkHits();
+		board.refreshEnemies(time_now);
 
 		refresh();
 
@@ -143,6 +143,7 @@ int main(int argc, char **argv)
 		if(ch == 'f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
 		//DEVO FARE: mettere "f" nell'handleInput di Character
 			p.shoot(projectilesList);
+			mvwprintw(p.getWin(), 2, 2, "   ");
 		}
 		else if(ch=='g') {    //poi non penso che il personaggio sparerà questi, magari li spara il boss
 			createSuperProjectile(superProjectilesList, "O", p.getCurrentPosition(), p.getLastDirection(), 100,
