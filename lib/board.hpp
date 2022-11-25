@@ -71,6 +71,7 @@ public:
 
 
 	//funzioni dei campi che puoi ignorare
+	void checkHits();
 	void refreshEnemies(system_clock::time_point time_now);
 	void generateEnemies();
 	void generateEnemiesProj(system_clock::time_point time_now);

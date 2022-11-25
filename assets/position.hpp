@@ -6,4 +6,6 @@ struct Position {
     int y;
 };
 
+bool compare(Position p1, Position p2);
+
 #endif

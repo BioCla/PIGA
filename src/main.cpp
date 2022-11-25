@@ -134,6 +134,7 @@ int main(int argc, char **argv)
 
 		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
 		
+		board.checkHits();
 
 		refresh();
 

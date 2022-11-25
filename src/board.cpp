@@ -96,6 +96,29 @@ WINDOW* Board::getWin(){
 
 //----- roba delle altre classi
 
+void Board::checkHits(){
+	Node<Enemy> *tmp1 = enemiesList.getHead();
+	Node<Projectile> *tmp2 = projectilesList.getHead();
+	Node<SuperProjectile> *tmp3 = superProjectilesList.getHead();
+    while (tmp1!=NULL) {
+		while(tmp2!=NULL) {
+			if (compare(tmp1->getData()->getCurrentPosition(),tmp2->getData()->getCurrentPosition())){
+				tmp1->getData()->updateHealth(-15);
+				mvwprintw(this->getWin(),2,2,"HIT");
+			}
+			tmp2=tmp2->getNext();
+		}
+		while(tmp3!=NULL){
+			if (compare(tmp1->getData()->getCurrentPosition(),tmp3->getData()->getCurrentPosition())){
+				tmp1->getData()->updateHealth(-10);
+			}
+			tmp3=tmp3->getNext();
+		}
+        tmp1=tmp1->getNext();	
+	}
+}
+
+
 void Board::generateEnemies(){
 	int ne = (rand() % 3) + 4;
 	for(int i=0;i<ne;i++){
