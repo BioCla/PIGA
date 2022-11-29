@@ -36,6 +36,6 @@ void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
                             const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency, 
                             int child_moving_frequency, const char* child_icon, WINDOW* win);
 
-
+void mvprintwInteger(int posy, int posx, int input);
 
 #endif

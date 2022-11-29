@@ -179,3 +179,10 @@ void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
 	superProjectilesList->headInsert(newSuperProjectile);
 	newSuperProjectile.move();
 }
+
+//DUE CIFRE
+void mvprintwInteger(int posy, int posx, int input) {
+	char text[4];
+	sprintf(text, "%d", input);
+	mvprintw(posy, posx, text);
+}

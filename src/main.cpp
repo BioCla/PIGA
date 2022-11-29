@@ -63,9 +63,10 @@ int main(int argc, char **argv)
 
 
 
-	//DEBUG - prova del proiettile
+	//DEBUG - prova delle collisioni
 
-
+	bool DEBUGCOLLISIONI = false;
+	int projheadx, projheady, enheadx, enheady;
 	
 
 
@@ -133,6 +134,23 @@ int main(int argc, char **argv)
 		(*projectilesList).removeDeadEntities();
 
 		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
+
+		if((projectilesList->getHead() != NULL) && (board.getEnemiesList()->getHead() != NULL)) DEBUGCOLLISIONI = true;
+		else DEBUGCOLLISIONI = false;
+		if(DEBUGCOLLISIONI) {
+			projheadx = board.getProjectilesList()->getHead()->getData()->getCurrentPosition().x;
+			projheady = board.getProjectilesList()->getHead()->getData()->getCurrentPosition().y;
+			enheadx = board.getEnemiesList()->getHead()->getData()->getCurrentPosition().x;
+			enheady = board.getEnemiesList()->getHead()->getData()->getCurrentPosition().y;
+			wattron(stdscr, COLOR_PAIR(PROJCTL_PAIR));
+			mvprintw(19, 170, "coordinate x,y proiettile in testa alla lista:");
+			mvprintw(20, 170, "        ");
+			mvprintwInteger(20, 170, projheadx); mvprintwInteger(20, 175, projheady);
+			mvprintw(21, 170, "coordinate x,y nemico in testa alla lista:");
+			mvprintw(22, 170, "        ");
+			mvprintwInteger(22, 170, enheadx); mvprintwInteger(22, 175, enheady);
+			wattroff(stdscr, COLOR_PAIR(PROJCTL_PAIR));
+		}
 		
 		board.checkHits();
 		board.refreshEnemies(time_now,p.getCurrentPosition());
