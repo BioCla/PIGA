@@ -120,10 +120,10 @@ void Board::checkHits(){
 
 
 void Board::generateEnemies(){
-	int ne = (rand() % 3) + 4;
+	int ne = 2;//(rand() % 3) + 4;
 	for(int i=0;i<ne;i++){
 		int rspeed = (rand()%1000)+300;
-		int rpathID = (rand() % 4);
+		int rpathID = 3;//(rand() % 4);
 		Position spawnEnemy;
 		spawnEnemy.x=(rand()%(BOARD_COLS-1))+1;
 		spawnEnemy.y=(rand()%(BOARD_ROWS-1))+1;

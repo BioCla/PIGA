@@ -142,6 +142,7 @@ void Enemy::move(){
             }
             break;
         case CHASE:
+            //if (distance(current_position,shootingTarget)<2.5) return;
             switch (pathing){
                 case DIR_NORTH:
                     if (legalMove(current_position.x, current_position.y-1)){
