@@ -2,6 +2,7 @@
 #define LISTS
 #include <cstddef>
 #include <chrono>
+#include "../assets/position.hpp"
 
 template <typename T> class Node{
 
@@ -31,7 +32,7 @@ template <typename T> class List{
 
         void inline spawnEnemies();
         void moveEntities(std::chrono::_V2::system_clock::time_point time_now);
-        void inline enemyShooting(std::chrono::_V2::system_clock::time_point time_now);
+        void inline refreshEnemyTarget(Position p1);
         void inline refreshEnemyProj(std::chrono::_V2::system_clock::time_point time_now);
 //        void tailInsert(T element);     //inserisce un elemento in coda
         void removeDeadEntities();

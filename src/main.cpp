@@ -128,7 +128,7 @@ int main(int argc, char **argv)
 		Enemies.enemyShooting(time_now);
 		Enemies.refreshEnemyProj(time_now);
 		*/
-		board.refreshEnemies(time_now);
+		board.refreshEnemies(time_now,p.getCurrentPosition());
 		(*projectilesList).moveEntities(time_now);
 		(*projectilesList).removeDeadEntities();
 

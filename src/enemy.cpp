@@ -26,6 +26,7 @@ Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_positi
     last_time_moved = system_clock::now();
     last_time_shot = system_clock::now();
     this->pathing=5;
+    this->shootingTarget={0,0};
 }
 
 void Enemy::spawn(Position position) {
@@ -140,9 +141,31 @@ void Enemy::move(){
                 }else pathing=5;         
             }
             break;
-            /*
         case CHASE:
-            */
+            switch (pathing){
+                case DIR_NORTH:
+                    if (legalMove(current_position.x, current_position.y-1)){
+                        moveUp();
+                    }                        
+                    break;            
+                case DIR_EAST:
+                    if (legalMove(current_position.x+1, current_position.y)){
+                        moveLeft();
+                    }
+                    break;               
+                case DIR_SOUTH:
+                    if (legalMove(current_position.x, current_position.y+1)){
+                        moveDown();
+                    }
+                    break;   
+                case DIR_WEST:
+                    if (legalMove(current_position.x-1, current_position.y)){
+                        moveRight();
+                    }
+                    break;   
+            }
+            pathing = findDirection();
+            break;
     }
 }
 
@@ -174,15 +197,41 @@ void Enemy::checkIfTimeToMove(system_clock::time_point time_now) {
 void Enemy::checkIfTimeToShoot(system_clock::time_point time_now, List<Projectile> *Projlist){
     if(time_now>last_time_shot + idle_time_move){
         Position p1 = this->current_position;
-        p1.y++;
-        Projectile p = Projectile("*",p1,DIR_SOUTH, 100, current_room_win);
+        int dir=findDirection();
+        switch (dir){
+            case DIR_NORTH:
+                p1.y--;
+                break;
+            case DIR_SOUTH:
+                p1.y++;
+                break;
+            case DIR_WEST:
+                p1.x--;
+                break;
+            case DIR_EAST:
+                p1.x++;
+                break;
+        }
+        Projectile p = Projectile("*",p1,dir, 100, current_room_win);
         (*Projlist).headInsert(p);
         last_time_shot = time_now;
     }
 }
 
-/*
-void Enemy::setDistanceToPlayer(Position player_pos){
-    this->distanceToPlayer={current_position.x-player_pos.x,current_position.y-player_pos.y};
+
+void Enemy::setShootingTarget(Position player_pos){
+    this->shootingTarget=player_pos;
 }
-*/
+
+int Enemy::findDirection(){
+    if (abs(shootingTarget.y - current_position.y) > abs(shootingTarget.x - current_position.x)){
+        if (shootingTarget.y > current_position.y)
+            return DIR_SOUTH;
+        else return DIR_NORTH;
+    }
+    else {
+        if (shootingTarget.x > current_position.x)
+            return DIR_EAST;
+        else return DIR_WEST;
+    }
+}

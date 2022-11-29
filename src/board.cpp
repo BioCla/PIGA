@@ -122,12 +122,12 @@ void Board::checkHits(){
 void Board::generateEnemies(){
 	int ne = (rand() % 3) + 4;
 	for(int i=0;i<ne;i++){
-		int rs = (rand()%1000)+300;
-		int rp = (rand() % 3);
+		int rspeed = (rand()%1000)+300;
+		int rpathID = (rand() % 4);
 		Position spawnEnemy;
 		spawnEnemy.x=(rand()%(BOARD_COLS-1))+1;
 		spawnEnemy.y=(rand()%(BOARD_ROWS-1))+1;
-		Enemy e = Enemy("A",10,5,spawnEnemy,rp,rs,board_win);
+		Enemy e = Enemy("A",10,5,spawnEnemy,rpathID,rspeed,board_win);
 		enemiesList.headInsert(e);
 	}
 	enemiesList.spawnEnemies();
@@ -141,7 +141,8 @@ void Board::generateEnemiesProj(system_clock::time_point time_now){
     }   
 }
 
-void Board::refreshEnemies(system_clock::time_point time_now){
+void Board::refreshEnemies(system_clock::time_point time_now, Position pos){
+	enemiesList.refreshEnemyTarget(pos);
 	enemiesList.moveEntities(time_now);
 	generateEnemiesProj(time_now);
 	enemiesList.removeDeadEntities();

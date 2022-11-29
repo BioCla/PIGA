@@ -47,15 +47,15 @@ template <> void inline List<Enemy>::spawnEnemies(){
         tmp=tmp->next;
     }
 }
-/*
-template <> void inline List<Enemy>::enemyShooting(system_clock::time_point time_now){
+
+template <> void inline List<Enemy>::refreshEnemyTarget(Position p1){
     Node<Enemy> *tmp = this->head;
     while (tmp!=NULL) {
-        tmp->data.checkIfTimeToShoot(time_now);
+        tmp->data.setShootingTarget(p1);
         tmp=tmp->next;
-    }    
+    }
+
 }
-*/
 
 template <> void inline List<Enemy>::refreshEnemyProj(system_clock::time_point time_now){
     Node<Enemy> *tmp = this->head;

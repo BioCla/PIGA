@@ -26,6 +26,7 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         system_clock::time_point last_time_moved;
         system_clock::time_point last_time_shot;
         List<Projectile> projlist;
+        Position shootingTarget;
         //Position distanceToPlayer;
         //
 
@@ -48,7 +49,8 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         void refreshProj(system_clock::time_point time_now);
         void checkIfTimeToMove(system_clock::time_point time_now);
         void checkIfTimeToShoot(system_clock::time_point time_now, List <Projectile>* Projlist);
-        void setDistanceToPlayer(Position player_pos);
+        void setShootingTarget(Position p1);
+        int findDirection();
 };
 
 #include "../src/listUtilsSpec.tpp"

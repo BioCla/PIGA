@@ -72,7 +72,7 @@ public:
 
 	//funzioni dei campi che puoi ignorare
 	void checkHits();
-	void refreshEnemies(system_clock::time_point time_now);
+	void refreshEnemies(system_clock::time_point time_now, Position pos);
 	void generateEnemies();
 	void generateEnemiesProj(system_clock::time_point time_now);
 	List<Projectile>* getProjectilesList();
