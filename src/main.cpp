@@ -63,13 +63,15 @@ int main(int argc, char **argv)
 
 
 
-	//DEBUG - prova delle collisioni
+	//DEBUG -
+	// prova delle collisioni
 
-	bool DEBUGCOLLISIONI = false;
-	int projheadx, projheady, enheadx, enheady;
+	//bool DEBUGCOLLISIONI = false;
+	//int projheadx, projheady, enheadx, enheady;
+	//servono per stampare le posizioni delle teste della lista
 	
 
-
+	// /prova delle collisioni
 
 	
 
@@ -123,18 +125,17 @@ int main(int argc, char **argv)
 
 
 		p.HandleInput(ch);
-		//Astolfo.checkIfTimeToMove(time_now);
-		/*
-		Enemies.moveEntities(time_now);
-		Enemies.enemyShooting(time_now);
-		Enemies.refreshEnemyProj(time_now);
-		*/
+		
+
+
 		board.refreshEnemies(time_now,p.getCurrentPosition());
 		(*projectilesList).moveEntities(time_now);
 		(*projectilesList).removeDeadEntities();
 
 		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
 
+
+		/*
 		if((projectilesList->getHead() != NULL) && (board.getEnemiesList()->getHead() != NULL)) DEBUGCOLLISIONI = true;
 		else DEBUGCOLLISIONI = false;
 		if(DEBUGCOLLISIONI) {
@@ -151,6 +152,7 @@ int main(int argc, char **argv)
 			mvprintwInteger(22, 170, enheadx); mvprintwInteger(22, 175, enheady);
 			wattroff(stdscr, COLOR_PAIR(PROJCTL_PAIR));
 		}
+		*/
 		
 		board.checkHits();
 		board.refreshEnemies(time_now,p.getCurrentPosition());

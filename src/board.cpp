@@ -101,6 +101,10 @@ void Board::checkHits(){
 	Node<Projectile> *tmp2 = projectilesList.getHead();
 	Node<SuperProjectile> *tmp3 = superProjectilesList.getHead();
     while (tmp1!=NULL) {
+
+		tmp2 = projectilesList.getHead();
+		tmp3 = superProjectilesList.getHead();
+
 		while(tmp2!=NULL) {
 			if (compare(tmp1->getData()->getCurrentPosition(),tmp2->getData()->getCurrentPosition())){
 				tmp1->getData()->updateHealth(-15);
@@ -108,6 +112,7 @@ void Board::checkHits(){
 			}
 			tmp2=tmp2->getNext();
 		}
+
 		while(tmp3!=NULL){
 			if (compare(tmp1->getData()->getCurrentPosition(),tmp3->getData()->getCurrentPosition())){
 				tmp1->getData()->updateHealth(-10);
@@ -115,6 +120,7 @@ void Board::checkHits(){
 			tmp3=tmp3->getNext();
 		}
         tmp1=tmp1->getNext();	
+
 	}
 }
 
