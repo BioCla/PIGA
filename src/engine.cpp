@@ -181,8 +181,38 @@ void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
 }
 
 //DUE CIFRE
-void mvprintwInteger(int posy, int posx, int input) {
+void mvwprintwInteger(WINDOW* win, int posy, int posx, int input) {
 	char text[4];
 	sprintf(text, "%d", input);
-	mvprintw(posy, posx, text);
+	mvwprintw(win, posy, posx, text);
+}
+
+void displayCharacterHealth(WINDOW* win, int health) {
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	wattron(win, COLOR_PAIR(1));
+	mvwprintwInteger(win, 1, 1, health);
+	wattroff(win, COLOR_PAIR(1));
+	wrefresh(win);
+}
+
+int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectile>* superProjectilesList, Position character_position) {
+	Node<Projectile> *tmp1 = projectilesList->getHead();
+	Node<SuperProjectile> *tmp2 = superProjectilesList->getHead();
+	int total_damage = 0;
+
+	while(tmp1 != NULL) {
+		if(compare(character_position, tmp1->getData()->getCurrentPosition())) {
+			total_damage += 2;
+		}
+		tmp1 = tmp1->getNext();
+	}
+
+	while(tmp2 != NULL) {
+		if(compare(character_position, tmp2->getData()->getCurrentPosition())) {
+			total_damage += 2;
+		}
+		tmp2 = tmp2->getNext();
+	}
+
+	return total_damage;
 }

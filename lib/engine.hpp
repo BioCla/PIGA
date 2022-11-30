@@ -36,6 +36,8 @@ void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
                             const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency, 
                             int child_moving_frequency, const char* child_icon, WINDOW* win);
 
-void mvprintwInteger(int posy, int posx, int input);
+void mvwprintwInteger(WINDOW* win, int posy, int posx, int input);
+void displayCharacterHealth(WINDOW* win, int health);
+int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectile>* superProjectilesList, Position character_position);
 
 #endif

@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 	Position character_initial_position;
 	character_initial_position.x = 5;
 	character_initial_position.y = 5;
-	Character p = Character("@", character_initial_position, 30, "*", 100, board.getWin());
+	Character p = Character("@", character_initial_position, 30, "*", 20, board.getWin());
 	p.move(character_initial_position.x, character_initial_position.y);
 
 
@@ -66,14 +66,16 @@ int main(int argc, char **argv)
 	//DEBUG -
 	// prova delle collisioni
 
-	//bool DEBUGCOLLISIONI = false;
-	//int projheadx, projheady, enheadx, enheady;
+	bool DEBUGCOLLISIONI = false;
+	int projheadx, projheady;
+	//int enheadx, enheady;
 	//servono per stampare le posizioni delle teste della lista
 	
 
 	// /prova delle collisioni
 
-	
+	int current_damage_received_by_character = 0;
+	//p.setHealth(10);
 
 		
 
@@ -105,10 +107,20 @@ int main(int argc, char **argv)
 	*/
 
 
+	//VITA PERSONAGGIO
+	WINDOW* window_GUI_1;
+	window_GUI_1 = newwin(20, 40, 15, 165);
+	box(window_GUI_1, 0, 0);
+	wrefresh(window_GUI_1);
+	refresh();
+
+
 	
 
 	board.generateEnemies();
 	// /DEBUG
+
+	
 
 	//strutture per tenere proiettili e superproiettili
 	List<Projectile> *projectilesList;
@@ -135,27 +147,34 @@ int main(int argc, char **argv)
 		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
 
 
-		/*
+		
 		if((projectilesList->getHead() != NULL) && (board.getEnemiesList()->getHead() != NULL)) DEBUGCOLLISIONI = true;
 		else DEBUGCOLLISIONI = false;
 		if(DEBUGCOLLISIONI) {
 			projheadx = board.getProjectilesList()->getHead()->getData()->getCurrentPosition().x;
 			projheady = board.getProjectilesList()->getHead()->getData()->getCurrentPosition().y;
-			enheadx = board.getEnemiesList()->getHead()->getData()->getCurrentPosition().x;
-			enheady = board.getEnemiesList()->getHead()->getData()->getCurrentPosition().y;
 			wattron(stdscr, COLOR_PAIR(PROJCTL_PAIR));
 			mvprintw(19, 170, "coordinate x,y proiettile in testa alla lista:");
 			mvprintw(20, 170, "        ");
-			mvprintwInteger(20, 170, projheadx); mvprintwInteger(20, 175, projheady);
-			mvprintw(21, 170, "coordinate x,y nemico in testa alla lista:");
+			mvwprintwInteger(stdscr, 20, 170, projheadx); mvwprintwInteger(stdscr, 20, 175, projheady);
+			mvprintw(21, 170, "coordinate x,y personaggio:");
 			mvprintw(22, 170, "        ");
-			mvprintwInteger(22, 170, enheadx); mvprintwInteger(22, 175, enheady);
+			mvwprintwInteger(stdscr, 22, 170, p.getCurrentPosition().x); mvwprintwInteger(stdscr, 22, 175, p.getCurrentPosition().y);
 			wattroff(stdscr, COLOR_PAIR(PROJCTL_PAIR));
 		}
-		*/
+		
 		
 		board.checkHits();
 		board.refreshEnemies(time_now,p.getCurrentPosition());
+
+		current_damage_received_by_character = checkIfCharacterIsHit(board.getProjectilesList(), board.getSuperProjectilesList(), p.getCurrentPosition());
+		mvwprintw(window_GUI_1, 9, 10, "danno ricevuto dal personaggio:"); //in realtà non scrive proprio il danno, però se rileva una collisione scrive 2
+		mvwprintwInteger(window_GUI_1, 10, 10, current_damage_received_by_character);
+
+		//p.updateHealth(-current_damage_received_by_character);
+		//p.setHealth(p.getHealth() + current_damage_received_by_character);
+		//provare ad aggiornare la salute del giocatore fa crashare
+		displayCharacterHealth(window_GUI_1, p.getHealth());
 
 		refresh();
 
