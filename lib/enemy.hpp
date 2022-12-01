@@ -32,7 +32,7 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
 
     public:
         Enemy();
-        Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, int idle,WINDOW* win);
+        Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, int idlemove, int idleshoot,WINDOW* win);
         void spawn(Position initial_position);
         void setHealth(int set);
         int getHealth();

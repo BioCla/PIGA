@@ -17,15 +17,13 @@ Enemy::Enemy(){
     current_room_win = stdscr;
 }
 
-Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, int idle,WINDOW* win) : Entity(icon, spawn_position, win){
+Enemy::Enemy(const char* icon, int max_health, int damage, Position spawn_position, int pathID, int idlemove, int idleshoot,WINDOW* win) : Entity(icon, spawn_position, win){
     duration <int, std::ratio <1,1000> > one_millisecond(1);
     this->health=max_health;
     this->damage=damage;
     this->pathID=pathID;
-    this->idle_time_move=one_millisecond*idle;
-    last_time_moved = system_clock::now();
-    last_time_shot = system_clock::now();
-    this->pathing=5;
+    this->idle_time_move=one_millisecond*idlemove;
+    this->idle_time_shoot=one_millisecond*idleshoot;
     this->shootingTarget={0,0};
 }
 
@@ -196,7 +194,7 @@ void Enemy::checkIfTimeToMove(system_clock::time_point time_now) {
 }
 
 void Enemy::checkIfTimeToShoot(system_clock::time_point time_now, List<Projectile> *Projlist){
-    if(time_now>last_time_shot + idle_time_move){
+    if(time_now>last_time_shot + idle_time_shoot){
         Position p1 = this->current_position;
         int dir=findDirection();
         switch (dir){

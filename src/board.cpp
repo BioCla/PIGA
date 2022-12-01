@@ -98,8 +98,8 @@ WINDOW* Board::getWin(){
 
 void Board::checkHits(){
 	Node<Enemy> *tmp1 = enemiesList.getHead();
-	Node<Projectile> *tmp2 = projectilesList.getHead();
-	Node<SuperProjectile> *tmp3 = superProjectilesList.getHead();
+	Node<Projectile> *tmp2;
+	Node<SuperProjectile> *tmp3;
     while (tmp1!=NULL) {
 
 		tmp2 = projectilesList.getHead();
@@ -107,7 +107,7 @@ void Board::checkHits(){
 
 		while(tmp2!=NULL) {
 			if (compare(tmp1->getData()->getCurrentPosition(),tmp2->getData()->getCurrentPosition())){
-				tmp1->getData()->updateHealth(-15);
+				tmp1->getData()->updateHealth(-10);
 				mvwprintw(this->getWin(),2,2,"HIT");
 			}
 			tmp2=tmp2->getNext();
@@ -129,11 +129,12 @@ void Board::generateEnemies(){
 	int ne = (rand() % 3) + 4;
 	for(int i=0;i<ne;i++){
 		int rspeed = (rand()%1000)+300;
+		int rshootspeed = rspeed;
 		int rpathID = (rand() % 4);
 		Position spawnEnemy;
 		spawnEnemy.x=(rand()%(BOARD_COLS-1))+1;
 		spawnEnemy.y=(rand()%(BOARD_ROWS-1))+1;
-		Enemy e = Enemy("A",10,5,spawnEnemy,rpathID,rspeed,board_win);
+		Enemy e = Enemy("A",10,5,spawnEnemy,rpathID,rspeed,rshootspeed,board_win);
 		enemiesList.headInsert(e);
 	}
 	enemiesList.spawnEnemies();
