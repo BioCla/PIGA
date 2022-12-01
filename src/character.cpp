@@ -233,9 +233,8 @@ void Character::shoot(List<Projectile> *projectilesList) {
 
 void Character::createProjectile(int direction, List<Projectile> *projectilesList) {    //obsoleta bisogna usare le listutils.hpp
     Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency, current_room_win);
-    (*projectilesList).headInsert(newProjectile);
     newProjectile.move();
-    
+    (*projectilesList).headInsert(newProjectile);
 }
 
 void Character::addToInventory(int ID) {
