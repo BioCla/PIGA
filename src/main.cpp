@@ -153,14 +153,14 @@ int main(int argc, char **argv)
 		if(DEBUGCOLLISIONI) {
 			projheadx = board.getProjectilesList()->getHead()->getData()->getCurrentPosition().x;
 			projheady = board.getProjectilesList()->getHead()->getData()->getCurrentPosition().y;
-			wattron(stdscr, COLOR_PAIR(PROJCTL_PAIR));
-			mvprintw(19, 170, "coordinate x,y proiettile in testa alla lista:");
-			mvprintw(20, 170, "        ");
-			mvwprintwInteger(stdscr, 20, 170, projheadx); mvwprintwInteger(stdscr, 20, 175, projheady);
-			mvprintw(21, 170, "coordinate x,y personaggio:");
-			mvprintw(22, 170, "        ");
-			mvwprintwInteger(stdscr, 22, 170, p.getCurrentPosition().x); mvwprintwInteger(stdscr, 22, 175, p.getCurrentPosition().y);
-			wattroff(stdscr, COLOR_PAIR(PROJCTL_PAIR));
+			wattron(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
+			mvwprintw(window_GUI_1, 5, 1, "coordinate x,y proiettile in testa:");
+			mvwprintw(window_GUI_1, 6, 1, "        ");
+			mvwprintwInteger(window_GUI_1, 6, 1, projheadx); mvwprintwInteger(window_GUI_1, 6, 6, projheady);
+			mvwprintw(window_GUI_1, 7, 1, "coordinate x,y personaggio:");
+			mvwprintw(window_GUI_1, 8, 1, "        ");
+			mvwprintwInteger(window_GUI_1, 8, 1, p.getCurrentPosition().x); mvwprintwInteger(window_GUI_1, 8, 6, p.getCurrentPosition().y);
+			wattroff(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
 		}
 		
 		
@@ -168,8 +168,8 @@ int main(int argc, char **argv)
 		board.refreshEnemies(time_now,p.getCurrentPosition());
 
 		current_damage_received_by_character = checkIfCharacterIsHit(board.getProjectilesList(), board.getSuperProjectilesList(), p.getCurrentPosition());
-		mvwprintw(window_GUI_1, 9, 10, "danno ricevuto dal personaggio:"); //in realtà non scrive proprio il danno, però se rileva una collisione scrive 2
-		mvwprintwInteger(window_GUI_1, 10, 10, current_damage_received_by_character);
+		mvwprintw(window_GUI_1, 9, 1, "danno ricevuto dal personaggio:"); //in realtà non scrive proprio il danno, però se rileva una collisione scrive 2
+		mvwprintwInteger(window_GUI_1, 10, 1, current_damage_received_by_character);
 
 		//p.updateHealth(-current_damage_received_by_character);
 		//p.setHealth(p.getHealth() + current_damage_received_by_character);

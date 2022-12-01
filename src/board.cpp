@@ -129,7 +129,7 @@ void Board::generateEnemies(){
 	int ne = (rand() % 3) + 4;
 	for(int i=0;i<ne;i++){
 		int rspeed = (rand()%1000)+300;
-		int rshootspeed = rspeed;
+		int rshootspeed = rspeed + 200;
 		int rpathID = (rand() % 4);
 		Position spawnEnemy;
 		spawnEnemy.x=(rand()%(BOARD_COLS-1))+1;
