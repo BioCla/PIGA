@@ -52,7 +52,7 @@ class Character : public Entity{
         void createProjectile(int direction, List<Projectile> *projectilesList);
 		void addToInventory(int ID);
 		void removeFromInventory(int ID);
-		List<Item> getInventory();
+		int* getInventory();
 };
 
 #endif

@@ -22,6 +22,7 @@ class Entity {
         const char* getIcon();
         Position getCurrentPosition();
         void spawn();
+        void spawn(Position position);
         void deleteIcon();
         void move(int new_pos_x, int new_pos_y);
         WINDOW* getWin();

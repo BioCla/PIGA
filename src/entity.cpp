@@ -43,6 +43,11 @@ void Entity::spawn() {
     //colori?
 }
 
+void Entity::spawn(Position position) {
+	current_position = position;
+	spawn();
+}
+
 void Entity::deleteIcon() {
     //colori?
     mvwprintw(current_room_win, current_position.y, current_position.x, " ");

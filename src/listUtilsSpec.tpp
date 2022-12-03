@@ -76,9 +76,13 @@ template <> void inline List<Enemy>::killEnemy(int o){
     tmp->data.updateHealth(-11);
 }
 
-
-
-
+template <> void inline List<Entity>::spawnEntities(){
+    Node<Entity> *tmp = this->head;
+    while (tmp!=NULL) {
+        tmp->data.spawn(tmp->data.getCurrentPosition());
+        tmp=tmp->next;
+    }
+}
 
 template class List<Enemy>;
 template class List<Projectile>;

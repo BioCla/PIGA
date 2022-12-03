@@ -245,6 +245,6 @@ void Character::removeFromInventory(int ID) {
 	
 }
 
-List<Item> Character::getInventory() {
+int* Character::getInventory() {
 	return inventory.getInventory();
 }

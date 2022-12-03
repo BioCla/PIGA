@@ -36,6 +36,9 @@ public:
 	itemProperties getProperties();
 };
 
+// Finds the itemProperties of an item with a specific ID from the itemList
+itemProperties findItem(int ID);
+
 /**
  * List of all the items in the game
  * 

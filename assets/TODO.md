@@ -3,22 +3,23 @@
 ## Gestione attivita' progetto PIGA
 
 ### Manto
-non segarsi non segarsi non segarsi
-
 Enemy proiettili
 movimenti Enemy(manca chase)
 boss
 
 
 ### HAZE
-non segarsi non segarsi non segarsi
+
 
 ### Liam
-non segarsi non segarsi non segarsi
 
 
 ### Brian
-non segarsi non segarsi non segarsi
+Engine >
+Items 
+Item Properties
+Inventory
+Entity /
 
 ### GEN
 https://docs.google.com/spreadsheets/d/1OLR-SXiAPb2hF5HqI_HXK4uz4xTSWIK0N3RCSS4bh_Y/edit?usp=sharing
