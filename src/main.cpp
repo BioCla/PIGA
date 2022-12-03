@@ -179,10 +179,10 @@ int main(int argc, char **argv)
 		if(current_damage_received_by_character > 0) {   //DEBUG
 			int1 = p.getHealth();
 			int2 = int1 - current_damage_received_by_character;
+			int3 = p.getHealth();
 			mvwprintw(window_GUI_1, 12, 1, "int1: "); mvwprintwInteger(window_GUI_1, 12, 7, int1);
 			mvwprintw(window_GUI_1, 13, 1, "int2: "); mvwprintwInteger(window_GUI_1, 13, 7, int2);
 			mvwprintw(window_GUI_1, 14, 1, "int3: "); mvwprintwInteger(window_GUI_1, 14, 7, int3);
-			int3 = p.getHealth();
 			p.setHealth(int3);
 		}
 		displayCharacterHealth(window_GUI_1, p.getHealth());
