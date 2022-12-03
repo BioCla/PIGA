@@ -138,7 +138,7 @@ void Board::generateEnemies(){
 		Enemy e = Enemy("A",10,5,spawnEnemy,rpathID,rspeed,rshootspeed,board_win);
 		enemiesList.headInsert(e);
 	}
-	enemiesList.spawnEnemies();
+	enemiesList.spawnEntities();
 }
 
 void Board::generateEnemiesProj(system_clock::time_point time_now){

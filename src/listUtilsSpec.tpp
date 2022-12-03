@@ -9,6 +9,14 @@ template <typename T> void List<T>::moveEntities(system_clock::time_point time_n
     }    
 }
 
+template <typename T> void List<T>::spawnEntities(){
+    Node<T> *tmp = this->head;
+    while (tmp!=NULL) {
+        tmp->data.spawn(tmp->data.getCurrentPosition());
+        tmp=tmp->next;
+    }    
+}
+
 template <typename T> void List<T>::removeDeadEntities(){
     if (head==NULL) return;
     else if((head->next==NULL)&&(!head->data.isAlive())){
@@ -39,7 +47,7 @@ template <typename T> void List<T>::removeDeadEntities(){
 
     }
 }
-
+/*
 template <> void inline List<Enemy>::spawnEnemies(){
     Node<Enemy> *tmp = this->head;
     while (tmp!=NULL) {
@@ -47,6 +55,7 @@ template <> void inline List<Enemy>::spawnEnemies(){
         tmp=tmp->next;
     }
 }
+*/
 
 template <> void inline List<Enemy>::refreshEnemyTarget(Position p1){
     Node<Enemy> *tmp = this->head;
