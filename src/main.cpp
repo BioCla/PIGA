@@ -72,7 +72,7 @@ int main(int argc, char **argv)
 	//int enheadx, enheady;
 	//servono per stampare le posizioni delle teste della lista
 
-	int int1, int2, int3;
+	
 	
 
 	// /prova delle collisioni
@@ -178,15 +178,10 @@ int main(int argc, char **argv)
 		//p.setHealth(p.getHealth() + current_damage_received_by_character);
 		//provare ad aggiornare la salute del giocatore fa crashare
 		if(current_damage_received_by_character > 0) {   //DEBUG
-			int1 = p.getHealth();
-			int2 = int1 - current_damage_received_by_character;
-			int3 = p.getHealth();
-			mvwprintw(window_GUI_1, 12, 1, "int1: "); mvwprintwInteger(window_GUI_1, 12, 7, int1);
-			mvwprintw(window_GUI_1, 13, 1, "int2: "); mvwprintwInteger(window_GUI_1, 13, 7, int2);
-			mvwprintw(window_GUI_1, 14, 1, "int3: "); mvwprintwInteger(window_GUI_1, 14, 7, int3);
-			p.setHealth(int3);
+			mvwprintw(window_GUI_1, 2, 1, "    ");
 		}
-		displayCharacterHealth(window_GUI_1, p.getHealth());
+		
+		displayCharacterHealth(window_GUI_1, p.getHealth(), p.getHearts());
 
 		refresh();
 

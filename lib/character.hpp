@@ -31,6 +31,7 @@ class Character : public Entity{
         Character();
         Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int projectile_moving_frequency, WINDOW* win);
         void updateHearts();
+        int getHearts();
         void updateHealth(int mod);
         void setHealth(int set);
         int getHealth();

@@ -38,11 +38,16 @@ salute    num_cuori
 0............0
 */
 
+int Character::getHearts() {
+    return num_hearts;
+}
+
 //si possono mettere valori negativi per far prendere danno al personaggio
 void Character::updateHealth(int mod) {
     health = health + mod;
     if (health > max_health) health = max_health;
     if(health <= 0) alive = false;
+    updateHearts();
 }
 
 void Character::setHealth(int set) {

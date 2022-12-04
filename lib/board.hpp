@@ -11,7 +11,7 @@ using namespace std;
 
 #define BOARD_DIM 35
 #define BOARD_ROWS BOARD_DIM
-#define BOARD_COLS (int) (BOARD_ROWS * 2.5)
+#define BOARD_COLS (int)(BOARD_ROWS * 2.5)
 
 #define WALL      '#'
 #define PAVE      ' '

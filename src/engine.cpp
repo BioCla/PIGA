@@ -187,12 +187,20 @@ void mvwprintwInteger(WINDOW* win, int posy, int posx, int input) {
 	mvwprintw(win, posy, posx, text);
 }
 
-void displayCharacterHealth(WINDOW* win, int health) {
+void displayCharacterHealth(WINDOW* win, int health, int num_hearts) {
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	wattron(win, COLOR_PAIR(1));
 	mvwprintwInteger(win, 1, 1, health);
 	wattroff(win, COLOR_PAIR(1));
 	wrefresh(win);
+
+	//CUORI
+	wattron(win, COLOR_PAIR(1));
+	int in_pos = 1;
+	for(int i = 0; i < num_hearts; i++) {
+		mvwprintw(win, 2, in_pos + i, "A");
+	}
+	wattroff(win, COLOR_PAIR(1));
 }
 
 int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectile>* superProjectilesList, Position character_position) {
@@ -202,7 +210,7 @@ int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectil
 
 	while(tmp1 != NULL) {
 		if(compare(character_position, tmp1->getData()->getCurrentPosition())) {
-			total_damage += 2;
+			total_damage += tmp1->getData()->getDamage();
 			tmp1->getData()->setAlive(false);
 		}
 		tmp1 = tmp1->getNext();

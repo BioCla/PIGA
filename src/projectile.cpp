@@ -18,6 +18,7 @@ Projectile::Projectile(const char* icon, Position position, int direction, int m
     this->moving_frequency = moving_frequency_multiplyer * one_millisecond;
     last_time_moved = system_clock::now();
     alive = true;
+    damage = 5;
 }
 
 void Projectile::spawn(Position position) {
