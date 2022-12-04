@@ -17,10 +17,6 @@ Entity::Entity(const char* icon, Position initial_position, WINDOW* win) {
     this->current_room_win = win;   //poi basta aggiungere nei parametri la window e scambiare stdscr col parametro
 }
 
-void Entity::setAlive(bool alive) {
-    this->alive = alive;
-}
-
 bool Entity::isAlive() {
     return alive;
 }

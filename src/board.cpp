@@ -109,7 +109,6 @@ void Board::checkHits(){
 			if (compare(tmp1->getData()->getCurrentPosition(),tmp2->getData()->getCurrentPosition())){
 				tmp1->getData()->updateHealth(-10);
 				mvwprintw(this->getWin(),2,2,"HIT");
-				tmp2->getData()->setAlive(false);
 			}
 			tmp2=tmp2->getNext();
 		}
