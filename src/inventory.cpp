@@ -2,6 +2,9 @@
 
 Inventory::Inventory() {
 	this->inventory = List<Item>();
+	this->inventoryWin = newwin(50, 211, (getmaxy(stdscr) / 2) - (50/2), (getmaxx(stdscr) / 2) - ((211/2)));
+	box(inventoryWin, 0, 0);
+	wrefresh(inventoryWin);
 }
 
 void Inventory::addToInventory(Item item) {
@@ -25,11 +28,11 @@ int* Inventory::getInventory() {
 	return itemTracker;
 }
 
-void Inventory::printInventory(WINDOW* win) {
+void Inventory::printInventory() {
 	int* inventory = this->getInventory();
 	int length = this->inventory.listLength();
 
 	for (int i = 0; i < length; i++) {
-		wprintw(win, "%s", findItem(inventory[i]).name);
+		wprintw(inventoryWin, "%s", findItem(inventory[i]).name);
 	}
 }

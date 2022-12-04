@@ -50,6 +50,7 @@ int main(int argc, char **argv)
 	WINDOW* schermoliam = newwin(50, 211, (stdscrymax / 2) - (50/2), (stdscrxmax / 2) - ((211/2)));
 	box(schermoliam, 1, 1);
 	wrefresh(schermoliam);
+
 	box(board.getWin(), 0, 0);
 	wrefresh(board.getWin());	
 

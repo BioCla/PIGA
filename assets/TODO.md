@@ -15,11 +15,10 @@ boss
 
 
 ### Brian
-Engine >
-Items 
-Item Properties
-Inventory
-Entity /
+Engine > Welcome Display > legal move > display functions
+Items > Properties
+Inventory > Window
+Entity / Items
 
 ### GEN
 https://docs.google.com/spreadsheets/d/1OLR-SXiAPb2hF5HqI_HXK4uz4xTSWIK0N3RCSS4bh_Y/edit?usp=sharing
