@@ -173,8 +173,8 @@ int main(int argc, char **argv)
 		current_damage_received_by_character = checkIfCharacterIsHit(board.getProjectilesList(), board.getSuperProjectilesList(), p.getCurrentPosition());
 		mvwprintw(window_GUI_1, 9, 1, "danno ricevuto dal personaggio:"); //in realtà non scrive proprio il danno, però se rileva una collisione scrive 2
 		mvwprintwInteger(window_GUI_1, 10, 1, current_damage_received_by_character);
+		p.updateHealth(-current_damage_received_by_character);
 
-		//p.updateHealth(-current_damage_received_by_character);
 		//p.setHealth(p.getHealth() + current_damage_received_by_character);
 		//provare ad aggiornare la salute del giocatore fa crashare
 		if(current_damage_received_by_character > 0) {   //DEBUG
