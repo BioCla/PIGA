@@ -176,8 +176,8 @@ void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
 	
 	SuperProjectile newSuperProjectile = SuperProjectile(icon, position, direction, moving_frequency, spawning_frequency,
 															child_moving_frequency, child_icon, win);
-	superProjectilesList->headInsert(newSuperProjectile);
 	newSuperProjectile.move();
+	superProjectilesList->headInsert(newSuperProjectile);
 }
 
 //DUE CIFRE
@@ -218,7 +218,7 @@ int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectil
 
 	while(tmp2 != NULL) {
 		if(compare(character_position, tmp2->getData()->getCurrentPosition())) {
-			total_damage += 2;
+			total_damage += tmp2->getData()->getDamage();
 			tmp2->getData()->setAlive(false);
 		}
 		tmp2 = tmp2->getNext();

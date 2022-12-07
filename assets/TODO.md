@@ -12,7 +12,7 @@ boss
 
 
 ### Liam
-
+i nemici devono prendere danno in base al campo damage del proiettile
 
 ### Brian
 Engine > Welcome Display > legal move > display functions

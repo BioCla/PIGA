@@ -19,7 +19,7 @@ Character::Character(const char * icon, Position pos, int max_health, const char
     this->projectile_icon = projectile_icon;
     this->projectile_moving_frequency = projectile_moving_frequency;
     last_direction_taken = DIR_NORTH;
-    damage = 5;
+    damage = 15;
 }
 
 void Character::updateHearts() {
@@ -138,20 +138,12 @@ void Character::HandleInput(int input){
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                //Board::fillPoint(current_position.y, current_position.x); non so come implementare in modo che usi la classe Board e usi la funzione per riempire lo spazio
+
                 current_position.y--;
                 move(current_position.x, current_position.y);
             }
             else if (steppedOnEnemy(current_position.x, current_position.y - 1)) {
-                //calcoladanno();
-                /*
-                penso si farà più o meno così:
-                prendi icona nemico in quella posizione()
-                da un qualche metodo nella classe ENEMY prendi il danno da collisione fisica (non per forza uguale a quello da proiettile)
-                togli i punti vita  updateHealth(-dannodelmostro)
-                e poi direi che rimangono lì sia il mostro che il personaggio
-                inoltre si potrebbe fare che se un mostro va addosso al personaggio il personaggio viene spinto di una casella
-                */
+                this->health = this->health - 5;
             }
             break;
         /*si muove a destra*/
@@ -166,7 +158,7 @@ void Character::HandleInput(int input){
                 move(current_position.x, current_position.y);
             }
             else if (steppedOnEnemy(current_position.x + 1, current_position.y)) {
-                //calcoladanno();
+                this->health = this->health - 5;
             }
             break;
         /*si muove in giù*/
@@ -181,7 +173,7 @@ void Character::HandleInput(int input){
                 move(current_position.x, current_position.y);
             }
             else if (steppedOnEnemy(current_position.x, current_position.y + 1)) {
-                //calcoladanno();
+                this->health = this->health - 5;
             }
             break;
         /*si muove a sinistra*/
@@ -196,7 +188,7 @@ void Character::HandleInput(int input){
                 move(current_position.x, current_position.y);
             }
             else if (steppedOnEnemy(current_position.x - 1, current_position.y)) {
-                //calcoladanno();
+                this->health = this->health - 5;
             }
             break;
 
@@ -211,16 +203,14 @@ bool Character::legalMove(int posx, int posy) {
     int k, kk;
     k =  mvwinch(current_room_win, posy,posx);
     kk = k & A_CHARTEXT;
-    return ((kk == PAVE) || (kk == 42));   //42 = "*"
+    return ((kk == PAVE) || (kk == 42) || (kk == 79));   //42 = "*", 79 = "O"   ossia i proiettili
 } 
 
 bool Character::steppedOnEnemy(int posx, int posy) {
-    bool flag = false;
-    /*
-    qui stessa roba. se il carattere che hai a destra è quello di un nemico e te vai a destra ritorna true e 
-    poi si calcola il danno
-    */
-    return flag;
+    int k, kk;
+    k =  mvwinch(current_room_win, posy,posx);
+    kk = k & A_CHARTEXT;
+    return (kk == 65);   //65 = "A"    ossia i nemici
 }
 
 bool Character::steppedOnArtifact(int posx, int posy) {
@@ -236,7 +226,7 @@ void Character::shoot(List<Projectile> *projectilesList) {
     createProjectile(last_direction_taken, projectilesList);
 }
 
-void Character::createProjectile(int direction, List<Projectile> *projectilesList) {    //obsoleta bisogna usare le listutils.hpp
+void Character::createProjectile(int direction, List<Projectile> *projectilesList) {    
     Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency, current_room_win);
     newProjectile.move();
     (*projectilesList).headInsert(newProjectile);
