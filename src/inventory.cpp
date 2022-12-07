@@ -2,7 +2,7 @@
 
 Inventory::Inventory() {
 	this->inventory = List<Item>();
-	this->inventoryWin = newwin(50, 211, (getmaxy(stdscr) / 2) - (50/2), (getmaxx(stdscr) / 2) - ((211/2)));
+	this->inventoryWin = newwin(10, 11, (getmaxy(stdscr) / 2) - (50/2), (getmaxx(stdscr) / 2) - ((211/2)));
 	box(inventoryWin, 0, 0);
 	wrefresh(inventoryWin);
 }
