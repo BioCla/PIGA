@@ -22,7 +22,7 @@ class SuperProjectile : public Projectile {
     
     public:
     SuperProjectile();
-    SuperProjectile(const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency, 
+    SuperProjectile(const char* icon, Position position, int direction, int damage, int moving_frequency, int spawning_frequency, 
                     int child_moving_frequency, const char* child_icon, WINDOW* win);
     void shootProjectiles(List<Projectile> *projList);
     void createProjectile(int direction, List<Projectile> *projList);

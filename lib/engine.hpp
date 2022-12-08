@@ -33,7 +33,7 @@ chtype getcharat(int y, int x);
 int legalMove(int y, int x);
 void refreshSuperProjectiles(std::chrono::_V2::system_clock::time_point time_now, List<SuperProjectile> *superProjectilesList, List<Projectile> *projectilesList);
 void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
-                            const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency, 
+                            const char* icon, Position position, int direction, int damage, int moving_frequency, int spawning_frequency, 
                             int child_moving_frequency, const char* child_icon, WINDOW* win);
 
 void mvwprintwInteger(WINDOW* win, int posy, int posx, int input);

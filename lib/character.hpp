@@ -29,7 +29,7 @@ class Character : public Entity{
 
     public:
         Character();
-        Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int projectile_moving_frequency, WINDOW* win);
+        Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int damage, int projectile_moving_frequency, WINDOW* win);
         void updateHearts();
         int getHearts();
         void updateHealth(int mod);

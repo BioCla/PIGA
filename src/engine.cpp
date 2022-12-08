@@ -171,10 +171,10 @@ void refreshSuperProjectiles(system_clock::time_point time_now, List<SuperProjec
 }
 
 void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
-                            const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency, 
+                            const char* icon, Position position, int direction, int damage, int moving_frequency, int spawning_frequency, 
                             int child_moving_frequency, const char* child_icon, WINDOW* win) {
 	
-	SuperProjectile newSuperProjectile = SuperProjectile(icon, position, direction, moving_frequency, spawning_frequency,
+	SuperProjectile newSuperProjectile = SuperProjectile(icon, position, direction, damage, moving_frequency, spawning_frequency,
 															child_moving_frequency, child_icon, win);
 	newSuperProjectile.move();
 	superProjectilesList->headInsert(newSuperProjectile);

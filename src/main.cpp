@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 	Position character_initial_position;
 	character_initial_position.x = 5;
 	character_initial_position.y = 5;
-	Character p = Character("@", character_initial_position, 30, "*", 100, board.getWin());
+	Character p = Character("@", character_initial_position, 30, "*", 5, 100, board.getWin());
 	p.move(character_initial_position.x, character_initial_position.y);
 
 
@@ -134,7 +134,7 @@ int main(int argc, char **argv)
 	system_clock::time_point time_now = system_clock::now();
 	
 	int ch; // Variabile di accesso al handler per gli input
-	while ((ch = getch()) != 'q')
+	while (((ch = getch()) != 'q') && (p.isAlive()))
 	{
 		time_now = system_clock::now();
 
@@ -163,6 +163,12 @@ int main(int argc, char **argv)
 			mvwprintw(window_GUI_1, 7, 1, "coordinate x,y personaggio:");
 			mvwprintw(window_GUI_1, 8, 1, "        ");
 			mvwprintwInteger(window_GUI_1, 8, 1, p.getCurrentPosition().x); mvwprintwInteger(window_GUI_1, 8, 6, p.getCurrentPosition().y);
+			mvwprintw(window_GUI_1, 9, 1, "coordinate x,y nemico in testa:");
+			mvwprintw(window_GUI_1, 10, 1, "       ");
+			mvwprintwInteger(window_GUI_1, 10, 1, board.getEnemiesList()->getHead()->getData()->getCurrentPosition().x); mvwprintwInteger(window_GUI_1, 10, 6, board.getEnemiesList()->getHead()->getData()->getCurrentPosition().y);
+			mvwprintw(window_GUI_1, 11, 1, "vita nemico in testa");
+			mvwprintw(window_GUI_1, 12, 1, "                ");
+			mvwprintwInteger(window_GUI_1, 12, 1, board.getEnemiesList()->getHead()->getData()->getHealth());
 			wattroff(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
 		}
 		
@@ -171,8 +177,8 @@ int main(int argc, char **argv)
 		board.checkHits();
 
 		current_damage_received_by_character = checkIfCharacterIsHit(board.getProjectilesList(), board.getSuperProjectilesList(), p.getCurrentPosition());
-		mvwprintw(window_GUI_1, 9, 1, "danno ricevuto dal personaggio:"); //in realtà non scrive proprio il danno, però se rileva una collisione scrive 2
-		mvwprintwInteger(window_GUI_1, 10, 1, current_damage_received_by_character);
+		mvwprintw(window_GUI_1, 13, 1, "danno ricevuto dal personaggio:"); //in realtà non scrive proprio il danno, però se rileva una collisione scrive 2
+		mvwprintwInteger(window_GUI_1, 14, 1, current_damage_received_by_character);
 		p.updateHealth(-current_damage_received_by_character);
 
 		//p.setHealth(p.getHealth() + current_damage_received_by_character);
@@ -193,7 +199,7 @@ int main(int argc, char **argv)
 			mvwprintw(p.getWin(), 2, 2, "   ");   //DEBUG serve per la scritta HIT delle collisioni
 		}
 		else if(ch=='g') {    //poi non penso che il personaggio sparerà questi, magari li spara il boss
-			createSuperProjectile(superProjectilesList, "O", p.getCurrentPosition(), p.getLastDirection(), 100,
+			createSuperProjectile(superProjectilesList, "O", p.getCurrentPosition(), p.getLastDirection(), p.getDamage(), 100,
 																	1000, 100, "*", p.getWin());
 		}
 
@@ -232,10 +238,14 @@ int main(int argc, char **argv)
 			mvprintw(stdscrymax - 5, stdscrxmax/2 - 4, "         ");
 		}
 
-
+		board.getEnemiesList()->spawnEntities();    //se un nemico viene colpito ma non muore la sua icona rimane. altrimenti "scompare" fino al suo prox movimento
 		p.move(p.getCurrentPosition().x,p.getCurrentPosition().y);  //si assicura che il personaggio sia in primo piano
 		refresh();
 		
+	}
+	
+	if (!p.isAlive()) {
+		mvprintw(stdscrymax / 2, stdscrxmax / 2, "* * * H A I   P E R S O * * *");
 	}
 
 	// Blocco funzionale per la verifica del tasto "quit", prima di svuotare lo schermo

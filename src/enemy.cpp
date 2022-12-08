@@ -171,7 +171,7 @@ void Enemy::move(){
 void Enemy::shoot(){
     Position p1 = this->current_position;
     p1.y++;
-    Projectile p = Projectile("*",p1,DIR_SOUTH, 100, current_room_win);
+    Projectile p = Projectile("*",p1,DIR_SOUTH, damage, 100, current_room_win);
     this->projlist.headInsert(p);
 }
 
@@ -211,7 +211,7 @@ void Enemy::checkIfTimeToShoot(system_clock::time_point time_now, List<Projectil
                 p1.x++;
                 break;
         }
-        Projectile p = Projectile("*",p1,dir, 100, current_room_win);
+        Projectile p = Projectile("*",p1,dir,damage, 100, current_room_win);
         (*Projlist).headInsert(p);
         last_time_shot = time_now;
     }

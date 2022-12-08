@@ -17,7 +17,7 @@ class Projectile : public Entity {
 
     public:
         Projectile();
-        Projectile(const char* icon, Position position, int direction, int moving_frequency, WINDOW* win);
+        Projectile(const char* icon, Position position, int direction,int damage, int moving_frequency, WINDOW* win);
         void spawn(Position initial_position);
         void deleteIcon();
         void setPosition(Position set);

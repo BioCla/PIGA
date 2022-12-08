@@ -12,14 +12,13 @@ Character::Character() {
     current_room_win = stdscr;
 }
 
-Character::Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int projectile_moving_frequency, WINDOW* win):Entity(icon, pos, win){
+Character::Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int damage, int projectile_moving_frequency, WINDOW* win):Entity(icon, pos, win){
     this->max_health = max_health;
-    health = max_health;
-    damage = 5;   
+    health = max_health;  
     this->projectile_icon = projectile_icon;
     this->projectile_moving_frequency = projectile_moving_frequency;
     last_direction_taken = DIR_NORTH;
-    damage = 15;
+    this->damage = damage;
 }
 
 void Character::updateHearts() {
@@ -227,7 +226,7 @@ void Character::shoot(List<Projectile> *projectilesList) {
 }
 
 void Character::createProjectile(int direction, List<Projectile> *projectilesList) {    
-    Projectile newProjectile = Projectile(projectile_icon, current_position, direction, projectile_moving_frequency, current_room_win);
+    Projectile newProjectile = Projectile(projectile_icon, current_position, direction, damage, projectile_moving_frequency, current_room_win);
     newProjectile.move();
     (*projectilesList).headInsert(newProjectile);
 }

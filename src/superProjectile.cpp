@@ -10,8 +10,8 @@ SuperProjectile::SuperProjectile() {
     current_room_win = stdscr;
 }
 
-SuperProjectile::SuperProjectile(const char* icon, Position position, int direction, int moving_frequency, int spawning_frequency,
-                                int child_moving_frequency, const char* child_icon, WINDOW* win) : Projectile(icon, position, direction, moving_frequency, win) {
+SuperProjectile::SuperProjectile(const char* icon, Position position, int direction, int damage, int moving_frequency, int spawning_frequency,
+                                int child_moving_frequency, const char* child_icon, WINDOW* win) : Projectile(icon, position, direction, damage, moving_frequency, win) {
 
 
    
@@ -39,7 +39,7 @@ void SuperProjectile::shootProjectiles(List<Projectile> *projList) {
 }
 
 void SuperProjectile::createProjectile(int direction, List<Projectile> *projList) {
-    Projectile newProjectile = Projectile(child_icon, current_position, direction, child_moving_frequency_multiplyer, current_room_win);
+    Projectile newProjectile = Projectile(child_icon, current_position, direction, damage, child_moving_frequency_multiplyer, current_room_win);
     newProjectile.move();
     projList->headInsert(newProjectile);
 }
