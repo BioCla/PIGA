@@ -245,7 +245,9 @@ int main(int argc, char **argv)
 	}
 	
 	if (!p.isAlive()) {
+		nodelay(stdscr, false);
 		mvprintw(stdscrymax / 2, stdscrxmax / 2, "* * * H A I   P E R S O * * *");
+		mvprintw(stdscrymax / 2 + 2, stdscrxmax / 2, "premi un tasto per uscire");
 	}
 
 	// Blocco funzionale per la verifica del tasto "quit", prima di svuotare lo schermo
