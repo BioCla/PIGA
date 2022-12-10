@@ -105,87 +105,87 @@ void Character::move(int x, int y) {
 
 void Character::HandleInput(int input){
 
-	/**
-	 * Secondo me e' meglio generalizzare la funzione e fare un check singolo dopo ogni mossa:
-	 * case *:
-	 * 	PlayerMove(...) {...}
-	 * default:
-	 * 	break;
-	 * 
-	 * if(!legalMove(...)) {
-	 * 	PlayerMovePrevious(); // Il quale richiederebbe di segnare la posizione precedente del personaggio
-	 * } else if (steppedOnArtifact) {
-	 * 	...
-	 * } else if (steppedOnEnemy) {
-	 * 	...
-	 * }
-	 * 
-	 * Tutto il  blocco del check puo' essere messo in una funzione separate di un namespace o come metodo della classe "character"
-	 */
-	// - Brian
-
     switch(input){
+
         /*si muove in su*/
         case 'w':
         case 'W':
             last_direction_taken = DIR_NORTH;
             if (legalMove(current_position.x, current_position.y - 1)) {
                 if(steppedOnArtifact(current_position.x, current_position.y - 1)) {
-                    //non lo so fai qualcosa
-                    //updateHealth(+10) non lo so
+                    
                 }
+
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-
                 current_position.y--;
                 move(current_position.x, current_position.y);
             }
+            
             else if (steppedOnEnemy(current_position.x, current_position.y - 1)) {
                 this->health = this->health - 5;
             }
             break;
+
         /*si muove a destra*/
         case 'd':
         case 'D':
             last_direction_taken = DIR_EAST;
             if(legalMove(current_position.x + 1, current_position.y)) {
+                if (steppedOnArtifact(current_position.x + 1, current_position.y)) {
+
+                }
+
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x++;
                 move(current_position.x, current_position.y);
             }
+
             else if (steppedOnEnemy(current_position.x + 1, current_position.y)) {
                 this->health = this->health - 5;
             }
             break;
+
         /*si muove in giù*/
         case 's':
         case 'S':
             last_direction_taken = DIR_SOUTH;
             if(legalMove(current_position.x, current_position.y + 1)) {
+                if (steppedOnArtifact(current_position.x, current_position.y + 1)) {
+
+                }
+
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.y++;
                 move(current_position.x, current_position.y);
             }
+
             else if (steppedOnEnemy(current_position.x, current_position.y + 1)) {
                 this->health = this->health - 5;
             }
             break;
+
         /*si muove a sinistra*/
         case 'a':
         case 'A':
             last_direction_taken = DIR_WEST;
             if(legalMove(current_position.x - 1, current_position.y)) {
+                if (steppedOnArtifact(current_position.x - 1, current_position.y)) {
+
+                }
+
                 wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 mvwprintw(current_room_win, current_position.y, current_position.x, " ");
                 wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
                 current_position.x--;
                 move(current_position.x, current_position.y);
             }
+
             else if (steppedOnEnemy(current_position.x - 1, current_position.y)) {
                 this->health = this->health - 5;
             }
@@ -202,7 +202,10 @@ bool Character::legalMove(int posx, int posy) {
     int k, kk;
     k =  mvwinch(current_room_win, posy,posx);
     kk = k & A_CHARTEXT;
-    return ((kk == PAVE) || (kk == 42) || (kk == 79));   //42 = "*", 79 = "O"   ossia i proiettili
+    return ((kk == PAVE) || (kk == 42) || (kk == 79) || (kk == 67) || (kk == 75));   
+    //42 = "*", 79 = "O"   ossia i proiettili
+    //67 = "C"             ossia le cure
+    //75 = "K"             ossia gli artefatti
 } 
 
 bool Character::steppedOnEnemy(int posx, int posy) {
@@ -219,6 +222,7 @@ bool Character::steppedOnArtifact(int posx, int posy) {
     */
    return flag;
 }
+
 
 void Character::shoot(List<Projectile> *projectilesList) {
     //controlla se il tempo di ricarica è passato

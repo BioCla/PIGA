@@ -167,3 +167,79 @@ List<SuperProjectile>* Board::getSuperProjectilesList() {
 List<Enemy>* Board::getEnemiesList(){
 	return &enemiesList;
 }
+
+List<Item>* Board::getItemList() {
+	return &itemList;
+}
+
+void Board::generateItems() {
+	int n_items_buff = rand() % 2 + 1;
+	int n_artifacts = 1;
+	itemProperties buff_properties = {"Health potion", "Restores some health", "C", 0, BUFF};
+	itemProperties artifact_properties = {"Artifact", "Opens a door", "K", 2, ARTIFACT};
+	Position spawn_position;
+	int i;
+
+	for (i = 0; i < n_artifacts; i++) {
+		spawn_position = {(rand()%(BOARD_COLS-1))+1, (rand()%(BOARD_ROWS-1))+1};
+		Item newItem = Item(artifact_properties, spawn_position, board_win);
+		itemList.headInsert(newItem);
+	}
+
+	for(i = 0; i < n_items_buff; i++) {
+		spawn_position = {(rand()%(BOARD_COLS-1))+1, (rand()%(BOARD_ROWS-1))+1};
+		Item newItem = Item(buff_properties, spawn_position, board_win);
+		itemList.headInsert(newItem);
+	}
+
+}
+
+//ritorna il valore in numero da aggiungere alla vita del personaggio
+//in caso di artefatti faremo partire il metodo della board che sblocca la porta senza ritornare niente
+int Board::checkItemCollisions(Position character_position) {
+	Node<Item> *tmp = itemList.getHead();
+	ItemType type;
+	int result = 0;
+
+	while(tmp != NULL) {
+		if(compare(character_position, tmp->getData()->getCurrentPosition())) {
+			tmp->getData()->setAlive(false);
+
+			type = convertItemIconToType(character_position.x, character_position.y);
+			switch(type) {
+				case BUFF:
+					result += 10;
+					break;
+				case DEBUFF:
+					result -= 5;
+					break;
+				case ARTIFACT:
+					//apriPorte();
+					break;
+				default:
+					break;
+			}
+		}
+		tmp = tmp->getNext();
+	}
+
+	return result;
+}
+
+ItemType Board::convertItemIconToType(int posx, int posy) {
+    int icon = mvwinch(board_win, posy, posx);
+    icon = icon & A_CHARTEXT;
+    ItemType type;
+    switch(icon) {
+        case 67:    // 67 = "C"
+            type = BUFF;
+            break;
+        case 75:    // 75 = "K"
+            type = ARTIFACT;
+            break;
+		default:
+			type = BUFF;
+			break;
+    }
+    return type;
+}

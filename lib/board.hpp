@@ -2,6 +2,7 @@
 #include "../assets/hch.h"
 #include "superProjectile.hpp"
 #include "enemy.hpp"
+#include "item.hpp"
 #include "listUtils.hpp"
 #include <string>
 #include <map>
@@ -50,11 +51,12 @@ protected:
 	WINDOW *board_win;
 	int screen_height, screen_width, xMin, yMin, xMax, yMax;
 
-	//questi due campi ignorali tranquillamente
+	//questi campi ignorali tranquillamente
 	//sono solo cose che usano altre classi e vengono salvate nella stanza
 	List<Projectile> projectilesList;
 	List<SuperProjectile> superProjectilesList;
 	List<Enemy> enemiesList;
+	List<Item> itemList;
 	
 public:
 	// Board();
@@ -78,4 +80,8 @@ public:
 	List<Projectile>* getProjectilesList();
 	List<SuperProjectile>* getSuperProjectilesList();
 	List<Enemy>* getEnemiesList();
+	List<Item>* getItemList();
+	void generateItems();
+	int checkItemCollisions(Position character_position);
+	ItemType convertItemIconToType(int posx, int posy);
 };

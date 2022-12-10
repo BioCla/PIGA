@@ -80,6 +80,11 @@ int main(int argc, char **argv)
 	int current_damage_received_by_character = 0;
 	//p.setHealth(10);
 
+	//prova item
+	
+
+	// / prova item
+
 		
 
 	
@@ -121,6 +126,9 @@ int main(int argc, char **argv)
 	
 
 	board.generateEnemies();
+	board.generateItems();
+	//queste due andranno nel costruttore di board: genero una nuova stanza, e con essa la lista di nemici e artefatti
+
 	// /DEBUG
 
 	
@@ -130,6 +138,7 @@ int main(int argc, char **argv)
 	projectilesList = board.getProjectilesList();
 	List<SuperProjectile>* superProjectilesList;
 	superProjectilesList = board.getSuperProjectilesList();
+	
 	//gestione del tempo
 	system_clock::time_point time_now = system_clock::now();
 	
@@ -141,7 +150,7 @@ int main(int argc, char **argv)
 
 		p.HandleInput(ch);
 		
-
+		board.getItemList()->spawnEntities();
 
 		board.refreshEnemies(time_now,p.getCurrentPosition());
 		(*projectilesList).moveEntities(time_now);
@@ -176,10 +185,12 @@ int main(int argc, char **argv)
 		
 		board.checkHits();
 
-		current_damage_received_by_character = checkIfCharacterIsHit(board.getProjectilesList(), board.getSuperProjectilesList(), p.getCurrentPosition());
+		current_damage_received_by_character = -checkIfCharacterIsHit(board.getProjectilesList(), board.getSuperProjectilesList(), p.getCurrentPosition());
+		current_damage_received_by_character += board.checkItemCollisions(p.getCurrentPosition());
+		board.getItemList()->removeDeadEntities();
 		mvwprintw(window_GUI_1, 13, 1, "danno ricevuto dal personaggio:"); //in realtà non scrive proprio il danno, però se rileva una collisione scrive 2
 		mvwprintwInteger(window_GUI_1, 14, 1, current_damage_received_by_character);
-		p.updateHealth(-current_damage_received_by_character);
+		p.updateHealth(current_damage_received_by_character);
 
 		//p.setHealth(p.getHealth() + current_damage_received_by_character);
 		//provare ad aggiornare la salute del giocatore fa crashare
@@ -219,6 +230,8 @@ int main(int argc, char **argv)
 			cout << "numero proiettili board: " << (*board.getProjectilesList()).listLength() << endl;
 			//cout << "posizione head proj x: " << projectilesList.getHead().getCurrentPosition().x << "y, : " << projectilesList.getHead().getCurrentPosition().x << endl;
 			cout << "numero superproiettili board: " << (*board.getSuperProjectilesList()).listLength() << endl;
+			cout << "numero item board: " << board.getItemList()->listLength() << endl;
+			cout << "mvwinch sopra il personaggio: " << mvwinch(board.getWin(), p.getCurrentPosition().y, p.getCurrentPosition().x) << endl;
 			// -- fine codice --
 			int inutile;
 			cin >> inutile;
@@ -244,10 +257,10 @@ int main(int argc, char **argv)
 		
 	}
 	
+	//se il personaggio muore, rendi noto all'utente che ha perso il gioco
 	if (!p.isAlive()) {
 		nodelay(stdscr, false);
-		mvprintw(stdscrymax / 2, stdscrxmax / 2, "* * * H A I   P E R S O * * *");
-		mvprintw(stdscrymax / 2 + 2, stdscrxmax / 2, "premi un tasto per uscire");
+		displayGameOver();
 	}
 
 	// Blocco funzionale per la verifica del tasto "quit", prima di svuotare lo schermo

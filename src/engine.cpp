@@ -227,3 +227,12 @@ int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectil
 
 	return total_damage;
 }
+
+void displayGameOver() {
+	//naturalmente può essere cambiata, adesso non è granchè
+	//magari creiamo un'altra finestra che copre buona parte della stanza e magari qualche colore giusto per leggere bene che hai perso
+	int stdscrxmax, stdscrymax;
+	getmaxyx(stdscr, stdscrymax, stdscrxmax);
+	mvprintw(stdscrymax / 2, stdscrxmax / 2, "* * * H A I   P E R S O * * *");
+	mvprintw(stdscrymax / 2 + 2, stdscrxmax / 2, "premi un tasto per uscire");
+}
