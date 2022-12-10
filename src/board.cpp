@@ -229,17 +229,5 @@ int Board::checkItemCollisions(Position character_position) {
 ItemType Board::convertItemIconToType(int posx, int posy) {
     int icon = mvwinch(board_win, posy, posx);
     icon = icon & A_CHARTEXT;
-    ItemType type;
-    switch(icon) {
-        case 67:    // 67 = "C"
-            type = BUFF;
-            break;
-        case 75:    // 75 = "K"
-            type = ARTIFACT;
-            break;
-		default:
-			type = BUFF;
-			break;
-    }
-    return type;
+	return findItem(char(icon)).type;
 }
