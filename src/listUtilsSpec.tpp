@@ -1,10 +1,9 @@
 #ifndef LISTS_SPEC
 #define LISTS_SPEC
 
-//a me questi 3 include danno errore in compilazione comunque. se li tolgo non dà nè errori nè warning e funziona tutto bene
-#include "../lib/Enemy.hpp"
-#include "../lib/Projectile.hpp"
-#include "../lib/SuperProjectile.hpp"
+#include "../lib/enemy.hpp"
+#include "../lib/projectile.hpp"
+#include "../lib/superProjectile.hpp"
 
 /*
 template <> void inline List<Enemy>::spawnEnemies(){
