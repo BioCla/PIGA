@@ -6,9 +6,8 @@ class Inventory {
 		List<Item> inventory;
 		WINDOW* inventoryWin;
 	public:
-		Inventory(); // Costruttore
-		void addToInventory(Item item); // Aggiunge un item all'inventario
+		Inventory();
+		void addToInventory(Item item);
 		void removeFromInventory(int& tracker); // Rimuove un item dall'inventario (utilizza un tracker per identificare la posizione del item)
-		int* getInventory(); // Ritorna l'inventario
-		void printInventory(); // Stampa l'inventario
+		List<int> getInventory(); // Ritorna l'inventario come un array di interi
 };

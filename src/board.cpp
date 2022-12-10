@@ -59,7 +59,6 @@ void Board::fill(){
 }
 
 void Board::fillall(){
-	int xMax, yMax; // out of scope
 	getmaxyx(stdscr, yMax, xMax);
 }
 

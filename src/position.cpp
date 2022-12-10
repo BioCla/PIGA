@@ -1,4 +1,3 @@
-#pragma once
 #include "../assets/position.hpp"
 #include <math.h>
 

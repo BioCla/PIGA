@@ -18,27 +18,15 @@ void Inventory::removeFromInventory(int& tracker) {
 /**
  * Returns an array of integers representing the IDs of the items in the inventory of the player
 */
-int* Inventory::getInventory() {
+List<int> Inventory::getInventory() {
 	List<Item> tmp = this->inventory;
 	Node<Item>* tmpHead = tmp.getHead();
 
 	int length = tmp.listLength();
-	int itemTracker[length];
+	List<int> itemTracker = List<int>();
 	for (int i = 0; i < length; i++) {
-		itemTracker[i] = tmpHead->getData()->getProperties().ID;
+		itemTracker.headInsert(tmpHead->getData()->getProperties().ID);
 		tmpHead = tmpHead->getNext();
 	}
 	return itemTracker;
-}
-
-/**
- * Prints the inventory to the screen in the inventory window
-*/
-void Inventory::printInventory() {
-	int* inventory = this->getInventory();
-	int length = this->inventory.listLength();
-
-	for (int i = 0; i < length; i++) {
-		wprintw(inventoryWin, "%s", findItem(inventory[i]).name);
-	}
 }

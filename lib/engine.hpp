@@ -8,6 +8,9 @@
 
 #define EMPTY ' '
 
+// Disambiguate the chrono namespace to avoid conflicts with versioning
+#define STD_TIME std::chrono::_V2::system_clock
+
 // '_' ' ' '\' '/'
 #define UNDERSCORE_COLOR_PAIR	2
 #define SPACE_COLOR_PAIR 		3
@@ -29,10 +32,11 @@ void werase(WINDOW *terminal, int y, int x);
 void corners(WINDOW *room);
 chtype getcharat(int y, int x);
 int legalMove(int y, int x);
-void refreshSuperProjectiles(std::chrono::_V2::system_clock::time_point time_now, List<SuperProjectile> *superProjectilesList, List<Projectile> *projectilesList);
-void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
-                            const char* icon, Position position, int direction, int damage, int moving_frequency, int spawning_frequency, 
-                            int child_moving_frequency, const char* child_icon, WINDOW* win);
+void refreshSuperProjectiles(STD_TIME::time_point time_now, List<SuperProjectile> *superProjectilesList, List<Projectile> *projectilesList);
+void createSuperProjectile(	List<SuperProjectile> *superProjectilesList,
+							const char* icon, Position position, int direction, 
+							int damage, int moving_frequency, int spawning_frequency, 
+							int child_moving_frequency, const char* child_icon, WINDOW* win);
 
 void mvwprintwInteger(WINDOW* win, int posy, int posx, int input);
 void displayCharacterHealth(WINDOW* win, int health, int num_hearts);
