@@ -13,6 +13,7 @@ boss
 
 ### Liam
 i nemici devono prendere danno in base al campo damage del proiettile
+Generatore di item utilizzando itemProperties.ID
 
 ### Brian
 Engine > Welcome Display > legal move > display functions
