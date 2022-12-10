@@ -3,8 +3,6 @@
 ## Gestione attivita' progetto PIGA
 
 ### Manto
-Enemy proiettili
-movimenti Enemy(manca chase)
 boss
 
 
@@ -12,7 +10,6 @@ boss
 
 
 ### Liam
-i nemici devono prendere danno in base al campo damage del proiettile
 Generatore di item utilizzando itemProperties.ID
 
 ### Brian
@@ -31,7 +28,7 @@ Haz3:
 - dobbiamo inoltre sistemare come abbiamo scritto la funzione per gestire se il carattere è uguale a q per terminare
 
 GENERALI
-- hit/collisioni [Liam/Manto]
+- togliere fuoco amico [Liam/Manto]
 - mappa/porte [Catti]
 - items (sub entity) [Brian] ~
 - GUI[] (
