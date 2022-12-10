@@ -12,6 +12,16 @@ itemProperties findItem(int ID) {
 	return findItem(11);
 }
 
+itemProperties findItem(const char* icon) {
+	int length = sizeof(itemList) / sizeof(itemProperties);
+	for (int i = 0; i < length; i++) {
+		if (itemList[i].icon == icon) {
+			return itemList[i];
+		}
+	}
+	return findItem("default");
+}
+
 Item::Item() : Entity(){
 	this->properties = findItem(11); // returns the itemProperties of the default debug item
 }

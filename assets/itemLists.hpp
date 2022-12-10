@@ -19,8 +19,8 @@
  */
 itemProperties itemList[] = { 
 // Debug items
-	{"Misc", "Misc", "Misc", 10, WEAPON},
-	{ "default", "default", "default", 11, WEAPON },
+	{"Misc", "Misc", "Misc", 10, DEBUG},
+	{ "default", "default", "default", 11, DEBUG},
 
 // itemProperties of the effects you can find in the game
 	{"Health UP!", "Increases your max health by 1", "H", 0, BUFF},

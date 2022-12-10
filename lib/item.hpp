@@ -9,6 +9,7 @@ enum ItemType {
 	DEBUFF, // colore rosso
 	ARTIFACT, // colore giallo
 	WEAPON, // colore blu
+	DEBUG, // nessun colore
 };
 
 struct itemProperties {
@@ -38,5 +39,6 @@ public:
 
 // Finds the itemProperties of an item with a specific ID from the itemList
 itemProperties findItem(int ID);
+itemProperties findItem(const char* name);
 
 #endif
