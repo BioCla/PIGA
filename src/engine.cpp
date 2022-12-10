@@ -41,7 +41,8 @@ void centering_text(WINDOW *terminal, int first_row, const char *string) {
 	mvwprintw(terminal, first_row, centerpos, string);
 }
 
-/**Scrive del testo centrato sullo schermo
+/** @overload
+ * Scrive del testo centrato sullo schermo
  * colorando i contenuti usando il color
  * pair assegnato 
  */
