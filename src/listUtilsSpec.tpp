@@ -1,6 +1,9 @@
 #ifndef LISTS_SPEC
 #define LISTS_SPEC
 
+#include "../lib/Enemy.hpp"
+#include "../lib/Projectile.hpp"
+#include "../lib/SuperProjectile.hpp"
 
 /*
 template <> void inline List<Enemy>::spawnEnemies(){
