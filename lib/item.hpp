@@ -39,18 +39,4 @@ public:
 // Finds the itemProperties of an item with a specific ID from the itemList
 itemProperties findItem(int ID);
 
-/**
- * List of all the items in the game
- * 
- * The ID of each item is the index of the item in the list
- * used to identify the item within a list and match it with a specific effect
- * which can be implemented in various ways outside of this file as well:
- * 
- * perhaps: on pickup, the item is added to the player's inventory
- * and the effect is applied to the player
- * 
- * @example if (item->getProperties().ID == 0) { character->addHealth(10); }
- * @example if (item->getProperties().ID == 1) { // do something }
- */
-
 #endif
