@@ -57,6 +57,14 @@ int Character::getHealth() {
     return health;
 }
 
+void Character::setMaxHealth(int set) {
+    max_health = set;
+}
+
+int Character::getMaxHealth() {
+    return max_health;
+}
+
 void Character::setDamage(int set) {
     damage = set;
 }
@@ -202,10 +210,17 @@ bool Character::legalMove(int posx, int posy) {
     int k, kk;
     k =  mvwinch(current_room_win, posy,posx);
     kk = k & A_CHARTEXT;
-    return ((kk == PAVE) || (kk == 42) || (kk == 79) || (kk == 67) || (kk == 75));   
+    return ((kk == PAVE) || (kk == 42) || (kk == 79) || (kk == 75) || (kk == 72) || (kk == 68) || (kk == 83) || (kk == 104) || (kk == 100) || (kk == 115) || (kk == 76) || (kk == 66));   
     //42 = "*", 79 = "O"   ossia i proiettili
-    //67 = "C"             ossia le cure
-    //75 = "K"             ossia gli artefatti
+    //72 = "H"             ossia gli item
+    //75 = "K"             
+    //68 = "D"
+    //83 = "S"
+    //104 = "h"
+    //100 = "d"
+    //115 = "s"
+    //76 = "L"
+    //66 = "B"
 } 
 
 bool Character::steppedOnEnemy(int posx, int posy) {

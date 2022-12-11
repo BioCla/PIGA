@@ -150,7 +150,7 @@ int main(int argc, char **argv)
 
 		p.HandleInput(ch);
 		
-		board.getItemList()->spawnEntities();
+		board.getItemsList()->spawnEntities();
 
 		board.refreshEnemies(time_now,p.getCurrentPosition());
 		(*projectilesList).moveEntities(time_now);
@@ -186,14 +186,12 @@ int main(int argc, char **argv)
 		board.checkHits();
 
 		current_damage_received_by_character = -checkIfCharacterIsHit(board.getProjectilesList(), board.getSuperProjectilesList(), p.getCurrentPosition());
-		current_damage_received_by_character += board.checkItemCollisions(p.getCurrentPosition());
-		board.getItemList()->removeDeadEntities();
+		board.checkItemCollisions(&p);
+		board.getItemsList()->removeDeadEntities();
 		mvwprintw(window_GUI_1, 13, 1, "danno ricevuto dal personaggio:"); //in realtà non scrive proprio il danno, però se rileva una collisione scrive 2
-		mvwprintwInteger(window_GUI_1, 14, 1, current_damage_received_by_character);
+		mvwprintwInteger(window_GUI_1, 14, 1, current_damage_received_by_character);    //DEBUG
 		p.updateHealth(current_damage_received_by_character);
 
-		//p.setHealth(p.getHealth() + current_damage_received_by_character);
-		//provare ad aggiornare la salute del giocatore fa crashare
 		if(current_damage_received_by_character > 0) {   //DEBUG
 			mvwprintw(window_GUI_1, 2, 1, "    ");
 		}
@@ -230,7 +228,7 @@ int main(int argc, char **argv)
 			cout << "numero proiettili board: " << (*board.getProjectilesList()).listLength() << endl;
 			//cout << "posizione head proj x: " << projectilesList.getHead().getCurrentPosition().x << "y, : " << projectilesList.getHead().getCurrentPosition().x << endl;
 			cout << "numero superproiettili board: " << (*board.getSuperProjectilesList()).listLength() << endl;
-			cout << "numero item board: " << board.getItemList()->listLength() << endl;
+			cout << "numero item board: " << board.getItemsList()->listLength() << endl;
 			cout << "mvwinch sopra il personaggio: " << mvwinch(board.getWin(), p.getCurrentPosition().y, p.getCurrentPosition().x) << endl;
 			// -- fine codice --
 			int inutile;

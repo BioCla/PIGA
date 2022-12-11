@@ -168,54 +168,88 @@ List<Enemy>* Board::getEnemiesList(){
 	return &enemiesList;
 }
 
-List<Item>* Board::getItemList() {
-	return &itemList;
+List<Item>* Board::getItemsList() {
+	return &itemsList;
 }
 
 void Board::generateItems() {
-	int n_items_buff = rand() % 2 + 1;
+	int n_items = rand() % 5 + 15;
 	int n_artifacts = 1;
-	itemProperties buff_properties = {"Health potion", "Restores some health", "C", 0, BUFF};
-	itemProperties artifact_properties = {"Artifact", "Opens a door", "K", 2, ARTIFACT};
+	int id;
 	Position spawn_position;
-	int i;
 
+	int i;
 	for (i = 0; i < n_artifacts; i++) {
 		spawn_position = {(rand()%(BOARD_COLS-1))+1, (rand()%(BOARD_ROWS-1))+1};
-		Item newItem = Item(artifact_properties, spawn_position, board_win);
-		itemList.headInsert(newItem);
+		id = 6;
+		Item newItem = Item(findItem(id), spawn_position, board_win);
+		itemsList.headInsert(newItem);
 	}
 
-	for(i = 0; i < n_items_buff; i++) {
+	for(i = 0; i < n_items; i++) {
+		id = rand() % 9;
+		while(id == 6) id = rand() % 9;   //non deve generare artefatti
 		spawn_position = {(rand()%(BOARD_COLS-1))+1, (rand()%(BOARD_ROWS-1))+1};
-		Item newItem = Item(buff_properties, spawn_position, board_win);
-		itemList.headInsert(newItem);
+		Item newItem = Item(findItem(id), spawn_position, board_win);
+		itemsList.headInsert(newItem);
 	}
 
 }
 
 //ritorna il valore in numero da aggiungere alla vita del personaggio
 //in caso di artefatti faremo partire il metodo della board che sblocca la porta senza ritornare niente
-int Board::checkItemCollisions(Position character_position) {
-	Node<Item> *tmp = itemList.getHead();
-	ItemType type;
-	int result = 0;
+
+void Board::checkItemCollisions(Character *p) {
+	Node<Item> *tmp = itemsList.getHead();
 
 	while(tmp != NULL) {
-		if(compare(character_position, tmp->getData()->getCurrentPosition())) {
+		if(compare(p->getCurrentPosition(), tmp->getData()->getCurrentPosition())) {
 			tmp->getData()->setAlive(false);
 
-			type = convertItemIconToType(character_position.x, character_position.y);
-			switch(type) {
-				case BUFF:
-					result += 10;
+			switch(tmp->getData()->getProperties().ID) {
+				case 0:
+					p->setMaxHealth(p->getMaxHealth() + 1);
 					break;
-				case DEBUFF:
-					result -= 5;
+				case 1:
+					p->setDamage(p->getDamage() + 1);
 					break;
-				case ARTIFACT:
+				case 2:
+					if(p->getProjectileMovingFrequency() > 10) {
+						p->setProjectileMovingFrequency(p->getProjectileMovingFrequency() - 10);
+					}
+					break;
+				case 3:
+					if(p->getMaxHealth() > 1) {
+						p->setMaxHealth(p->getMaxHealth() - 1);
+					}
+					break;
+				case 4:
+					if(p->getDamage() > 1) {
+						p->setDamage(p->getDamage() - 1);
+					}
+					break;
+				case 5:
+					p->setProjectileMovingFrequency(p->getProjectileMovingFrequency() + 10);
+					break;
+				case 6:
 					//apriPorte();
 					break;
+				case 7:
+					//WEAPON
+					break;
+				case 8:
+					//WEAPON 
+					break;
+				case 9:
+					p->updateHealth(+1);
+					break;
+				case 10:
+					//Misc
+					break;
+				case 11:
+					//default
+					break;
+				
 				default:
 					break;
 			}
@@ -223,11 +257,8 @@ int Board::checkItemCollisions(Position character_position) {
 		tmp = tmp->getNext();
 	}
 
-	return result;
+
 }
 
-ItemType Board::convertItemIconToType(int posx, int posy) {
-    int icon = mvwinch(board_win, posy, posx);
-    icon = icon & A_CHARTEXT;
-	return findItem(char(icon)).type;
-}
+
+

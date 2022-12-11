@@ -3,22 +3,10 @@
 
 #include "../assets/hch.h"
 #include "entity.hpp"
+#include "../assets/itemLists.hpp"
 
-enum ItemType {
-	BUFF, // Colore verde
-	DEBUFF, // colore rosso
-	ARTIFACT, // colore giallo
-	WEAPON, // colore blu
-	DEBUG, // nessun colore
-};
 
-struct itemProperties {
-	const char* name;
-	const char* description;
-	const char* icon;
-	int ID;
-	ItemType type;
-};
+
 
 /**
  * @brief Class that represents an item in the game (entity)

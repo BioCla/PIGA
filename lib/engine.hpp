@@ -22,6 +22,33 @@
 #define DIR_SOUTH 2
 #define DIR_WEST 3
 
+
+#define BOARD_DIM 35
+#define BOARD_ROWS BOARD_DIM
+#define BOARD_COLS (int)(BOARD_ROWS * 2.5)
+
+#define WALL      '#'
+#define PAVE      ' '
+#define PLAYER    '@'
+#define ROCK      '^'
+#define ENEMY     'A'
+#define PROJCTL   '*'
+
+
+
+
+#define WALL_PAIR      1
+#define PAVE_PAIR      2
+#define PLAYER_PAIR    3
+#define ROCK_PAIR      4
+#define ENEMY_PAIR 	   5
+#define PROJCTL_PAIR   6
+#define PAVE_FOREGROUND 7
+#define WALL_FOREGROUND 8
+#define PLAYER_FOREGROUND 9
+#define ALL_FOREGROUND 10
+
+
 void init();
 void end();
 void centering_text(WINDOW *terminal, int first_row, const char *string);
