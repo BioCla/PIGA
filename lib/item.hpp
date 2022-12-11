@@ -5,9 +5,6 @@
 #include "entity.hpp"
 #include "../assets/itemLists.hpp"
 
-
-
-
 /**
  * @brief Class that represents an item in the game (entity)
 */
