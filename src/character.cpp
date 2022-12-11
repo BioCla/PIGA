@@ -245,7 +245,7 @@ void Character::shoot(List<Projectile> *projectilesList) {
 }
 
 void Character::createProjectile(int direction, List<Projectile> *projectilesList) {    
-    Projectile newProjectile = Projectile(projectile_icon, current_position, direction, damage, projectile_moving_frequency, current_room_win);
+    Projectile newProjectile = Projectile(projectile_icon, current_position, direction, damage, projectile_moving_frequency, true ,current_room_win);
     newProjectile.move();
     (*projectilesList).headInsert(newProjectile);
 }

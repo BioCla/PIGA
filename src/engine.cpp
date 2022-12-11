@@ -176,7 +176,7 @@ void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
                             int child_moving_frequency, const char* child_icon, WINDOW* win) {
 	
 	SuperProjectile newSuperProjectile = SuperProjectile(icon, position, direction, damage, moving_frequency, spawning_frequency,
-															child_moving_frequency, child_icon, win);
+															child_moving_frequency, child_icon, true, win);
 	newSuperProjectile.move();
 	superProjectilesList->headInsert(newSuperProjectile);
 }
@@ -210,7 +210,7 @@ int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectil
 	int total_damage = 0;
 
 	while(tmp1 != NULL) {
-		if(compare(character_position, tmp1->getData()->getCurrentPosition())) {
+		if((compare(character_position, tmp1->getData()->getCurrentPosition()))&&(!(tmp1->getData()->checkifAllied()))) {
 			total_damage += tmp1->getData()->getDamage();
 			tmp1->getData()->setAlive(false);
 		}
@@ -218,7 +218,7 @@ int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectil
 	}
 
 	while(tmp2 != NULL) {
-		if(compare(character_position, tmp2->getData()->getCurrentPosition())) {
+		if((compare(character_position, tmp2->getData()->getCurrentPosition()))&&(!(tmp1->getData()->checkifAllied()))) {
 			total_damage += tmp2->getData()->getDamage();
 			tmp2->getData()->setAlive(false);
 		}

@@ -23,7 +23,7 @@ class SuperProjectile : public Projectile {
     public:
     SuperProjectile();
     SuperProjectile(const char* icon, Position position, int direction, int damage, int moving_frequency, int spawning_frequency, 
-                    int child_moving_frequency, const char* child_icon, WINDOW* win);
+                    int child_moving_frequency, const char* child_icon, bool isAllied,WINDOW* win);
     void shootProjectiles(List<Projectile> *projList);
     void createProjectile(int direction, List<Projectile> *projList);
     void checkIfTimeToShoot(system_clock::time_point time_now, List<Projectile> *projList);

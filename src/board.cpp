@@ -105,7 +105,7 @@ void Board::checkHits(){
 		tmp3 = superProjectilesList.getHead();
 
 		while(tmp2!=NULL) {
-			if (compare(tmp1->getData()->getCurrentPosition(),tmp2->getData()->getCurrentPosition())){
+			if ((compare(tmp1->getData()->getCurrentPosition(),tmp2->getData()->getCurrentPosition()))&&(tmp2->getData()->checkifAllied())){
 				tmp1->getData()->updateHealth(-tmp2->getData()->getDamage());
 				mvwprintw(this->getWin(),2,2,"HIT");
 				tmp2->getData()->setAlive(false);
@@ -114,7 +114,7 @@ void Board::checkHits(){
 		}
 
 		while(tmp3!=NULL){
-			if (compare(tmp1->getData()->getCurrentPosition(),tmp3->getData()->getCurrentPosition())){
+			if ((compare(tmp1->getData()->getCurrentPosition(),tmp3->getData()->getCurrentPosition()))&&(tmp3->getData()->checkifAllied())){
 				tmp1->getData()->updateHealth(-tmp3->getData()->getDamage());
 			}
 			tmp3=tmp3->getNext();
