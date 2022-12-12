@@ -11,7 +11,7 @@ SuperProjectile::SuperProjectile() {
 }
 
 SuperProjectile::SuperProjectile(const char* icon, Position position, int direction, int damage, int moving_frequency, int spawning_frequency,
-                                int child_moving_frequency, const char* child_icon, WINDOW* win) : Projectile(icon, position, direction, damage, moving_frequency, win) {
+                                int child_moving_frequency, const char* child_icon, bool isAllied,WINDOW* win) : Projectile(icon, position, direction, damage, moving_frequency, isAllied, win) {
 
 
    
@@ -39,7 +39,7 @@ void SuperProjectile::shootProjectiles(List<Projectile> *projList) {
 }
 
 void SuperProjectile::createProjectile(int direction, List<Projectile> *projList) {
-    Projectile newProjectile = Projectile(child_icon, current_position, direction, damage, child_moving_frequency_multiplyer, current_room_win);
+    Projectile newProjectile = Projectile(child_icon, current_position, direction, damage, child_moving_frequency_multiplyer, true, current_room_win);
     newProjectile.move();
     projList->headInsert(newProjectile);
 }

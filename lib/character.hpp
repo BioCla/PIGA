@@ -6,7 +6,6 @@
 #include "entity.hpp"
 #include "listUtils.hpp"
 #include "engine.hpp"
-#include "board.hpp"
 #include "item.hpp"
 #include "inventory.hpp"
 
@@ -35,6 +34,8 @@ class Character : public Entity{
         void updateHealth(int mod);
         void setHealth(int set);
         int getHealth();
+        void setMaxHealth(int set);
+        int getMaxHealth();
         void setDamage(int set);
         int getDamage();
         void setProjectileIcon(const char * set);

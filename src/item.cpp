@@ -23,10 +23,10 @@ itemProperties itemList[] = {
 // itemProperties of the effects you can find in the game
 	{"Health UP!", "Increases your max health by 1", "H", 0, BUFF},
 	{"Damage UP!", "Increases your damage by 1", "D", 1, BUFF},
-	{"Speed UP!", "Increases your speed by 1", "S", 2, BUFF},
+	{"Speed UP!", "Increases your projectile speed by 10", "S", 2, BUFF},
 	{"Health DOWN!", "Decreases your max health by 1", "h", 3, DEBUFF},
 	{"Damage DOWN!", "Decreases your damage by 1", "d", 4, DEBUFF},
-	{"Speed DOWN!", "Decreases your speed by 1", "s", 5, DEBUFF},
+	{"Speed DOWN!", "Decreases your projectile speed by 10", "s", 5, DEBUFF},
 	{"Heart", "Add one Health point if you were missing some", "♥", 9, BUFF},
 
 // itemProperties of the artifacts you can find in the game
