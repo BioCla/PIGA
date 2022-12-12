@@ -231,7 +231,7 @@ int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectil
 	}
 
 	while(tmp2 != NULL) {
-		if((compare(character_position, tmp2->getData()->getCurrentPosition()))&&(!(tmp1->getData()->checkifAllied()))) {
+		if((compare(character_position, tmp2->getData()->getCurrentPosition()))&&(!(tmp2->getData()->checkifAllied()))) {
 			total_damage += tmp2->getData()->getDamage();
 			tmp2->getData()->setAlive(false);
 		}
