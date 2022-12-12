@@ -132,8 +132,8 @@ void Board::generateEnemies(){
 		int rshootspeed = rspeed + 200;
 		int rpathID = (rand() % 4);
 		Position spawnEnemy;
-		spawnEnemy.x=(rand()%(BOARD_COLS-1))+1;
-		spawnEnemy.y=(rand()%(BOARD_ROWS-1))+1;
+		spawnEnemy.x=(rand()%(BOARD_COLS-2))+1;
+		spawnEnemy.y=(rand()%(BOARD_ROWS-2))+1;
 		Enemy e = Enemy("A",10,5,spawnEnemy,rpathID,rspeed,rshootspeed,board_win);
 		enemiesList.headInsert(e);
 	}
@@ -173,14 +173,14 @@ List<Item>* Board::getItemsList() {
 }
 
 void Board::generateItems() {
-	int n_items = rand() % 5 + 15;
+	int n_items = rand() % 5 + 5;
 	int n_artifacts = 1;
 	int id;
 	Position spawn_position;
 
 	int i;
 	for (i = 0; i < n_artifacts; i++) {
-		spawn_position = {(rand()%(BOARD_COLS-1))+1, (rand()%(BOARD_ROWS-1))+1};
+		spawn_position = {(rand()%(BOARD_COLS-3))+1, (rand()%(BOARD_ROWS-3))+1};
 		id = 6;
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
@@ -189,7 +189,7 @@ void Board::generateItems() {
 	for(i = 0; i < n_items; i++) {
 		id = rand() % 9;
 		while(id == 6) id = rand() % 9;   //non deve generare artefatti
-		spawn_position = {(rand()%(BOARD_COLS-1))+1, (rand()%(BOARD_ROWS-1))+1};
+		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
 	}
@@ -211,7 +211,7 @@ void Board::checkItemCollisions(Character *p) {
 					p->setMaxHealth(p->getMaxHealth() + 1);
 					break;
 				case 1:
-					p->setDamage(p->getDamage() + 1);
+					p->setDamage(p->getDamage() + 3);
 					break;
 				case 2:
 					if(p->getProjectileMovingFrequency() > 10) {
