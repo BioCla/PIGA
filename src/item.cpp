@@ -22,7 +22,7 @@ itemProperties itemList[] = {
 
 // itemProperties of the effects you can find in the game
 	{"Health UP!", "Increases your max health by 1", "H", 0, BUFF},
-	{"Damage UP!", "Increases your damage by 1", "D", 1, BUFF},
+	{"Damage UP!", "Increases your damage by 3", "D", 1, BUFF},
 	{"Speed UP!", "Increases your projectile speed by 10", "S", 2, BUFF},
 	{"Health DOWN!", "Decreases your max health by 1", "h", 3, DEBUFF},
 	{"Damage DOWN!", "Decreases your damage by 1", "d", 4, DEBUFF},
