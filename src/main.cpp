@@ -254,6 +254,8 @@ int main(int argc, char **argv)
 		p.move(p.getCurrentPosition().x,p.getCurrentPosition().y);  //si assicura che il personaggio sia in primo piano
 		refresh();
 		
+		flushinp(); //svuota la coda di input
+		napms(1000 / 144); //144 fps limit
 	}
 	
 	//se il personaggio muore, rendi noto all'utente che ha perso il gioco
