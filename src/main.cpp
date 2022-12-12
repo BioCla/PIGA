@@ -24,6 +24,7 @@ int main(int argc, char **argv)
 {
 	initscr();
 	refresh();
+	cbreak();
 	srand(time(NULL));
 	if(has_colors()== FALSE){
 		endwin();
