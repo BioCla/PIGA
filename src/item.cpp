@@ -1,5 +1,6 @@
 #include "../lib/listUtils.hpp"
 #include "../lib/item.hpp"
+#include "../lib/engine.hpp"
 
 /**
  * List of all the items in the game
@@ -16,8 +17,8 @@
  */
 itemProperties itemList[] = { 
 // Debug items
-	{"Misc", "Misc", "Misc", 10, DEBUG},
-	{ "default", "default", "default", 11, DEBUG},
+	{"Misc", "Misc", "-", 10, DEBUG},
+	{ "default", "default", "+", 11, DEBUG},
 
 // itemProperties of the effects you can find in the game
 	{"Health UP!", "Increases your max health by 1", "H", 0, BUFF},
@@ -47,11 +48,11 @@ itemProperties findItem(int ID) {
 itemProperties findItem(const char* icon) {
 	int length = sizeof(itemList) / sizeof(itemProperties);
 	for (int i = 0; i < length; i++) {
-		if (itemList[i].icon == icon) {
+		if (strcmp(itemList[i].icon, icon) == 0) {
 			return itemList[i];
 		}
 	}
-	return findItem("default");
+	return findItem("+");
 }
 
 Item::Item() : Entity(){

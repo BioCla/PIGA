@@ -23,6 +23,19 @@ void end() {
 	endwin();
 }
 
+//Confronta due stringe
+//ritorna: 
+//0 se le stringhe sono identiche 
+//>0 se la prima stringa è maggiore della seconda
+//<0 altrimenti
+int strcmp(const char *s1, const char *s2) {
+	const unsigned char *p1 = (const unsigned char *)s1;
+	const unsigned char *p2 = (const unsigned char *)s2;
+	while (*p1 && (*p1 == *p2)) 
+		++p1, ++p2;
+	return (*p1 > *p2) - (*p2 > *p1);
+}
+
 // Conta la lunghezza di una stringa
 long unsigned int Strlen(const char *p) {
 	long unsigned int count = 0;

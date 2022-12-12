@@ -24,6 +24,6 @@ public:
 
 // Finds the itemProperties of an item with a specific ID from the itemList
 itemProperties findItem(int ID);
-itemProperties findItem(const char* name);
+itemProperties findItem(const char* icon);
 
 #endif

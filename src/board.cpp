@@ -175,8 +175,8 @@ List<Item>* Board::getItemList() {
 void Board::generateItems() {
 	int n_items_buff = rand() % 2 + 1;
 	int n_artifacts = 1;
-	itemProperties buff_properties = {"Health potion", "Restores some health", "C", 0, BUFF};
-	itemProperties artifact_properties = {"Artifact", "Opens a door", "K", 2, ARTIFACT};
+	itemProperties buff_properties = findItem("H");
+	itemProperties artifact_properties = findItem("K");
 	Position spawn_position;
 	int i;
 

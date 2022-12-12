@@ -24,6 +24,7 @@
 
 void init();
 void end();
+int strcmp(const char *s1, const char *s2);
 void centering_text(WINDOW *terminal, int first_row, const char *string);
 void welcome();
 void empty();
