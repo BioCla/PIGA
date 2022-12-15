@@ -16,4 +16,9 @@ void empty();
 // Cancella un carattere in determinate coordinate su una finestra
 void werase(WINDOW *terminal, int y, int x);
 
+// Scrive un intero in una finestra simile al mvwaddstr ma per interi
+void mvwaddint(WINDOW* win, int posy, int posx, int input);
+// Stampa le dimensioni dello schermo in determinate coordinate
+void printScreenSize(WINDOW *win);
+
 #endif

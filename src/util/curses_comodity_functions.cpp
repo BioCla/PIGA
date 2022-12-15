@@ -1,22 +1,21 @@
 #include "../../include/util/curses_comodity_functions.hpp"
 #include "../../include/util/string_override.hpp"
+#include "../../include/assets/program_checks.hpp"
+#include "../../include/util/math_override.tpp"
 
 void init() {
-	initscr(); // Inizializza lo schermo secondo la libreria ncurses
+	// Inizializza ncurses e controlla se il terminale è valido
+	initscr();
+	CHECK_TERMINAL_VALIDITY
+
+	// Configura alcune proprietà del terminale
+	start_color();
+	noecho();
+	cbreak();
+	keypad(stdscr, TRUE);
+	curs_set(0);
 	
-	if(has_colors() == FALSE){
-		endwin();
-		printf("Il tuo terminale non supporta i colori");
-		exit(1);
-	}
-	start_color(); // Permette l'utilizzo di colori sullo schermo
-	
-	clear(); // Svuota il terminale
-	noecho(); // Rimuove l'input inserito nel terminale
-	cbreak(); // Rimuove il buffer di input
-	keypad(stdscr, TRUE); //Abilita i tasti di funzione (Fn, frecce, etc...)
-	curs_set(0); // Rende il cursore invisibile
-	
+	clear();
 	refresh();
 }
 
@@ -34,4 +33,21 @@ void empty() {
 
 void werase(WINDOW *terminal, int y, int x) {
 	mvwaddch(terminal, y, x, ' ');
+}
+
+void mvwaddint(WINDOW* win, int posy, int posx, int input) {
+	int num_size = mathy::numDigits(input);
+	char *text = new char[num_size];
+	sprintf(text, "%d", input);
+	mvwprintw(win, posy, posx, text);
+}
+
+void printScreenSize(WINDOW *win) {
+	int width = win->_maxx, height = win->_maxy;
+	int dif = mathy::numDigits(width);
+	int x = width / 2, y = height / 2;
+
+	mvwaddint(stdscr, y, x, width);
+	mvwaddstr(stdscr, y, x + dif + 1, "x");
+	mvwaddint(stdscr, y, x + dif + 3, height);
 }
