@@ -16,14 +16,18 @@ endif
 
 MD := mkdir $(FLAGS)
 
+# Dependency flags
 CXXFLAGS += -MMD -MP
 
-CXXFLAGS += -std=c++14 -pedantic-errors
+# Compiler flags
+CXXFLAGS += -std=c++17 -pedantic-errors
 CXXFLAGS += -Wall -Wextra
 CXXFLAGS += -g3 -Ofast
 
+# Linker flags
 CPPFLAGS += -Iinclude
 
+# External libraries
 LDFLAGS += -lncurses
 
 DIRS := $(patsubst src/%, %, $(wildcard src/*))
