@@ -36,27 +36,28 @@ all: prepare dirs main run clean
 	
 -include $(call FixPath,$(DEPENDENCIES))
 
-build/%.o: src/%.cpp
-	@echo Compiling $<
-	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $(call FixPath,$<) -o $(call FixPath,$@)
-
-main: $(OBJECTS)
-	@echo Linking $@
-	$(CXX) $(CXXFLAGS) -o $@ $(call FixPath,$^) $(LDFLAGS)
-
 prepare:
 	@echo Preparing build directories
 	-@$(RM) build
 
-run: main$(ext)
-	@echo Running main
-	./main
-
-clean:
-	-$(UN) $(call FixPath,./main$(ext))
-
 dirs:
 	@$(MD) $(call FixPath,$(patsubst %, build/%, $(DIRS)))
 	@echo Created directories: $(DIRS)
+
+build/%.o: src/%.cpp
+	@echo Compiling $<
+	@$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $(call FixPath,$<) -o $(call FixPath,$@)
+
+main: $(OBJECTS)
+	@echo Linking $@
+	@$(CXX) $(CXXFLAGS) -o $@ $(call FixPath,$^) $(LDFLAGS)
+
+run: main$(ext)
+	@echo Running main
+	@./main
+
+clean:
+	@echo Cleaning up executable
+	-@$(UN) $(call FixPath,./main$(ext))
 
 .PHONY: show dirs
