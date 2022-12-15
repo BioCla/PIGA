@@ -8,7 +8,7 @@ ifeq ($(OS),Windows_NT)
 	ext := .exe
 else
 	detected_OS := $(shell uname)
-	RM := rm -f
+	RM := rm -f -r
 	UN := $(RM)
 	FLAGS := -p
 	FixPath = $1
@@ -31,7 +31,7 @@ CPPFLAGS += -Iinclude
 LDFLAGS += -lncurses
 
 DIRS := $(patsubst src/%, %, $(wildcard src/*))
-PROG_SOURCES :=  $(wildcard src/*/*.cpp)
+PROG_SOURCES := $(wildcard src/*/*.cpp)
 OBJECTS := $(patsubst src/%.cpp, build/%.o, $(PROG_SOURCES))
 DEPENDENCIES := $(patsubst src/%.cpp, build/%.d, $(PROG_SOURCES))
 

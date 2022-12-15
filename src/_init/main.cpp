@@ -1,9 +1,13 @@
 #include "../../include/util/curses_comodity_functions.hpp"
+#include "../../include/util/curses_color_pairing.hpp"
 
 int main() {
 	init();
-	centering_text(stdscr, 0, "Hello World!");
+	
+	test_colors();
 	getch();
-	end();
+
+	
+	endwin();
 	return 0;
 }
