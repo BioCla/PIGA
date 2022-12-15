@@ -3,11 +3,13 @@ CXX := g++
 ifeq ($(OS),Windows_NT)
 	detected_OS := Windows
 	RM := rmdir /Q /S
+	UN := del
 	FixPath = $(subst /,\,$1)
 	ext := .exe
 else
 	detected_OS := $(shell uname)
 	RM := rm -f
+	UN := $(RM)
 	FLAGS := -p
 	FixPath = $1
 endif	
@@ -50,8 +52,8 @@ run: main$(ext)
 	@echo Running main
 	./main
 
-clean: 
-	-del $(call FixPath,./main$(ext))
+clean:
+	-$(UN) $(call FixPath,./main$(ext))
 
 dirs:
 	@$(MD) $(call FixPath,$(patsubst %, build/%, $(DIRS)))
