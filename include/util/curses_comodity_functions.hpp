@@ -6,15 +6,15 @@
 #define erase(y, x) werase(stdscr, y, x)
 
 // Inizializza ncurses
-void init();
+//void init();                                                             //error: multiple definition
 
 // Scrive del testo centrato sullo schermo
-void centering_text(WINDOW *terminal, int first_row, const char *string);
+//void centering_text(WINDOW *terminal, int first_row, const char *string);    //error: multiple definition
 // Svuota il terminale
-void empty();
+//void empty();                                                           //error: multiple definition
 
 // Cancella un carattere in determinate coordinate su una finestra
-void werase(WINDOW *terminal, int y, int x);
+//void werase(WINDOW *terminal, int y, int x);                          //error: multiple definition
 
 // Scrive un intero in una finestra simile al mvwaddstr ma per interi
 void mvwaddint(WINDOW* win, int posy, int posx, int input);
