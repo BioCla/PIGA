@@ -6,8 +6,17 @@
 
 #ifndef STD_SYSTEM_LIB
 	#define STD_SYSTEM_LIB
-	#include <stdlib.h>
-	#include <stdio.h>
-	#include <iostream>
 	#include <ctime>
+	#include <chrono>
+	#include <string>
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <iostream>
+	#include <functional>
 #endif
+
+#define SYS_CLOCK std::chrono::system_clock
+#define HRC std::chrono::high_resolution_clock
+#define STD_DUR std::chrono::duration
+#define STD_DUR_CAST std::chrono::duration_cast
+#define TIME_DURATION STD_DUR<float, std::ratio<1ll, 1000000000ll> >

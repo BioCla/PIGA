@@ -12,8 +12,9 @@ void init() {
 	start_color();
 	noecho();
 	cbreak();
-	keypad(stdscr, TRUE);
 	curs_set(0);
+	keypad(stdscr, TRUE);
+	nodelay(stdscr, TRUE);
 	
 	clear();
 	refresh();

@@ -1,19 +1,19 @@
 #include "../../include/util/curses_comodity_functions.hpp"
 #include "../../include/util/curses_color_pairing.hpp"
 #include "../../include/_init/game_board.hpp"
+#include "../../include/_init/game_loop.hpp"
 
 int main() {
 	init();
 
 	/* Testing GameBoard class */
-	{
-		GameBoard game_board;
+		Board main;
+		printScreenSize(main._window);
 
-		game_board.init();
-		game_board.draw();
-
-		printScreenSize(game_board.getGameWindow());
-	}
+	/* Testing GameLoop class */
+		Game loop(main._window);
+		loop.start();
+	
 
 	/* Testing Colors */
 	{	
