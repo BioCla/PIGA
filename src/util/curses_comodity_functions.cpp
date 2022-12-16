@@ -39,7 +39,7 @@ void mvwaddint(WINDOW* win, int posy, int posx, int input) {
 	int num_size = mathy::numDigits(input);
 	char *text = new char[num_size];
 	sprintf(text, "%d", input);
-	mvwprintw(win, posy, posx, text);
+	mvwprintw(win, posy, posx, "%s", text);
 }
 
 void printScreenSize(WINDOW *win) {
