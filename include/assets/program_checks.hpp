@@ -7,5 +7,5 @@
 */
 #define CHECK_TERMINAL_VALIDITY TERMINAL_SIZE_CHECK TERMINAL_COLOR_CHECK
 
-#define TERMINAL_SIZE_CHECK if ((LINES < 24) || (COLS < 80)) {printf("Il terminale deve essere almeno di 80x24\n");exit(1);}
-#define TERMINAL_COLOR_CHECK if(has_colors() == FALSE) {printf("Il tuo terminale non supporta i colori\n");exit(2);}
+#define TERMINAL_SIZE_CHECK if((LINES < 24) || (COLS < 80)){printf("Il terminale deve essere almeno di 80x24\n");exit(1);}
+#define TERMINAL_COLOR_CHECK if(has_colors() == FALSE){printf("Il tuo terminale non supporta i colori\n");exit(2);}
