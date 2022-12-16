@@ -204,22 +204,23 @@ void mvwprintwInteger(WINDOW* win, int posy, int posx, int input) {
 void displayCharacterHealth(WINDOW* win, int health, int num_hearts) {
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	//visualizzazione della salute rimanente in interi
-	//commentata per visualizzare solo i cuori
-	/*
-	wattron(win, COLOR_PAIR(1));
-	mvwprintw(win, 1, 1, "   ");
-	mvwprintwInteger(win, 1, 1, health);
-	wattroff(win, COLOR_PAIR(1));
-	wrefresh(win);
-	*/
 
-	//CUORI
 	wattron(win, COLOR_PAIR(1));
 	mvwprintw(win, 1, 1, "Health: ");
-	int in_pos = 3;
-	mvwprintw(win, 2, in_pos, "                   ");
+	wattroff(win, COLOR_PAIR(1));
+	
+	wattron(win, COLOR_PAIR(1));
+	mvwprintw(win, 2, 1, "   ");
+	mvwprintwInteger(win, 2, 3, health);
+	wattroff(win, COLOR_PAIR(1));
+	wrefresh(win);
+	
+	//CUORI
+	wattron(win, COLOR_PAIR(1));
+	int in_posx = 3;
+	mvwprintw(win, 3, in_posx, "                   ");
 	for(int i = 0; i < num_hearts; i++) {
-		mvwprintw(win, 2, in_pos + i*3, "V  ");
+		mvwprintw(win, 3, in_posx + i*3, "V  ");
 	}
 	wattroff(win, COLOR_PAIR(1));
 	wrefresh(win);

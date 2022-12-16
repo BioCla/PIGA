@@ -10,6 +10,7 @@ Character::Character() {
     projectile_moving_frequency = 1000;
     last_direction_taken = DIR_EAST;   //arbitrario. se spara senza muoversi i proiettili devono andare da qualche parte
     current_room_win = stdscr;
+    weapon = BASE;
 }
 
 Character::Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int damage, int projectile_moving_frequency, WINDOW* win):Entity(icon, pos, win){
@@ -19,6 +20,7 @@ Character::Character(const char * icon, Position pos, int max_health, const char
     this->projectile_moving_frequency = projectile_moving_frequency;
     last_direction_taken = DIR_NORTH;
     this->damage = damage;
+    weapon = BASE;
 }
 
 void Character::updateHearts() {
@@ -216,14 +218,31 @@ bool Character::steppedOnEnemy(int posx, int posy) {
 }
 
 void Character::shoot(List<Projectile> *projectilesList) {
-    //controlla se il tempo di ricarica è passato
-    createProjectile(last_direction_taken, projectilesList);
+    switch(weapon) {
+        case BOMB:
+            break;
+        case LASER:
+            break;
+        case BASE:
+        default:
+            createProjectile(last_direction_taken, projectilesList);
+            break;
+    }
+    
 }
 
 void Character::createProjectile(int direction, List<Projectile> *projectilesList) {    
     Projectile newProjectile = Projectile(projectile_icon, current_position, direction, damage, projectile_moving_frequency, true ,current_room_win);
     newProjectile.move();
     (*projectilesList).headInsert(newProjectile);
+}
+
+Weapon Character::getWeapon() {
+    return weapon;
+}
+
+void Character::setWeapon(Weapon weapon) {
+    this->weapon = weapon;
 }
 
 void Character::addToInventory(int ID) {

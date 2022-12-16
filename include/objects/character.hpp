@@ -8,6 +8,7 @@
 #include "../util/engine.hpp"
 #include "item.hpp"
 #include "inventory.hpp"
+#include "../assets/weaponType.hpp"
 
 
 class Character : public Entity{
@@ -20,12 +21,11 @@ class Character : public Entity{
         const char* projectile_icon;
         int projectile_moving_frequency;
         int last_direction_taken;
+        Weapon weapon;
 
 		Inventory inventory;	//Inventario del personaggio
-        //inventario?
-        //velocità?
-
-
+        
+        
     public:
         Character();
         Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int damage, int projectile_moving_frequency, WINDOW* win);
@@ -51,6 +51,8 @@ class Character : public Entity{
         bool steppedOnEnemy(int posx, int posy);
         void shoot(List<Projectile> *projectilesList);
         void createProjectile(int direction, List<Projectile> *projectilesList);
+        Weapon getWeapon();
+        void setWeapon(Weapon weapon);
 		void addToInventory(int ID);
 		void removeFromInventory(int ID);
 		List<int> getInventory();
