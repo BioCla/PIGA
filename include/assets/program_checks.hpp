@@ -12,8 +12,8 @@
 
 #define TERMINAL_SIZE_CHECK \
 	if((LINES < MIN_TERM_Y) || (COLS < MIN_TERM_X)) { \
-		printf("Il terminale deve essere almeno di %s x %s\n", itc(MIN_TERM_X), itc(MIN_TERM_Y)); \
-		printf("Il tuo terminale e' di %s x %s\n", itc(COLS), itc(LINES)); \
+		printf("Il terminale deve essere almeno di %s x %s\n", intstr(MIN_TERM_X), intstr(MIN_TERM_Y)); \
+		printf("Il tuo terminale e' di %s x %s\n", intstr(COLS), intstr(LINES)); \
 		exit(1); \
 	}
 #define TERMINAL_COLOR_CHECK if(has_colors() == FALSE){printf("Il tuo terminale non supporta i colori\n");exit(2);}

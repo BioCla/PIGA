@@ -36,10 +36,7 @@ void werase(WINDOW *terminal, int y, int x) {
 }
 
 void mvwaddint(WINDOW* win, int posy, int posx, int input) {
-	int num_size = mathy::numDigits(input);
-	char *text = new char[num_size];
-	sprintf(text, "%d", input);
-	mvwprintw(win, posy, posx, "%s", text);
+	mvwprintw(win, posy, posx, "%s", intstr(input));
 }
 
 void printScreenSize(WINDOW *win) {

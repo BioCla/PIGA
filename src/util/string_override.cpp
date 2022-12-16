@@ -11,7 +11,7 @@ long unsigned int strlen(const char *p) {
 	return count;
 }
 
-char* itc(int input) {
+char* intstr(int input) {
 	int num_size = mathy::numDigits(input);
 	char *text = new char[num_size];
 	sprintf(text, "%d", input);
