@@ -5,18 +5,23 @@
 int main() {
 	init();
 
+	/* Testing GameBoard class */
 	{
 		GameBoard game_board;
-		WINDOW* game_window = game_board.init();
 
+		game_board.init();
 		game_board.draw();
-		printScreenSize(game_window);
+
+		printScreenSize(game_board.getGameWindow());
 	}
 
-	getch();
-	empty();
-	test_colors();
-	
+	/* Testing Colors */
+	{	
+		getch();
+		empty();
+		test_colors();
+	}
+
 	getch();
 	endwin();
 	return 0;

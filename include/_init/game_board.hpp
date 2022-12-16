@@ -2,10 +2,15 @@
 
 class GameBoard {
 	protected:
+		WINDOW* info_window;
 		WINDOW* game_window;
-	
+		WINDOW* status_window;
+
 	public:
 		GameBoard();
-		WINDOW* init();
+		void init();
 		void draw();
+		WINDOW* getInfoWindow();
+		WINDOW* getGameWindow();
+		WINDOW* getStatusWindow();
 };
