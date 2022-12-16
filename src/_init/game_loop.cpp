@@ -1,7 +1,9 @@
 #include "../../include/_init/game_loop.hpp"
+#include "../../include/util/string_override.hpp"
 #include "../../include/util/curses_comodity_functions.hpp"
 
-#define sdw state.currentWindow
+#define sdw state.board.getGameWindow()
+#define CONTROL if(!state.paused)
 
 game Game::state;
 bool Game::debugMode = false;
@@ -9,37 +11,49 @@ bool Game::debugFinished = false;
 float Game::fps = 0;
 
 input Game::inputMap[] = {
-	{ 265, [] { debugMode = !debugMode; debugFinished = false; } },
-    { 'p', [] { state.paused = !state.paused; } },
+	{ KEY_F(1), [] { debugMode = !debugMode; debugFinished = false; } },
+    { 'p', [] { pause(); } },
     { 'q', [] { state.running = false; } },
+
+	{ 'w', [] { CONTROL state.pos.y -= 1; } },
+	{ 's', [] { CONTROL state.pos.y += 1; } },
+	{ 'a', [] { CONTROL state.pos.x -= 1; } },
+	{ 'd', [] { CONTROL state.pos.x += 1; } },
+
+	{ KEY_UP, [] { CONTROL state.dir = UP; } },
+	{ KEY_DOWN, [] { CONTROL state.dir = DOWN; } },
+	{ KEY_RIGHT, [] { CONTROL state.dir = RIGHT; } },
+	{ KEY_LEFT, [] { CONTROL state.dir = LEFT; } },
 };
 
 debug_info Game::debugInfo[] = {
-	{ "Status: ", [] { return state.paused ? "PAUSED" : "RUNNING"; } },
+	{ "Status: ", [] { return state.paused ? "PAUSED " : "RUNNING"; } },
 	{ "Score: ", [] { return std::to_string(state.score); } },
-	{ "Direction: ", [] { return std::to_string(state.dir); } },
+	{ "Dir: ", [] { return std::to_string(state.dir); } },
 	{ "Speed: ", [] { return std::to_string(state.speed); } },
-	{ "Position: ", [] { return "(" + std::to_string(state.pos.x) + ", " + std::to_string(state.pos.y) + ")"; } },
-	{ "Elapsed time: ", [] { return std::to_string((float)(clock() - state.elapsed) / CLOCKS_PER_SEC); } },
+	{ "Pos: ", [] { return "(" + std::to_string(state.pos.x) + ", " + std::to_string(state.pos.y) + ")"; } },
+	{ "ET: ", [] { return std::to_string((float)(clock() - state.elapsed) / CLOCKS_PER_SEC); } },
 	{ "FPS: ", [] { return std::to_string(fps); } },
 };
 
 
-Game::Game(WINDOW* win) {
+Game::Game(Board board) {
 	state.score = 0;
-	state.dir = DOWN;
+	state.dir = UP;
 	state.speed = 0.5;
 	state.running = true;
 	state.paused = false;
 	state.elapsed = clock();
-	state.currentWindow = win;
-	state.pos = {sdw->_maxy / 2, sdw->_maxx / 2};
+	state.board = board;
+	state.pos = {sdw->_maxx / 2, sdw->_maxy / 2};
+	state.previousPos = state.pos;
 	debugMode = false;
 	debugFinished = false;
 	debugWin = newwin(sizeof(debugInfo) / sizeof(debugInfo[0]) + 2, 24, sdw->_begy + 1, sdw->_begx + 1);
 }
 
 void Game::start() {
+	nodelay(stdscr, true);
 	timeMgmt timeManager;
 	long long elapsedTime = 0;
 	long long numIterations = 0;
@@ -54,7 +68,9 @@ void Game::start() {
 		
 		updateDebugWin();
 		render();
-		wrefresh(state.currentWindow);
+		wrefresh(sdw);
+
+		state.previousPos = state.pos;
 	
 		if (elapsedTime >= 1000000000) {
 			fps = elapsedTime / float(numIterations);
@@ -62,14 +78,24 @@ void Game::start() {
 			elapsedTime = 0;
 		}
 	} while (state.running == true);
+	nodelay(stdscr, false);
 }
 
 void Game::pause() {
-	state.paused = true;
+	state.paused = !state.paused;
+	if (state.paused) {
+		mvwaddstr(state.board.getInfoWindow(), 0, 1, "PAUSED");
+		wrefresh(state.board.getInfoWindow());
+	} else {
+		box(state.board.getInfoWindow(), 0, 0);
+		wrefresh(state.board.getInfoWindow());
+	}
 }
 
+// This is just to test the game loop compability with character movement
 void Game::render() {
-	mvwprintw(state.currentWindow, state.pos.y, state.pos.x, "X");
+	mvwaddch(sdw, state.previousPos.y, state.previousPos.x, ' ');
+	mvwaddch(sdw, state.pos.y, state.pos.x, '@');
 }
 
 void Game::debugStats() {
@@ -80,6 +106,7 @@ void Game::debugStats() {
 		}
 	}
 }
+
 
 void Game::handleInput(int ch) {
 	for (const input& in : inputMap) {

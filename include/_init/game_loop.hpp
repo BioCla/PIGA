@@ -13,9 +13,9 @@ class Game {
 		static float fps;
 
 	public:
-		Game(WINDOW* win);
+		Game(Board board);
 		void start();
-		void pause();
+		static void pause();
 		void render();
 		void debugStats();
 		void updateDebugWin();

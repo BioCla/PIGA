@@ -1,4 +1,5 @@
 #include "curses_lib_selector.hpp"
+#include "../_init/game_board.hpp"
 
 #define UP	0
 #define DOWN	1
@@ -14,6 +15,7 @@ struct pointf {
 };
 
 struct game {
+	point previousPos;
 	point pos;
 	int dir;
 	int score;
@@ -21,7 +23,7 @@ struct game {
 	bool paused;
 	bool running;
 	clock_t elapsed;
-	WINDOW* currentWindow;
+	Board board;
 };
 
 enum itemType {

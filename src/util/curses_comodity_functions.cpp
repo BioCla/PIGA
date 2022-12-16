@@ -13,8 +13,7 @@ void init() {
 	noecho();
 	cbreak();
 	curs_set(0);
-	keypad(stdscr, TRUE);
-	nodelay(stdscr, TRUE);
+	keypad(stdscr, true);
 	
 	clear();
 	refresh();
