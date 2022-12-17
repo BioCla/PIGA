@@ -30,7 +30,7 @@ debug_info Game::debugInfo[] = {
 	{ "Score: ", [] { return std::to_string(state.score); } },
 	{ "Dir: ", [] { return dirToString(state.dir); } },
 	{ "Speed: ", [] { return std::to_string(state.speed); } },
-	{ "Pos: ", [] { return "(" + std::to_string(state.pos.x) + ", " + std::to_string(state.pos.y) + ")"; } },
+	{ "Pos: ", [] { return "(" + std::to_string(state.pos.x) + ", " + std::to_string(state.pos.y) + ")\t"; } },
 	{ "ET: ", [] { return std::to_string((float)(clock() - state.elapsed) / CLOCKS_PER_SEC); } },
 	{ "FPS: ", [] { return std::to_string(state.fps); } },
 };
