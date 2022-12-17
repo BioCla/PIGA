@@ -1,10 +1,15 @@
 #include "curses_lib_selector.hpp"
 #include "../_init/game_board.hpp"
 
-#define UP	0
-#define DOWN	1
-#define RIGHT	2
-#define LEFT	3
+enum direction {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	DEFAULT
+};
+
+const char* dirToString(direction dir);
 
 struct point {
 	int x, y;
@@ -15,15 +20,16 @@ struct pointf {
 };
 
 struct game {
-	point previousPos;
+	direction dir;
 	point pos;
-	int dir;
 	int score;
+	float fps;
 	float speed;
 	bool paused;
+	Board board;
 	bool running;
 	clock_t elapsed;
-	Board board;
+	point previousPos;
 };
 
 enum itemType {

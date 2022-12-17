@@ -8,7 +8,6 @@
 game Game::state;
 bool Game::debugMode = false;
 bool Game::debugFinished = false;
-float Game::fps = 0;
 
 input Game::inputMap[] = {
 	{ KEY_F(1), [] { debugMode = !debugMode; debugFinished = false; } },
@@ -29,11 +28,11 @@ input Game::inputMap[] = {
 debug_info Game::debugInfo[] = {
 	{ "Status: ", [] { return state.paused ? "PAUSED " : "RUNNING"; } },
 	{ "Score: ", [] { return std::to_string(state.score); } },
-	{ "Dir: ", [] { return std::to_string(state.dir); } },
+	{ "Dir: ", [] { return dirToString(state.dir); } },
 	{ "Speed: ", [] { return std::to_string(state.speed); } },
 	{ "Pos: ", [] { return "(" + std::to_string(state.pos.x) + ", " + std::to_string(state.pos.y) + ")"; } },
 	{ "ET: ", [] { return std::to_string((float)(clock() - state.elapsed) / CLOCKS_PER_SEC); } },
-	{ "FPS: ", [] { return std::to_string(fps); } },
+	{ "FPS: ", [] { return std::to_string(state.fps); } },
 };
 
 
@@ -73,7 +72,7 @@ void Game::start() {
 		state.previousPos = state.pos;
 	
 		if (elapsedTime >= 1000000000) {
-			fps = elapsedTime / float(numIterations);
+			state.fps = elapsedTime / float(numIterations);
 			numIterations = 0;
 			elapsedTime = 0;
 		}

@@ -10,7 +10,6 @@ class Game {
 		static bool debugFinished;
 		static input inputMap[];
 		static debug_info debugInfo[];
-		static float fps;
 
 	public:
 		Game(Board board);
