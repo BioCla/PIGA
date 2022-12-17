@@ -9,6 +9,9 @@ enum direction {
 	DEFAULT
 };
 
+/**
+ * this is defined in "../../src/util/string_override.cpp"
+*/ 
 const char* dirToString(direction dir);
 
 struct point {
