@@ -11,8 +11,8 @@ bool Game::debugFinished = false;
 
 input Game::inputMap[] = {
 	{ KEY_F(1), [] { debugMode = !debugMode; debugFinished = false; } },
-    { 'p', [] { pause(); } },
-    { 'q', [] { state.running = false; } },
+	{ 'p', [] { pause(); } },
+	{ 'q', [] { state.running = false; } },
 
 	{ 'w', [] { CONTROL state.pos.y -= 1; } },
 	{ 's', [] { CONTROL state.pos.y += 1; } },
@@ -54,28 +54,25 @@ Game::Game(Board board) {
 void Game::start() {
 	nodelay(stdscr, true);
 	timeMgmt timeManager;
+
+	/**
+	 * Iteration variables, keep track of numbers used in FPS calculation
+	 * and performance measurements
+	*/
 	long long elapsedTime = 0;
 	long long numIterations = 0;
 
 	do {
-		timeManager.update_time();
-		numIterations++;
-		elapsedTime += timeManager.elapsed.count();
-
 		int ch = getch();
 		handleInput(ch);
-		
+
 		updateDebugWin();
 		render();
 		wrefresh(sdw);
 
 		state.previousPos = state.pos;
-	
-		if (elapsedTime >= 1000000000) {
-			state.fps = elapsedTime / float(numIterations);
-			numIterations = 0;
-			elapsedTime = 0;
-		}
+		
+		timeManager.cycles_per_second(elapsedTime, numIterations, state.fps);
 	} while (state.running == true);
 	nodelay(stdscr, false);
 }
