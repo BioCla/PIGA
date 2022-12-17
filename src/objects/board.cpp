@@ -107,7 +107,6 @@ void Board::checkHits(){
 		while(tmp2!=NULL) {
 			if ((compare(tmp1->getData()->getCurrentPosition(),tmp2->getData()->getCurrentPosition()))&&(tmp2->getData()->checkifAllied())){
 				tmp1->getData()->updateHealth(-tmp2->getData()->getDamage());
-				mvwprintw(this->getWin(),2,2,"HIT");
 				tmp2->getData()->setAlive(false);
 			}
 			tmp2=tmp2->getNext();
@@ -173,12 +172,16 @@ List<Item>* Board::getItemsList() {
 }
 
 void Board::generateItems() {
-	int n_items = rand() % 5 + 25;
+	int n_buffs = rand() % 5 + 5;
+	int n_debuffs = rand() % 5 + 5;
 	int n_artifacts = 1;
+	int n_weapons = rand() % 100; if(n_weapons < 10) n_weapons = 1; else n_weapons = 0;  //10% di prob. di generare UN'arma in una stanza
 	int id;
 	Position spawn_position;
 
 	int i;
+	//per adesso ce n'è una sola ma nel caso si può aumentare
+	//spawna le chiavi
 	for (i = 0; i < n_artifacts; i++) {
 		spawn_position = {(rand()%(BOARD_COLS-3))+1, (rand()%(BOARD_ROWS-3))+1};
 		id = 6;
@@ -186,9 +189,24 @@ void Board::generateItems() {
 		itemsList.headInsert(newItem);
 	}
 
-	for(i = 0; i < n_items; i++) {
-		id = rand() % 10;
-		while(id == 6) id = rand() % 10;   //non deve generare artefatti
+	for(i = 0; i < n_buffs; i++) {
+		id = rand() % 4;
+		if (id == 3) id = 9;   //i buff sono 0,1,2,9
+		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
+		Item newItem = Item(findItem(id), spawn_position, board_win);
+		itemsList.headInsert(newItem);
+	}
+
+	for(i = 0; i < n_debuffs; i++) {
+		id = rand() % 3 + 3;
+		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
+		Item newItem = Item(findItem(id), spawn_position, board_win);
+		itemsList.headInsert(newItem);
+	}
+
+	for(i = 0; i < n_weapons; i++) {
+		id = rand() % 3 + 7;
+		if (id == 9) id = 12;   //i weapon sono 7,8,12
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
@@ -210,7 +228,7 @@ void Board::checkItemCollisions(Character *p) {
 			itemID = tmp->getData()->getProperties().ID;
 			switch(itemID) {
 				case 0:
-					p->setMaxHealth(p->getMaxHealth() + 1);
+					p->setMaxHealth(p->getMaxHealth() + 3);
 					break;
 				case 1:
 					p->setDamage(p->getDamage() + 3);
@@ -238,13 +256,20 @@ void Board::checkItemCollisions(Character *p) {
 					break;
 				case 7:
 					p->addToInventory(itemID);
+					p->setWeapon(LASER);
 					break;
 				case 8:
 					p->addToInventory(itemID);
+					p->setWeapon(BOMB);
+					p->setProjectileIcon("*");
 					break;
 				case 9:
-					p->updateHealth(+10);
+					p->updateHealth(+5);
 					break;
+				case 12:
+					p->addToInventory(itemID);
+					p->setWeapon(BASE);
+					p->setProjectileIcon("*");
 				case 10:
 					//Misc
 					break;

@@ -23,6 +23,9 @@ class Character : public Entity{
         int last_direction_taken;
         Weapon weapon;
 
+        List<Projectile> *projectilesList;
+        List<SuperProjectile> *superProjectilesList;
+
 		Inventory inventory;	//Inventario del personaggio
         
         
@@ -49,13 +52,18 @@ class Character : public Entity{
         void HandleInput(int input);
         bool legalMove(int posx, int posy);
         bool steppedOnEnemy(int posx, int posy);
-        void shoot(List<Projectile> *projectilesList);
+        void shoot();
         void createProjectile(int direction, List<Projectile> *projectilesList);
+        void createLaser(Position initial_position, int direction, List<Projectile> *projectilesList);
         Weapon getWeapon();
         void setWeapon(Weapon weapon);
 		void addToInventory(int ID);
 		void removeFromInventory(int ID);
 		List<int> getInventory();
+        void setProjectilesList(List<Projectile> *projectilesList);
+        List<Projectile>* getProjectilesList();
+        void setSuperProjectilesList(List<SuperProjectile> *superProjectilesList);
+        List<SuperProjectile>* getSuperProjectilesList();
 };
 
 #endif

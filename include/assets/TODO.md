@@ -10,8 +10,6 @@ boss
 
 ### Liam
 
-Generatore di item utilizzando itemProperties.ID
-
 ### Brian
 
 Engine > Welcome Display > legal move > display functions
@@ -38,6 +36,8 @@ GENERALI
  Gestire lo schermo, partizionare la std screen
  creare diverse windows (NCURSES) e gestioni separate
 )
+- Score (quando uccidi un nemico, assegna un qualche punteggio cumulativo). si potrebbe mettere sotto la vita, dove adesso ci sono le
+   posizioni usate per il debug
 
 OPZIONALI
 

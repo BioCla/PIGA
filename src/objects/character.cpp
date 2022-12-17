@@ -185,6 +185,10 @@ void Character::HandleInput(int input){
             }
             break;
 
+        case 'f':
+        case 'F':
+            shoot();
+            break;
         default:
             break;   
     }
@@ -196,7 +200,7 @@ bool Character::legalMove(int posx, int posy) {
     int k, kk;
     k =  mvwinch(current_room_win, posy,posx);
     kk = k & A_CHARTEXT;
-    return ((kk == PAVE) || (kk == 42) || (kk == 79) || (kk == 75) || (kk == 72) || (kk == 68) || (kk == 83) || (kk == 104) || (kk == 100) || (kk == 115) || (kk == 76) || (kk == 66) || (kk == 86));   
+    return ((kk == PAVE) || (kk == 42) || (kk == 79) || (kk == 75) || (kk == 72) || (kk == 68) || (kk == 83) || (kk == 104) || (kk == 100) || (kk == 115) || (kk == 76) || (kk == 66) || (kk == 86) || (kk == 80));   
     //42 = "*", 79 = "O"   ossia i proiettili
     //72 = "H"             ossia gli item (i seguenti sono tutti item)
     //75 = "K"             
@@ -208,6 +212,7 @@ bool Character::legalMove(int posx, int posy) {
     //76 = "L"
     //66 = "B"
     //86 = "V"
+    //80 = "P"
 } 
 
 bool Character::steppedOnEnemy(int posx, int posy) {
@@ -217,11 +222,13 @@ bool Character::steppedOnEnemy(int posx, int posy) {
     return (kk == 65);   //65 = "A"    ossia i nemici
 }
 
-void Character::shoot(List<Projectile> *projectilesList) {
+void Character::shoot() {
     switch(weapon) {
         case BOMB:
+            createSuperProjectile(superProjectilesList, "O", current_position, last_direction_taken, damage, projectile_moving_frequency, 600, projectile_moving_frequency*2, projectile_icon, current_room_win);
             break;
         case LASER:
+            createLaser(current_position, last_direction_taken, projectilesList);
             break;
         case BASE:
         default:
@@ -235,6 +242,58 @@ void Character::createProjectile(int direction, List<Projectile> *projectilesLis
     Projectile newProjectile = Projectile(projectile_icon, current_position, direction, damage, projectile_moving_frequency, true ,current_room_win);
     newProjectile.move();
     (*projectilesList).headInsert(newProjectile);
+}
+
+void Character::createLaser(Position initial_position, int direction, List<Projectile>* projectilesList) {
+    Position pos = this->current_position;
+    Projectile newProjectile;
+
+    //sposta    pos    per entrare nel ciclo sotto
+    switch(last_direction_taken) {
+        case DIR_NORTH:
+            pos.y--;
+            projectile_icon = "|";
+            break;
+        case DIR_EAST:
+            pos.x++;
+            projectile_icon = "-";
+            break;
+        case DIR_SOUTH:
+            pos.y++;
+            projectile_icon = "|";
+            break;
+        case DIR_WEST:
+            pos.x--;
+            projectile_icon = "-";
+            break;
+        default:
+            break;
+    }
+
+    //spawna proiettili finchè non incontra un muro o qualsiasi cosa che blocchi un laser
+    while(legalMove(pos.x, pos.y)) {
+
+        newProjectile = Projectile(projectile_icon, pos, last_direction_taken, damage, 1, true ,current_room_win);
+        (*projectilesList).headInsert(newProjectile);
+
+        switch(last_direction_taken) {
+            case DIR_NORTH:
+                pos.y--;
+                break;
+            case DIR_EAST:
+                pos.x++;
+                break;
+            case DIR_SOUTH:
+                pos.y++;
+                break;
+            case DIR_WEST:
+                pos.x--;
+                break;
+            default:
+                break;
+        }
+    }
+
 }
 
 Weapon Character::getWeapon() {
@@ -255,4 +314,20 @@ void Character::removeFromInventory(int ID) {
 
 List<int> Character::getInventory() {
 	return inventory.getInventory();
+}
+
+void Character::setProjectilesList(List<Projectile> *projectilesList) {
+    this->projectilesList = projectilesList;
+}
+
+List<Projectile>* Character::getProjectilesList() {
+    return this->projectilesList;
+}
+
+void Character::setSuperProjectilesList(List<SuperProjectile> *superProjectilesList) {
+    this->superProjectilesList = superProjectilesList;
+}
+
+List<SuperProjectile>* Character::getSuperProjectilesList() {
+    return this->superProjectilesList;
 }

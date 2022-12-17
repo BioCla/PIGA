@@ -126,9 +126,14 @@ int main(int argc, char **argv)
 
 	
 
+	//queste due andranno nel costruttore di board: genero una nuova stanza, e con essa la lista di nemici e artefatti
 	board.generateEnemies();
 	board.generateItems();
-	//queste due andranno nel costruttore di board: genero una nuova stanza, e con essa la lista di nemici e artefatti
+
+
+	//queste vanno cambiate nella board tutte le volte che si cambia stanza, altrimenti il personaggio non può sparare
+	p.setProjectilesList(board.getProjectilesList());
+	p.setSuperProjectilesList(board.getSuperProjectilesList());
 
 	// /DEBUG
 
@@ -154,8 +159,8 @@ int main(int argc, char **argv)
 		board.getItemsList()->spawnEntities();
 
 		board.refreshEnemies(time_now,p.getCurrentPosition());
-		(*projectilesList).moveEntities(time_now);
-		(*projectilesList).removeDeadEntities();
+		projectilesList->moveEntities(time_now);
+		projectilesList->removeDeadEntities();
 
 		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
 
@@ -179,6 +184,9 @@ int main(int argc, char **argv)
 			mvwprintw(window_GUI_1, 11, 1, "vita nemico in testa");
 			mvwprintw(window_GUI_1, 12, 1, "                ");
 			mvwprintwInteger(window_GUI_1, 12, 1, board.getEnemiesList()->getHead()->getData()->getHealth());
+			mvwprintw(window_GUI_1, 13, 1, "arma personaggio: ");
+			mvwprintw(window_GUI_1, 13, 18, "                ");
+			mvwprintwInteger(window_GUI_1, 13, 19, p.getWeapon());
 			wattroff(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
 		}
 		
@@ -189,32 +197,14 @@ int main(int argc, char **argv)
 		current_damage_received_by_character = -checkIfCharacterIsHit(board.getProjectilesList(), board.getSuperProjectilesList(), p.getCurrentPosition());
 		board.checkItemCollisions(&p);
 		board.getItemsList()->removeDeadEntities();
-		mvwprintw(window_GUI_1, 13, 1, "danno ricevuto dal personaggio:"); //in realtà non scrive proprio il danno, però se rileva una collisione scrive 2
-		mvwprintwInteger(window_GUI_1, 14, 1, current_damage_received_by_character);    //DEBUG
 		p.updateHealth(current_damage_received_by_character);
-
-		if(current_damage_received_by_character > 0) {   //DEBUG
-			mvwprintw(window_GUI_1, 2, 1, "    ");
-		}
 		
 		displayCharacterHealth(window_GUI_1, p.getHealth(), p.getHearts());
 
 		refresh();
 
-		//IF CAMBI STANZA: RIASSEGNA projectilesList e superProjectilesList
 
-		if(ch == 'f') {    //SE VOLETE SPARARE PER PROVARE PREMETE f
-		//DEVO FARE: mettere "f" nell'handleInput di Character
-			p.shoot(projectilesList);
-			mvwprintw(p.getWin(), 2, 2, "   ");   //DEBUG serve per la scritta HIT delle collisioni
-		}
-		else if(ch=='g') {    //poi non penso che il personaggio sparerà questi, magari li spara il boss
-			createSuperProjectile(superProjectilesList, "O", p.getCurrentPosition(), p.getLastDirection(), p.getDamage(), 100,
-																	1000, 100, "*", p.getWin());
-		}
-
-		
-		else if(ch=='t') {   //serve solo per il debug
+		if(ch=='t') {   //serve solo per il debug
 
 			def_prog_mode();
 			endwin();

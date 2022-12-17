@@ -33,6 +33,7 @@ itemProperties itemList[] = {
 	{"Key", "Opens doors", "K", 6, ARTIFACT},
 	{"LAZER!!!!!", "IMA LAZERBEAMMMMMM", "L", 7, WEAPON},
 	{"BOMB!", "Explodes", "B", 8, WEAPON},
+	{"BASE", "Base projectile", "P", 12, WEAPON},
 };
 
 itemProperties findItem(int ID) {

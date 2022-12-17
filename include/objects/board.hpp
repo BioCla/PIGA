@@ -63,4 +63,6 @@ public:
 	List<Item>* getItemsList();
 	void generateItems();
 	void checkItemCollisions(Character *p);
+
+	//ATTENZIONE: la funzione cambiaStanza() deve avere nei parametri un puntatore al personaggio, perchè vanno cambiati i puntatori alle liste dei proiettili (e la current_room_win)
 };
