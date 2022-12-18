@@ -53,6 +53,7 @@ void Character::updateHealth(int mod) {
 
 void Character::setHealth(int set) {
     health = set;
+    updateHealth(0);   //controlla morte/troppa salute
 }
 
 int Character::getHealth() {
@@ -197,10 +198,11 @@ void Character::HandleInput(int input){
 }
 
 bool Character::legalMove(int posx, int posy) {
-    int k, kk;
+    int k;
     k =  mvwinch(current_room_win, posy,posx);
-    kk = k & A_CHARTEXT;
-    return ((kk == PAVE) || (kk == 42) || (kk == 79) || (kk == 75) || (kk == 72) || (kk == 68) || (kk == 83) || (kk == 104) || (kk == 100) || (kk == 115) || (kk == 76) || (kk == 66) || (kk == 86) || (kk == 80));   
+    k = k & A_CHARTEXT;
+    return ((k == PAVE) || (k == 42) || (k == 79) || (k == 75) || (k == 72) || (k == 68) || (k == 83) || (k == 104) || (k == 100) || (k == 115) || (k == 76) || (k == 66) || (k == 86) || (k == 80));   
+    //----  il personaggio può camminare SOLO su questi caratteri:  -------
     //42 = "*", 79 = "O"   ossia i proiettili
     //72 = "H"             ossia gli item (i seguenti sono tutti item)
     //75 = "K"             
@@ -216,10 +218,10 @@ bool Character::legalMove(int posx, int posy) {
 } 
 
 bool Character::steppedOnEnemy(int posx, int posy) {
-    int k, kk;
+    int k;
     k =  mvwinch(current_room_win, posy,posx);
-    kk = k & A_CHARTEXT;
-    return (kk == 65);   //65 = "A"    ossia i nemici
+    k = k & A_CHARTEXT;
+    return (k == 65);   //65 = "A"    ossia i nemici
 }
 
 void Character::shoot() {
@@ -228,7 +230,7 @@ void Character::shoot() {
             createSuperProjectile(superProjectilesList, "O", current_position, last_direction_taken, damage, projectile_moving_frequency, 600, projectile_moving_frequency*2, projectile_icon, current_room_win);
             break;
         case LASER:
-            createLaser(current_position, last_direction_taken, projectilesList);
+            createLaser(last_direction_taken, projectilesList);
             break;
         case BASE:
         default:
@@ -241,10 +243,10 @@ void Character::shoot() {
 void Character::createProjectile(int direction, List<Projectile> *projectilesList) {    
     Projectile newProjectile = Projectile(projectile_icon, current_position, direction, damage, projectile_moving_frequency, true ,current_room_win);
     newProjectile.move();
-    (*projectilesList).headInsert(newProjectile);
+    projectilesList->headInsert(newProjectile);
 }
 
-void Character::createLaser(Position initial_position, int direction, List<Projectile>* projectilesList) {
+void Character::createLaser(int direction, List<Projectile>* projectilesList) {
     Position pos = this->current_position;
     Projectile newProjectile;
 
@@ -274,7 +276,7 @@ void Character::createLaser(Position initial_position, int direction, List<Proje
     while(legalMove(pos.x, pos.y)) {
 
         newProjectile = Projectile(projectile_icon, pos, last_direction_taken, damage, 1, true ,current_room_win);
-        (*projectilesList).headInsert(newProjectile);
+        projectilesList->headInsert(newProjectile);
 
         switch(last_direction_taken) {
             case DIR_NORTH:

@@ -210,7 +210,7 @@ void displayCharacterHealth(WINDOW* win, int health, int num_hearts) {
 	wattroff(win, COLOR_PAIR(1));
 	
 	wattron(win, COLOR_PAIR(1));
-	mvwprintw(win, 2, 1, "   ");
+	mvwprintw(win, 2, 1, "       ");
 	mvwprintwInteger(win, 2, 3, health);
 	wattroff(win, COLOR_PAIR(1));
 	wrefresh(win);

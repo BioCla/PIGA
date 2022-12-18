@@ -29,7 +29,6 @@ Haz3:
 
 GENERALI
 
-- togliere fuoco amico [Liam/Manto]
 - mappa/porte [Catti]
 - items (sub entity) [Brian] ~
 - GUI[] (

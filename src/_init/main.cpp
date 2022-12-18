@@ -63,6 +63,8 @@ int main(int argc, char **argv)
 	Character p = Character("@", character_initial_position, 30, "*", 5, 100, board.getWin());
 	p.move(character_initial_position.x, character_initial_position.y);
 
+	int GAME_TOTAL_SCORE = 0;   //da implementare
+
 
 
 	//DEBUG -
@@ -165,7 +167,7 @@ int main(int argc, char **argv)
 		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
 
 
-		
+		/*     DEBUG ma può far comodo quindi rimane commentato
 		if((projectilesList->getHead() != NULL) && (board.getEnemiesList()->getHead() != NULL)) DEBUGCOLLISIONI = true;
 		else DEBUGCOLLISIONI = false;
 		if(DEBUGCOLLISIONI) {   //DEBUG
@@ -189,6 +191,7 @@ int main(int argc, char **argv)
 			mvwprintwInteger(window_GUI_1, 13, 19, p.getWeapon());
 			wattroff(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
 		}
+		*/
 		
 		board.refreshEnemies(time_now,p.getCurrentPosition());
 		
@@ -204,7 +207,7 @@ int main(int argc, char **argv)
 		refresh();
 
 
-		if(ch=='t') {   //serve solo per il debug
+		if(ch=='t') {   //serve solo per il DEBUG
 
 			def_prog_mode();
 			endwin();

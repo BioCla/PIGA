@@ -54,7 +54,7 @@ class Character : public Entity{
         bool steppedOnEnemy(int posx, int posy);
         void shoot();
         void createProjectile(int direction, List<Projectile> *projectilesList);
-        void createLaser(Position initial_position, int direction, List<Projectile> *projectilesList);
+        void createLaser(int direction, List<Projectile> *projectilesList);
         Weapon getWeapon();
         void setWeapon(Weapon weapon);
 		void addToInventory(int ID);
