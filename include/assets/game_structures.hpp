@@ -22,17 +22,23 @@ struct pointf {
 	float x, y;
 };
 
-struct game {
-	direction dir;
+struct entityStats {
 	point pos;
+	int health;
+	int damage;
+	int maxHealth;
+};
+
+struct game {
 	int score;
 	float fps;
-	float speed;
 	bool paused;
 	Board board;
 	bool running;
+	direction dir;
 	clock_t elapsed;
 	point previousPos;
+	entityStats charStats;
 };
 
 enum itemType {
@@ -66,7 +72,9 @@ struct timeMgmt {
 	SYS_CLOCK::time_point currentTime;
 	TIME_DURATION elapsed;
 
-	void update_time() {
+	/* Using `inline` to improve functionality so that there are less calls to the stack and calling function */
+
+	inline void update_time() {
 		currentTime = SYS_CLOCK::now();
 		elapsed = currentTime - previousTime;
 		previousTime = currentTime;
@@ -83,20 +91,19 @@ struct timeMgmt {
 	 * to be used in different loops and to calculate the number of 
 	 * cycles per second of each loop.
 	 * 
-	 * updating the reference variables passed as parameters in order
-	 * to allow the usage of them to be used in other functions
+	 * the result is stored in the variable cps, which should be provided as a reference
 	 * 
 	 * @example read "../../src/_init/game_loop.cpp"
 	*/
-	void cycles_per_second(long long& elapsedTime, long long& numIterations, float& cps) {
-	update_time();
-	numIterations++;
-	elapsedTime += elapsed.count();
+	inline void update_cycles_per_second(long long& elapsedTime, long long& numIterations, float& cps) {
+		update_time();
+		numIterations++;
+		elapsedTime += elapsed.count();
 
-	if (elapsedTime >= 1000000000) {
-		cps = elapsedTime / float(numIterations);
-		numIterations = 0;
-		elapsedTime = 0;
+		if (elapsedTime >= 1000000000 /* One second in `ns` */) {
+			cps = elapsedTime / float(numIterations);
+			numIterations = 0;
+			elapsedTime = 0;
+		}
 	}
-}
 };
