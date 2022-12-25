@@ -1,18 +1,22 @@
 #include "../../include/_init/game_board.hpp"
 #include "../../include/util/curses_color_pairing.hpp"
 
+#define TBHEIGHT 3
+
 Board::Board() {
 	init();
 	draw();
 }
 
 void Board::init() {
-	info_window = newwin(1, getmaxx(stdscr), 0, 0);
+	/* Init */
+	info_window = newwin(TBHEIGHT, getmaxx(stdscr), 0, 0);
+	status_window = newwin(TBHEIGHT, getmaxx(stdscr), getmaxy(stdscr) - TBHEIGHT, 0);
+	game_window = newwin(getmaxy(stdscr) - (TBHEIGHT * 2), getmaxx(stdscr), TBHEIGHT, 0);
+
+	/* Background */
 	wbkgd(info_window, COLOR_PAIR(colornum(COLOR_BLACK, COLOR_WHITE)));
-	// -2 is for the info and status windows (above and below the game window)
-	game_window = newwin(getmaxy(stdscr) - 2, getmaxx(stdscr), 1, 0);
 	wbkgd(game_window, COLOR_PAIR(colornum(COLOR_WHITE, COLOR_BLACK)));
-	status_window = newwin(1, getmaxx(stdscr), getmaxy(stdscr) - 1, 0);
 	wbkgd(status_window, COLOR_PAIR(colornum(COLOR_BLACK, COLOR_WHITE)));
 }
 

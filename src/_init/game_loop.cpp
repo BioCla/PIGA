@@ -37,7 +37,6 @@ Game::Game(Board board) {
 	state.board = board;
 	
 	/* Player */
-	//(Needs to be initialized after the board is passed to the game)
 	charPos = { CENTER_POINT(sbgw), CENTER_POINT(sbgw), RIGHT };
 	player = Player(entityInfo{charPos, true, 100, 10, 100, "@", sbgw, COLOR_WHITE, COLOR_WHITE});
 
@@ -45,6 +44,7 @@ Game::Game(Board board) {
 	debugMode = false;
 	debugFinished = false;
 	debugWin = newwin(sizeof(debugInfo) / sizeof(debugInfo[0]) + 2, 24, sbgw->_begy + 1, sbgw->_begx + 1);
+	wbkgd(debugWin, getbkgd(sbgw));
 }
 
 void Game::start() {
