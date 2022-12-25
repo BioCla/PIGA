@@ -4,11 +4,11 @@
 #include "../../include/util/math_override.tpp"
 
 void init() {
-	// Inizializza ncurses e controlla se il terminale è valido
+	/* Init and validity checks for terminal size and color comp */
 	initscr();
 	CHECK_TERMINAL_VALIDITY
 
-	// Configura alcune proprietà del terminale
+	/* Config */
 	start_color();
 	noecho();
 	cbreak();
@@ -20,10 +20,7 @@ void init() {
 }
 
 void centering_text(WINDOW *terminal, int first_row, const char *string) {
-	int centerx = terminal->_maxx / 2;
-	int lendiv = strlen(string) / 2;
-	int centerpos = centerx - lendiv;
-	mvwaddstr(terminal, first_row, centerpos, string);
+	mvwaddstr(terminal, first_row, (terminal->_maxx / 2) - (strlen(string) / 2), string);
 }
 
 void empty() {

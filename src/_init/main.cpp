@@ -1,24 +1,24 @@
 #include "../../include/util/curses_comodity_functions.hpp"
-#include "../../include/util/curses_color_pairing.hpp"
 #include "../../include/_init/game_loop.hpp"
 
 int main() {
 	init();
 	init_colorpairs();
+	
+	//Testing Colors
+		empty();
+		test_colors();
+		getch();
+		empty();
 
-	/* Testing GameBoard class */
+	// Testing GameBoard class
 		Board main;
 		// printScreenSize(main._window);
 
-	/* Testing GameLoop class */
+	// Testing GameLoop class
 		Game loop(main);
 		loop.start();
 	
-	/* Testing Colors */
-		empty();
-		test_colors();
-
-	getch();
 	
 	endwin();
 	return 0;

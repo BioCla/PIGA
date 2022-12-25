@@ -12,7 +12,7 @@ else
 	UN := $(RM)
 	FLAGS := -p
 	FixPath = $1
-endif	
+endif
 
 MD := mkdir $(FLAGS)
 
@@ -49,7 +49,7 @@ dirs:
 	@echo Created directories: $(DIRS)
 
 build/%.o: src/%.cpp
-	@echo Compiling $<
+	@echo Compiling: $< : $@
 	@$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $(call FixPath,$<) -o $(call FixPath,$@)
 
 main: $(OBJECTS)

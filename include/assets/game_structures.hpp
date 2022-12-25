@@ -1,5 +1,17 @@
 #include "curses_lib_selector.hpp"
-#include "../_init/game_board.hpp"
+
+/* adv/debug */
+#define HANDLE_INPUT(input) (((input).instructions)())
+#define NULL_FUNC [](const auto& a) { std::cout << a << std::endl; }
+#define CENTER_POINT(win) {win->_maxx / 2, win->_maxy / 2}
+
+/* blocks */
+#define WALL      '#'
+#define PAVE      ' '
+#define ROCK      '^'
+#define ENEMY     'A'
+#define PLAYER    '@'
+#define PROJCTL   '*'
 
 enum direction {
 	UP,
@@ -16,55 +28,35 @@ const char* dirToString(direction dir);
 
 struct point {
 	int x, y;
-};
 
-struct pointf {
-	float x, y;
-};
+	friend std::ostream& operator<<(std::ostream& out, const point& p) {
+		out << "(" << p.x << ", " << p.y << ")";
+		return out;
+	}
 
-struct entityStats {
-	point pos;
-	int health;
-	int damage;
-	int maxHealth;
-};
+	static inline point dirToPoint(direction dir) {
+		switch (dir) {
+			case UP:
+				return {0, -1};
+			case DOWN:
+				return {0, 1};
+			case LEFT:
+				return {-1, 0};
+			case RIGHT:
+				return {1, 0};
+			default:
+				return {0, 0};
+		}
+	}
 
-struct game {
-	int score;
-	float fps;
-	bool paused;
-	Board board;
-	bool running;
-	direction dir;
-	clock_t elapsed;
-	point previousPos;
-	entityStats charStats;
-};
-
-enum itemType {
-	BUFF,	// colore verde
-	DEBUG,	// nessun colore
-	DEBUFF,	// colore rosso
-	WEAPON,	// colore blu
-	ARTIFACT,	// colore giallo
-};
-
-struct itemProperties {
-	int ID;
-	itemType type;
-	const char* name;
-	const char* icon;
-	const char* description;
+	friend point operator+(const point& p1, const point& p2) {
+		return {p1.x + p2.x, p1.y + p2.y};
+	}
 };
 
 struct input {
 	int key;
 	std::function<void()> instructions;
-};
-
-struct debug_info {
-	std::string label;
-	std::function<std::string()> value;
 };
 
 struct timeMgmt {

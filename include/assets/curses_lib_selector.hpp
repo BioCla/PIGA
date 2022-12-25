@@ -7,6 +7,7 @@
 #ifndef STD_SYSTEM_LIB
 	#define STD_SYSTEM_LIB
 	#include <ctime>
+	#include <math.h>
 	#include <chrono>
 	#include <string>
 	#include <stdio.h>
@@ -14,6 +15,9 @@
 	#include <iostream>
 	#include <functional>
 #endif
+
+#define KEY_BUFFER_SIZE 4
+#define conv 1000 / 255
 
 #define SYS_CLOCK std::chrono::system_clock
 #define HRC std::chrono::high_resolution_clock

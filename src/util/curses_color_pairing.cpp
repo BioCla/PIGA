@@ -1,16 +1,24 @@
 #include "../../include/util/curses_color_pairing.hpp"
+#include "../../include/util/math_override.tpp"
 
 // https://www.linuxjournal.com/content/about-ncurses-colors-0
 
-void init_colorpairs(void) {
-	int fg, bg;
-	int colorpair;
+void init_colorpairs() {
+	#define X(name, hex) name,
+		Custom_Colors CColors[] = {
+			CC
+		};
+	#undef X
 
-	for (bg = 0; bg <= 7; bg++) {
-		for (fg = 0; fg <= 7; fg++) {
-			colorpair = colornum(fg, bg);
-			init_pair(colorpair, curs_color(fg), curs_color(bg));
+	// 8 normal colors (provided by ncurses)
+	for (int bg = 0; bg <= 7; bg++) {
+		for (int fg = 0; fg <= 7; fg++) {
+			init_pair(colornum(fg, bg), curs_color(fg), curs_color(bg));
 		}
+	}
+
+	for (const auto &color : CColors) {
+		init_HEX(color);
 	}
 }
 
@@ -59,6 +67,20 @@ void unsetcolor(int fg, int bg) {
 	}
 }
 
+void setcolor(WINDOW* win, int fg, int bg) {
+	wattron(win, COLOR_PAIR(colornum(fg, bg)));
+	if (is_bold(fg)) {
+		attron(A_BOLD);
+	}
+}
+
+void unsetcolor(WINDOW* win, int fg, int bg) {
+	wattroff(win, COLOR_PAIR(colornum(fg, bg)));
+	if (is_bold(fg)) {
+		attroff(A_BOLD);
+	}
+}
+
 int is_bold(int fg) {
 	int i;
 	i = 1 << 3;
@@ -66,16 +88,10 @@ int is_bold(int fg) {
 }
 
 void test_colors() {
-	mvaddstr(1, 35, "This might not work if you are on Windows");
 	init_colorpairs();
 
-	if ((LINES < 24) || (COLS < 80)) {
-		endwin();
-		puts("Your terminal needs to be at least 80x24");
-		exit(2);
-	}
-
 	mvaddstr(0, 35, "COLOR DEMO");
+	mvaddstr(1, 35, "This might not work if you are on Windows");
 	mvaddstr(2, 0, "low intensity text colors (0-7)");
 	mvaddstr(12, 0, "high intensity text colors (8-15)");
 

@@ -3,7 +3,9 @@
 
 #define CONTROL if(!state.paused)
 #define charPos state.charStats.pos
-#define sdw state.board.getGameWindow()
+#define sbgw state.board.getGameWindow()
+#define sbiw state.board.getInfoWindow()
+
 
 game Game::state;
 bool Game::debugMode = false;
@@ -13,40 +15,36 @@ input Game::inputMap[] = {
 	{ KEY_F(1), [] { debugMode = !debugMode; debugFinished = false; } },
 	{ 'p', [] { pause(); } },
 	{ 'q', [] { state.running = false; } },
-
-	{ 'w', [] { CONTROL charPos.y -= 1; } },
-	{ 's', [] { CONTROL charPos.y += 1; } },
-	{ 'a', [] { CONTROL charPos.x -= 1; } },
-	{ 'd', [] { CONTROL charPos.x += 1; } },
-
-	{ KEY_UP, [] { CONTROL state.dir = UP; } },
-	{ KEY_DOWN, [] { CONTROL state.dir = DOWN; } },
-	{ KEY_RIGHT, [] { CONTROL state.dir = RIGHT; } },
-	{ KEY_LEFT, [] { CONTROL state.dir = LEFT; } },
 };
 
 debug_info Game::debugInfo[] = {
 	{ "Status: ", [] { return state.paused ? "PAUSED " : "RUNNING"; } },
 	{ "Score: ", [] { return std::to_string(state.score); } },
-	{ "Dir: ", [] { return dirToString(state.dir); } },
-	{ "Pos: ", [] { return "(" + std::to_string(charPos.x) + ", " + std::to_string(charPos.y) + ")\t"; } },
+	{ "Dir: ", [] { return dirToString(charPos.dir); } },
+	{ "Pos: ", [] { return "(" + std::to_string(charPos.currentPos.x) + ", " + std::to_string(charPos.currentPos.y) + ")\t"; } },
 	{ "ET: ", [] { return std::to_string((float)(clock() - state.elapsed) / CLOCKS_PER_SEC); } },
 	{ "FPS: ", [] { return std::to_string(state.fps); } },
+	{ " ", [] { return ""; } },
 };
 
 
 Game::Game(Board board) {
+	/* Stats */
 	state.score = 0;
-	state.dir = UP;
 	state.running = true;
 	state.paused = false;
 	state.elapsed = clock();
 	state.board = board;
-	charPos = {sdw->_maxx / 2, sdw->_maxy / 2};
-	state.previousPos = charPos;
+	
+	/* Player */
+	//(Needs to be initialized after the board is passed to the game)
+	charPos = { CENTER_POINT(sbgw), CENTER_POINT(sbgw), RIGHT };
+	player = Player(entityInfo{charPos, true, 100, 10, 100, "@", sbgw, COLOR_WHITE, COLOR_WHITE});
+
+	/* Debug */
 	debugMode = false;
 	debugFinished = false;
-	debugWin = newwin(sizeof(debugInfo) / sizeof(debugInfo[0]) + 2, 24, sdw->_begy + 1, sdw->_begx + 1);
+	debugWin = newwin(sizeof(debugInfo) / sizeof(debugInfo[0]) + 2, 24, sbgw->_begy + 1, sbgw->_begx + 1);
 }
 
 void Game::start() {
@@ -59,37 +57,38 @@ void Game::start() {
 	*/
 	long long elapsedTime = 0;
 	long long numIterations = 0;
+	int ch;
 
 	do {
-		int ch = getch();
+		ch = getch();
 		handleInput(ch);
-
-		updateDebugWin();
+		
 		render();
-		wrefresh(sdw);
-
-		state.previousPos = charPos;
+		updateDebugWin();
+		wrefresh(sbgw);
 		
 		timeManager.update_cycles_per_second(elapsedTime, numIterations, state.fps);
 	} while (state.running == true);
+	
 	nodelay(stdscr, false);
 }
 
 void Game::pause() {
 	state.paused = !state.paused;
 	if (state.paused) {
-		mvwaddstr(state.board.getInfoWindow(), 0, 1, "PAUSED");
-		wrefresh(state.board.getInfoWindow());
+		centering_text(sbiw, 0, "PAUSED");
+		wrefresh(sbiw);
 	} else {
-		box(state.board.getInfoWindow(), 0, 0);
-		wrefresh(state.board.getInfoWindow());
+		wclear(sbiw);
+		box(sbiw, 0, 0);
+		wrefresh(sbiw);
 	}
 }
 
-// This is just to test the game loop compability with character movement
 inline void Game::render() {
-	mvwaddch(sdw, state.previousPos.y, state.previousPos.x, ' ');
-	mvwaddch(sdw, charPos.y, charPos.x, '@');
+	/* Player rendering / Updating local game stats */
+	player.render();
+	charPos = player.getPosition();
 }
 
 void Game::debugStats() {
@@ -101,17 +100,19 @@ void Game::debugStats() {
 	}
 }
 
-
 void Game::handleInput(int ch) {
+	if (ch == ERR) return;
 	for (const input& in : inputMap) {
 		if (ch == in.key) {
 			HANDLE_INPUT(in);
-			break;
+			return;
 		}
 	}
+	CONTROL
+	player.inputHandler(ch);
 }
 
-void Game::updateDebugWin() {
+inline void Game::updateDebugWin() {
 	if (debugMode) {
 		box(debugWin, 0, 0);
 		debugStats();
