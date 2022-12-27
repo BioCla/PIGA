@@ -4,17 +4,18 @@
 // You can just use the enum name to get the color.
 // This should not be modified. If you want to add or remove colors, do it in extended_colors.hpp
 
-#define X(name, hex) name = hex,
-	enum Custom_Colors {
+#define X(name, hex) COLOR_##name, 
+	enum CColor {
 		CC
 	};
 #undef X
+
+#define getCC(name) name + 8
 
 // fg = foreground; bg = background
 
 int is_bold(int fg);
 void init_colorpairs(void);
-short curs_color(int fg);
 int colornum(int fg, int bg);
 void setcolor(int fg, int bg);
 void setcolor(WINDOW* win, int fg, int bg);

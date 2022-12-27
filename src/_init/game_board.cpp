@@ -1,5 +1,6 @@
 #include "../../include/_init/game_board.hpp"
 #include "../../include/util/curses_color_pairing.hpp"
+#include "../../include/util/math_override.tpp"
 
 #define TBHEIGHT 3
 
@@ -15,9 +16,9 @@ void Board::init() {
 	game_window = newwin(getmaxy(stdscr) - (TBHEIGHT * 2), getmaxx(stdscr), TBHEIGHT, 0);
 
 	/* Background */
-	wbkgd(info_window, COLOR_PAIR(colornum(COLOR_BLACK, COLOR_WHITE)));
-	wbkgd(game_window, COLOR_PAIR(colornum(COLOR_WHITE, COLOR_BLACK)));
-	wbkgd(status_window, COLOR_PAIR(colornum(COLOR_BLACK, COLOR_WHITE)));
+	wbkgd(info_window, COLOR_PAIR(cantor(COLOR_BLACK, COLOR_WHITE)));
+	wbkgd(game_window, COLOR_PAIR(cantor(COLOR_WHITE, getCC(COLOR_GRANITE_GRAY))));
+	wbkgd(status_window, COLOR_PAIR(cantor(COLOR_BLACK, COLOR_WHITE)));
 }
 
 void Board::draw() {

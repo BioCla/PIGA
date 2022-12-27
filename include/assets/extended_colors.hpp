@@ -5,8 +5,8 @@
 #define comp(r, g, b) (r << 16) | (g << 8) | b
 #define dcomp(hex) (hex >> 16) & 0xFF, (hex >> 8) & 0xFF, hex & 0xFF
 
-#define init_RGB(r, g, b) init_color(comp(r, g, b), r * CONV_RATIO, g * CONV_RATIO, b * CONV_RATIO)
-#define init_HEX(hex) init_color(hex, dcomp(hex) * CONV_RATIO)
+#define init_RGB(short, r, g, b) init_color(short, r * CONV_RATIO, g * CONV_RATIO, b * CONV_RATIO)
+#define init_HEX(short, hex) init_color(short, dcomp(hex) * CONV_RATIO)
 
 /*
 Only modify this to add or remove colors according to the given structure:

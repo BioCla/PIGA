@@ -20,7 +20,7 @@
  * @example dcantor(0x323232646464) = 0x323232, 0x646464
  * @example dcantor(55191175193700) = 0x323232, 0x646464
 */
-#define dcantor(z) (int)((sqrt(8 * val + 1) - 1) / 2), (int)(z - ((int)((sqrt(8 * val + 1) - 1) / 2) * ((int)((sqrt(8 * val + 1) - 1) / 2) + 1)) / 2)
+#define dcantor(val) (int)((sqrt(8 * val + 1) - 1) / 2), (int)(val - ((int)((sqrt(8 * val + 1) - 1) / 2) * ((int)((sqrt(8 * val + 1) - 1) / 2) + 1)) / 2)
 
 namespace mathy {
 	// Returns the number of digits in a number

@@ -1,4 +1,5 @@
 #include "../../include/classes/Entity.hpp"
+#include "../../include/util/math_override.tpp"
 
 #define prevPos stats.pos.previousPos
 #define currPos stats.pos.currentPos
@@ -64,9 +65,10 @@ bool Entity::isAlive() {
 }
 
 void Entity::render() {
-	setcolor(GW, COLOR_BLACK, COLOR_BLACK);
+	int GWPair = PAIR_NUMBER(GW->_attrs);
+	setcolor(GW, dcantor(GWPair));
 	mvwaddstr(GW, prevPos.y, prevPos.x, " ");
-	unsetcolor(GW, COLOR_BLACK, COLOR_BLACK);
+	unsetcolor(GW, dcantor(GWPair));  
 	
 	prevPos = currPos;
 	if (stats.alive) {
