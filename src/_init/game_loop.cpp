@@ -39,7 +39,7 @@ Game::Game(Board board) {
 	/* Player */
 	charPos = { CENTER_POINT(sbgw), CENTER_POINT(sbgw), RIGHT };
 	player = Player(entityInfo{
-		charPos, true, 100, 10, 100, "@", sbgw, COLOR_WHITE, COLOR_WHITE
+		charPos, true, 100, 10, 100, "@", sbgw, COLOR_GREEN, COLOR_GREEN
 	});
 
 	/* Debug */

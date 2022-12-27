@@ -49,6 +49,8 @@ void unsetcolor(WINDOW* win, int fg, int bg) {
 void test_colors() {
 	mvaddstr(0, 35, "COLOR DEMO");
 	mvaddstr(1, 35, "This might not work if you are on Windows");
+	mvprintw(2, 35, "This terminal supports the following colors: %s", 
+	(tigetnum("colors") == -2 ? "Partially or not compatible" : tigetnum("colors") == -1 ? "ERROR" : std::to_string(tigetnum("colors")).c_str()));
 
 	for (int bg = 0; bg <= 10; bg++) {
 		for (int fg = 0; fg <= 10; fg++) {

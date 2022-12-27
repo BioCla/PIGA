@@ -6,10 +6,7 @@ class Player : public Entity {
 
 	public:
 		Player() : Entity() {};
-		Player(entityInfo stats) : 
-			Entity(stats) {
-				stats.fgColor = COLOR_WHITE; stats.bgColor = COLOR_WHITE;
-			};
+		Player(entityInfo stats) : Entity(stats) {};
 		entityPos getPosition();
 		void inputHandler(int ch);
 };

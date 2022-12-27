@@ -27,6 +27,8 @@ Entity::Entity(entityInfo initStats) {
 	stats.icon = initStats.icon;
 	stats.alive = initStats.alive;
 	stats.damage = initStats.damage;
+	stats.fgColor = initStats.fgColor;
+	stats.bgColor = initStats.bgColor;
 	stats.health = initStats.maxHealth;
 	stats.maxHealth = initStats.maxHealth;
 }
