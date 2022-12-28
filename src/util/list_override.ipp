@@ -1,12 +1,12 @@
 template <typename T>
-T List<T>::front() {
+T List<T>::front() const {
 	if (head)
 		return head->data;
 	return T();
 }
 
 template <typename T>
-int List<T>::size() {
+int List<T>::size() const {
 	int count = 0;
 	Node* current = head;
 	while (current) {
@@ -17,7 +17,7 @@ int List<T>::size() {
 }
 
 template <typename T>
-bool List<T>::empty() {
+bool List<T>::empty() const {
 	return head == nullptr;
 }
 
@@ -42,10 +42,8 @@ void List<T>::reverse() {
 }
 
 template <typename T>
-T List<T>::at(int index) {
-	if (index < 0 || index >= size())
-		return T();
-
+T List<T>::at(int index) const {
+	if (empty() || index < 0 || index >= size()) return T();
 	Node* current = head;
 	for (int i = 0; i < index; i++)
 		current = current->next;
@@ -80,16 +78,16 @@ void List<T>::pop_front() {
 
 template <typename T>
 void List<T>::remove(int index) {
-	if (index < 0 || index >= size())
-		return;
-	else if (index == 0)
-		pop_front();
-	else {
-		Node* current = head;
+	if (empty() || index < 0 || index >= size()) return;
+	Node* current = head;
+	if (index == 0) {
+		head = current->next;
+		delete current;
+	} else {
 		for (int i = 0; i < index - 1; i++)
-			current = current->next;
+			current = current->next; 
 		Node* temp = current->next;
-		current->next = current->next->next;
+		current->next = temp->next;
 		delete temp;
 	}
 }
@@ -116,16 +114,20 @@ void List<T>::push_front(T data) {
 
 template <typename T>
 void List<T>::insert(int index, T data) {
-	if (index < 0 || index > size())
-		return;
-	else if (index == 0)
-		push_front(data);
-	else {
-		Node* newNode = new Node(data);
-		Node* current = head;
-		for (int i = 0; i < index - 1; i++)
-			current = current->next;
-		newNode->next = current->next;
-		current->next = newNode;
-	}
+    if (index < 0)
+        return;
+    if (index == 0 || empty() || index > size()) {
+        push_front(data);
+        return;
+    }
+    if (index == size()) {
+        push_back(data);
+        return;
+    }
+    Node* newNode = new Node(data);
+    Node* current = head;
+    for (int i = 0; i < index - 1; i++)
+        current = current->next;
+    newNode->next = current->next;
+    current->next = newNode;
 }

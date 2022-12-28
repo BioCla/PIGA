@@ -10,20 +10,28 @@ class List {
 			public:
 				T data;
 				Node* next;
-				Node(T data) : data(data), next(nullptr) {}
-				~Node() { delete next; }
+				Node(T data) : data(data) { next = nullptr; }
+				~Node() { next = nullptr; delete next; }
 		};
 		Node* head;
 
 	public:
 		List() : head(nullptr) {}
-		~List() { delete head; }
-		T front();
-		int size();
-		bool empty();
+		~List() {
+			Node* current = head;
+			while (current) {
+				Node* next = current->next;
+				delete current;
+				current = next;
+			}
+			head = nullptr;
+		}
+		T front() const;
+		int size() const;
+		bool empty() const;
 		void clear();
 		void reverse();
-		T at(int index);
+		T at(int index) const;
 		void pop_back();
 		void pop_front();
 		void remove(int index);
@@ -32,10 +40,16 @@ class List {
 		void insert(int index, T data);
 
 		friend std::ostream& operator<<(std::ostream& out, const List<T>& list) {
+			if (list.empty()) {
+				out << "N/D"; 
+				return out;
+			}
 			Node* current = list.head;
 			while (current) {
-				out << current->data << " ";
+				out << current->data;
 				current = current->next;
+				if (current)
+					out << ", ";
 			}
 			return out;
 		}
