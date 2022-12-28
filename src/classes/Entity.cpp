@@ -13,9 +13,9 @@ Entity::Entity() {
 	stats = {
 		{ { 0, 0 }, { 0, 0 }, UP }, // pos
 		true, // alive
-		100, // health
+		0, // health
 		10, // damage
-		100, // maxHealth
+		0, // maxHealth
 		"E", // icon
 		stdscr, // gameWindow
 		COLOR_WHITE, // fgColor

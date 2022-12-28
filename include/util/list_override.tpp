@@ -1,3 +1,5 @@
+#include "../assets/curses_lib_selector.hpp"
+
 #ifndef LIST_HPP
 #define LIST_HPP
 
@@ -14,29 +16,29 @@ class List {
 		Node* head;
 
 	public:
-		struct FindResult {
-			int index;
-			Node* node;
-			FindResult(int index, Node* node) : index(index), node(node) {}
-		};
-
 		List() : head(nullptr) {}
 		~List() { delete head; }
-		int size();
 		T front();
+		int size();
 		bool empty();
 		void clear();
 		void reverse();
 		T at(int index);
 		void pop_back();
 		void pop_front();
-		void print() const;
-		void print(std::function<void(const T&)> printFn) const;
 		void remove(int index);
 		void push_back(T data);
 		void push_front(T data);
-		FindResult find(T data);
 		void insert(int index, T data);
+
+		friend std::ostream& operator<<(std::ostream& out, const List<T>& list) {
+			Node* current = list.head;
+			while (current) {
+				out << current->data << " ";
+				current = current->next;
+			}
+			return out;
+		}
 };
 
 #endif
