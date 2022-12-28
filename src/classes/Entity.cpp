@@ -10,27 +10,21 @@ entityInfo Entity::stats;
 /* This should ever only be used for debugging and for inheritence */
 
 Entity::Entity() {
-	GW = stdscr;
-	stats.icon = "E";
-	stats.damage = 10;
-	stats.alive = true;
-	stats.maxHealth = 100;
-	stats.bgColor = COLOR_BLACK;
-	stats.fgColor = COLOR_WHITE;
-	stats.health = stats.maxHealth;
-	stats.pos = { { 0, 0 }, { 0, 0 }, UP };
+	stats = {
+		{ { 0, 0 }, { 0, 0 }, UP }, // pos
+		true, // alive
+		100, // health
+		10, // damage
+		100, // maxHealth
+		"E", // icon
+		stdscr, // gameWindow
+		COLOR_WHITE, // fgColor
+		COLOR_BLACK, // bgColor
+	};
 }
 
 Entity::Entity(entityInfo initStats) {
-	GW = initStats.gameWindow;
-	stats.pos = initStats.pos;
-	stats.icon = initStats.icon;
-	stats.alive = initStats.alive;
-	stats.damage = initStats.damage;
-	stats.fgColor = initStats.fgColor;
-	stats.bgColor = initStats.bgColor;
-	stats.health = initStats.maxHealth;
-	stats.maxHealth = initStats.maxHealth;
+	stats = initStats;
 }
 
 entityPos Entity::getPosition() {
