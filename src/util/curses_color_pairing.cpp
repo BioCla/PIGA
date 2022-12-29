@@ -1,23 +1,21 @@
 #include "../../include/util/curses_color_pairing.hpp"
 #include "../../include/util/math_override.tpp"
 
-// https://www.linuxjournal.com/content/about-ncurses-colors-0
-
+/* Custom Colors */
 #define X(name, hex) name = hex,
 	enum Custom_Colors {
 		CC
 	};
 #undef X
 
-void init_colorpairs() {
-	/* Custom Colors */
-	#define X(name, hex) name,
-		Custom_Colors CColors[] = {
-			CC
-		};
-	#undef X
-	int CCSize = sizeof(CColors) / sizeof(CColors[0]);
+#define X(name, hex) name,
+	Custom_Colors CColors[] = {
+		CC
+	};
+#undef X
+int CCSize = sizeof(CColors) / sizeof(CColors[0]);
 
+void init_colorpairs() {
 	// Init the CC
 	for (int CIndex = 0; CIndex < CCSize; CIndex++) {
 		init_HEX(getCC(CIndex), CColors[CIndex]);
@@ -52,8 +50,8 @@ void test_colors() {
 	mvprintw(2, 35, "This terminal supports the following colors: %s", 
 	(tigetnum("colors") == -2 ? "Partially or not compatible" : tigetnum("colors") == -1 ? "ERROR" : std::to_string(tigetnum("colors")).c_str()));
 
-	for (int bg = 0; bg <= 10; bg++) {
-		for (int fg = 0; fg <= 10; fg++) {
+	for (int bg = 0; bg <= CCSize + 7; bg++) {
+		for (int fg = 0; fg <= CCSize + 7; fg++) {
 			setcolor(fg, bg);
 			mvaddstr(fg + 3, bg * 10, "...test...");
 			unsetcolor(fg, bg);

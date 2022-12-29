@@ -38,8 +38,8 @@ class Entity {
 		Entity();
 		Entity(entityInfo stats);
 		static void move(direction dir);
-		int takeDamage(int amount);
-		int heal(int amount);
+		static int takeDamage(int amount);
+		static int heal(int amount);
 		bool isAlive();
 		entityPos getPosition();
 		void render();

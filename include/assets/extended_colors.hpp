@@ -1,11 +1,12 @@
 #include "curses_lib_selector.hpp"
 
-#define CONV_RATIO (1000 / 255)
+#define NCR (1000 / 255)
 
 #define comp(r, g, b) (r << 16) | (g << 8) | b
-#define dcomp(hex) ((hex >> 16) & 0xFF) * CONV_RATIO, ((hex >> 8) & 0xFF) * CONV_RATIO, (hex & 0xFF) * CONV_RATIO
+// This will convert the usual RGB (0-255) to the format used by ncurses (0-1000)
+#define dcomp(hex) ((hex >> 16) & 0xFF) * NCR, ((hex >> 8) & 0xFF) * NCR, (hex & 0xFF) * NCR
 
-#define init_RGB(short, r, g, b) init_color(short, r * CONV_RATIO, g * CONV_RATIO, b * CONV_RATIO)
+#define init_RGB(short, r, g, b) init_color(short, r * NCR, g * NCR, b * NCR)
 #define init_HEX(short, hex) init_color(short, dcomp(hex))
 
 /*
@@ -19,4 +20,5 @@ Only modify this to add or remove colors according to the given structure:
 
 #define CC \
 	X(DARK_CHARCOAL, 	comp(50, 50, 50))  		/* 0x323232 */\
-	X(GRANITE_GRAY, 	comp(100, 100, 100)) 	/* 0x646464 */
+	X(GRANITE_GRAY, 	comp(100, 100, 100)) 	/* 0x646464 */\
+	X(VIB_BLUE, 		comp(0, 0, 255)) 		/* 0x0000FF */
