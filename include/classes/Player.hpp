@@ -9,4 +9,6 @@ class Player : public Entity {
 		Player(entityInfo stats) : Entity(stats) {};
 		entityPos getPosition();
 		void inputHandler(int ch);
+		void renderStats();
+		void render();
 };

@@ -1,4 +1,7 @@
 #include "../../include/classes/Player.hpp"
+#include "../../include/util/math_override.tpp"
+
+#define SW stats.gameBoard.getStatusWindow()
 
 input Player::inputMap [] = {
 	{ 'w', [] { move(UP); } },
@@ -21,6 +24,19 @@ void Player::inputHandler(int ch) {
 	}
 }
 
+void Player::renderStats() {
+	int SWPair = PAIR_NUMBER(SW->_attrs);
+	setcolor(SW, dcantor(SWPair));
+	mvwprintw(SW, 1, 1, "Health: %d/%d", stats.health, stats.maxHealth);
+	unsetcolor(SW, dcantor(SWPair));
+	wrefresh(SW);
+}
+
 entityPos Player::getPosition() {
 	return stats.pos;
+}
+
+void Player::render() {
+	Entity::render();
+	renderStats();
 }

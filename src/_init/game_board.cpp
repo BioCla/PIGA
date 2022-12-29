@@ -17,7 +17,7 @@ void Board::init() {
 
 	/* Background */
 	wbkgd(info_window, COLOR_PAIR(cantor(COLOR_BLACK, COLOR_WHITE)));
-	wbkgd(game_window, COLOR_PAIR(cantor(COLOR_WHITE, getCC(COLOR_GRANITE_GRAY))));
+	wbkgd(game_window, COLOR_PAIR(cantor(COLOR_WHITE, getCC(COLOR_DARK_CHARCOAL))));
 	wbkgd(status_window, COLOR_PAIR(cantor(COLOR_BLACK, COLOR_WHITE)));
 }
 

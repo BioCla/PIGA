@@ -1,5 +1,6 @@
 #include "../assets/game_structures.hpp"
 #include "../util/curses_color_pairing.hpp"
+#include "../_init/game_board.hpp"
 
 struct entityPos {
 	point currentPos;
@@ -14,7 +15,7 @@ struct entityInfo {
 	int damage;
 	int maxHealth;
 	const char* icon;
-	WINDOW* gameWindow;
+	Board gameBoard;
 	int fgColor;
 	int bgColor;
 

@@ -3,7 +3,7 @@
 
 #define prevPos stats.pos.previousPos
 #define currPos stats.pos.currentPos
-#define GW stats.gameWindow
+#define GW stats.gameBoard.getGameWindow()
 
 entityInfo Entity::stats;
 
@@ -17,7 +17,7 @@ Entity::Entity() {
 		10, // damage
 		0, // maxHealth
 		"E", // icon
-		stdscr, // gameWindow
+		stats.gameBoard, // gameBoard
 		COLOR_WHITE, // fgColor
 		COLOR_BLACK, // bgColor
 	};

@@ -1,5 +1,4 @@
 #include "../classes/Player.hpp"
-#include "game_board.hpp"
 
 struct game {
 	int score;

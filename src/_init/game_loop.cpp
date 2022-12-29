@@ -39,7 +39,7 @@ Game::Game(Board board) {
 	/* Player */
 	charPos = { CENTER_POINT(sbgw), CENTER_POINT(sbgw), RIGHT };
 	player = Player(entityInfo{
-		charPos, true, 100, 10, 100, "@", sbgw, COLOR_GREEN, COLOR_GREEN
+		charPos, true, 100, 10, 100, "@", board, COLOR_GREEN, COLOR_GREEN
 	});
 
 	/* Debug */
@@ -78,7 +78,7 @@ void Game::start() {
 void Game::pause() {
 	state.paused = !state.paused;
 	if (state.paused) {
-		centering_text(sbiw, 0, "PAUSED");
+		centering_text(sbiw, 0, "||PAUSED||");
 		wrefresh(sbiw);
 	} else {
 		wclear(sbiw);
