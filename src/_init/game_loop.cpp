@@ -10,6 +10,7 @@
 game Game::state;
 bool Game::debugMode = false;
 bool Game::debugFinished = false;
+Player Game::player;
 
 input Game::inputMap[] = {
 	{ KEY_F(1), [] { debugMode = !debugMode; debugFinished = false; } },
@@ -24,7 +25,7 @@ debug_info Game::debugInfo[] = {
 	{ "Pos: ", [] { return "(" + std::to_string(charPos.currentPos.x) + ", " + std::to_string(charPos.currentPos.y) + ")\t"; } },
 	{ "ET: ", [] { return std::to_string((float)(clock() - state.elapsed) / CLOCKS_PER_SEC); } },
 	{ "FPS: ", [] { return std::to_string(state.fps); } },
-	{ " ", [] { return ""; } },
+	{ "Health: ", [] { return std::to_string(player.health(0)) + "\t"; } },
 };
 
 
@@ -38,9 +39,9 @@ Game::Game(Board board) {
 	
 	/* Player */
 	charPos = { CENTER_POINT(sbgw), CENTER_POINT(sbgw), RIGHT };
-	player = Player(entityInfo{
+	player = entityInfo{
 		charPos, true, 30, 10, 100, "@", board, COLOR_GREEN, COLOR_GREEN
-	});
+	};
 
 	/* Debug */
 	debugMode = false;

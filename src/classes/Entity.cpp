@@ -1,9 +1,7 @@
 #include "../../include/classes/Entity.hpp"
-#include "../../include/util/math_override.tpp"
 
 #define prevPos stats.pos.previousPos
 #define currPos stats.pos.currentPos
-#define GW stats.gameBoard.getGameWindow()
 
 entityInfo Entity::stats;
 
@@ -75,5 +73,7 @@ void Entity::render() {
 }
 
 bool Entity::legalMove(point pos) {
-    return ((mvwinch(GW, pos.y, pos.x) & A_CHARTEXT) == PAVE);
+    if ((mvwinch(GW, pos.y, pos.x) & A_CHARTEXT) == PAVE)
+		return true;
+	return false;
 }

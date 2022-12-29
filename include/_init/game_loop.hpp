@@ -18,7 +18,7 @@ struct debug_info {
 
 class Game {
 	private: 
-		Player player;
+		static Player player;
 		WINDOW* debugWin;
 		static game state;
 		static bool debugMode;
@@ -26,7 +26,7 @@ class Game {
 		static input inputMap[];
 		static debug_info debugInfo[];
 		void debugStats();
-		static void pause(); // This needs to be `static` in order to be utilized in the `inputMap`
+		static void pause();
 		inline void render();
 		void handleInput(int ch);
 		inline void updateDebugWin();

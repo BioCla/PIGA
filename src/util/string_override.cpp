@@ -1,6 +1,4 @@
 #include "../../include/util/string_override.hpp"
-#include "../../include/util/math_override.tpp"
-#include "../../include/assets/curses_lib_selector.hpp"
 #include "../../include/assets/game_structures.hpp"
 
 long unsigned int strlen(const char *p) {

@@ -1,4 +1,5 @@
-#include "curses_lib_selector.hpp"
+#include "../util/curses_color_pairing.hpp"
+#include "../util/math_override.tpp"
 
 /* adv/debug */
 #define HANDLE_INPUT(input) (((input).instructions)())
@@ -98,4 +99,12 @@ struct timeMgmt {
 			elapsedTime = 0;
 		}
 	}
+};
+
+enum itemType {
+	DEBUFF = cantor(getCC(COLOR_VIB_RED), getCC(COLOR_VIB_RED)),
+	BUFF = cantor(getCC(COLOR_VIB_GREEN), getCC(COLOR_VIB_GREEN)),
+	WEAPON = cantor(getCC(COLOR_VIB_BLUE), getCC(COLOR_VIB_BLUE)),
+	DEBUG = cantor(getCC(COLOR_VIB_MAGENTA), getCC(COLOR_VIB_MAGENTA)),
+	ARTIFACT = cantor(getCC(COLOR_VIB_YELLOW), getCC(COLOR_VIB_YELLOW)),
 };

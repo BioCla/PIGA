@@ -7,8 +7,10 @@ class Player : public Entity {
 	public:
 		Player() : Entity() {};
 		Player(entityInfo stats) : Entity(stats) {};
-		entityPos getPosition();
 		void inputHandler(int ch);
+		entityPos getPosition();
+		int health(bool mode);
 		void renderStats();
 		void render();
+		bool legalMove(point pos);
 };

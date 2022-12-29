@@ -1,7 +1,4 @@
 #include "../../include/classes/Player.hpp"
-#include "../../include/util/math_override.tpp"
-
-#define SW stats.gameBoard.getStatusWindow()
 
 input Player::inputMap [] = {
 	{ 'w', [] { move(UP); } },
@@ -32,33 +29,36 @@ void Player::inputHandler(int ch) {
 	}
 }
 
-void Player::renderStats() {
-
-	/* Debugging phase */
-	bool visual = false;
+int Player::health(bool mode) {
 	int SWPair = PAIR_NUMBER(SW->_attrs);
-	if (visual) {
+	int numHearts = (int)round(stats.health / 10.0);
+	
+	if (mode) {
 		setcolor(SW, dcantor(SWPair));
 		mvwprintw(SW, 1, 1, "Health: ");
 		unsetcolor(SW, dcantor(SWPair));
 		setcolor(SW, COLOR_RED, COLOR_GREEN);
-		int numHearts = (int)round(stats.health / 10.0);
 		for (int i = 0; i < numHearts; i++) {
 			waddstr(SW, "<3");
 		}
-		setcolor(SW, COLOR_BLACK, COLOR_GREEN);
+		setcolor(SW, COLOR_BLACK, COLOR_WHITE);
 		int numEmptyHearts = stats.maxHealth / 10 - numHearts;
 		for (int i = 0; i < numEmptyHearts; i++) {
 			waddstr(SW, "<3");
 		}
-		unsetcolor(SW, COLOR_BLACK, COLOR_GREEN);
+		unsetcolor(SW, COLOR_BLACK, COLOR_WHITE);
 	} else {
 		setcolor(SW, dcantor(SWPair));
 		mvwprintw(SW, 1, 1, "\t\t\t\t");
 		mvwprintw(SW, 1, 1, "Health: %d/%d", stats.health, stats.maxHealth);
 		unsetcolor(SW, dcantor(SWPair));
 	}
-		wrefresh(SW);
+	return (mode ? numHearts : stats.health);
+}
+
+void Player::renderStats() {
+	health(1);
+	wrefresh(SW);
 }
 
 entityPos Player::getPosition() {
@@ -68,4 +68,8 @@ entityPos Player::getPosition() {
 void Player::render() {
 	Entity::render();
 	renderStats();
+}
+
+bool Player::legalMove(point pos) {
+	return Entity::legalMove(pos);
 }

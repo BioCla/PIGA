@@ -1,6 +1,8 @@
 #include "../assets/game_structures.hpp"
-#include "../util/curses_color_pairing.hpp"
 #include "../_init/game_board.hpp"
+
+#define GW stats.gameBoard.getGameWindow()
+#define SW stats.gameBoard.getStatusWindow()
 
 struct entityPos {
 	point currentPos;

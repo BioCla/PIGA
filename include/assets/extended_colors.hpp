@@ -21,4 +21,8 @@ Only modify this to add or remove colors according to the given structure:
 #define CC \
 	X(DARK_CHARCOAL, 	comp(50, 50, 50))  		/* 0x323232 */\
 	X(GRANITE_GRAY, 	comp(100, 100, 100)) 	/* 0x646464 */\
-	X(VIB_BLUE, 		comp(0, 0, 255)) 		/* 0x0000FF */
+	X(VIB_BLUE, 		comp(0, 0, 255)) 		/* 0x0000FF */\
+	X(VIB_GREEN, 		comp(0, 255, 0)) 		/* 0x00FF00 */\
+	X(VIB_RED, 			comp(255, 0, 0)) 		/* 0xFF0000 */\
+	X(VIB_YELLOW, 		comp(255, 255, 0)) 		/* 0xFFFF00 */\
+	X(VIB_MAGENTA, 		comp(255, 0, 255)) 		/* 0xFF00FF */
