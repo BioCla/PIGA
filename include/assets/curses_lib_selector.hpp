@@ -14,7 +14,6 @@
 	#include <stdlib.h>
 	#include <iostream>
 	#include <functional>
-	#include <type_traits>
 #endif
 
 #define KEY_BUFFER_SIZE 4

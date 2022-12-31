@@ -14,9 +14,7 @@
 
 // fg = foreground; bg = background
 
-int is_bold(int fg);
 void init_colorpairs(void);
-int colornum(int fg, int bg);
 void setcolor(int fg, int bg);
 void setcolor(WINDOW* win, int fg, int bg);
 void unsetcolor(int fg, int bg);
