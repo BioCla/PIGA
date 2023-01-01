@@ -116,11 +116,11 @@ template <typename T>
 void List<T>::insert(int index, T data) {
     if (index < 0)
         return;
-    if (index == 0 || empty() || index > size()) {
+    if (index == 0 || empty()) {
         push_front(data);
         return;
     }
-    if (index == size()) {
+    if (index >= size()) {
         push_back(data);
         return;
     }

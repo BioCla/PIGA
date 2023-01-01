@@ -40,18 +40,61 @@ class List {
 		void insert(int index, T data);
 
 		friend std::ostream& operator<<(std::ostream& out, const List<T>& list) {
+			out << "[";
 			if (list.empty()) {
 				out << "N/D"; 
-				return out;
+				return out << "]";
 			}
 			Node* current = list.head;
 			while (current) {
 				out << current->data;
 				current = current->next;
-				if (current)
-					out << ", ";
+				if (current) out << ", ";
 			}
-			return out;
+			return out << "]";
+		}
+
+		List(const List& other) {
+			head = nullptr;
+			Node* current = other.head;
+			while (current) {
+				push_back(current->data);
+				current = current->next;
+			}
+		}
+
+		List& operator=(const List& other) {
+			if (this != &other) {
+				clear();
+				Node* current = other.head;
+				while (current) {
+					push_back(current->data);
+					current = current->next;
+				}
+			}
+			return *this;
+		}
+
+		T& operator[](int index) {
+			if (index < 0 || index >= size()) {
+				throw std::out_of_range("Index out of range");
+			}
+			Node* current = head;
+			for (int i = 0; i < index; i++) {
+				current = current->next;
+			}
+			return current->data;
+		}
+
+		const T& operator[](int index) const {
+			if (index < 0 || index >= size()) {
+				throw std::out_of_range("Index out of range");
+			}
+			Node* current = head;
+			for (int i = 0; i < index; i++) {
+				current = current->next;
+			}
+			return current->data;
 		}
 };
 

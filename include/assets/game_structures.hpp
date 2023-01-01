@@ -35,6 +35,12 @@ struct point {
 		return out;
 	}
 
+	friend std::string to_string(const point& p) {
+		std::ostringstream ss;
+		ss << p;
+		return std::move(ss).str();
+	}
+
 	static inline point dirToPoint(direction dir) {
 		switch (dir) {
 			case UP:

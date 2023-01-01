@@ -22,7 +22,7 @@ debug_info Game::debugInfo[] = {
 	{ "Status: ", [] { return state.paused ? "PAUSED" : "RUNNING"; } },
 	{ "Score: ", [] { return std::to_string(state.score); } },
 	{ "Dir: ", [] { return dirToString(charPos.dir); } },
-	{ "Pos: ", [] { return "(" + std::to_string(charPos.currentPos.x) + ", " + std::to_string(charPos.currentPos.y) + ")"; } },
+	{ "Pos: ", [] { return to_string(charPos.currentPos); } },
 	{ "ET: ", [] { return std::to_string((float)(clock() - state.elapsed) / CLOCKS_PER_SEC); } },
 	{ "FPS: ", [] { return std::to_string(state.fps); } },
 	{ "Health: ", [] { return std::to_string(player.health(0)); } },
@@ -80,12 +80,10 @@ void Game::pause() {
 	state.paused = !state.paused;
 	if (state.paused) {
 		centering_text(sbiw, 0, "||PAUSED||");
-		wrefresh(sbiw);
 	} else {
-		wclear(sbiw);
 		box(sbiw, 0, 0);
-		wrefresh(sbiw);
 	}
+	wrefresh(sbiw);
 }
 
 inline void Game::render() {
@@ -119,10 +117,9 @@ inline void Game::updateDebugWin() {
 	if (debugMode) {
 		box(debugWin, 0, 0);
 		debugStats();
-		wrefresh(debugWin);	
 	} else if (!debugFinished) {
 		wclear(debugWin);
-		wrefresh(debugWin);
 		debugFinished = true;
 	}
+	wrefresh(debugWin);
 }

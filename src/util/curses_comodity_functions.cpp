@@ -111,6 +111,5 @@ void updateString(WINDOW* window, int y, int x, const char* newStr, ...) {
 		}
 		newStr++;
 	}
-
 	va_end(args);
 }
