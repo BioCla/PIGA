@@ -1,4 +1,5 @@
 #include "../../include/classes/Player.hpp"
+#include "../../include/util/curses_comodity_functions.hpp"
 
 input Player::inputMap [] = {
 	{ 'w', [] { move(UP); } },
@@ -49,15 +50,14 @@ int Player::health(bool mode) {
 		unsetcolor(SW, COLOR_BLACK, COLOR_WHITE);
 	} else {
 		setcolor(SW, dcantor(SWPair));
-		mvwprintw(SW, 1, 1, "\t\t\t\t");
-		mvwprintw(SW, 1, 1, "Health: %d/%d", stats.health, stats.maxHealth);
+		updateString(SW, 1, 1, "Health: %d/%d", stats.health, stats.maxHealth);
 		unsetcolor(SW, dcantor(SWPair));
 	}
 	return (mode ? numHearts : stats.health);
 }
 
 void Player::renderStats() {
-	health(1);
+	health(0);
 	wrefresh(SW);
 }
 

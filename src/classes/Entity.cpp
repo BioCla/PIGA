@@ -69,6 +69,8 @@ void Entity::render() {
 		setcolor(GW, stats.fgColor, stats.bgColor);
 		mvwaddstr(GW, currPos.y, currPos.x, stats.icon);
 		unsetcolor(GW, stats.fgColor, stats.bgColor);
+	} else {
+		delete this;
 	}
 }
 

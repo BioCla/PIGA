@@ -19,13 +19,13 @@ input Game::inputMap[] = {
 };
 
 debug_info Game::debugInfo[] = {
-	{ "Status: ", [] { return state.paused ? "PAUSED " : "RUNNING"; } },
+	{ "Status: ", [] { return state.paused ? "PAUSED" : "RUNNING"; } },
 	{ "Score: ", [] { return std::to_string(state.score); } },
 	{ "Dir: ", [] { return dirToString(charPos.dir); } },
-	{ "Pos: ", [] { return "(" + std::to_string(charPos.currentPos.x) + ", " + std::to_string(charPos.currentPos.y) + ")\t"; } },
+	{ "Pos: ", [] { return "(" + std::to_string(charPos.currentPos.x) + ", " + std::to_string(charPos.currentPos.y) + ")"; } },
 	{ "ET: ", [] { return std::to_string((float)(clock() - state.elapsed) / CLOCKS_PER_SEC); } },
 	{ "FPS: ", [] { return std::to_string(state.fps); } },
-	{ "Health: ", [] { return std::to_string(player.health(0)) + "\t"; } },
+	{ "Health: ", [] { return std::to_string(player.health(0)); } },
 };
 
 
@@ -98,7 +98,7 @@ void Game::debugStats() {
 	if (debugWin != NULL) {
 		int y = 1;
 		for (const debug_info& info : debugInfo) {
-			mvwprintw(debugWin, y++, 1, "%s%s", info.label.c_str(), info.value().c_str());
+			updateString(debugWin, y++, 1, "%s%s", info.label.c_str(), info.value().c_str());
 		}
 	}
 }

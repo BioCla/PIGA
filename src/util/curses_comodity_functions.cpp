@@ -45,3 +45,72 @@ void printScreenSize(WINDOW *win) {
 	mvwaddstr(stdscr, y, x + dif + 1, "x");
 	mvwaddint(stdscr, y, x + dif + 3, height);
 }
+
+/* void updateString(WINDOW* window, int y, int x, const char* newStr, ...) {
+	int len = mvwinch(window, y, x) & A_CHARTEXT;
+	mvwhline(window, y, x, ' ', len);
+	
+	va_list args;
+	va_start(args, newStr);
+	mvwprintw(window, y, x, newStr, va_arg(args, char*));
+	va_end(args);
+} */
+
+
+void updateString(WINDOW* window, int y, int x, const char* newStr, ...) {
+	mvwhline(window, y, x, ' ', window->_maxx - x);
+
+	va_list args;
+	va_start(args, newStr);
+
+	char nullStr[] = "(null)";
+	while (*newStr != '\0') {
+		if (*newStr == '%') {
+			newStr++;
+			if (*newStr == 's') {
+				char* str = va_arg(args, char*);
+				if (str == NULL) {
+					str = nullStr;
+				}
+				int i;
+				for (i = 0; str[i] != '\0'; i++) {
+					waddch(window, str[i]);
+				}
+				x += i;
+			} else if (*newStr == 'd') {
+				int num = va_arg(args, int);
+				char str[16];
+				sprintf(str, "%d", num);
+				int i;
+				for (i = 0; str[i] != '\0'; i++) {
+					waddch(window, str[i]);
+				}
+				x += i;
+			} else if (*newStr == 'f') {
+				double num = va_arg(args, double);
+				char str[32];
+				sprintf(str, "%f", num);
+				int i;
+				for (i = 0; str[i] != '\0'; i++) {
+					waddch(window, str[i]);
+				}
+				x += i;
+			} else if (*newStr == 'c') {
+				char c = (char) va_arg(args, int);
+				waddch(window, c);
+				x++;
+			} else {
+				waddch(window, '%');
+				x++;
+				waddch(window, *newStr);
+				x++;
+			}
+		} else {
+			waddch(window, *newStr);
+			x++;
+		}
+		newStr++;
+	}
+
+	va_end(args);
+}
