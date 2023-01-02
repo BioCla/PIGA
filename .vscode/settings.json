@@ -47,7 +47,9 @@
 		"type_traits": "cpp",
 		"utility": "cpp",
 		"initializer_list": "cpp",
-		"*.ipp": "cpp"
+		"*.ipp": "cpp",
+		"typeindex": "cpp",
+		"iomanip": "cpp"
 	},
 	"makefile.launchConfigurations": [
 		{

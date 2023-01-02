@@ -6,7 +6,7 @@ struct itemProperties {
 	const char* description;
 
 	friend std::ostream& operator<<(std::ostream& out, const itemProperties& p) {
-		out << "type: " << p.type << std::endl;
+		out << "type: " << itemTypeToString(p.type) << std::endl;
 		out << "name: " << p.name << std::endl;
 		out << "description: " << p.description << std::endl;
 		return out;

@@ -34,6 +34,7 @@ class List {
 		T at(int index) const;
 		void pop_back();
 		void pop_front();
+		bool contains(T data) const;
 		void remove(int index);
 		void push_back(T data);
 		void push_front(T data);

@@ -17,16 +17,33 @@ char* intstr(int input) {
 	return text;
 }
 
+const char* itemTypeToString(itemType type) {
+	switch (type) {
+		case DEBUFF:
+			return "DEBUFF";
+		case BUFF:
+			return "BUFF";
+		case WEAPON:
+			return "WEAPON";
+		case DEBUG:
+			return "DEBUG";
+		case ARTIFACT:
+			return "ARTIFACT";
+		default:
+			return "UNKNOWN";
+	}
+}
+
 const char* dirToString(direction dir) {
 	switch (dir) {
 		case UP:
-			return "UP\t";
+			return "UP";
 		case DOWN:
-			return "DOWN\t";
+			return "DOWN";
 		case RIGHT:
-			return "RIGHT\t";
+			return "RIGHT";
 		case LEFT:
-			return "LEFT\t";
+			return "LEFT";
 		default:
 			return "UNKNOWN";
 	}

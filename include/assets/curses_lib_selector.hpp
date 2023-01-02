@@ -10,11 +10,13 @@
 	#include <math.h>
 	#include <chrono>
 	#include <string>
+	#include <iomanip>
 	#include <stdio.h>
 	#include <sstream>
 	#include <stdlib.h>
 	#include <iostream>
 	#include <functional>
+	#include <unordered_map>
 #endif
 
 #define KEY_BUFFER_SIZE 4

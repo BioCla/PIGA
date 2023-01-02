@@ -22,11 +22,6 @@ enum direction {
 	DEFAULT
 };
 
-/**
- * this is defined in "../../src/util/string_override.cpp"
-*/ 
-const char* dirToString(direction dir);
-
 struct point {
 	int x, y;
 
@@ -114,3 +109,9 @@ enum itemType {
 	DEBUG = cantor(getCC(COLOR_VIB_MAGENTA), getCC(COLOR_VIB_MAGENTA)),
 	ARTIFACT = cantor(getCC(COLOR_VIB_YELLOW), getCC(COLOR_VIB_YELLOW)),
 };
+
+/**
+ * this is defined in "../../src/util/string_override.cpp"
+*/ 
+const char* dirToString(direction dir);
+const char* itemTypeToString(itemType type);

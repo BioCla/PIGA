@@ -3,8 +3,6 @@
 
 #include "../assets/curses_lib_selector.hpp"
 
-#define erase(y, x) werase(stdscr, y, x)
-
 void init();
 void centering_text(WINDOW *terminal, int first_row, const char *string);
 void empty();

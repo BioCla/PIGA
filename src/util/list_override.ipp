@@ -77,6 +77,17 @@ void List<T>::pop_front() {
 }
 
 template <typename T>
+bool List<T>::contains(T data) const {
+	Node* current = head;
+	while (current) {
+		if (current->data == data)
+			return true;
+		current = current->next;
+	}
+	return false;
+}
+
+template <typename T>
 void List<T>::remove(int index) {
 	if (empty() || index < 0 || index >= size()) return;
 	Node* current = head;

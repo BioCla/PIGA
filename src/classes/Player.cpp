@@ -71,5 +71,6 @@ void Player::render() {
 }
 
 bool Player::legalMove(point pos) {
-	return Entity::legalMove(pos);
+	return Entity::legalMove(pos) 
+	/* check for Items */;
 }
