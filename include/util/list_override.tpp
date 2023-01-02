@@ -1,6 +1,8 @@
 #ifndef LIST_HPP
 #define LIST_HPP
 
+#include "../assets/curses_lib_selector.hpp"
+
 template <typename T> 
 class List {
 	private:
