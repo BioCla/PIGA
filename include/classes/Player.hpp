@@ -1,4 +1,5 @@
 #include "Entity.hpp"
+#include "Projectile.hpp"
 
 class Player : public Entity {
 	private:

@@ -9,10 +9,6 @@
 /* blocks */
 #define WALL      '#'
 #define PAVE      ' '
-#define ROCK      '^'
-#define ENEMY     'A'
-#define PLAYER    '@'
-#define PROJCTL   '*'
 
 enum direction {
 	UP,

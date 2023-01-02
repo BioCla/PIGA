@@ -1,5 +1,6 @@
 #include "../../include/_init/game_loop.hpp"
 #include "../../include/util/curses_comodity_functions.hpp"
+#include "../../include/classes/Enemy.hpp"
 
 #define CONTROL if(!state.paused)
 #define charPos state.charStats.pos

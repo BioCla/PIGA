@@ -1,4 +1,8 @@
+#ifndef ENTITY_HPP
+#define ENTITY_HPP
+
 #include "../assets/game_structures.hpp"
+#include "../util/list_override.tpp"
 #include "../_init/game_board.hpp"
 
 #define GW stats.gameBoard.getGameWindow()
@@ -47,3 +51,5 @@ class Entity {
 		void render();
 		static bool legalMove(point pos);
 };
+
+#endif

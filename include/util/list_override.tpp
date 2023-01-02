@@ -1,5 +1,3 @@
-#include "../assets/curses_lib_selector.hpp"
-
 #ifndef LIST_HPP
 #define LIST_HPP
 
@@ -99,6 +97,6 @@ class List {
 		}
 };
 
-#endif
-
 #include "../../src/util/list_override.ipp"
+
+#endif

@@ -1,5 +1,4 @@
 #include "Entity.hpp"
-#include "../util/list_override.tpp"
 #include "Projectile.hpp"
 
 /* Pathing */
@@ -11,8 +10,8 @@ enum pathing {
 
 struct enemyStats {
 	pathing path;
-	SYS_CLOCK::time_point last_move;
-	SYS_CLOCK::time_point last_shot;
+	SYS_CLOCK::time_point _move;
+	SYS_CLOCK::time_point _shot;
 	List<Projectile> projectiles;
 };
 
@@ -26,8 +25,8 @@ class Enemy: public Entity {
 		Enemy(entityInfo stats) : 
 			Entity(stats) {
 				eStats.path = LINEAR;
-				eStats.last_move = SYS_CLOCK::now();
-				eStats.last_shot = SYS_CLOCK::now();
+				eStats._move = SYS_CLOCK::now();
+				eStats._shot = SYS_CLOCK::now();
 				stats.fgColor = COLOR_RED; stats.bgColor = COLOR_RED;
 			};
 };
