@@ -29,14 +29,15 @@ Haz3:
 
 GENERALI
 
+- score (bisogna trovare una posizione in cui salvare l'intero in modo che sia accessibile da tutte le classi che devono modificarlo)
+
 - mappa/porte [Catti]
 - items (sub entity) [Brian] ~
 - GUI[] (
  Gestire lo schermo, partizionare la std screen
  creare diverse windows (NCURSES) e gestioni separate
 )
-- Score (quando uccidi un nemico, assegna un qualche punteggio cumulativo). si potrebbe mettere sotto la vita, dove adesso ci sono le
-   posizioni usate per il debug
+
 
 OPZIONALI
 

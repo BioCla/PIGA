@@ -20,7 +20,7 @@ using namespace std;
 #define BOARD_COLS BOARD_DIM * 2.5
 */
 
-int main(int argc, char **argv)
+int main()
 {
 	initscr();
 	refresh();
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 	character_initial_position.x = 5;
 	character_initial_position.y = 5;
 	Character p = Character("@", character_initial_position, 30, "*", 5, 100, board.getWin());
-	p.move(character_initial_position.x, character_initial_position.y);
+	p.move(character_initial_position);
 
 	int GAME_TOTAL_SCORE = 0;   //da implementare
 
@@ -70,8 +70,8 @@ int main(int argc, char **argv)
 	//DEBUG -
 	// prova delle collisioni
 
-	bool DEBUGCOLLISIONI = false;
-	int projheadx, projheady;
+	//bool DEBUGCOLLISIONI = false;
+	//int projheadx, projheady;
 	//int enheadx, enheady;
 	//servono per stampare le posizioni delle teste della lista
 
@@ -140,13 +140,6 @@ int main(int argc, char **argv)
 	// /DEBUG
 
 	
-
-	//strutture per tenere proiettili e superproiettili
-	List<Projectile> *projectilesList;
-	projectilesList = board.getProjectilesList();
-	List<SuperProjectile>* superProjectilesList;
-	superProjectilesList = board.getSuperProjectilesList();
-	
 	//gestione del tempo
 	system_clock::time_point time_now = system_clock::now();
 	
@@ -161,10 +154,10 @@ int main(int argc, char **argv)
 		board.getItemsList()->spawnEntities();
 
 		board.refreshEnemies(time_now,p.getCurrentPosition());
-		projectilesList->moveEntities(time_now);
-		projectilesList->removeDeadEntities();
+		board.getProjectilesList()->moveEntities(time_now);
+		board.getProjectilesList()->removeDeadEntities();
 
-		refreshSuperProjectiles(time_now, superProjectilesList, projectilesList);
+		refreshSuperProjectiles(time_now, board.getSuperProjectilesList(), board.getProjectilesList());
 
 
 		/*     DEBUG ma può far comodo quindi rimane commentato
@@ -217,7 +210,7 @@ int main(int argc, char **argv)
 
 			//FUNZIONEDEBUG(); 
 			cout << "numero nemici: " << (*board.getEnemiesList()).listLength() << endl;
-			cout << "n proiettili sul main: " << (*projectilesList).listLength() << endl;
+			cout << "n proiettili sul main: " << (*board.getProjectilesList()).listLength() << endl;
 			//cout << "posizione thiccboi x: " << thiccboi.getCurrentPosition().x << ", y: " << thiccboi.getCurrentPosition().y << endl;
 			cout << "numero proiettili board: " << (*board.getProjectilesList()).listLength() << endl;
 			//cout << "posizione head proj x: " << projectilesList.getHead().getCurrentPosition().x << "y, : " << projectilesList.getHead().getCurrentPosition().x << endl;
@@ -244,7 +237,7 @@ int main(int argc, char **argv)
 		}
 
 		board.getEnemiesList()->spawnEntities();    //se un nemico viene colpito ma non muore la sua icona rimane. altrimenti "scompare" fino al suo prox movimento
-		p.move(p.getCurrentPosition().x,p.getCurrentPosition().y);  //si assicura che il personaggio sia in primo piano
+		p.move(p.getCurrentPosition());  //si assicura che il personaggio sia in primo piano
 		refresh();
 		
 		//flushinp(); //svuota la coda di input

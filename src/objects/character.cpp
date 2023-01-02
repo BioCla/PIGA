@@ -104,10 +104,15 @@ int Character::getLastDirection() {
     return last_direction_taken;
 }
 
-void Character::move(int x, int y) {
+void Character::deleteIcon() {
+    wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
+    mvwprintw(current_room_win, current_position.y, current_position.x, " ");
+    wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
+}
 
-    current_position.x=x;
-    current_position.y=y;
+void Character::move(Position pos) {
+
+    current_position = pos;
     wattron(current_room_win, COLOR_PAIR(PLAYER_PAIR));
     mvwprintw(current_room_win, current_position.y, current_position.x, icon);
     wattroff(current_room_win, COLOR_PAIR(PLAYER_PAIR));
@@ -115,91 +120,64 @@ void Character::move(int x, int y) {
 }
 
 void Character::HandleInput(int input){
-
+    bool moving = false;    //se input è un tasto per muoversi, questo booleano si attiva, e con esso le funzioni per muoversi
+                            //senza, il personaggio continua a muoversi nell'ultima direzione presa, come se pattinasse sul ghiaccio
     switch(input){
 
         /*si muove in su*/
         case 'w':
         case 'W':
             last_direction_taken = DIR_NORTH;
-            if (legalMove(current_position.x, current_position.y - 1)) {
-                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
-                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                current_position.y--;
-                move(current_position.x, current_position.y);
-            }
-            
-            else if (steppedOnEnemy(current_position.x, current_position.y - 1)) {
-                this->health = this->health - 5;
-            }
+            moving = true;
             break;
 
         /*si muove a destra*/
         case 'd':
         case 'D':
             last_direction_taken = DIR_EAST;
-            if(legalMove(current_position.x + 1, current_position.y)) {
-                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
-                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                current_position.x++;
-                move(current_position.x, current_position.y);
-            }
-
-            else if (steppedOnEnemy(current_position.x + 1, current_position.y)) {
-                this->health = this->health - 5;
-            }
+            moving = true;
             break;
 
         /*si muove in giù*/
         case 's':
         case 'S':
             last_direction_taken = DIR_SOUTH;
-            if(legalMove(current_position.x, current_position.y + 1)) {
-                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
-                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                current_position.y++;
-                move(current_position.x, current_position.y);
-            }
-
-            else if (steppedOnEnemy(current_position.x, current_position.y + 1)) {
-                this->health = this->health - 5;
-            }
+            moving = true;
             break;
 
         /*si muove a sinistra*/
         case 'a':
         case 'A':
             last_direction_taken = DIR_WEST;
-            if(legalMove(current_position.x - 1, current_position.y)) {
-                wattron(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                mvwprintw(current_room_win, current_position.y, current_position.x, " ");
-                wattroff(current_room_win, COLOR_PAIR(PAVE_PAIR));
-                current_position.x--;
-                move(current_position.x, current_position.y);
-            }
-
-            else if (steppedOnEnemy(current_position.x - 1, current_position.y)) {
-                this->health = this->health - 5;
-            }
+            moving = true;
             break;
 
+        /* spara */
         case 'f':
         case 'F':
             shoot();
             break;
+
         default:
             break;   
+    }
+
+    if (moving) {
+        if (legalMove(current_position + dirToPosition(last_direction_taken))) {
+            deleteIcon();
+            move(current_position + dirToPosition(last_direction_taken));
+        }  
+        else if (steppedOnEnemy(current_position + dirToPosition(last_direction_taken))) {
+            this->health = this->health - 5;
+        }
     }
 
     wrefresh(current_room_win);
 }
 
-bool Character::legalMove(int posx, int posy) {
+bool Character::legalMove(Position pos) {
     int k;
-    k =  mvwinch(current_room_win, posy,posx);
+    k =  mvwinch(current_room_win, pos.y, pos.x);
     k = k & A_CHARTEXT;
     return ((k == PAVE) || (k == 42) || (k == 79) || (k == 75) || (k == 72) || (k == 68) || (k == 83) || (k == 104) || (k == 100) || (k == 115) || (k == 76) || (k == 66) || (k == 86) || (k == 80));   
     //----  il personaggio può camminare SOLO su questi caratteri:  -------
@@ -217,9 +195,9 @@ bool Character::legalMove(int posx, int posy) {
     //80 = "P"
 } 
 
-bool Character::steppedOnEnemy(int posx, int posy) {
+bool Character::steppedOnEnemy(Position pos) {
     int k;
-    k =  mvwinch(current_room_win, posy,posx);
+    k =  mvwinch(current_room_win, pos.y, pos.x);
     k = k & A_CHARTEXT;
     return (k == 65);   //65 = "A"    ossia i nemici
 }
@@ -230,7 +208,7 @@ void Character::shoot() {
             createSuperProjectile(superProjectilesList, "O", current_position, last_direction_taken, damage, projectile_moving_frequency, 600, projectile_moving_frequency*2, projectile_icon, current_room_win);
             break;
         case LASER:
-            createLaser(last_direction_taken, projectilesList);
+            createLaser(projectilesList);
             break;
         case BASE:
         default:
@@ -246,54 +224,34 @@ void Character::createProjectile(int direction, List<Projectile> *projectilesLis
     projectilesList->headInsert(newProjectile);
 }
 
-void Character::createLaser(int direction, List<Projectile>* projectilesList) {
-    Position pos = this->current_position;
+void Character::createLaser(List<Projectile>* projectilesList) {
+    Position pos;
     Projectile newProjectile;
 
     //sposta    pos    per entrare nel ciclo sotto
     switch(last_direction_taken) {
         case DIR_NORTH:
-            pos.y--;
-            projectile_icon = "|";
-            break;
-        case DIR_EAST:
-            pos.x++;
-            projectile_icon = "-";
-            break;
         case DIR_SOUTH:
-            pos.y++;
             projectile_icon = "|";
             break;
+
+        case DIR_EAST:
         case DIR_WEST:
-            pos.x--;
             projectile_icon = "-";
             break;
+
         default:
             break;
     }
+    pos = this->current_position + dirToPosition(last_direction_taken);
 
     //spawna proiettili finchè non incontra un muro o qualsiasi cosa che blocchi un laser
-    while(legalMove(pos.x, pos.y)) {
+    while(legalMove(pos)) {
 
         newProjectile = Projectile(projectile_icon, pos, last_direction_taken, damage, 1, true ,current_room_win);
         projectilesList->headInsert(newProjectile);
 
-        switch(last_direction_taken) {
-            case DIR_NORTH:
-                pos.y--;
-                break;
-            case DIR_EAST:
-                pos.x++;
-                break;
-            case DIR_SOUTH:
-                pos.y++;
-                break;
-            case DIR_WEST:
-                pos.x--;
-                break;
-            default:
-                break;
-        }
+        pos = pos + dirToPosition(last_direction_taken);
     }
 
 }

@@ -48,13 +48,14 @@ class Character : public Entity{
         void setRoomWin(WINDOW* set);
         WINDOW* getRoomWin();
         int getLastDirection();
-        void move(int x, int y);
+        void deleteIcon();
+        void move(Position pos);
         void HandleInput(int input);
-        bool legalMove(int posx, int posy);
-        bool steppedOnEnemy(int posx, int posy);
+        bool legalMove(Position pos);
+        bool steppedOnEnemy(Position pos);
         void shoot();
         void createProjectile(int direction, List<Projectile> *projectilesList);
-        void createLaser(int direction, List<Projectile> *projectilesList);
+        void createLaser(List<Projectile> *projectilesList);
         Weapon getWeapon();
         void setWeapon(Weapon weapon);
 		void addToInventory(int ID);

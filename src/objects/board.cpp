@@ -123,7 +123,6 @@ void Board::checkHits(){
 	}
 }
 
-
 void Board::generateEnemies(){
 	int ne = (rand() % 3) + 4;
 	for(int i=0;i<ne;i++){
@@ -189,6 +188,7 @@ void Board::generateItems() {
 		itemsList.headInsert(newItem);
 	}
 
+	//spawna buff
 	for(i = 0; i < n_buffs; i++) {
 		id = rand() % 4;
 		if (id == 3) id = 9;   //i buff sono 0,1,2,9
@@ -197,6 +197,7 @@ void Board::generateItems() {
 		itemsList.headInsert(newItem);
 	}
 
+	//spawna debuff
 	for(i = 0; i < n_debuffs; i++) {
 		id = rand() % 3 + 3;
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
@@ -204,6 +205,7 @@ void Board::generateItems() {
 		itemsList.headInsert(newItem);
 	}
 
+	//spawna armi
 	for(i = 0; i < n_weapons; i++) {
 		id = rand() % 3 + 7;
 		if (id == 9) id = 12;   //i weapon sono 7,8,12

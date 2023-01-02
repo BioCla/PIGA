@@ -24,7 +24,7 @@ class Projectile : public Entity {
         void setPosition(Position set);
         void move();
         void checkIfTimeToMove(system_clock::time_point time_now);
-        bool collisionWithRoomWall(int posx, int posy);
+        bool collisionWithRoomWall(Position pos);
         bool outOfBorder();
         bool checkifAllied();
         void setDamage(int damage);

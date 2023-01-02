@@ -4,6 +4,7 @@
 #include "../assets/hch.h"
 #include "../objects/superProjectile.hpp"
 #include "listUtils.hpp"
+#include "../assets/directions.hpp"
 #include <chrono>
 
 #define EMPTY ' '
@@ -17,10 +18,6 @@
 #define BS_COLOR_PAIR 			4
 #define FS_COLOR_PAIR 			5
 
-#define DIR_NORTH 0
-#define DIR_EAST 1
-#define DIR_SOUTH 2
-#define DIR_WEST 3
 
 
 #define BOARD_DIM 35
