@@ -60,7 +60,7 @@ void Projectile::checkIfTimeToMove(system_clock::time_point time_now) {
 
 bool Projectile::collisionWithRoomWall(Position pos) {
     bool collided = false;
-    int k = mvwinch(stdscr, pos.y, pos.x) & A_CHARTEXT;
+    int k = mvwinch(current_room_win, pos.y, pos.x) & A_CHARTEXT;
 
     if(k == 35) {   //35 = "#"
         collided = true;

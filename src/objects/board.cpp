@@ -3,17 +3,21 @@
 using namespace std;
 
 
-/*Board::Board(){ 
+Board::Board(){ 
 	int xMax, yMax;
-	int height=10;
-	int width=20;
-
+	int height=BOARD_ROWS;
+	int width=BOARD_COLS;
+	
 	getmaxyx(stdscr, yMax, xMax);
 	board_win = newwin(height, width, (yMax/2)-(height/2), (xMax/2)-(width/2));
+	getbegyx(board_win, yMin, xMin);
+	getmaxyx(board_win, yMax, xMax);
 	initialize();
-}*/
 
-Board::Board(int screen_height, int screen_width){
+	level_number = 0;
+}
+
+Board::Board(int screen_height, int screen_width, int level_number){
 	this->screen_height = screen_height;
 	this->screen_width = screen_width;
 	getmaxyx(stdscr, yMax, xMax);
@@ -21,6 +25,10 @@ Board::Board(int screen_height, int screen_width){
 	getbegyx(board_win, yMin, xMin);
 	getmaxyx(board_win, yMax, xMax);
 	initialize();
+
+	this->level_number = level_number;
+	generateEnemies();
+	generateItems();
 }
 
 
@@ -37,16 +45,17 @@ void Board::init(){
 }
 
 void Board::addBorder(){
+	fill();
 	wattron(board_win, COLOR_PAIR(WALL_PAIR));
 	for(int fy = 0; fy <= yMax; fy++){
 		for(int fx = 0; fx <= xMax; fx++){
-			if(fx == 0 || fy == 0 || fx == xMax-1|| fy == yMax-1){ //è +2 per il numero massimo perchè si conta 2 volte l'errore relativo alla window				
+			if(fx == 0 || fy == 0 || fx == xMax-1 || fy == yMax-1){ //è +2 per il numero massimo perchè si conta 2 volte l'errore relativo alla window				
 				mvwaddch(board_win, fy, fx, WALL);
 			}			
 		}
 	}
 	wattroff(board_win, COLOR_PAIR(WALL_PAIR));
-	fill();
+	wrefresh(board_win);
 }
 
 
@@ -289,5 +298,6 @@ void Board::checkItemCollisions(Character *p) {
 	
 }
 
-
-
+int Board::getLevelNumber() {
+	return level_number;
+}

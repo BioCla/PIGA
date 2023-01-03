@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <chrono>
 #include "../assets/position.hpp"
+#include "../assets/curses_lib_selector.hpp"
 
 template <typename T> class Node{
 
@@ -10,10 +11,12 @@ template <typename T> class Node{
         T data;
         Node<T> *next;
         template <typename U> friend class List;
+        
     public:
         Node();
         T* getData();
         Node<T>* getNext();
+        ~Node() { next = nullptr; delete next; }
 };
 
 /**
@@ -24,8 +27,21 @@ template <typename T> class List{
         Node<T> *head; 
     public:
         List();     //crea lista vuota
+        /*  scommentando questo distruttore, quando si esce dal gioco (premendo 'q' o morendo) dà questo errore
+        free(): double free detected in tcache 2
+        make: *** [Makefile:61: run] Aborted
+        */
+        /*~List() {
+			Node<T>* current = head;
+			while (current) {
+				Node<T>* next = current->next;
+				delete current;
+				current = next;
+			}
+			head = nullptr;
+		};*/
         bool isEmpty();     //ritorna true se la lista è vuota, false altrimenti
-        int listLength();      //ritorna la lunghezza della lista
+        int listLength() const;      //ritorna la lunghezza della lista
         void headInsert(T element);     //inserisce un elemento in testa
 
 		void removeElement(int& tracker);	//rimuove un elemento dalla lista
@@ -41,6 +57,9 @@ template <typename T> class List{
             //Funzioni debug
         void inline killEnemy(int o);
         Node<T> *getHead();
+        void remove(int index);
+        void push_back(T data);
+        bool contains(T data) const;
 };
 
 

@@ -30,6 +30,7 @@ class Board
 protected:
 	WINDOW *board_win;
 	int screen_height, screen_width, xMin, yMin, xMax, yMax;
+	int level_number;
 
 	//questi campi ignorali tranquillamente
 	//sono solo cose che usano altre classi e vengono salvate nella stanza
@@ -39,8 +40,8 @@ protected:
 	List<Item> itemsList;
 	
 public:
-	// Board();
-	Board(int screen_height, int screen_width);
+	Board();
+	Board(int screen_height, int screen_width, int level_number);
 	void initialize();
 	void addBorder();
 	void fill();
@@ -63,6 +64,8 @@ public:
 	List<Item>* getItemsList();
 	void generateItems();
 	void checkItemCollisions(Character *p);
+
+	int getLevelNumber();
 
 	//ATTENZIONE: la funzione cambiaStanza() deve avere nei parametri un puntatore al personaggio, perchè vanno cambiati i puntatori alle liste dei proiettili (e la current_room_win)
 };

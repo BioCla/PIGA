@@ -34,7 +34,6 @@
 
 
 
-#define WALL_PAIR      1
 #define PAVE_PAIR      2
 #define PLAYER_PAIR    3
 #define ROCK_PAIR      4
@@ -44,6 +43,7 @@
 #define WALL_FOREGROUND 8
 #define PLAYER_FOREGROUND 9
 #define ALL_FOREGROUND 10
+#define WALL_PAIR      11
 
 
 void init();

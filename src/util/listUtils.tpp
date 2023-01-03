@@ -21,7 +21,7 @@ template <typename T> bool List<T>::isEmpty(){
     return (this->head==NULL);
 }
 
-template <typename T> int List<T>::listLength(){
+template <typename T> int List<T>::listLength() const{
     Node<T> *tmp = this->head;
     int k=0;
     while (tmp!=NULL){
@@ -124,3 +124,45 @@ template <typename T> void List<T>::removeDeadEntities(){
 
     }
 }
+
+template <typename T>
+void List<T>::remove(int index) {
+	if (isEmpty() || index < 0 || index >= listLength()) return;
+	Node<T>* current = head;
+	if (index == 0) {
+		head = current->next;
+		delete current;
+	} else {
+		for (int i = 0; i < index - 1; i++)
+			current = current->next; 
+		Node<T>* temp = current->next;
+		current->next = temp->next;
+		delete temp;
+	}
+}
+
+template <typename T>
+void List<T>::push_back(T data) {
+	Node<T>* newNode = new Node<T>();
+    newNode->data = data;
+	if (head == nullptr)
+		head = newNode;
+	else {
+		Node<T>* current = head;
+		while (current->next)
+			current = current->next;
+		current->next = newNode;
+	}
+}
+/*
+template <typename T>
+bool List<T>::contains(T data) const {
+	Node<T>* current = head;
+	while (current) {
+		if (*(current->getData()) == data)
+			return true;
+		current = current->next;
+	}
+	return false;
+}
+*/
