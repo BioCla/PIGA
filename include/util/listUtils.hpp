@@ -54,12 +54,12 @@ template <typename T> class List{
         void inline refreshEnemyTarget(Position p1);
         void inline refreshEnemyProj(std::chrono::_V2::system_clock::time_point time_now);
 		// void tailInsert(T element);     //inserisce un elemento in coda
-            //Funzioni debug
-        void inline killEnemy(int o);
         Node<T> *getHead();
         void remove(int index);
         void push_back(T data);
         bool contains(T data) const;
+            //Funzioni debug
+        void inline killEnemy(int o);
 };
 
 

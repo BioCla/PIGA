@@ -247,7 +247,7 @@ int main()
  		}
 
 		//righe 98 99 la stanza iniziale viene aggiunta al grafo
-		else if(ch == 'l') {  //buggato e instabile. sappiatelo se lo premete
+		else if(ch == 'l' && false) {  //buggato e instabile. sappiatelo se lo premete
 			if (game_map.GetNeighbors(board.getLevelNumber()).listLength() == 0) {    //sarebbe se non ha una stanza dopo, la crea, altrimenti va sulla stanza già creata. ma in realtà non funziona
 			Board* newboard2 = new Board(BOARD_ROWS, BOARD_COLS, board.getLevelNumber() + 1);  //il livello serve per avere un intero da associare alla stanza dentro il grafo
 			game_map.AddVertex(*newboard2);
@@ -270,11 +270,52 @@ int main()
 				p.setSuperProjectilesList(board.getSuperProjectilesList());
 			}
 		}
-		else if (ch == 'k') {   //questo sarebbe il "torna nella stanza a sinistra" ma non funziona neanche questo
+		else if (ch == 'k' && false) {   //questo sarebbe il "torna nella stanza a sinistra" ma non funziona neanche questo
 			board = game_map[board.getLevelNumber() - 1];
 			board.initialize();
 			p.setProjectilesList(board.getProjectilesList());
 			p.setSuperProjectilesList(board.getSuperProjectilesList());
+		}
+
+		else if(ch=='o') {
+			//inizializza il grafo di stanze
+			Board level1 = Board(BOARD_ROWS, BOARD_COLS, 1);
+			Board level2 = Board(BOARD_ROWS, BOARD_COLS, 2);
+			Board level3 = Board(BOARD_ROWS, BOARD_COLS, 3);
+			Board level4 = Board(BOARD_ROWS, BOARD_COLS, 4);
+			game_map.AddVertex(level1);
+			//game_map.AddEdge(0, 1);
+			//game_map.AddEdge(1, 0);
+			game_map.AddVertex(level2);
+			//game_map.AddEdge(1, 2);
+			//game_map.AddEdge(2, 1);
+			game_map.AddVertex(level3);
+			//game_map.AddEdge(2, 3);
+			//game_map.AddEdge(3, 2);
+			game_map.AddVertex(level4);
+			//game_map.AddEdge(3, 4);
+			//game_map.AddEdge(4, 3);
+		}
+
+		else if (ch == 'l') {
+			board = game_map.GetVertex(board.getLevelNumber() + 1);
+			board.initialize();
+
+			p.setProjectilesList(board.getProjectilesList());
+			p.setSuperProjectilesList(board.getSuperProjectilesList());
+			p.setCurrentRoom(board.getWin());
+
+			wrefresh(board.getWin());
+		}
+		else if (ch == 'k') {
+			board = game_map.GetVertex(board.getLevelNumber() - 1);
+			board.initialize();
+
+			p.setProjectilesList(board.getProjectilesList());
+			p.setSuperProjectilesList(board.getSuperProjectilesList());
+			p.setCurrentRoom(board.getWin());
+
+			wrefresh(board.getWin());
 		}
 		
 		//PAUSA
