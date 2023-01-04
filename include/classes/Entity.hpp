@@ -7,6 +7,7 @@
 
 #define GW stats.gameBoard.getGameWindow()
 #define SW stats.gameBoard.getStatusWindow()
+#define IW stats.gameBoard.getInfoWindow()
 
 struct entityPos {
 	point currentPos;
@@ -50,6 +51,11 @@ class Entity {
 		entityPos getPosition();
 		void render();
 		static bool legalMove(point pos);
+
+		friend std::ostream& operator<<(std::ostream& out, const Entity& s) {
+			out << s.stats;
+			return out;
+		}
 };
 
 #endif

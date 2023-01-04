@@ -97,6 +97,12 @@ class List {
 			}
 			return current->data;
 		}
+
+		friend std::string to_string(const List<T>& list) {
+			std::ostringstream ss;
+			ss << list;
+			return std::move(ss).str();
+		}
 };
 
 #include "../../src/util/list_override.ipp"

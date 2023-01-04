@@ -9,11 +9,11 @@ entityInfo Entity::stats;
 
 Entity::Entity() {
 	stats = {
-		{ { 0, 0 }, { 0, 0 }, UP }, // pos
+		{ { 0, 0 }, { 0, 0 }, DEFAULT }, // pos
 		true, // alive
-		0, // health
-		10, // damage
-		0, // maxHealth
+		1, // health
+		0, // damage
+		1, // maxHealth
 		"E", // icon
 		stats.gameBoard, // gameBoard
 		COLOR_WHITE, // fgColor

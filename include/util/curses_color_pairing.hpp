@@ -1,3 +1,6 @@
+#ifndef CURSES_COLOR_PAIRING
+#define CURSES_COLOR_PAIRING
+
 #include "../assets/extended_colors.hpp"
 
 // The point is that using an enum you don't have to scan an array to find a specific color.
@@ -22,3 +25,5 @@ void unsetcolor(WINDOW* win, int fg, int bg);
 void test_colors();
 
 // This file is used as a branch from which to extract the usable functions and definitions for color pairing.
+
+#endif

@@ -7,7 +7,6 @@
 #define sbgw state.board.getGameWindow()
 #define sbiw state.board.getInfoWindow()
 
-
 game Game::state;
 bool Game::debugMode = false;
 bool Game::debugFinished = false;
@@ -29,7 +28,6 @@ debug_info Game::debugInfo[] = {
 	{ "Health: ", [] { return std::to_string(player.health(0)); } },
 };
 
-
 Game::Game(Board board) {
 	/* Stats */
 	state.score = 0;
@@ -37,18 +35,18 @@ Game::Game(Board board) {
 	state.paused = false;
 	state.elapsed = clock();
 	state.board = board;
-	
-	/* Player */
-	charPos = { CENTER_POINT(sbgw), CENTER_POINT(sbgw), RIGHT };
-	player = entityInfo{
-		charPos, true, 30, 10, 100, "@", board, COLOR_GREEN, COLOR_GREEN
-	};
 
 	/* Debug */
 	debugMode = false;
 	debugFinished = false;
 	debugWin = newwin(sizeof(debugInfo) / sizeof(debugInfo[0]) + 2, 24, sbgw->_begy + 1, sbgw->_begx + 1);
 	wbkgd(debugWin, getbkgd(sbgw));
+	
+	/* Player */
+	charPos = { CENTER_POINT(sbgw), CENTER_POINT(sbgw), RIGHT };
+	this->player = *new Player({
+		charPos, true, 30, 10, 100, "@", board, COLOR_GREEN, COLOR_GREEN
+	});
 }
 
 void Game::start() {

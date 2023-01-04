@@ -1,3 +1,6 @@
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #include "Entity.hpp"
 #include "Projectile.hpp"
 
@@ -15,3 +18,5 @@ class Player : public Entity {
 		void render();
 		bool legalMove(point pos);
 };
+
+#endif

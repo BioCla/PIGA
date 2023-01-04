@@ -1,3 +1,6 @@
+#ifndef EXTENDED_COLORS_HPP
+#define EXTENDED_COLORS_HPP
+
 #include "curses_lib_selector.hpp"
 
 #define NCR (1000 / 255)
@@ -26,3 +29,5 @@ Only modify this to add or remove colors according to the given structure:
 	X(VIB_RED, 			comp(255, 0, 0)) 		/* 0xFF0000 */\
 	X(VIB_YELLOW, 		comp(255, 255, 0)) 		/* 0xFFFF00 */\
 	X(VIB_MAGENTA, 		comp(255, 0, 255)) 		/* 0xFF00FF */
+
+#endif

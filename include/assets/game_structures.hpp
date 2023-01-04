@@ -1,3 +1,6 @@
+#ifndef GAME_STRUCTURES
+#define GAME_STRUCTURES
+
 #include "../util/curses_color_pairing.hpp"
 #include "../util/math_override.tpp"
 
@@ -111,3 +114,5 @@ enum itemType {
 */ 
 const char* dirToString(direction dir);
 const char* itemTypeToString(itemType type);
+
+#endif

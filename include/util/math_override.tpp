@@ -1,3 +1,6 @@
+#ifndef MATH_OVERRIDE_HPP
+#define MATH_OVERRIDE_HPP
+
 #include "../assets/curses_lib_selector.hpp"
 
 /**
@@ -28,3 +31,5 @@ namespace mathy {
 }
 
 #include "../../src/util/math_override.ipp"
+
+#endif

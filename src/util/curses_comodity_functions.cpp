@@ -4,6 +4,7 @@
 #include "../../include/util/math_override.tpp"
 
 void init() {
+	srand(time(0));
 	/* Init and validity checks for terminal size and color comp */
 	initscr();
 	CHECK_TERMINAL_VALIDITY
@@ -45,17 +46,6 @@ void printScreenSize(WINDOW *win) {
 	mvwaddstr(stdscr, y, x + dif + 1, "x");
 	mvwaddint(stdscr, y, x + dif + 3, height);
 }
-
-/* void updateString(WINDOW* window, int y, int x, const char* newStr, ...) {
-	int len = mvwinch(window, y, x) & A_CHARTEXT;
-	mvwhline(window, y, x, ' ', len);
-	
-	va_list args;
-	va_start(args, newStr);
-	mvwprintw(window, y, x, newStr, va_arg(args, char*));
-	va_end(args);
-} */
-
 
 void updateString(WINDOW* window, int y, int x, const char* newStr, ...) {
 	mvwhline(window, y, x, ' ', window->_maxx - x);
