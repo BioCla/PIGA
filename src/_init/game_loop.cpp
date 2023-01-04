@@ -14,7 +14,7 @@ Player Game::player;
 
 input Game::inputMap[] = {
 	{ KEY_F(1), [] { debugMode = !debugMode; debugFinished = false; } },
-	{ 'p', [] { pause(); } },
+	{ KEY_ESC, [] { pause(); } },
 	{ 'q', [] { state.running = false; } },
 };
 

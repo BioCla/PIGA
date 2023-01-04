@@ -8,6 +8,7 @@
 #define HANDLE_INPUT(input) (((input).instructions)())
 #define NULL_FUNC [](const auto& a) { std::cout << a << std::endl; }
 #define CENTER_POINT(win) {win->_maxx / 2, win->_maxy / 2}
+#define KEY_ESC 27
 
 /* blocks */
 #define WALL      '#'
