@@ -5,15 +5,19 @@
  * Checks if the program is running on a valid terminal
  * with the right size and colors support
  * 
- * @param TERMINAL_SIZE_CHECK check if terminal is at least MIN_TERM_X x MIN_TERM_Y
- * @param TERMINAL_COLOR_CHECK check if terminal support colors  
+ * @note TERMINAL_SIZE_CHECK: check if terminal is at least MIN_TERM_X x MIN_TERM_Y
+ * @note TERMINAL_COLOR_CHECK: check if terminal supports colors  
 */
 #define CHECK_TERMINAL_VALIDITY TERMINAL_SIZE_CHECK TERMINAL_COLOR_CHECK
 
-#define TERMINAL_SIZE_CHECK \
-	if((LINES < MIN_TERM_Y) || (COLS < MIN_TERM_X)) { \
-		printf("Il terminale deve essere almeno di %s x %s\n\r", intstr(MIN_TERM_X), intstr(MIN_TERM_Y)); \
-		printf("Il tuo terminale e' di %s x %s\n\r", intstr(COLS), intstr(LINES)); \
-		exit(1); \
-	}
-#define TERMINAL_COLOR_CHECK if(has_colors() == FALSE){printf("Il tuo terminale non supporta i colori\n\r");exit(2);}
+#define NCURSES_ASSERT(expr) \
+    do { \
+        if (!(expr)) { \
+            endwin(); \
+            std::cerr << "Assertion failed: " #expr << std::endl; \
+            std::exit(EXIT_FAILURE); \
+        } \
+    } while (0);
+
+#define TERMINAL_SIZE_CHECK NCURSES_ASSERT(LINES >= MIN_TERM_Y && COLS >= MIN_TERM_X)
+#define TERMINAL_COLOR_CHECK NCURSES_ASSERT(has_colors())
