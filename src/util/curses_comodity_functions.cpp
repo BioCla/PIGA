@@ -103,3 +103,15 @@ void updateString(WINDOW* window, int y, int x, const char* newStr, ...) {
 	}
 	va_end(args);
 }
+
+void printWrappedString(WINDOW* window, int startY, int wrapLength, std::string str) {
+    int x = 0, y = startY;
+    for (char c : str) {
+        if (x == wrapLength) {
+            x = 0;
+            y++;
+        }
+        mvwaddch(window, y, x, c);
+        x++;
+    }
+}

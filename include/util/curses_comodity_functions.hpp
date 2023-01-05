@@ -10,5 +10,6 @@ void werase(WINDOW *terminal, int y, int x);
 void mvwaddint(WINDOW* win, int posy, int posx, int input);
 void printScreenSize(WINDOW *win);
 void updateString(WINDOW* window, int y, int x, const char* newStr, ...);
+void printWrappedString(WINDOW* window, int startY, int wrapLength, std::string str);
 
 #endif

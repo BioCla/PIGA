@@ -1,5 +1,6 @@
 #include "../../include/util/curses_comodity_functions.hpp"
 #include "../../include/_init/game_loop.hpp"
+#include "../../include/_init/game_menu.hpp"
 
 int main() {
 	init();
@@ -9,6 +10,11 @@ int main() {
 		empty();
 		test_colors();
 		getch();
+		empty();
+
+	//Testing Menu
+		Menu menu;
+		menu.render();
 		empty();
 
 	Board main;
