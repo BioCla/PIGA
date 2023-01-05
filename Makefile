@@ -22,7 +22,7 @@ CXXFLAGS += -MMD -MP
 # Compiler flags
 CXXFLAGS += -std=c++17 -pedantic-errors
 CXXFLAGS += -Wall -Wextra
-CXXFLAGS += -g3 -Ofast
+CXXFLAGS += -g3 -O3
 
 # Linker flags
 CPPFLAGS += -Iinclude
