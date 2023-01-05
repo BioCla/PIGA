@@ -15,8 +15,7 @@ int main() {
 	//Testing Menu
 		Menu menu;
 		menu.render();
-		empty();
-
+	
 	Board main;
 	Game loop(main);
 	loop.start();

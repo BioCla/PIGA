@@ -2,36 +2,51 @@
 #include "../../include/util/curses_comodity_functions.hpp"
 #include "../../include/util/string_override.hpp"
 
+int Menu::menuSelection = 0;
+
 option Menu::list[] = {
-	{ "Start", [] { return EXIT_SUCCESS; } },
-	{ "Options", [] { return 10; } },
-	{ "Exit", [] { return EXIT_FAILURE; } },
+	{ "Start", [] { menuSelection = 0; } },
+	{ "Options", [] { menuSelection = 1; } },
+	{ "Exit", [] { std::exit(EXIT_SUCCESS); } },
 };
 
 const char* instructions[] = {
-	"Use the arrow keys to navigate the menu",
+	"Use the up/down keys to navigate the menu",
 	"Press enter to select an option",
 };
 
-const char* title = "Benvenuto nel gioco di prova di C++ e ncurses";
+const char* title[] = {
+"__/\\\\\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\\\\\\\\\\\\\\\\\_____/\\\\\\\\\\\\\\\\\\\\\\\\_____/\\\\\\\\\\\\\\\\\\_            ",
+" _\\/\\\\\\/////////\\\\\\_\\/////\\\\\\///____/\\\\\\//////////____/\\\\\\\\\\\\\\\\\\\\\\\\\\_         ",
+"  _\\/\\\\\\_______\\/\\\\\\_____\\/\\\\\\______/\\\\\\______________/\\\\\\/////////\\\\\\_       ",
+"   _\\/\\\\\\\\\\\\\\\\\\\\\\\\\\/______\\/\\\\\\_____\\/\\\\\\____/\\\\\\\\\\\\\\_\\/\\\\\\_______\\/\\\\\\_      ",
+"    _\\/\\\\\\/////////________\\/\\\\\\_____\\/\\\\\\___\\/////\\\\\\_\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_     ",
+"     _\\/\\\\\\_________________\\/\\\\\\_____\\/\\\\\\_______\\/\\\\\\_\\/\\\\\\/////////\\\\\\_    ",
+"      _\\/\\\\\\_________________\\/\\\\\\_____\\/\\\\\\_______\\/\\\\\\_\\/\\\\\\_______\\/\\\\\\_   ",
+"       _\\/\\\\\\______________/\\\\\\\\\\\\\\\\\\\\\\_\\//\\\\\\\\\\\\\\\\\\\\\\\\/__\\/\\\\\\_______\\/\\\\\\_  ",
+"        _\\///______________\\///////////___\\////////////____\\///________\\///_  ",
+};
 
-#define listSize sizeof(list) / sizeof(list[0]) - 1
-
+#define menuSize sizeof(list) / sizeof(list[0]) - 1
+#define titleSize sizeof(title) / sizeof(title[0])
 #define instSize sizeof(instructions) / sizeof(instructions[0])
 
 Menu::Menu() {
-	menuWin = newwin(listSize + 3, 9, getmaxy(stdscr) / 2 - 3, getmaxx(stdscr) / 2 - 5);
-	titleWin = newwin(3, strlen(title) + 2, 0, getmaxx(stdscr) / 2 - (strlen(title) / 2) - 1);
-	instructionsWin = newwin(instSize + 2, 41, getmaxy(stdscr) - instSize - 2, getmaxx(stdscr) / 2 - 20);
+	int titlewidth = longestString(title, titleSize) + 1;
+	int instwidth = longestString(instructions, instSize) + 2;
+	int menuwidth = 9;
+
+	menuWin = 			newwin(menuSize + 3, 	menuwidth, 		getmaxy(stdscr) / 2 - 3, 			getmaxx(stdscr) / 2 - (menuwidth / 2) - 1);
+	titleWin = 			newwin(titleSize + 2, 	titlewidth, 	getbegy(stdscr) , 					getmaxx(stdscr) / 2 - (titlewidth / 2) - 1);
+	instructionsWin = 	newwin(instSize + 2, 	instwidth, 		getmaxy(stdscr) - instSize - 2, 	getmaxx(stdscr) / 2 - (instwidth / 2) - 1);
 
 	box(menuWin, 0, 0);
-	box(titleWin, 0, 0);
+	//box(titleWin, 0, 0);
 	box(instructionsWin, 0, 0);
 	
 	wrefresh(menuWin);
 	wrefresh(titleWin);
 	wrefresh(instructionsWin);
-
 
 	selected = 0;
 }
@@ -41,10 +56,10 @@ bool Menu::handleInput() {
 	int ch = getch();
 	switch (ch) {
 		case KEY_UP:
-			selected = selected == 0 ? listSize : selected - 1;
+			selected = selected == 0 ? menuSize : selected - 1;
 			break;
 		case KEY_DOWN:
-			selected = selected == listSize ? 0 : selected + 1;
+			selected = selected == menuSize ? 0 : selected + 1;
 			break;
 		case KEY_ENTER:
 		case '\n':
@@ -69,7 +84,11 @@ void Menu::update(int selected) {
 }
 
 void Menu::titleDisplay() {
-	centering_text(titleWin, 1, title);
+	int i = 0;
+	for (const char* t : title) {
+		centering_text(titleWin, i + 1, t);
+		i++;
+	}
 	wrefresh(titleWin);
 }
 

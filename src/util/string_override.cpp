@@ -48,3 +48,17 @@ const char* dirToString(direction dir) {
 			return "UNKNOWN";
 	}
 }
+
+int longestString(const char* arr[], int size) {
+	int max_length = 0;
+	for (int i = 0; i < size; ++i) {
+		int length = 0;
+		const char* str = arr[i];
+		while (*str != '\0') {
+			++length;
+			++str;
+		}
+		max_length = std::max(max_length, length);
+	}
+	return max_length;
+}
