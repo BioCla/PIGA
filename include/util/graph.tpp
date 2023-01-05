@@ -16,7 +16,7 @@ class Graph {
 		void RemoveVertex(int index);
 		void AddEdge(int u, int v);
 		void RemoveEdge(int u, int v);
-		//bool HasEdge(int u, int v) const;
+		bool HasEdge(int u, int v) const;
 		const T& GetVertex(int index) const;
 		void SetVertex(int index, const T& data);
 		int NumVertices() const;

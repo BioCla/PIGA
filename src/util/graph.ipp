@@ -28,14 +28,14 @@ void Graph<T>::RemoveEdge(int u, int v) {
 	adjacency_lists_[u].remove(v);
 	adjacency_lists_[v].remove(u);
 }
-/*
+
 template<typename T>
 bool Graph<T>::HasEdge(int u, int v) const {
 	if (adjacency_lists_.find(u) == adjacency_lists_.end() || adjacency_lists_.find(v) == adjacency_lists_.end())
 		return false;
 	return adjacency_lists_.at(u).contains(v);
 }
-*/
+
 template<typename T>
 const T& Graph<T>::GetVertex(int index) const {
 	return vertices_.at(index);

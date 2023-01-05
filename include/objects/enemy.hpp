@@ -53,6 +53,11 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         void checkIfTimeToShoot(system_clock::time_point time_now, List <Projectile>* Projlist);
         void setShootingTarget(Position p1);
         int findDirection();
+
+        bool operator == (const Enemy e1)  {
+            Enemy e2 = Enemy();
+			return &e1 == &e2;
+		}
 };
 
 #include "../src/util/listUtilsSpec.tpp"

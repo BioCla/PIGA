@@ -1,15 +1,15 @@
-#include "../../include/assets/hch.h"
-#include "../../include/objects/board.hpp"
-#include "../../include/assets/entity.hpp"
-#include "../../include/objects/character.hpp"
-#include "../../include/objects/projectile.hpp"
-#include "../../include/objects/superProjectile.hpp"
-#include "../../include/assets/position.hpp"
-#include "../../include/objects/enemy.hpp"
-#include "../../include/util/engine.hpp"
-#include "../../include/objects/item.hpp"
-#include "../../include/util/graph.tpp"
-#include "../../include/assets/map.hpp"
+//#include "../../include/assets/hch.h"
+//#include "../../include/objects/board.hpp"
+//#include "../../include/assets/entity.hpp"
+//#include "../../include/objects/character.hpp"
+//#include "../../include/objects/projectile.hpp"
+//#include "../../include/objects/superProjectile.hpp"
+//#include "../../include/assets/position.hpp"
+//#include "../../include/objects/enemy.hpp"
+//#include "../../include/util/engine.hpp"
+//#include "../../include/objects/item.hpp"
+//#include "../../include/util/graph.tpp"
+#include "../../include/assets/map.hpp"   //è tutto incluso a catena qui dentro
 #include <stdlib.h>
 #include <ctime>
 #include <iostream>
@@ -246,37 +246,6 @@ int main()
 			refresh();
  		}
 
-		//righe 98 99 la stanza iniziale viene aggiunta al grafo
-		else if(ch == 'l' && false) {  //buggato e instabile. sappiatelo se lo premete
-			if (game_map.GetNeighbors(board.getLevelNumber()).listLength() == 0) {    //sarebbe se non ha una stanza dopo, la crea, altrimenti va sulla stanza già creata. ma in realtà non funziona
-			Board* newboard2 = new Board(BOARD_ROWS, BOARD_COLS, board.getLevelNumber() + 1);  //il livello serve per avere un intero da associare alla stanza dentro il grafo
-			game_map.AddVertex(*newboard2);
-			newboard2->initialize();     //fare initialize serve solo a disegnarla, altrimenti rimane lo schermo tutto nero
-			game_map.AddEdge(board.getLevelNumber(), newboard2->getLevelNumber());    //fa l'arco tra i due nodi
-			board = game_map[board.getLevelNumber() + 1];   //assegna a 'board' la Board appena creata. 
-			//pensavo di fare così in modo che tutte le funzioni nel ciclo principale
-			//tipo board.refreshEnemies(time_now,p.getCurrentPosition()) funzionassero automaticamente con i nuovi nemici
-			//quello che succede in realtà è che le collisioni coi proiettili funzionano (se aspetti un po' stando fermo vieni ucciso)
-			//inoltre premendo t si vede quanti nemici e proiettili ci sono. quindi le entità ci sono e funzionano ma non vengono mostrate correttamente
-		
-			p.setProjectilesList(board.getProjectilesList());    //serve solo per il funzionamento di character
-			p.setSuperProjectilesList(board.getSuperProjectilesList());
-			board.initialize();    
-			}
-			else {    //se la stanza a destra era già stata creata, assegna a 'board' quella stanza e mostrala
-				board = game_map[board.getLevelNumber() + 1];    //+1 stanze a destra, -1 (premi k) stanze a sinistra
-				board.initialize();     //in realtà funziona ancora peggio è tutto buggato
-				p.setProjectilesList(board.getProjectilesList());
-				p.setSuperProjectilesList(board.getSuperProjectilesList());
-			}
-		}
-		else if (ch == 'k' && false) {   //questo sarebbe il "torna nella stanza a sinistra" ma non funziona neanche questo
-			board = game_map[board.getLevelNumber() - 1];
-			board.initialize();
-			p.setProjectilesList(board.getProjectilesList());
-			p.setSuperProjectilesList(board.getSuperProjectilesList());
-		}
-
 		else if(ch=='o') {
 			//inizializza il grafo di stanze
 			Board level1 = Board(BOARD_ROWS, BOARD_COLS, 1);
@@ -284,38 +253,56 @@ int main()
 			Board level3 = Board(BOARD_ROWS, BOARD_COLS, 3);
 			Board level4 = Board(BOARD_ROWS, BOARD_COLS, 4);
 			game_map.AddVertex(level1);
-			//game_map.AddEdge(0, 1);
-			//game_map.AddEdge(1, 0);
+			game_map.AddEdge(board.getLevelNumber(), level1.getLevelNumber());
+			game_map.AddEdge(level1.getLevelNumber(), board.getLevelNumber());
 			game_map.AddVertex(level2);
-			//game_map.AddEdge(1, 2);
-			//game_map.AddEdge(2, 1);
+			game_map.AddEdge(level1.getLevelNumber(), level2.getLevelNumber());
+			game_map.AddEdge(level2.getLevelNumber(), level1.getLevelNumber());
 			game_map.AddVertex(level3);
-			//game_map.AddEdge(2, 3);
-			//game_map.AddEdge(3, 2);
+			game_map.AddEdge(level2.getLevelNumber(), level3.getLevelNumber());
+			game_map.AddEdge(level3.getLevelNumber(), level2.getLevelNumber());
 			game_map.AddVertex(level4);
-			//game_map.AddEdge(3, 4);
-			//game_map.AddEdge(4, 3);
+			game_map.AddEdge(level3.getLevelNumber(), level4.getLevelNumber());
+			game_map.AddEdge(level4.getLevelNumber(), level3.getLevelNumber());
 		}
 
-		else if (ch == 'l') {
-			board = game_map.GetVertex(board.getLevelNumber() + 1);
-			board.initialize();
-
-			p.setProjectilesList(board.getProjectilesList());
-			p.setSuperProjectilesList(board.getSuperProjectilesList());
-			p.setCurrentRoom(board.getWin());
-
-			wrefresh(board.getWin());
+		else if(ch == 'm') {   //test 
+			//createNewRoom(board.getLevelNumber());
 		}
-		else if (ch == 'k') {
-			board = game_map.GetVertex(board.getLevelNumber() - 1);
-			board.initialize();
 
-			p.setProjectilesList(board.getProjectilesList());
-			p.setSuperProjectilesList(board.getSuperProjectilesList());
-			p.setCurrentRoom(board.getWin());
+		else if (ch == 'l') {    //vai nella stanza a destra. NON DOVREBBE CRASHARE. premete o se no non avete stanze
+			if (!game_map.HasEdge(board.getLevelNumber(), board.getLevelNumber() + 1)) {
+				mvwprintw(window_GUI_1, 15, 1, "LIMITE RAGGIUNTO");
+			}
+			else {
+				board = game_map.GetVertex(board.getLevelNumber() + 1);
+				board.initialize();
 
-			wrefresh(board.getWin());
+				p.setProjectilesList(board.getProjectilesList());
+				p.setSuperProjectilesList(board.getSuperProjectilesList());
+				p.setCurrentRoom(board.getWin());
+
+				wrefresh(board.getWin());
+
+				mvwprintw(window_GUI_1, 15, 1, "                ");
+			}
+		}
+		else if (ch == 'k') {     //vai nella stanza a sinistra. NON DOVREBBE CRASHARE
+			if (!game_map.HasEdge(board.getLevelNumber(), board.getLevelNumber() - 1)) {
+				mvwprintw(window_GUI_1, 15, 1, "LIMITE RAGGIUNTO");
+			}
+			else {
+				board = game_map.GetVertex(board.getLevelNumber() - 1);
+				board.initialize();
+
+				p.setProjectilesList(board.getProjectilesList());
+				p.setSuperProjectilesList(board.getSuperProjectilesList());
+				p.setCurrentRoom(board.getWin());
+
+				wrefresh(board.getWin());
+
+				mvwprintw(window_GUI_1, 15, 1, "                ");
+			}
 		}
 		
 		//PAUSA

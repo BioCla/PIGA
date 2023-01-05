@@ -154,7 +154,7 @@ void List<T>::push_back(T data) {
 		current->next = newNode;
 	}
 }
-/*
+
 template <typename T>
 bool List<T>::contains(T data) const {
 	Node<T>* current = head;
@@ -165,4 +165,3 @@ bool List<T>::contains(T data) const {
 	}
 	return false;
 }
-*/

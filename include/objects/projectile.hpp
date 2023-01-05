@@ -29,6 +29,11 @@ class Projectile : public Entity {
         bool checkifAllied();
         void setDamage(int damage);
         int getDamage();
+
+        bool operator == (const Projectile p1)  {
+            Projectile p2 = Projectile();
+			return &p1 == &p2;
+		}
 };
 
 #endif

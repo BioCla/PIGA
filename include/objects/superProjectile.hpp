@@ -30,6 +30,11 @@ class SuperProjectile : public Projectile {
     const char* getChildIcon();
     void getSpawningDirections(int directions[2]);
     int getChildMovingFrequency();
+
+    bool operator == (const SuperProjectile p1)  {
+            SuperProjectile p2 = SuperProjectile();
+			return &p1 == &p2;
+		}
 };
 
 #endif
