@@ -37,7 +37,7 @@ Menu::Menu() {
 	int menuwidth = 9;
 
 	menuWin = 			newwin(menuSize + 3, 	menuwidth, 		getmaxy(stdscr) / 2 - 3, 			getmaxx(stdscr) / 2 - (menuwidth / 2) - 1);
-	titleWin = 			newwin(titleSize + 2, 	titlewidth, 	getbegy(stdscr) , 					getmaxx(stdscr) / 2 - (titlewidth / 2) - 1);
+	titleWin = 			newwin(titleSize + 2, 	titlewidth, 	getbegy(stdscr), 					getmaxx(stdscr) / 2 - (titlewidth / 2) - 1);
 	instructionsWin = 	newwin(instSize + 2, 	instwidth, 		getmaxy(stdscr) - instSize - 2, 	getmaxx(stdscr) / 2 - (instwidth / 2) - 1);
 
 	box(menuWin, 0, 0);
