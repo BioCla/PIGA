@@ -5,16 +5,9 @@
 int main() {
 	init();
 	init_colorpairs();
-	
-	//Testing Colors
-		empty();
-		test_colors();
-		getch();
-		empty();
 
-	//Testing Menu
-		Menu menu;
-		menu.render();
+	Menu menu;
+	menu.render();
 	
 	Board main;
 	Game loop(main);
