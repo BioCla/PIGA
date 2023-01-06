@@ -7,7 +7,7 @@ int Menu::returnCode = 0;
 option Menu::list[] = {
 	{ "Start", [] { returnCode = 0; } },
 	{ "Options", [] { returnCode = 1; } },
-	{ "Exit", [] { std::exit(EXIT_SUCCESS); } },
+	{ "Exit", [] { endwin(); std::exit(EXIT_SUCCESS); } },
 };
 
 const char* instructions[] = {
