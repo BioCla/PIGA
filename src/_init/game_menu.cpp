@@ -2,11 +2,11 @@
 #include "../../include/util/curses_comodity_functions.hpp"
 #include "../../include/util/string_override.hpp"
 
-int Menu::menuSelection = 0;
+int Menu::returnCode = 0;
 
 option Menu::list[] = {
-	{ "Start", [] { menuSelection = 0; } },
-	{ "Options", [] { menuSelection = 1; } },
+	{ "Start", [] { returnCode = 0; } },
+	{ "Options", [] { returnCode = 1; } },
 	{ "Exit", [] { std::exit(EXIT_SUCCESS); } },
 };
 

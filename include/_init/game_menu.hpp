@@ -12,7 +12,6 @@ class Menu {
 		WINDOW* instructionsWin;
 		static option list[];
 		int selected;
-		static int menuSelection;
 		bool handleInput();
 		void titleDisplay();
 		void instructionsDisplay();
@@ -21,5 +20,5 @@ class Menu {
 	public:
 		Menu();
 		void render();
-		int returnCode;
+		static int returnCode;
 };
