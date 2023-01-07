@@ -16,7 +16,6 @@
 int CCSize = sizeof(CColors) / sizeof(CColors[0]);
 
 void init_colorpairs() {
-	// Init the CC
 	for (int CIndex = 0; CIndex < CCSize; CIndex++) {
 		init_HEX(getCC(CIndex), CColors[CIndex]);
 	}

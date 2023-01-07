@@ -6,7 +6,6 @@ int Menu::returnCode = 0;
 
 option Menu::list[] = {
 	{ "Start", [] { returnCode = 0; } },
-	{ "Options", [] { returnCode = 1; } },
 	{ "Exit", [] { endwin(); std::exit(EXIT_SUCCESS); } },
 };
 
