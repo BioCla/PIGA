@@ -15,6 +15,7 @@ void Graph<T>::RemoveVertex(int index) {
 
 template<typename T>
 void Graph<T>::AddEdge(int u, int v) {
+	if (HasEdge(u, v)) return;
 	if (adjacency_lists_.find(u) == adjacency_lists_.end() || adjacency_lists_.find(v) == adjacency_lists_.end())
 		return;
 	adjacency_lists_[u].push_back(v);
