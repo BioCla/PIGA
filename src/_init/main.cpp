@@ -48,11 +48,13 @@ int main()
 		mvprintw(yMax/2, xMax/2, "rimpicciolisci il terminale");
 	}*/
 	
-	Board board(BOARD_ROWS, BOARD_COLS, 0);
+	//disegno bordi massimi dello schermo
 	WINDOW* schermoliam = newwin(50, 211, (stdscrymax / 2) - (50/2), (stdscrxmax / 2) - ((211/2)));
 	box(schermoliam, 1, 1);
 	wrefresh(schermoliam);
 
+	//stanza iniziale
+	Board board(BOARD_ROWS, BOARD_COLS, 0);
 	box(board.getWin(), 0, 0);
 	board.addBorder();
 	wrefresh(board.getWin());	
@@ -62,9 +64,10 @@ int main()
 	Position character_initial_position;
 	character_initial_position.x = 5;
 	character_initial_position.y = 5;
-	Character p = Character("@", character_initial_position, 30, "*", 5, 100, board.getWin());
+	Character p = Character("@", character_initial_position, 1500, "*", 5, 100, board.getWin());   //DEBUG 1500 di vita temporaneamente (normalmente è 30)
 	p.move(character_initial_position);
 
+	
 	int GAME_TOTAL_SCORE = 0;   //da implementare
 
 
@@ -95,6 +98,7 @@ int main()
 
 
 		// prova mappa
+		Graph<Board> game_map;
 		game_map.AddVertex(board);   //questo sta in un suo file. potevo inizializzarlo sul main ma l'ho messo da un'altra parte. si può anche spostare
 		board.initialize();   //aggiungere la board al grafo la fa visualizzare male, non so perchè.
 					//quindi ristampo il pavimento e il bordo
@@ -155,6 +159,8 @@ int main()
 	p.setSuperProjectilesList(board.getSuperProjectilesList());
 
 	// /DEBUG
+
+
 
 	
 	//gestione del tempo
@@ -217,6 +223,8 @@ int main()
 		refresh();
 
 
+		//input DEBUG t, l, k,
+		//input p
 		if(ch=='t') {   //serve solo per il DEBUG
 
 			def_prog_mode();
@@ -246,45 +254,17 @@ int main()
 			refresh();
  		}
 
-		else if(ch=='o') {
-			//inizializza il grafo di stanze
-			Board level1 = Board(BOARD_ROWS, BOARD_COLS, 1);
-			Board level2 = Board(BOARD_ROWS, BOARD_COLS, 2);
-			Board level3 = Board(BOARD_ROWS, BOARD_COLS, 3);
-			Board level4 = Board(BOARD_ROWS, BOARD_COLS, 4);
-			game_map.AddVertex(level1);
-			game_map.AddEdge(board.getLevelNumber(), level1.getLevelNumber());
-			game_map.AddEdge(level1.getLevelNumber(), board.getLevelNumber());
-			game_map.AddVertex(level2);
-			game_map.AddEdge(level1.getLevelNumber(), level2.getLevelNumber());
-			game_map.AddEdge(level2.getLevelNumber(), level1.getLevelNumber());
-			game_map.AddVertex(level3);
-			game_map.AddEdge(level2.getLevelNumber(), level3.getLevelNumber());
-			game_map.AddEdge(level3.getLevelNumber(), level2.getLevelNumber());
-			game_map.AddVertex(level4);
-			game_map.AddEdge(level3.getLevelNumber(), level4.getLevelNumber());
-			game_map.AddEdge(level4.getLevelNumber(), level3.getLevelNumber());
-		}
-
-		else if(ch == 'm') {   //test 
-			//createNewRoom(board.getLevelNumber());
-		}
-
 		else if (ch == 'l') {    //vai nella stanza a destra. NON DOVREBBE CRASHARE. premete o se no non avete stanze
 			if (!game_map.HasEdge(board.getLevelNumber(), board.getLevelNumber() + 1)) {
-				mvwprintw(window_GUI_1, 15, 1, "LIMITE RAGGIUNTO");
+				createNewRoom(board.getLevelNumber(), game_map);
+				moveToRoom(board.getLevelNumber() + 1, game_map, board, p);
+
+				mvwprintw(window_GUI_1, 15, 1, "nuova stanza creata");
 			}
 			else {
-				board = game_map.GetVertex(board.getLevelNumber() + 1);
-				board.initialize();
+				moveToRoom(board.getLevelNumber() + 1, game_map, board, p);
 
-				p.setProjectilesList(board.getProjectilesList());
-				p.setSuperProjectilesList(board.getSuperProjectilesList());
-				p.setCurrentRoom(board.getWin());
-
-				wrefresh(board.getWin());
-
-				mvwprintw(window_GUI_1, 15, 1, "                ");
+				mvwprintw(window_GUI_1, 15, 1, "                   ");
 			}
 		}
 		else if (ch == 'k') {     //vai nella stanza a sinistra. NON DOVREBBE CRASHARE
@@ -292,16 +272,9 @@ int main()
 				mvwprintw(window_GUI_1, 15, 1, "LIMITE RAGGIUNTO");
 			}
 			else {
-				board = game_map.GetVertex(board.getLevelNumber() - 1);
-				board.initialize();
+				moveToRoom(board.getLevelNumber() - 1, game_map, board, p);
 
-				p.setProjectilesList(board.getProjectilesList());
-				p.setSuperProjectilesList(board.getSuperProjectilesList());
-				p.setCurrentRoom(board.getWin());
-
-				wrefresh(board.getWin());
-
-				mvwprintw(window_GUI_1, 15, 1, "                ");
+				mvwprintw(window_GUI_1, 15, 1, "                   ");
 			}
 		}
 		
@@ -328,6 +301,7 @@ int main()
 	if (!p.isAlive()) {
 		nodelay(stdscr, false);
 		displayGameOver();
+		while ((ch = getch()) != 'q');
 	}
 
 	// Blocco funzionale per la verifica del tasto "quit", prima di svuotare lo schermo

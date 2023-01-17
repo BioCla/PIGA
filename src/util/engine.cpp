@@ -196,7 +196,7 @@ void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
 
 //DUE CIFRE
 void mvwprintwInteger(WINDOW* win, int posy, int posx, int input) {
-	char text[4];
+	char text[10];
 	sprintf(text, "%d", input);
 	mvwprintw(win, posy, posx, text);
 }
@@ -256,5 +256,5 @@ void displayGameOver() {
 	int stdscrxmax, stdscrymax;
 	getmaxyx(stdscr, stdscrymax, stdscrxmax);
 	mvprintw(stdscrymax / 2, stdscrxmax / 2, "* * * H A I   P E R S O * * *");
-	mvprintw(stdscrymax / 2 + 2, stdscrxmax / 2, "premi un tasto per uscire");
+	mvprintw(stdscrymax / 2 + 2, stdscrxmax / 2, "premi qq per uscire");
 }
