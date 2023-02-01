@@ -179,7 +179,7 @@ bool Character::legalMove(Position pos) {
     int k;
     k =  mvwinch(current_room_win, pos.y, pos.x);
     k = k & A_CHARTEXT;
-    return ((k == PAVE) || (k == 42) || (k == 79) || (k == 75) || (k == 72) || (k == 68) || (k == 83) || (k == 104) || (k == 100) || (k == 115) || (k == 76) || (k == 66) || (k == 86) || (k == 80));   
+    return ((k == PAVE) || (k == 42) || (k == 79) || (k == 75) || (k == 72) || (k == 68) || (k == 83) || (k == 104) || (k == 100) || (k == 115) || (k == 76) || (k == 66) || (k == 86) || (k == 80) || (k == 89));   
     //----  il personaggio può camminare SOLO su questi caratteri:  -------
     //42 = "*", 79 = "O"   ossia i proiettili
     //72 = "H"             ossia gli item (i seguenti sono tutti item)
