@@ -62,11 +62,15 @@ bool Projectile::collisionWithRoomWall(Position pos) {
     bool collided = false;
     int k = mvwinch(current_room_win, pos.y, pos.x) & A_CHARTEXT;
 
-    if(k == 35) {   //35 = "#"
+    if((k == 35) || (k == 88) || (k == 89)) {   
         collided = true;
     }
 
     return collided;
+
+    //35 = "#"   ossia i muri
+    //88 = "X"   ossia le porte chiuse
+    //89 = "Y"   ossia le porte aperte
 }
 
 bool Projectile::outOfBorder() {

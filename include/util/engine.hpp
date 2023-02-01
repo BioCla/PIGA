@@ -30,6 +30,8 @@
 #define ROCK      '^'
 #define ENEMY     'A'
 #define PROJCTL   '*'
+#define CLSD_DOOR 'X'
+#define OPEN_DOOR 'Y'
 
 
 

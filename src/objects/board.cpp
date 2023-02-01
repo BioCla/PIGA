@@ -15,6 +15,7 @@ Board::Board(){
 	initialize();
 
 	level_number = 0;
+	door_unlocked = false;
 }
 
 Board::Board(int screen_height, int screen_width, int level_number){
@@ -27,6 +28,7 @@ Board::Board(int screen_height, int screen_width, int level_number){
 	initialize();
 
 	this->level_number = level_number;
+	this->door_unlocked = false;
 	generateEnemies();
 	generateItems();
 }
@@ -55,6 +57,8 @@ void Board::addBorder(){
 		}
 	}
 	wattroff(board_win, COLOR_PAIR(WALL_PAIR));
+
+	addDoors();
 	wrefresh(board_win);
 }
 
@@ -75,6 +79,31 @@ void Board::fillPoint(int y, int x){
 	attron(COLOR_PAIR(PAVE_PAIR));
 	mvaddch(y, x, PAVE);
 	attroff(COLOR_PAIR(PAVE_PAIR));
+}
+
+void Board::addDoors() {
+	if(level_number != 0) {    //non ci sono stanze a sinistra della porta 0, quindi non disegna nemmeno le porte
+		mvwaddch(board_win, 16, 0, OPEN_DOOR);
+		mvwaddch(board_win, 17, 0, OPEN_DOOR);
+	}
+
+	//arrivando da sinistra, le porte a sinistra sono sicuramente sbloccate, quelle a destra sono inizialmente chiuse
+	mvwaddch(board_win, 16, 86, CLSD_DOOR);
+	mvwaddch(board_win, 17, 86, CLSD_DOOR);
+	//se le porte sono sbloccate, le disegna aperte
+	if(door_unlocked) {
+		mvwaddch(board_win, 16, 86, OPEN_DOOR);
+		mvwaddch(board_win, 17, 86, OPEN_DOOR);
+	}
+
+}
+
+void Board::openDoors() {
+	this->door_unlocked = true;
+}
+
+bool Board::getDoorLockState() {
+	return door_unlocked;
 }
 
 void Board::clear(){
@@ -263,7 +292,8 @@ void Board::checkItemCollisions(Character *p) {
 					p->setProjectileMovingFrequency(p->getProjectileMovingFrequency() + 10);
 					break;
 				case 6:
-					//apriPorte();
+					openDoors();
+					addDoors();    //ridisegna le porte per applicare il cambiamento
 					break;
 				case 7:
 					p->addToInventory(itemID);

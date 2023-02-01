@@ -1,11 +1,7 @@
 
-//questo include genera l'errore multiple definition of game_map
 
 #include "../../include/assets/map.hpp"
 
-
-//se copiate e incollate questa funzione nel file main.cpp, e scommentate la riga sotto il tasto 'm' sempre nel main, dovrebbe farvi
-//creare quante stanze volete. naturalmente se lo fate non premete 'o' nella stessa sessione altrimenti sballate tutto
 
 void createNewRoom(int current_room_level, Graph<Board>& game_map) {
     Board new_level = Board(BOARD_ROWS, BOARD_COLS, current_room_level + 1);
@@ -15,6 +11,9 @@ void createNewRoom(int current_room_level, Graph<Board>& game_map) {
 }
 
 void moveToRoom(int level_number, Graph<Board>& game_map, Board& board, Character& player) {
+    if(!game_map.HasEdge(board.getLevelNumber(), level_number)) {
+        createNewRoom(board.getLevelNumber(), game_map);
+    }
     board = game_map.GetVertex(level_number);
     board.initialize();
 
@@ -24,3 +23,25 @@ void moveToRoom(int level_number, Graph<Board>& game_map, Board& board, Characte
 
     wrefresh(board.getWin());
 }
+
+void updateMap(Graph<Board>& game_map, Board& board, Character& player) {
+    //salva la board attuale nel game_map
+    game_map.SetVertex(board.getLevelNumber(), board);
+
+    Position player_position = player.getCurrentPosition();
+    int current_room_level = board.getLevelNumber();
+
+    if((compare(player_position, {0, 16})) || (compare(player_position, {0, 17}))) {
+        if(current_room_level != 0) {    //non esistono stanze a sinistra della stanza 0
+            moveToRoom(current_room_level - 1, game_map, board, player);
+            player.move({85, player.getCurrentPosition().y});
+        }
+    }
+
+    if((compare(player_position, {86, 16})) || (compare(player_position, {86, 17}))) {
+        moveToRoom(current_room_level + 1, game_map, board, player);
+        player.move({1, player.getCurrentPosition().y});
+    }
+
+}
+

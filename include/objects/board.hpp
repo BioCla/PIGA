@@ -31,6 +31,7 @@ protected:
 	WINDOW *board_win;
 	int screen_height, screen_width, xMin, yMin, xMax, yMax;
 	int level_number;
+	bool door_unlocked;
 
 	//questi campi ignorali tranquillamente
 	//sono solo cose che usano altre classi e vengono salvate nella stanza
@@ -47,6 +48,9 @@ public:
 	void fill();
 	void fillall();
 	void fillPoint(int y, int x);
+	void addDoors();
+	void openDoors();   //apre le porte a destra
+	bool getDoorLockState();
 	void clear();
 	void init();
 	WINDOW* getWin();

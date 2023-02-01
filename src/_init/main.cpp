@@ -10,6 +10,7 @@
 //#include "../../include/objects/item.hpp"
 //#include "../../include/util/graph.tpp"
 #include "../../include/assets/map.hpp"   //è tutto incluso a catena qui dentro
+#include "../../include/assets/game_map_file.hpp"
 #include <stdlib.h>
 #include <ctime>
 #include <iostream>
@@ -38,6 +39,7 @@ int main()
 
 	// Inizializzazione della tavola principale iniziale
 	//Board board(rows, cols);
+
 	
 	int stdscrxmax, stdscrymax;
 	getmaxyx(stdscr, stdscrymax, stdscrxmax);
@@ -74,9 +76,12 @@ int main()
 
 	//DEBUG -
 	// prova delle collisioni
-
+/*
 	bool DEBUGCOLLISIONI = false;
 	int projheadx, projheady;
+	bool proj_list_is_null = true;
+	bool enemy_list_is_null = true;
+*/
 	//int enheadx, enheady;
 	//servono per stampare le posizioni delle teste della lista
 
@@ -98,7 +103,6 @@ int main()
 
 
 		// prova mappa
-		Graph<Board> game_map;
 		game_map.AddVertex(board);   //questo sta in un suo file. potevo inizializzarlo sul main ma l'ho messo da un'altra parte. si può anche spostare
 		board.initialize();   //aggiungere la board al grafo la fa visualizzare male, non so perchè.
 					//quindi ristampo il pavimento e il bordo
@@ -109,7 +113,9 @@ int main()
 
 	// / prova grafi
 
-		
+	//prova update map
+
+	// / prova update map
 
 	
 
@@ -150,8 +156,8 @@ int main()
 	
 
 	//queste due andranno nel costruttore di board: genero una nuova stanza, e con essa la lista di nemici e artefatti
-	board.generateEnemies();
-	board.generateItems();
+	//board.generateEnemies();
+	//board.generateItems();
 
 
 	//queste vanno cambiate nella board tutte le volte che si cambia stanza, altrimenti il personaggio non può sparare
@@ -165,7 +171,7 @@ int main()
 	
 	//gestione del tempo
 	system_clock::time_point time_now = system_clock::now();
-	
+
 	int ch; // Variabile di accesso al handler per gli input
 	while (((ch = getch()) != 'q') && (p.isAlive()))
 	{
@@ -182,34 +188,67 @@ int main()
 
 		refreshSuperProjectiles(time_now, board.getSuperProjectilesList(), board.getProjectilesList());
 
-
+/*
 		//     DEBUG ma può far comodo quindi rimane commentato
-		if((board.getProjectilesList()->getHead() != NULL) && (board.getEnemiesList()->getHead() != NULL)) DEBUGCOLLISIONI = true;
-		else DEBUGCOLLISIONI = false;
+		//if((board.getProjectilesList()->getHead() != NULL) && (board.getEnemiesList()->getHead() != NULL)) DEBUGCOLLISIONI = true;
+		//else DEBUGCOLLISIONI = false;
+		//if(board.getProjectilesList()->getHead() != NULL) {proj_list_is_null = false;} else {proj_list_is_null = true;}
+		//if(board.getEnemiesList()->getHead() != NULL) {enemy_list_is_null = false;} else {enemy_list_is_null = true;}
+		DEBUGCOLLISIONI = true;
 		if(DEBUGCOLLISIONI) {   //DEBUG
 			projheadx = board.getProjectilesList()->getHead()->getData()->getCurrentPosition().x;
 			projheady = board.getProjectilesList()->getHead()->getData()->getCurrentPosition().y;
 			wattron(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
-			mvwprintw(window_GUI_1, 5, 1, "coordinate x,y proiettile in testa:");
-			mvwprintw(window_GUI_1, 6, 1, "        ");
-			mvwprintwInteger(window_GUI_1, 6, 1, projheadx); mvwprintwInteger(window_GUI_1, 6, 6, projheady);
+
+			if(!proj_list_is_null) {
+				mvwprintw(window_GUI_1, 5, 1, "coordinate x,y proiettile in testa:");
+				mvwprintw(window_GUI_1, 6, 1, "        ");
+				mvwprintwInteger(window_GUI_1, 6, 1, projheadx); mvwprintwInteger(window_GUI_1, 6, 6, projheady);
+			}
+			else {
+				mvwprintw(window_GUI_1, 5, 1, "coordinate x,y proiettile in testa:");
+				mvwprintw(window_GUI_1, 6, 1, "NULL");				
+			}
+
 			mvwprintw(window_GUI_1, 7, 1, "coordinate x,y personaggio:");
 			mvwprintw(window_GUI_1, 8, 1, "        ");
 			mvwprintwInteger(window_GUI_1, 8, 1, p.getCurrentPosition().x); mvwprintwInteger(window_GUI_1, 8, 6, p.getCurrentPosition().y);
-			mvwprintw(window_GUI_1, 9, 1, "coordinate x,y nemico in testa:");
-			mvwprintw(window_GUI_1, 10, 1, "       ");
-			mvwprintwInteger(window_GUI_1, 10, 1, board.getEnemiesList()->getHead()->getData()->getCurrentPosition().x); mvwprintwInteger(window_GUI_1, 10, 6, board.getEnemiesList()->getHead()->getData()->getCurrentPosition().y);
-			mvwprintw(window_GUI_1, 11, 1, "vita nemico in testa");
-			mvwprintw(window_GUI_1, 12, 1, "                ");
-			mvwprintwInteger(window_GUI_1, 12, 1, board.getEnemiesList()->getHead()->getData()->getHealth());
+			
+			if(!enemy_list_is_null) {
+				mvwprintw(window_GUI_1, 9, 1, "coordinate x,y nemico in testa:");
+				mvwprintw(window_GUI_1, 10, 1, "       ");
+				mvwprintwInteger(window_GUI_1, 10, 1, board.getEnemiesList()->getHead()->getData()->getCurrentPosition().x); mvwprintwInteger(window_GUI_1, 10, 6, board.getEnemiesList()->getHead()->getData()->getCurrentPosition().y);
+				mvwprintw(window_GUI_1, 11, 1, "vita nemico in testa");
+				mvwprintw(window_GUI_1, 12, 1, "                ");
+				mvwprintwInteger(window_GUI_1, 12, 1, board.getEnemiesList()->getHead()->getData()->getHealth());
+			}
+			else {
+				mvwprintw(window_GUI_1, 9, 1, "coordinate x,y nemico in testa:");
+				mvwprintw(window_GUI_1, 10, 1, "NULL");
+				mvwprintw(window_GUI_1, 11, 1, "vita nemico in testa");
+				mvwprintw(window_GUI_1, 12, 1, "NULL");
+				
+			}
+
 			mvwprintw(window_GUI_1, 13, 1, "livello: ");
 			mvwprintw(window_GUI_1, 13, 18, "                ");
 			mvwprintwInteger(window_GUI_1, 13, 19, board.getLevelNumber());
+			mvwprintw(window_GUI_1, 14, 1, "porte sbloccate?(0/1)");
+			mvwprintwInteger(window_GUI_1, 14, 24, board.getDoorLockState());
+			mvwprintw(window_GUI_1, 15, 1, "numero nemici board:");
+			mvwprintwInteger(window_GUI_1, 15, 24, board.getEnemiesList()->listLength());
+			mvwprintw(window_GUI_1, 16, 1, "numero item board:");
+			mvwprintwInteger(window_GUI_1, 16, 24, board.getItemsList()->listLength());
+			mvwprintw(window_GUI_1, 17, 1, "numero proiettili:");
+			mvwprintwInteger(window_GUI_1, 17, 24, board.getProjectilesList()->listLength());
 			wattroff(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
 		}
+*/
 		
 		
 		board.refreshEnemies(time_now,p.getCurrentPosition());
+
+		updateMap(game_map, board, p);
 		
 		board.checkHits();
 
@@ -234,8 +273,9 @@ int main()
 
 
 			//FUNZIONEDEBUG(); 
+			cout << "------------------------------------------------" << endl;
 			cout << "livello attuale: " << board.getLevelNumber() << endl;
-			cout << "numero nemici: " << (*board.getEnemiesList()).listLength() << endl;
+			cout << "numero nemici: " << board.getEnemiesList()->listLength() << endl;
 			cout << "n proiettili sul main: " << (*board.getProjectilesList()).listLength() << endl;
 			//cout << "posizione thiccboi x: " << thiccboi.getCurrentPosition().x << ", y: " << thiccboi.getCurrentPosition().y << endl;
 			cout << "numero proiettili board: " << (*board.getProjectilesList()).listLength() << endl;
@@ -245,7 +285,7 @@ int main()
 			int mvwinchsoprailpersonaggio = mvwinch(board.getWin(), p.getCurrentPosition().y - 1, p.getCurrentPosition().x) & A_CHARTEXT;
 			cout << "mvwinch sopra il personaggio: " << mvwinchsoprailpersonaggio << endl;
 			cout << "numero nodi mappa: " << game_map.NumVertices() << "   numero archi: " << game_map.NumEdges() << endl;
-			cout << "game_map.GetNeighbors(board.getLevelNumber()).listLength(): " << game_map.GetNeighbors(board.getLevelNumber()).listLength() << endl;	
+			//cout << "game_map.GetNeighbors(board.getLevelNumber()).listLength(): " << game_map.GetNeighbors(board.getLevelNumber()).listLength() << endl;	
 			// -- fine codice --
 			int inutile;
 			cin >> inutile;
@@ -254,6 +294,9 @@ int main()
 			refresh();
  		}
 
+
+		//l e k in realtà non servono più. però le lascio nel caso le volessimo usare, le toglieremo tra qualche commit
+		//quindi diciamo che sono per DEBUG
 		else if (ch == 'l') {    //vai nella stanza a destra. NON DOVREBBE CRASHARE. premete o se no non avete stanze
 			if (!game_map.HasEdge(board.getLevelNumber(), board.getLevelNumber() + 1)) {
 				createNewRoom(board.getLevelNumber(), game_map);

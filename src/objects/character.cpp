@@ -193,6 +193,7 @@ bool Character::legalMove(Position pos) {
     //66 = "B"
     //86 = "V"
     //80 = "P"
+    //89 = "Y"             ossia le porte aperte
 } 
 
 bool Character::steppedOnEnemy(Position pos) {
@@ -246,7 +247,7 @@ void Character::createLaser(List<Projectile>* projectilesList) {
     pos = this->current_position + dirToPosition(last_direction_taken);
 
     //spawna proiettili finchè non incontra un muro o qualsiasi cosa che blocchi un laser
-    while(legalMove(pos)) {
+    while(!newProjectile.collisionWithRoomWall(pos)) {
 
         newProjectile = Projectile(projectile_icon, pos, last_direction_taken, damage, 1, true ,current_room_win);
         projectilesList->headInsert(newProjectile);
