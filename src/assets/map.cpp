@@ -24,7 +24,9 @@ void moveToRoom(int level_number, Graph<Board>& game_map, Board& board, Characte
     wrefresh(board.getWin());
 }
 
-void updateMap(Graph<Board>& game_map, Board& board, Character& player) {
+bool updateMap(Graph<Board>& game_map, Board& board, Character& player) {
+    bool player_changed_room = false;
+
     //salva la board attuale nel game_map
     game_map.SetVertex(board.getLevelNumber(), board);
 
@@ -35,13 +37,19 @@ void updateMap(Graph<Board>& game_map, Board& board, Character& player) {
         if(current_room_level != 0) {    //non esistono stanze a sinistra della stanza 0
             moveToRoom(current_room_level - 1, game_map, board, player);
             player.move({85, player.getCurrentPosition().y});
+            
+            player_changed_room = true;
         }
     }
 
     if((compare(player_position, {86, 16})) || (compare(player_position, {86, 17}))) {
         moveToRoom(current_room_level + 1, game_map, board, player);
         player.move({1, player.getCurrentPosition().y});
+
+        player_changed_room = true;
     }
+
+    return player_changed_room;
 
 }
 

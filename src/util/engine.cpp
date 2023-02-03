@@ -226,6 +226,23 @@ void displayCharacterHealth(WINDOW* win, int health, int num_hearts) {
 	wrefresh(win);
 }
 
+void displayGameScore(WINDOW* win, int score) {
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	//visualizzazione del punteggio di gioco
+
+	wattron(win, COLOR_PAIR(1));
+	mvwprintw(win, 5, 1, "Score: ");
+	wattroff(win, COLOR_PAIR(1));
+	
+	wattron(win, COLOR_PAIR(1));
+	mvwprintw(win, 6, 1, "       ");
+	mvwprintwInteger(win, 6, 3, score);
+	wattroff(win, COLOR_PAIR(1));
+	wrefresh(win);
+	
+	wrefresh(win);
+}
+
 int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectile>* superProjectilesList, Position character_position) {
 	Node<Projectile> *tmp1 = projectilesList->getHead();
 	Node<SuperProjectile> *tmp2 = superProjectilesList->getHead();

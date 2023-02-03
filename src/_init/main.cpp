@@ -10,7 +10,7 @@
 //#include "../../include/objects/item.hpp"
 //#include "../../include/util/graph.tpp"
 #include "../../include/assets/map.hpp"   //è tutto incluso a catena qui dentro
-#include "../../include/assets/game_map_file.hpp"
+#include "../../include/assets/game_data.hpp"
 #include <stdlib.h>
 #include <ctime>
 #include <iostream>
@@ -70,7 +70,8 @@ int main()
 	p.move(character_initial_position);
 
 	
-	int GAME_TOTAL_SCORE = 0;   //da implementare
+	GAME_TOTAL_SCORE = 0;   //da implementare
+	bool player_entered_new_room = false;
 
 
 
@@ -166,7 +167,8 @@ int main()
 
 	// /DEBUG
 
-
+	//setting iniziale per il punteggio di gioco
+	updateGameScore(board, GAME_TOTAL_SCORE, true, number_of_enemies_in_room);
 
 	
 	//gestione del tempo
@@ -183,6 +185,7 @@ int main()
 		board.getItemsList()->spawnEntities();
 
 		board.refreshEnemies(time_now, p.getCurrentPosition());
+
 		board.getProjectilesList()->moveEntities(time_now);
 		board.getProjectilesList()->removeDeadEntities();
 
@@ -244,13 +247,22 @@ int main()
 			wattroff(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
 		}
 */
+		//DEBUG 
+		wattron(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
+		mvwprintw(window_GUI_1, 10, 1, "number_of_enemies_in_room");
+		mvwprintw(window_GUI_1, 10, 30, "          ");
+		mvwprintwInteger(window_GUI_1, 10, 30, number_of_enemies_in_room);
+		wattroff(window_GUI_1, COLOR_PAIR(PROJCTL_PAIR));
 		
 		
 		board.refreshEnemies(time_now,p.getCurrentPosition());
 
-		updateMap(game_map, board, p);
+		player_entered_new_room = updateMap(game_map, board, p);
+		updateGameScore(board, GAME_TOTAL_SCORE, player_entered_new_room, number_of_enemies_in_room);
 		
 		board.checkHits();
+		number_of_enemies_in_room = board.getEnemiesList()->listLength();
+
 
 		current_damage_received_by_character = -checkIfCharacterIsHit(board.getProjectilesList(), board.getSuperProjectilesList(), p.getCurrentPosition());
 		board.checkItemCollisions(&p);
@@ -258,6 +270,7 @@ int main()
 		p.updateHealth(current_damage_received_by_character);
 		
 		displayCharacterHealth(window_GUI_1, p.getHealth(), p.getHearts());
+		displayGameScore(window_GUI_1, GAME_TOTAL_SCORE);
 
 		refresh();
 
