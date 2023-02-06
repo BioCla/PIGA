@@ -3,45 +3,6 @@
 #include "../../include/assets/program_checks.hpp"
 #include "../../include/util/math_override.tpp"
 
-/*    //error: multiple definition
-void init() {
-	// Inizializza ncurses e controlla se il terminale è valido
-	initscr();
-	CHECK_TERMINAL_VALIDITY
-
-	// Configura alcune proprietà del terminale
-	start_color();
-	noecho();
-	cbreak();
-	keypad(stdscr, TRUE);
-	curs_set(0);
-	
-	clear();
-	refresh();
-}
-*/
-
-/*   //error: multiple definition
-void centering_text(WINDOW *terminal, int first_row, const char *string) {
-	int centerx = terminal->_maxx / 2;
-	int lendiv = strlen(string) / 2;
-	int centerpos = centerx - lendiv;
-	mvwaddstr(terminal, first_row, centerpos, string);
-}
-*/
-
-/* //error: multiple definition
-void empty() {
-	clear();
-	refresh();
-}
-*/
-
-/*   //error: multiple definition
-void werase(WINDOW *terminal, int y, int x) {
-	mvwaddch(terminal, y, x, ' ');
-}
-*/
 
 void mvwaddint(WINDOW* win, int posy, int posx, int input) {
 	int num_size = mathy::numDigits(input);

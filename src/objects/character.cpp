@@ -5,10 +5,10 @@ Character::Character() {
     icon = "@";
     max_health = 30;
     health = max_health;
-    damage = 5;   //numero a caso
+    damage = 5;   
     projectile_icon = "-";
     projectile_moving_frequency = 1000;
-    last_direction_taken = DIR_EAST;   //arbitrario. se spara senza muoversi i proiettili devono andare da qualche parte
+    last_direction_taken = DIR_EAST;   
     current_room_win = stdscr;
     weapon = BASE;
 }
@@ -179,9 +179,10 @@ bool Character::legalMove(Position pos) {
     int k;
     k =  mvwinch(current_room_win, pos.y, pos.x);
     k = k & A_CHARTEXT;
-    return ((k == PAVE) || (k == 42) || (k == 79) || (k == 75) || (k == 72) || (k == 68) || (k == 83) || (k == 104) || (k == 100) || (k == 115) || (k == 76) || (k == 66) || (k == 86) || (k == 80) || (k == 89));   
+    return ((k == PAVE) || (k == 42) || (k == 79) || (k == 89) || (k == 75) || (k == 72) || (k == 68) || (k == 83) || (k == 104) || (k == 100) || (k == 115) || (k == 76) || (k == 66) || (k == 86) || (k == 80));   
     //----  il personaggio può camminare SOLO su questi caratteri:  -------
     //42 = "*", 79 = "O"   ossia i proiettili
+    //89 = "Y"             ossia le porte aperte
     //72 = "H"             ossia gli item (i seguenti sono tutti item)
     //75 = "K"             
     //68 = "D"
@@ -193,7 +194,6 @@ bool Character::legalMove(Position pos) {
     //66 = "B"
     //86 = "V"
     //80 = "P"
-    //89 = "Y"             ossia le porte aperte
 } 
 
 bool Character::steppedOnEnemy(Position pos) {

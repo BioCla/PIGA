@@ -13,18 +13,6 @@
 using namespace std;
 
 
-
-
-
-
-/**
- * Author:
- * Co:
- *
- * Description:
- *
- */
-
 class Board
 {
 protected:
@@ -33,8 +21,9 @@ protected:
 	int level_number;
 	bool door_unlocked;
 
-	//questi campi ignorali tranquillamente
-	//sono solo cose che usano altre classi e vengono salvate nella stanza
+	
+	// --------------------
+	//liste di altri oggetti, presenti nella singola stanza
 	List<Projectile> projectilesList;
 	List<SuperProjectile> superProjectilesList;
 	List<Enemy> enemiesList;
@@ -57,7 +46,8 @@ public:
 	void checkColor();
 
 
-	//funzioni dei campi che puoi ignorare
+	//  ---------------------
+	//funzioni riguardanti gli ultimi campi della classe Board
 	void checkHits();
 	void refreshEnemies(system_clock::time_point time_now, Position pos);
 	void generateEnemies();
@@ -71,5 +61,4 @@ public:
 
 	int getLevelNumber();
 
-	//ATTENZIONE: la funzione cambiaStanza() deve avere nei parametri un puntatore al personaggio, perchè vanno cambiati i puntatori alle liste dei proiettili (e la current_room_win)
 };

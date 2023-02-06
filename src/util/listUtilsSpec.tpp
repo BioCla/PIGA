@@ -5,15 +5,7 @@
 #include "../../include/objects/projectile.hpp"
 #include "../../include/objects/superProjectile.hpp"
 
-/*
-template <> void inline List<Enemy>::spawnEnemies(){
-    Node<Enemy> *tmp = this->head;
-    while (tmp!=NULL) {
-        tmp->data.spawn(tmp->data.getCurrentPosition());
-        tmp=tmp->next;
-    }
-}
-*/
+
 
 template <> void inline List<Enemy>::refreshEnemyTarget(Position p1){
     Node<Enemy> *tmp = this->head;
@@ -32,25 +24,6 @@ template <> void inline List<Enemy>::refreshEnemyProj(system_clock::time_point t
     }  
 }
 
-//FUNZIONI DEBUG
-template <> void inline List<Enemy>::killEnemy(int o){
-    Node<Enemy> *tmp = this->head;
-    int h=0;
-    while(h!=o){
-        tmp=tmp->next;
-        h++;
-    }
-    tmp->data.updateHealth(-11);
-}
-/*
-template <> void inline List<Entity>::spawnEntities(){
-    Node<Entity> *tmp = this->head;
-    while (tmp!=NULL) {
-        tmp->data.spawn(tmp->data.getCurrentPosition());
-        tmp=tmp->next;
-    }
-}
-*/
 
 template class List<Enemy>;
 template class List<Projectile>;

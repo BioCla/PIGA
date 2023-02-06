@@ -194,7 +194,6 @@ void createSuperProjectile(List<SuperProjectile> *superProjectilesList,
 	superProjectilesList->headInsert(newSuperProjectile);
 }
 
-//DUE CIFRE
 void mvwprintwInteger(WINDOW* win, int posy, int posx, int input) {
 	char text[10];
 	sprintf(text, "%d", input);
@@ -267,11 +266,11 @@ int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectil
 	return total_damage;
 }
 
-void displayGameOver() {
-	//naturalmente può essere cambiata, adesso non è granchè
-	//magari creiamo un'altra finestra che copre buona parte della stanza e magari qualche colore giusto per leggere bene che hai perso
+void displayGameOver(int final_score) {
 	int stdscrxmax, stdscrymax;
 	getmaxyx(stdscr, stdscrymax, stdscrxmax);
-	mvprintw(stdscrymax / 2, stdscrxmax / 2, "* * * H A I   P E R S O * * *");
-	mvprintw(stdscrymax / 2 + 2, stdscrxmax / 2, "premi qq per uscire");
+	centering_text(stdscr, stdscrymax / 2, "* * * H A I   P E R S O * * *");
+	centering_text(stdscr, stdscrymax / 2 + 2, "punteggio:");
+	mvwprintwInteger(stdscr, stdscrymax / 2 + 3, stdscrxmax / 2, final_score);
+	centering_text(stdscr, stdscrymax / 2 + 5, "premi    q    per uscire");
 }

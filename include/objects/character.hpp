@@ -15,8 +15,7 @@ class Character : public Entity{
     protected:
         int health;
         int max_health;
-        int num_hearts;   //se vogliamo far vedere i cuori invece che il numero, come nell'esempio del prof
-        //allora attenzione: io ho pensato che il personaggio ha 30 di vita e 3 cuori (uno x 10 pv) si può naturalmente cambiare ma fatelo con criterio
+        int num_hearts;
         int damage;    //il danno che i suoi proiettili fanno ai mostri
         const char* projectile_icon;
         int projectile_moving_frequency;

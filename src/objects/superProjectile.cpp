@@ -5,7 +5,6 @@ SuperProjectile::SuperProjectile() {
     icon = "-";
     current_position = {1, 1};
     direction = DIR_EAST;
-    //a caso, giusto per vederlo vagare sullo schermo
     alive = true;
     current_room_win = stdscr;
 }

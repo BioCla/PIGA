@@ -50,32 +50,10 @@ template <typename T> void List<T>::removeElement(int &tracker) {
 	tracker--;
 }
 
-//template class List<Item>;
-
-/*
-template <typename T> void List<T>::tailInsert(T element){
-    if (head == NULL){
-        head = new Node<T>();
-        head->next=NULL;
-        head->data=element;
-    }
-    else{
-        Node<T> *tmp = head;
-        while (tmp->next!=NULL) tmp=tmp->next;
-        tmp->next = new Node<T>();
-        tmp=tmp->next;
-        tmp->next = NULL;
-        tmp->data = element;
-    }
-}
-*/
-
 template <typename T> Node<T> *List<T>::getHead() {
     return head;
 }
 
-
-///////////////////////
 
 template <typename T> void List<T>::spawnEntities(){
     Node<T> *tmp = this->head;

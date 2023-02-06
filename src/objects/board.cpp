@@ -51,7 +51,7 @@ void Board::addBorder(){
 	wattron(board_win, COLOR_PAIR(WALL_PAIR));
 	for(int fy = 0; fy <= yMax; fy++){
 		for(int fx = 0; fx <= xMax; fx++){
-			if(fx == 0 || fy == 0 || fx == xMax-1 || fy == yMax-1){ //è +2 per il numero massimo perchè si conta 2 volte l'errore relativo alla window				
+			if(fx == 0 || fy == 0 || fx == xMax-1 || fy == yMax-1){ 
 				mvwaddch(board_win, fy, fx, WALL);
 			}			
 		}
@@ -131,7 +131,12 @@ WINDOW* Board::getWin(){
 	return board_win;
 }
 
-//----- funzioni delle altre classi
+
+
+
+
+//  ------------- 
+// funzioni delle altre classi
 
 void Board::checkHits(){
 	Node<Enemy> *tmp1 = enemiesList.getHead();
@@ -217,7 +222,7 @@ void Board::generateItems() {
 	Position spawn_position;
 
 	int i;
-	//per adesso ce n'è una sola ma nel caso si può aumentare
+	
 	//spawna le chiavi
 	for (i = 0; i < n_artifacts; i++) {
 		spawn_position = {(rand()%(BOARD_COLS-3))+1, (rand()%(BOARD_ROWS-3))+1};
@@ -253,9 +258,6 @@ void Board::generateItems() {
 	}
 
 }
-
-//ritorna il valore in numero da aggiungere alla vita del personaggio
-//in caso di artefatti faremo partire il metodo della board che sblocca la porta senza ritornare niente
 
 void Board::checkItemCollisions(Character *p) {
 	Node<Item> *tmp = itemsList.getHead();

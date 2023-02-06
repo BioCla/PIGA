@@ -23,18 +23,6 @@ class Graph {
 		int NumEdges() const;
 		List<int> GetNeighbors(int index) const;
 
-		/*
-		friend std::ostream& operator<<(std::ostream& out, const Graph<T>& graph) {
-			out << "Vertices: " << graph.vertices_.size() << std::endl;
-			for (auto& vertex : graph.vertices_)
-				out << vertex.first << ": " << vertex.second << std::endl;
-			out << "Edges: " << graph.NumEdges() << std::endl;
-			for (auto& adjacency_list : graph.adjacency_lists_)
-				out << adjacency_list.first << ": " << adjacency_list.second << std::endl;
-			return out;
-		}
-		*/
-
 		const T& operator[] (int index) const {
 			return GetVertex(index);
 		}

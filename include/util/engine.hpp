@@ -69,6 +69,6 @@ void mvwprintwInteger(WINDOW* win, int posy, int posx, int input);
 void displayCharacterHealth(WINDOW* win, int health, int num_hearts);
 void displayGameScore(WINDOW* win, int score);
 int checkIfCharacterIsHit(List<Projectile>* projectilesList, List<SuperProjectile>* superProjectilesList, Position character_position);
-void displayGameOver();
+void displayGameOver(int final_score);
 
 #endif
