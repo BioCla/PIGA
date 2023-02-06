@@ -37,7 +37,7 @@ template <typename T> class List{
         void spawnEntities();
         void removeDeadEntities();
         void inline refreshEnemyTarget(Position p1);
-        void inline refreshEnemyProj(std::chrono::_V2::system_clock::time_point time_now);
+        //void inline refreshEnemyProj(std::chrono::_V2::system_clock::time_point time_now);
         Node<T> *getHead();
         void remove(int index);
         void push_back(T data);

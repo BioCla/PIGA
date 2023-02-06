@@ -19,17 +19,14 @@ using namespace std::chrono;
 class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di questa classe
     protected:
         int health;
-        int max_health;
         int damage;       //danno che infligge il nemico al giocatore
         int pathing;
-        int pathID; // percorso che fa il nemico (pathID =1 un pattern, pathID = 2 un altro pattern)[da cambiare]
+        int pathID; 
         duration <int, std::ratio <1,1000 > > idle_time_move;
         duration <int, std::ratio <1,1000 > > idle_time_shoot;
         system_clock::time_point last_time_moved;
         system_clock::time_point last_time_shot;
-        List<Projectile> projlist;
         Position shootingTarget;
-        //Position distanceToPlayer;
         //
 
     public:
@@ -54,7 +51,7 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         void setShootingTarget(Position p1);
         int findDirection();
 
-        bool operator == (const Enemy e1)  {
+        bool operator == (const Enemy e1)  {        //serve per i grafi
             Enemy e2 = Enemy();
 			return &e1 == &e2;
 		}

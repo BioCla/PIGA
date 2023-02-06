@@ -4,13 +4,10 @@ Enemy::Enemy(){
     
     icon = "A";
     health = 10;
-    max_health = 10;
     damage = 2;
     current_position = {20,20};
     pathID = 1;
     pathing = 0;
-    //altri parametri
-    // [creare più sottoclassi di nemici]
     current_room_win = stdscr;
 }
 
@@ -163,18 +160,6 @@ void Enemy::move(){
             pathing = findDirection();
             break;
     }
-}
-
-void Enemy::shoot(){
-    Position p1 = this->current_position;
-    p1.y++;
-    Projectile p = Projectile("*",p1,DIR_SOUTH, damage, 100, false, current_room_win);
-    this->projlist.headInsert(p);
-}
-
-void Enemy::refreshProj(system_clock::time_point time_now){
-    projlist.moveEntities(time_now);
-    projlist.removeDeadEntities();
 }
 
 bool Enemy::legalMove(int posx, int posy) {

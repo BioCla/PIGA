@@ -53,7 +53,8 @@
 		"string_view": "cpp",
 		"numbers": "cpp",
 		"*.ipp": "cpp",
-		"iomanip": "cpp"
+		"iomanip": "cpp",
+		"optional": "cpp"
 	},
 	"makefile.launchConfigurations": [
 		{
