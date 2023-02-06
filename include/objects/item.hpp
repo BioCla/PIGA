@@ -20,6 +20,8 @@ public:
 	Item(itemProperties properties, Position position, WINDOW* win);
 	// returns the properties of an initialized Item
 	itemProperties getProperties();
+	void spawn();
+	void spawn(Position position);
 };
 
 // Finds the itemProperties of an item with a specific ID from the itemList

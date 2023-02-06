@@ -24,6 +24,9 @@ int main()
 	
 	int stdscrxmax, stdscrymax;
 	getmaxyx(stdscr, stdscrymax, stdscrxmax);
+	WINDOW* schermoliam = newwin(50, 211, (stdscrymax / 2) - (50/2), (stdscrxmax / 2) - ((211/2)));
+	box(schermoliam, 1, 1);
+	wrefresh(schermoliam);
 
 	//stanza iniziale
 	Board board(BOARD_ROWS, BOARD_COLS, 0);

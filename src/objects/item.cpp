@@ -64,6 +64,34 @@ Item::Item(itemProperties properties, Position position, WINDOW* win) : Entity(p
 	this->properties = properties;
 }
 
+void Item::spawn(){
+	if(this->properties.type == ARTIFACT){
+		wattron(current_room_win, COLOR_PAIR(ARTIFACT_PAIR));
+		mvwprintw(current_room_win, current_position.y, current_position.x, icon);
+		wattroff(current_room_win, COLOR_PAIR(ARTIFACT_PAIR));
+	}
+	else if(this->properties.type == BUFF){
+		wattron(current_room_win, COLOR_PAIR(BUFF_PAIR));
+		mvwprintw(current_room_win, current_position.y, current_position.x, icon);
+		wattroff(current_room_win, COLOR_PAIR(BUFF_PAIR));
+	}
+	else if(this->properties.type == DEBUFF){
+		wattron(current_room_win, COLOR_PAIR(DEBUFF_PAIR));
+		mvwprintw(current_room_win, current_position.y, current_position.x, icon);
+		wattroff(current_room_win, COLOR_PAIR(DEBUFF_PAIR));
+	}
+	else if(this->properties.type == WEAPON){
+		wattron(current_room_win, COLOR_PAIR(WEAPON_PAIR));
+		mvwprintw(current_room_win, current_position.y, current_position.x, icon);
+		wattroff(current_room_win, COLOR_PAIR(WEAPON_PAIR));
+	}
+}
+
+void Item::spawn(Position position){
+	current_position = position;
+	spawn();
+}
+
 itemProperties Item::getProperties()
 {
 	return this->properties;
