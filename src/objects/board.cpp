@@ -39,11 +39,21 @@ void Board::init(){
 	init_color(PLAYER_FOREGROUND, 255*changecolor, 255*changecolor, 255*changecolor);
 	init_color(WALL_FOREGROUND, 100*changecolor, 100*changecolor, 100*changecolor);
 	init_color(PAVE_FOREGROUND, 50*changecolor, 50*changecolor, 50*changecolor);
+	init_color(ARTIFACT_FRGRND, 252*changecolor, 232*changecolor, 3*changecolor);
+	init_color(BUFF_FRGRND, 2*changecolor, 168*changecolor, 24*changecolor);
+	init_color(DEBUFF_FRGRND, 107*changecolor, 3*changecolor, 3*changecolor);
+	init_color(WEAPON_FRGRND, 6*changecolor, 12*changecolor, 194*changecolor);
+	init_color(CLOSED_FRGRND, 54*changecolor, 31*changecolor, 21*changecolor);
 	init_pair(WALL_PAIR, WALL_FOREGROUND, WALL_FOREGROUND);
 	init_pair(PAVE_PAIR, PAVE_FOREGROUND, PAVE_FOREGROUND);
 	init_pair(PLAYER_PAIR, PLAYER_FOREGROUND, PLAYER_FOREGROUND);
 	init_pair(ENEMY_PAIR, COLOR_RED, COLOR_RED);
 	init_pair(PROJCTL_PAIR, PLAYER_FOREGROUND, PAVE_FOREGROUND);
+	init_pair(ARTIFACT_PAIR, COLOR_WHITE, ARTIFACT_FRGRND);
+	init_pair(BUFF_PAIR, COLOR_WHITE, BUFF_FRGRND);
+	init_pair(DEBUFF_PAIR, COLOR_WHITE, DEBUFF_FRGRND);
+	init_pair(WEAPON_PAIR, COLOR_WHITE, WEAPON_FRGRND);
+	init_pair(CLOSED_PAIR, CLOSED_FRGRND, CLOSED_FRGRND);
 }
 
 void Board::addBorder(){
@@ -82,18 +92,24 @@ void Board::fillPoint(int y, int x){
 }
 
 void Board::addDoors() {
-	if(level_number != 0) {    //non ci sono stanze a sinistra della porta 0, quindi non disegna nemmeno le porte
+	if(level_number != 0) {    //non ci sono stanze a sinistra della porta 0, quindi non disegna nemmeno le porte	
+		wattron(board_win, COLOR_PAIR(PAVE_PAIR));
 		mvwaddch(board_win, 16, 0, OPEN_DOOR);
-		mvwaddch(board_win, 17, 0, OPEN_DOOR);
+		mvwaddch(board_win, 17, 0, OPEN_DOOR);		
+		wattroff(board_win, COLOR_PAIR(PAVE_PAIR));
 	}
 
 	//arrivando da sinistra, le porte a sinistra sono sicuramente sbloccate, quelle a destra sono inizialmente chiuse
+	wattron(board_win, COLOR_PAIR(CLOSED_PAIR));
 	mvwaddch(board_win, 16, 86, CLSD_DOOR);
 	mvwaddch(board_win, 17, 86, CLSD_DOOR);
+	wattroff(board_win, COLOR_PAIR(CLOSED_PAIR));
 	//se le porte sono sbloccate, le disegna aperte
 	if(door_unlocked) {
+		wattron(board_win, COLOR_PAIR(PAVE_PAIR));
 		mvwaddch(board_win, 16, 86, OPEN_DOOR);
 		mvwaddch(board_win, 17, 86, OPEN_DOOR);
+		wattroff(board_win, COLOR_PAIR(PAVE_PAIR));
 	}
 
 }

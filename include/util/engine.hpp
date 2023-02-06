@@ -46,6 +46,17 @@
 #define PLAYER_FOREGROUND 9
 #define ALL_FOREGROUND 10
 #define WALL_PAIR      11
+#define BUFF_PAIR	   12
+#define BUFF_FRGRND    13
+#define DEBUFF_PAIR    14
+#define DEBUFF_FRGRND  15
+#define ARTIFACT_FRGRND 16
+#define ARTIFACT_PAIR  17
+#define WEAPON_FRGRND  18
+#define WEAPON_PAIR    19
+#define CLOSED_FRGRND  20
+#define CLOSED_PAIR    21
+
 
 
 void init();
