@@ -15,7 +15,7 @@ template <> void inline List<Enemy>::refreshEnemyTarget(Position p1){
     }
 
 }
-
+/*
 template <> void inline List<Enemy>::refreshEnemyProj(system_clock::time_point time_now){
     Node<Enemy> *tmp = this->head;
     while (tmp!=NULL) {
@@ -24,6 +24,7 @@ template <> void inline List<Enemy>::refreshEnemyProj(system_clock::time_point t
     }  
 }
 
+*/
 
 template class List<Enemy>;
 template class List<Projectile>;

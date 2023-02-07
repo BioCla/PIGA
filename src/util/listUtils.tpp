@@ -39,7 +39,7 @@ template <typename T> void List<T>::headInsert(T element){
 }
 
 //Rimuove l'elemento selezionato dalla lista
-template <typename T> void List<T>::removeElement(int &tracker) {
+template <typename T> void List<T>::removeElement(int &tracker) { //DEBUG solo in inventory
 	for (int i = 1; head != NULL; i++) {
 		if (i == tracker - 1) {
 			head->next = (head->next)->next;
@@ -103,6 +103,9 @@ template <typename T> void List<T>::removeDeadEntities(){
     }
 }
 
+
+
+// successive funzioni necessarie per i grafi
 template <typename T>
 void List<T>::remove(int index) {
 	if (isEmpty() || index < 0 || index >= listLength()) return;
