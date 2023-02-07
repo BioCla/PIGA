@@ -21,16 +21,18 @@ void start_game() {
 
 	inizializzaNcurses();
 
+
+	//mappa di gioco
     Graph<Board> game_map;
 
-
     int GAME_TOTAL_SCORE;
-    int number_of_enemies_in_room;
+    int number_of_enemies_in_room;  //serve per aggiornare lo score
     
 	
 	int stdscrxmax, stdscrymax;
 	getmaxyx(stdscr, stdscrymax, stdscrxmax);
-	WINDOW* schermoliam = newwin(50, 211, (stdscrymax / 2) - (50/2), (stdscrxmax / 2) - ((211/2)));
+	
+	WINDOW* schermoliam = newwin(50, 211, (stdscrymax / 2) - (50/2), (stdscrxmax / 2) - ((211/2)));   //DEBUG schermo massimo
 	box(schermoliam, 1, 1);
 	wrefresh(schermoliam);
 
