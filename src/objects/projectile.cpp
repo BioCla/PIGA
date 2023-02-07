@@ -71,6 +71,7 @@ bool Projectile::collisionWithRoomWall(Position pos) {
     //35 = "#"   ossia i muri
     //88 = "X"   ossia le porte chiuse
     //89 = "Y"   ossia le porte aperte
+    //     '^'   ossia le rocce
 }
 
 bool Projectile::outOfBorder() {

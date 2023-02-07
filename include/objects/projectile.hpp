@@ -14,7 +14,8 @@ class Projectile : public Entity {
         duration <int, std::ratio <1,1000 > > moving_frequency;
         system_clock::time_point last_time_moved;
         int damage;   //danno che fa a chi colpisce, dipende da chi viene sparato
-        bool isAllied; //true if the bullet comes from the character, false if it comes from an enemy
+        bool isAllied; //true se il proiettile è sparato dal personaggio, false se da un nemico
+        
 
     public:
         Projectile();

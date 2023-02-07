@@ -24,7 +24,8 @@ int main()
 	
 	int stdscrxmax, stdscrymax;
 	getmaxyx(stdscr, stdscrymax, stdscrxmax);
-	WINDOW* schermoliam = newwin(50, 211, (stdscrymax / 2) - (50/2), (stdscrxmax / 2) - ((211/2)));
+
+	WINDOW* schermoliam = newwin(50, 211, (stdscrymax / 2) - (50/2), (stdscrxmax / 2) - ((211/2)));   //DEBUG schermo massimo
 	box(schermoliam, 1, 1);
 	wrefresh(schermoliam);
 
@@ -42,7 +43,7 @@ int main()
 	Position character_initial_position;
 	character_initial_position.x = 5;
 	character_initial_position.y = 5;
-	Character p = Character("@", character_initial_position, 30, "*", 5, 100, board.getWin());   
+	Character p = Character("@", character_initial_position, 1500, "*", 5, 100, board.getWin());    //DEBUG 1500 di vita (di norma è 30)
 	p.move(character_initial_position);
 
 	//punteggio di gioco
