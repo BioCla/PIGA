@@ -34,6 +34,7 @@ public:
 	Board(int screen_height, int screen_width, int level_number);
 	void initialize();
 	void addBorder();
+	void addRocks();
 	void fill();
 	void fillall();
 	void fillPoint(int y, int x);

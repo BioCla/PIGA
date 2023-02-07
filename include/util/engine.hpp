@@ -56,6 +56,7 @@
 #define WEAPON_PAIR    19
 #define CLOSED_FRGRND  20
 #define CLOSED_PAIR    21
+#define ROCK_FOREGROUND 22
 
 
 

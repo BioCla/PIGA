@@ -44,6 +44,7 @@ void Board::init(){
 	init_color(DEBUFF_FRGRND, 107*changecolor, 3*changecolor, 3*changecolor);
 	init_color(WEAPON_FRGRND, 6*changecolor, 12*changecolor, 194*changecolor);
 	init_color(CLOSED_FRGRND, 54*changecolor, 31*changecolor, 21*changecolor);
+	init_color(ROCK_FOREGROUND,70*changecolor, 70*changecolor, 70*changecolor);
 	init_pair(WALL_PAIR, WALL_FOREGROUND, WALL_FOREGROUND);
 	init_pair(PAVE_PAIR, PAVE_FOREGROUND, PAVE_FOREGROUND);
 	init_pair(PLAYER_PAIR, PLAYER_FOREGROUND, PLAYER_FOREGROUND);
@@ -51,9 +52,10 @@ void Board::init(){
 	init_pair(PROJCTL_PAIR, PLAYER_FOREGROUND, PAVE_FOREGROUND);
 	init_pair(ARTIFACT_PAIR, COLOR_WHITE, ARTIFACT_FRGRND);
 	init_pair(BUFF_PAIR, COLOR_WHITE, BUFF_FRGRND);
-	init_pair(DEBUFF_PAIR, COLOR_WHITE, DEBUFF_FRGRND);
-	init_pair(WEAPON_PAIR, COLOR_WHITE, WEAPON_FRGRND);
+	init_pair(DEBUFF_PAIR, PLAYER_FOREGROUND, DEBUFF_FRGRND);
+	init_pair(WEAPON_PAIR, PLAYER_FOREGROUND, WEAPON_FRGRND);
 	init_pair(CLOSED_PAIR, CLOSED_FRGRND, CLOSED_FRGRND);
+	init_pair(ROCK_PAIR, PLAYER_FOREGROUND, ROCK_FOREGROUND);
 }
 
 void Board::addBorder(){
@@ -72,6 +74,51 @@ void Board::addBorder(){
 	wrefresh(board_win);
 }
 
+void Board::addRocks(){
+	/*
+	time_t t;
+	srand((unsigned) time (&t));
+	bool flag = true;
+	int numRocks = 5;
+	int cont = rand() % 100 + 1;
+	wattron(board_win, COLOR_PAIR(ROCK_PAIR));
+	for(int fy = 1; fy < yMax && numRocks>0; fy++){
+		for(int fx = 1; fx < xMax && numRocks>0; fx++){
+			if(cont == 100){
+				for (int c=0; c < (rand()%21 +15); c++){
+					mvwaddch(board_win, fy, fx, ROCK);
+					if ((rand()&50 +1) % 7 == 0){
+						fy++;
+					}
+					else
+						fx++;
+				}
+				numRocks--;
+			}
+			cont = rand () & 100 + 1;
+		}
+	}*/
+	srand(time(NULL));
+	int numRocks = 5;
+	int fx,fy,fxstored,random;
+	wattron(board_win, COLOR_PAIR(ROCK_PAIR));
+	for (int x = 0; x <20; x++){
+		fx = rand()%(xMax-1);
+		fy = rand()%(yMax-1);
+		fxstored = fx;
+		random = rand()%5 +3;
+		for (int cont = 0; cont < (rand()%10 + 10); cont ++){
+			mvwaddch(board_win, fy, fx, ROCK);
+			fx++;
+			if(fx-fxstored == (random)){
+				fy++;
+				fx = fxstored;
+			}
+		}
+		
+	}
+	wattroff(board_win, COLOR_PAIR(ROCK_PAIR));
+}
 
 void Board::fill(){
 	wattron(board_win, COLOR_PAIR(PAVE_PAIR));
@@ -79,6 +126,7 @@ void Board::fill(){
 			mvwhline(board_win, fy, 1, PAVE, xMax-2);	
     }  
 	wattroff(board_win, COLOR_PAIR(PAVE_PAIR));
+	addRocks();
 }
 
 void Board::fillall(){
@@ -241,7 +289,10 @@ void Board::generateItems() {
 	
 	//spawna le chiavi
 	for (i = 0; i < n_artifacts; i++) {
-		spawn_position = {(rand()%(BOARD_COLS-3))+1, (rand()%(BOARD_ROWS-3))+1};
+		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
+		while(mvwinch(board_win, spawn_position.y, spawn_position.x) == '^'){
+			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
+		}
 		id = 6;
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
@@ -252,6 +303,9 @@ void Board::generateItems() {
 		id = rand() % 4;
 		if (id == 3) id = 9;   //i buff sono 0,1,2,9
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
+		while(mvwinch(board_win, spawn_position.y, spawn_position.x) == '^'){
+			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
+		}
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
 	}
@@ -260,6 +314,9 @@ void Board::generateItems() {
 	for(i = 0; i < n_debuffs; i++) {
 		id = rand() % 3 + 3;
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
+		while(mvwinch(board_win, spawn_position.y, spawn_position.x) == '^'){
+			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
+		}
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
 	}
@@ -269,6 +326,9 @@ void Board::generateItems() {
 		id = rand() % 3 + 7;
 		if (id == 9) id = 12;   //i weapon sono 7,8,12
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
+		while(mvwinch(board_win, spawn_position.y, spawn_position.x) == '^'){
+			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
+		}
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
 	}
