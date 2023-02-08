@@ -53,6 +53,9 @@ void start_game() {
 	Character p = Character("@", character_initial_position, 1500, "*", 5, 100, board.getWin());    //DEBUG 1500 di vita (di norma 30)
 	p.move(character_initial_position);
 
+	//inizializza inventario personaggio
+	p.printInventoryTitle();
+
 	//punteggio di gioco
 	GAME_TOTAL_SCORE = 0;  
 	//variabile necessaria alla gestione del punteggio di gioco

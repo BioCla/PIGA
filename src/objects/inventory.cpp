@@ -2,7 +2,7 @@
 
 Inventory::Inventory() {
 	this->inventory = List<Item>();
-	this->inventoryWin = newwin(10, 11, (getmaxy(stdscr) / 2) - (50/2), (getmaxx(stdscr) / 2) - ((211/2)));
+	this->inventoryWin = newwin(10, 13, (getmaxy(stdscr) / 2) - 10, (getmaxx(stdscr) / 2) - (70));
 	box(inventoryWin, 0, 0);
 	wrefresh(inventoryWin);
 }
@@ -29,4 +29,22 @@ List<int> Inventory::getInventory() {
 		tmpHead = tmpHead->getNext();
 	}
 	return itemTracker;
+}
+
+void Inventory::printItems() {
+	Node<Item> *tmp = new Node<Item>;
+	tmp = inventory.getHead();
+	int i = 0;
+
+	while(tmp != NULL) {
+		mvwprintw(inventoryWin, i / (inventoryWin->_maxx - 1) + 2, i % (inventoryWin->_maxx - 1) + 1, tmp->getData()->getProperties().icon);
+		i++;
+		tmp = tmp->getNext();
+	}
+	wrefresh(inventoryWin);
+}
+
+void Inventory::printTitle() {
+	mvwprintw(inventoryWin, 1, 1, "INVENTARIO:");
+	wrefresh(inventoryWin);
 }

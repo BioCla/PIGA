@@ -265,16 +265,24 @@ void Character::setWeapon(Weapon weapon) {
     this->weapon = weapon;
 }
 
-void Character::addToInventory(int ID) {
-	
+void Character::addToInventory(Item item) {
+	inventory.addToInventory(item);
 }
 
-void Character::removeFromInventory(int ID) {
-	
+void Character::removeFromInventory(Item item) {
+	inventory.addToInventory(item);
 }
 
 List<int> Character::getInventory() {
 	return inventory.getInventory();
+}
+
+void Character::printInventory() {
+    inventory.printItems();
+}
+
+void Character::printInventoryTitle() {
+    inventory.printTitle();
 }
 
 void Character::setProjectilesList(List<Projectile> *projectilesList) {

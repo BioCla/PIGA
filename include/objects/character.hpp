@@ -57,9 +57,11 @@ class Character : public Entity{
         void createLaser(List<Projectile> *projectilesList);
         Weapon getWeapon();
         void setWeapon(Weapon weapon);
-		void addToInventory(int ID);
-		void removeFromInventory(int ID);
+		void addToInventory(Item item);
+		void removeFromInventory(Item item);
 		List<int> getInventory();
+        void printInventory();
+        void printInventoryTitle();
         void setProjectilesList(List<Projectile> *projectilesList);
         List<Projectile>* getProjectilesList();
         void setSuperProjectilesList(List<SuperProjectile> *superProjectilesList);

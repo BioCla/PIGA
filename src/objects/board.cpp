@@ -374,11 +374,11 @@ void Board::checkItemCollisions(Character *p) {
 					addDoors();    //ridisegna le porte per applicare il cambiamento
 					break;
 				case 7:
-					p->addToInventory(itemID);
+					//p->addToInventory(itemID);
 					p->setWeapon(LASER);
 					break;
 				case 8:
-					p->addToInventory(itemID);
+					//p->addToInventory(itemID);
 					p->setWeapon(BOMB);
 					p->setProjectileIcon("*");
 					break;
@@ -386,7 +386,7 @@ void Board::checkItemCollisions(Character *p) {
 					p->updateHealth(+5);
 					break;
 				case 12:
-					p->addToInventory(itemID);
+					//p->addToInventory(itemID);
 					p->setWeapon(BASE);
 					p->setProjectileIcon("*");
 				case 10:
@@ -399,6 +399,9 @@ void Board::checkItemCollisions(Character *p) {
 				default:
 					break;
 			}
+
+			p->addToInventory(*(tmp->getData()));
+			p->printInventory();
 		}
 		tmp = tmp->getNext();
 	}
