@@ -247,6 +247,7 @@ void Character::createLaser(List<Projectile>* projectilesList) {
     pos = this->current_position + dirToPosition(last_direction_taken);
 
     //spawna proiettili finchè non incontra un muro o qualsiasi cosa che blocchi un laser
+    newProjectile = Projectile(projectile_icon, pos, last_direction_taken, damage, 1, true ,current_room_win);
     while(!newProjectile.collisionWithRoomWall(pos) && !newProjectile.outOfBorder()) {
 
         newProjectile = Projectile(projectile_icon, pos, last_direction_taken, damage, 1, true ,current_room_win);
