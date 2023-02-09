@@ -16,11 +16,11 @@ Character::Character() {
 Character::Character(const char * icon, Position pos, int max_health, const char * projectile_icon, int damage, int projectile_moving_frequency, WINDOW* win):Entity(icon, pos, win){
     this->max_health = max_health;
     health = max_health;  
-    this->projectile_icon = projectile_icon;
+    this->projectile_icon = projectile_icon;        
     this->projectile_moving_frequency = projectile_moving_frequency;
     last_direction_taken = DIR_NORTH;
     this->damage = damage;
-    weapon = BASE;
+    weapon = LASER;
 }
 
 void Character::updateHearts() {
@@ -247,7 +247,7 @@ void Character::createLaser(List<Projectile>* projectilesList) {
     pos = this->current_position + dirToPosition(last_direction_taken);
 
     //spawna proiettili finchè non incontra un muro o qualsiasi cosa che blocchi un laser
-    while(!newProjectile.collisionWithRoomWall(pos)) {
+    while(!newProjectile.collisionWithRoomWall(pos) && !newProjectile.outOfBorder()) {
 
         newProjectile = Projectile(projectile_icon, pos, last_direction_taken, damage, 1, true ,current_room_win);
         projectilesList->headInsert(newProjectile);
