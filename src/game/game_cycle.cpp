@@ -31,10 +31,6 @@ void start_game() {
 	
 	int stdscrxmax, stdscrymax;
 	getmaxyx(stdscr, stdscrymax, stdscrxmax);
-	
-	WINDOW* schermoliam = newwin(50, 211, (stdscrymax / 2) - (50/2), (stdscrxmax / 2) - ((211/2)));   //DEBUG schermo massimo
-	box(schermoliam, 1, 1);
-	wrefresh(schermoliam);
 
 	//stanza iniziale
 	Board board(BOARD_ROWS, BOARD_COLS, 0);
@@ -50,7 +46,7 @@ void start_game() {
 	Position character_initial_position;
 	character_initial_position.x = 5;
 	character_initial_position.y = 5;
-	Character p = Character("@", character_initial_position, 1500, "*", 5, 100, board.getWin());    //DEBUG 1500 di vita (di norma 30)
+	Character p = Character("@", character_initial_position, 30, "*", 5, 100, board.getWin());
 	p.move(character_initial_position);
 
 	//inizializza inventario personaggio
@@ -132,15 +128,6 @@ void start_game() {
 			}
 			mvprintw(stdscrymax - 5, stdscrxmax/2 - 4, "         ");
 		}
-		if(ch == 'l'){
-			Position pos1={86,16};
-			p.move(pos1);
-		}
-		if(ch == 'k'){
-			board.killAllEnemies();
-		}
-
-
 
 		//fuzione di ncurses, serve a gestire gli input
 		napms(1000 / 144); //144 fps limit

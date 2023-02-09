@@ -74,51 +74,7 @@ void Board::addBorder(){
 	wrefresh(board_win);
 }
 
-void Board::addRocks(){
-	/*
-	time_t t;
-	srand((unsigned) time (&t));
-	bool flag = true;
-	int numRocks = 5;
-	int cont = rand() % 100 + 1;
-	wattron(board_win, COLOR_PAIR(ROCK_PAIR));
-	for(int fy = 1; fy < yMax && numRocks>0; fy++){
-		for(int fx = 1; fx < xMax && numRocks>0; fx++){
-			if(cont == 100){
-				for (int c=0; c < (rand()%21 +15); c++){
-					mvwaddch(board_win, fy, fx, ROCK);
-					if ((rand()&50 +1) % 7 == 0){
-						fy++;
-					}
-					else
-						fx++;
-				}
-				numRocks--;
-			}
-			cont = rand () & 100 + 1;
-		}
-	}*/
-	srand(time(NULL));
-	int numRocks = 5;
-	int fx,fy,fxstored,random;
-	wattron(board_win, COLOR_PAIR(ROCK_PAIR));
-	for (int x = 0; x <20; x++){
-		fx = rand()%(xMax-1);
-		fy = rand()%(yMax-1);
-		fxstored = fx;
-		random = rand()%5 +3;
-		for (int cont = 0; cont < (rand()%10 + 10); cont ++){
-			mvwaddch(board_win, fy, fx, ROCK);
-			fx++;
-			if(fx-fxstored == (random)){
-				fy++;
-				fx = fxstored;
-			}
-		}
-		
-	}
-	wattroff(board_win, COLOR_PAIR(ROCK_PAIR));
-}
+
 
 void Board::fill(){
 	wattron(board_win, COLOR_PAIR(PAVE_PAIR));
@@ -126,7 +82,6 @@ void Board::fill(){
 			mvwhline(board_win, fy, 1, PAVE, xMax-2);	
     }  
 	wattroff(board_win, COLOR_PAIR(PAVE_PAIR));
-	addRocks();
 }
 
 void Board::fillall(){
@@ -281,7 +236,7 @@ void Board::generateItems() {
 	int n_buffs = rand() % 5 + 5;
 	int n_debuffs = rand() % 5 + 5;
 	int n_artifacts = 1;
-	int n_weapons = rand() % 100; if(n_weapons < 10) n_weapons = 1; else n_weapons = 0;  //10% di prob. di generare UN'arma in una stanza
+	int n_weapons = rand() % 100; if(n_weapons < 30) n_weapons = 1; else n_weapons = 0;  //30% di prob. di generare UN'arma in una stanza
 	int id;
 	Position spawn_position;
 
@@ -290,9 +245,6 @@ void Board::generateItems() {
 	//spawna le chiavi
 	for (i = 0; i < n_artifacts; i++) {
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
-		while((mvwinch(board_win, spawn_position.y, spawn_position.x) & A_CHARTEXT) == '^'){
-			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
-		}
 		id = 6;
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
@@ -303,9 +255,6 @@ void Board::generateItems() {
 		id = rand() % 4;
 		if (id == 3) id = 9;   //i buff sono 0,1,2,9
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
-		while((mvwinch(board_win, spawn_position.y, spawn_position.x) & A_CHARTEXT) == '^'){
-			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
-		}
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
 	}
@@ -314,9 +263,6 @@ void Board::generateItems() {
 	for(i = 0; i < n_debuffs; i++) {
 		id = rand() % 3 + 3;
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
-		while((mvwinch(board_win, spawn_position.y, spawn_position.x) & A_CHARTEXT) == '^'){
-			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
-		}
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
 	}
@@ -326,9 +272,6 @@ void Board::generateItems() {
 		id = rand() % 3 + 7;
 		if (id == 9) id = 12;   //i weapon sono 7,8,12
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
-		while((mvwinch(board_win, spawn_position.y, spawn_position.x) & A_CHARTEXT) == '^'){
-			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
-		}
 		Item newItem = Item(findItem(id), spawn_position, board_win);
 		itemsList.headInsert(newItem);
 	}
@@ -411,13 +354,4 @@ void Board::checkItemCollisions(Character *p) {
 
 int Board::getLevelNumber() {
 	return level_number;
-}
-
-void Board::killAllEnemies(){
-	Node<Enemy> *tmp1 = enemiesList.getHead();
-    while (tmp1!=NULL) {
-		tmp1->getData()->setAlive(false);
-        tmp1=tmp1->getNext();	
-
-	}
 }

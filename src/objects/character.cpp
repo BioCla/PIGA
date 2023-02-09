@@ -20,7 +20,7 @@ Character::Character(const char * icon, Position pos, int max_health, const char
     this->projectile_moving_frequency = projectile_moving_frequency;
     last_direction_taken = DIR_NORTH;
     this->damage = damage;
-    weapon = LASER;
+    weapon = BASE;
 }
 
 void Character::updateHearts() {
