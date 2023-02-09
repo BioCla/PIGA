@@ -61,5 +61,6 @@ public:
 	void checkItemCollisions(Character *p);
 
 	int getLevelNumber();
+	void killAllEnemies();//debug
 
 };

@@ -290,7 +290,7 @@ void Board::generateItems() {
 	//spawna le chiavi
 	for (i = 0; i < n_artifacts; i++) {
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
-		while(mvwinch(board_win, spawn_position.y, spawn_position.x) == '^'){
+		while((mvwinch(board_win, spawn_position.y, spawn_position.x) & A_CHARTEXT) == '^'){
 			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
 		}
 		id = 6;
@@ -303,7 +303,7 @@ void Board::generateItems() {
 		id = rand() % 4;
 		if (id == 3) id = 9;   //i buff sono 0,1,2,9
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
-		while(mvwinch(board_win, spawn_position.y, spawn_position.x) == '^'){
+		while((mvwinch(board_win, spawn_position.y, spawn_position.x) & A_CHARTEXT) == '^'){
 			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
 		}
 		Item newItem = Item(findItem(id), spawn_position, board_win);
@@ -314,7 +314,7 @@ void Board::generateItems() {
 	for(i = 0; i < n_debuffs; i++) {
 		id = rand() % 3 + 3;
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
-		while(mvwinch(board_win, spawn_position.y, spawn_position.x) == '^'){
+		while((mvwinch(board_win, spawn_position.y, spawn_position.x) & A_CHARTEXT) == '^'){
 			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
 		}
 		Item newItem = Item(findItem(id), spawn_position, board_win);
@@ -326,7 +326,7 @@ void Board::generateItems() {
 		id = rand() % 3 + 7;
 		if (id == 9) id = 12;   //i weapon sono 7,8,12
 		spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};
-		while(mvwinch(board_win, spawn_position.y, spawn_position.x) == '^'){
+		while((mvwinch(board_win, spawn_position.y, spawn_position.x) & A_CHARTEXT) == '^'){
 			spawn_position = {(rand()%(BOARD_COLS-2))+1, (rand()%(BOARD_ROWS-2))+1};	
 		}
 		Item newItem = Item(findItem(id), spawn_position, board_win);
@@ -411,4 +411,13 @@ void Board::checkItemCollisions(Character *p) {
 
 int Board::getLevelNumber() {
 	return level_number;
+}
+
+void Board::killAllEnemies(){
+	Node<Enemy> *tmp1 = enemiesList.getHead();
+    while (tmp1!=NULL) {
+		tmp1->getData()->setAlive(false);
+        tmp1=tmp1->getNext();	
+
+	}
 }

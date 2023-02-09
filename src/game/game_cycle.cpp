@@ -132,6 +132,14 @@ void start_game() {
 			}
 			mvprintw(stdscrymax - 5, stdscrxmax/2 - 4, "         ");
 		}
+		if(ch == 'l'){
+			Position pos1={86,16};
+			p.move(pos1);
+		}
+		if(ch == 'k'){
+			board.killAllEnemies();
+		}
+
 
 
 		//fuzione di ncurses, serve a gestire gli input
