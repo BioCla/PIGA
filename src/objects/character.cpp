@@ -121,7 +121,7 @@ void Character::move(Position pos) {
 
 void Character::HandleInput(int input){
     bool moving = false;    //se input è un tasto per muoversi, questo booleano si attiva, e con esso le funzioni per muoversi
-                            //senza, il personaggio continua a muoversi nell'ultima direzione presa, come se pattinasse sul ghiaccio
+                            
     switch(input){
 
         /*si muove in su*/
@@ -270,8 +270,8 @@ void Character::addToInventory(Item item) {
 	inventory.addToInventory(item);
 }
 
-void Character::removeFromInventory(Item item) {
-	inventory.addToInventory(item);
+void Character::removeFromInventory(int& tracker) {
+	inventory.removeFromInventory(tracker);
 }
 
 List<int> Character::getInventory() {

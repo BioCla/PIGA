@@ -18,8 +18,8 @@ class Character : public Entity{
         int num_hearts;
         int damage;    //il danno che i suoi proiettili fanno ai mostri
         const char* projectile_icon;
-        int projectile_moving_frequency;
-        int last_direction_taken;
+        int projectile_moving_frequency;   //velocità proiettili che spara il personaggio
+        int last_direction_taken;          //direzione in cui spara il personaggio
         Weapon weapon;
 
         List<Projectile> *projectilesList;
@@ -58,7 +58,7 @@ class Character : public Entity{
         Weapon getWeapon();
         void setWeapon(Weapon weapon);
 		void addToInventory(Item item);
-		void removeFromInventory(Item item);
+		void removeFromInventory(int& tracker);
 		List<int> getInventory();
         void printInventory();
         void printInventoryTitle();

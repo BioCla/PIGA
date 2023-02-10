@@ -14,7 +14,7 @@ Entity::Entity(const char* icon, Position initial_position, WINDOW* win) {
     alive = true;
     this->icon = icon;
     current_position = initial_position;
-    this->current_room_win = win;   //poi basta aggiungere nei parametri la window e scambiare stdscr col parametro
+    this->current_room_win = win;  
 }
 
 void Entity::setAlive(bool alive) {
@@ -38,9 +38,7 @@ Position Entity::getCurrentPosition() {
 }
 
 void Entity::spawn() {
-    //colori?
     mvwprintw(current_room_win, current_position.y, current_position.x, icon);
-    //colori?
 }
 
 void Entity::spawn(Position position) {
@@ -49,9 +47,7 @@ void Entity::spawn(Position position) {
 }
 
 void Entity::deleteIcon() {
-    //colori?
     mvwprintw(current_room_win, current_position.y, current_position.x, " ");
-    //colori?
 }
 
 void Entity::move(int new_pos_x, int new_pos_y) {

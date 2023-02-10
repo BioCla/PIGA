@@ -15,9 +15,7 @@ void Inventory::removeFromInventory(int& tracker) {
 	this->inventory.removeElement(tracker);
 }
 
-/**
- * Returns an array of integers representing the IDs of the items in the inventory of the player
-*/
+//ritorna una lista di interi rappresentanti gli ID degli item nell'inventario
 List<int> Inventory::getInventory() {
 	List<Item> tmp = this->inventory;
 	Node<Item>* tmpHead = tmp.getHead();
