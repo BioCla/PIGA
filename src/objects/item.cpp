@@ -25,7 +25,7 @@ itemProperties findItem(const char* icon) {
 }
 
 Item::Item() : Entity(){
-	this->properties = findItem(11); // returns the itemProperties of the default debug item
+	this->properties = findItem(11); // item default di debug
 }
 
 Item::Item(itemProperties properties, Position position, WINDOW* win) : Entity(properties.icon, position, win) {
