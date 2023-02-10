@@ -19,5 +19,3 @@
     #include <unordered_map>
 #endif
 
-
-#include "../assets/std_system_lib.hpp"
