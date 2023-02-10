@@ -21,6 +21,10 @@ void start_game() {
 
 	inizializzaNcurses();
 
+	//visualizza menu iniziale
+	welcome();
+	getch();
+
 
 	//mappa di gioco
     Graph<Board> game_map;
