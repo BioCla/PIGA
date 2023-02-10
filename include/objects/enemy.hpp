@@ -16,7 +16,7 @@ using namespace std::chrono;
 #define STSUD 2 
 #define CHASE 3
 
-class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di questa classe
+class Enemy : public Entity { 
     protected:
         int health;
         int damage;       //danno che infligge il nemico al giocatore
@@ -42,14 +42,12 @@ class Enemy : public Entity { // i vari tipi di nemici saranno sottoclasse di qu
         void moveDown();
         void moveLeft();
         void moveRight();
-        void move();
-        void shoot();
-        bool legalMove(int posx, int posy);
-        void refreshProj(system_clock::time_point time_now);
-        void checkIfTimeToMove(system_clock::time_point time_now);
-        void checkIfTimeToShoot(system_clock::time_point time_now, List <Projectile>* Projlist);
-        void setShootingTarget(Position p1);
-        int findDirection();
+        void move();    //funzione movimento
+        bool legalMove(int posx, int posy);     //controlla che lo spostamento sia lecito 
+        void checkIfTimeToMove(system_clock::time_point time_now);      //controlla se e' il momento di muoversi
+        void checkIfTimeToShoot(system_clock::time_point time_now, List <Projectile>* Projlist);    //controlla se e' il momento di sparare
+        void setShootingTarget(Position p1);    
+        int findDirection();    
 
         bool operator == (const Enemy e1)  {        //serve per i grafi
             Enemy e2 = Enemy();

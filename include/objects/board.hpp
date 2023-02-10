@@ -48,10 +48,10 @@ public:
 
 	//  ---------------------
 	//funzioni riguardanti gli ultimi campi della classe Board
-	void checkHits();
-	void refreshEnemies(system_clock::time_point time_now, Position pos);
-	void generateEnemies();
-	void generateEnemiesProj(system_clock::time_point time_now);
+	void checkHits(); //controlla collisioni nemici
+	void refreshEnemies(system_clock::time_point time_now, Position pos); //aggiorna lista nemici
+	void generateEnemies(); //riempe lista nemici
+	void generateEnemiesProj(system_clock::time_point time_now); //genera proiettili nemnici
 	List<Projectile>* getProjectilesList();
 	List<SuperProjectile>* getSuperProjectilesList();
 	List<Enemy>* getEnemiesList();
