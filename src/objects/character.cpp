@@ -270,10 +270,6 @@ void Character::addToInventory(Item item) {
 	inventory.addToInventory(item);
 }
 
-void Character::removeFromInventory(int& tracker) {
-	inventory.removeFromInventory(tracker);
-}
-
 List<int> Character::getInventory() {
 	return inventory.getInventory();
 }

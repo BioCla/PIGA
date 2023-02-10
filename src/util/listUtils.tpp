@@ -38,17 +38,6 @@ template <typename T> void List<T>::headInsert(T element){
     head=tmp;
 }
 
-//Rimuove l'elemento selezionato dalla lista
-template <typename T> void List<T>::removeElement(int &tracker) { 
-	for (int i = 1; head != NULL; i++) {
-		if (i == tracker - 1) {
-			head->next = (head->next)->next;
-		}
-		headInsert(head->data);
-		head = head->next;
-	}
-	tracker--;
-}
 
 template <typename T> Node<T> *List<T>::getHead() {
     return head;

@@ -27,9 +27,6 @@ template <typename T> class List{
         bool isEmpty();     //ritorna true se la lista è vuota, false altrimenti
         int listLength() const;      //ritorna la lunghezza della lista
         void headInsert(T element);     //inserisce un elemento in testa
-
-		void removeElement(int& tracker);	//rimuove un elemento dalla lista
-
         void moveEntities(std::chrono::_V2::system_clock::time_point time_now);
         void spawnEntities();
         void removeDeadEntities();

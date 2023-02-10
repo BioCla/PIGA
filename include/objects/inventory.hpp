@@ -8,7 +8,6 @@ class Inventory {
 	public:
 		Inventory();
 		void addToInventory(Item item);
-		void removeFromInventory(int& tracker); // Rimuove un item dall'inventario (utilizza un tracker per identificare la posizione del item)
 		List<int> getInventory(); // Ritorna l'inventario come un array di interi
 		void printItems();
 		void printTitle();

@@ -10,11 +10,6 @@ Inventory::Inventory() {
 void Inventory::addToInventory(Item item) {
 	this->inventory.headInsert(item);
 }
-
-void Inventory::removeFromInventory(int& tracker) {
-	this->inventory.removeElement(tracker);
-}
-
 //ritorna una lista di interi rappresentanti gli ID degli item nell'inventario
 List<int> Inventory::getInventory() {
 	List<Item> tmp = this->inventory;

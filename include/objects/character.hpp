@@ -58,7 +58,6 @@ class Character : public Entity{
         Weapon getWeapon();
         void setWeapon(Weapon weapon);
 		void addToInventory(Item item);
-		void removeFromInventory(int& tracker);
 		List<int> getInventory();
         void printInventory();
         void printInventoryTitle();
