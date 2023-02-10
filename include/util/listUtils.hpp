@@ -19,9 +19,6 @@ template <typename T> class Node{
         ~Node() { next = nullptr; delete next; }
 };
 
-/**
- * @brief Template for a linked list of type `T`
-*/
 template <typename T> class List{
     protected:
         Node<T> *head; 
@@ -37,7 +34,6 @@ template <typename T> class List{
         void spawnEntities();
         void removeDeadEntities();
         void inline refreshEnemyTarget(Position p1);
-        //void inline refreshEnemyProj(std::chrono::_V2::system_clock::time_point time_now);
         Node<T> *getHead();
         void remove(int index);
         void push_back(T data);

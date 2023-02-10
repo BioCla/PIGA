@@ -27,7 +27,6 @@ class Enemy : public Entity {
         system_clock::time_point last_time_moved;
         system_clock::time_point last_time_shot;
         Position shootingTarget;
-        //
 
     public:
         Enemy();
